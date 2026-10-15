@@ -2,6 +2,8 @@
 
 Hong Kong primary learning demo for **中文 / English / Maths** (P4–P6).
 
+**Live:** https://hk-primary-learn.vercel.app
+
 **Interactive exercises** + **on-the-fly quiz generation** (mock templates + seeded random). Bilingual UI chrome: **zh-HK default** + English toggle.
 
 ## Quick start
