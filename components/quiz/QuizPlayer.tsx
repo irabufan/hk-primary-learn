@@ -79,6 +79,7 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
         <p className="text-xs font-semibold text-muted">seed {quiz.seed}</p>
       </div>
 
+      <div key={`${q.id}-${idx}`} className="space-y-4">
       {q.passage && (
         <blockquote className="rounded-2xl border-2 border-sky-100 bg-sky-50 p-4 text-base font-medium leading-relaxed text-slate-700 whitespace-pre-wrap">
           {toText(q.passage, locale)}
@@ -90,7 +91,7 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
       </p>
 
       {q.type === "mc" && q.choices && (
-        <ul className="grid gap-2.5">
+        <ul key={`${q.id}-choices`} className="grid gap-2.5">
           {q.choices.map((c, index) => {
             const isSelected = selected === c;
             const isAnswer = locked && c === String(q.answer);
@@ -178,6 +179,7 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
           )}
         </div>
       )}
+      </div>
 
       <div className="flex gap-2 pt-1">
         {!locked ? (

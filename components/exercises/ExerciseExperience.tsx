@@ -187,7 +187,10 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
             </div>
           </div>
 
-          <section className="animate-pop-in rounded-3xl border-4 border-sky-100 bg-white p-6 shadow-sm sm:p-8">
+          <section
+            key={session[index].id ?? index}
+            className="animate-pop-in rounded-3xl border-4 border-sky-100 bg-white p-6 shadow-sm sm:p-8"
+          >
             {(() => {
               const item = session[index];
               if (item.kind === "mc") return <MultipleChoice item={item} onAnswered={handleAnswered} />;
