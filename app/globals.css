@@ -1,12 +1,14 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-outfit), var(--font-noto-tc), ui-sans-serif, system-ui, sans-serif;
-}
-
-@theme {
-  /* Bright coral accent used for wrong-answer states and primary CTAs. */
+  --font-sans: var(--font-outfit), var(--font-noto-tc), "PingFang HK", "Noto Sans TC",
+    "Microsoft JhengHei", ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #1e1b4b;
+  --color-ink-soft: #312e81;
+  --color-muted: #64748b;
+  --color-line: #c7d7e8;
   --color-coral: #ff6f59;
+  --color-card: #ffffff;
 }
 
 :root {
@@ -21,6 +23,23 @@ body {
   background-size: 22px 22px;
   color: var(--foreground);
   font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+::selection {
+  background: #fdba74;
+  color: #1e1b4b;
+}
+
+:focus-visible {
+  outline: 2px solid #4f46e5;
+  outline-offset: 3px;
+}
+
+button,
+a,
+summary {
+  cursor: pointer;
 }
 
 @keyframes pop-in {
@@ -54,4 +73,98 @@ body {
   .animate-shake {
     animation: none;
   }
+}
+
+.card {
+  border-radius: 1.25rem;
+  background: white;
+  border: 2px solid #e2e8f0;
+  padding: 1.25rem;
+  box-shadow: 0 8px 24px -12px rgb(79 70 229 / 0.25);
+}
+
+/* High-contrast primary CTA (下一題 / Check / Finish / Generate). */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 2.75rem; /* ~44px tap target */
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #fb923c, #ff6f59);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+  line-height: 1.25;
+  padding: 0.7rem 1.5rem;
+  box-shadow: 0 6px 16px -6px rgb(255 111 89 / 0.55);
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -6px rgb(255 111 89 / 0.65);
+}
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+  filter: none;
+  transform: none;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 2.75rem;
+  border-radius: 9999px;
+  background: #eef2ff;
+  color: #3730a3;
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 0.7rem 1.5rem;
+  border: 2px solid #c7d2fe;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.btn-secondary:hover:not(:disabled) {
+  background: #e0e7ff;
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 2.75rem;
+  border-radius: 9999px;
+  background: #fff;
+  color: #334155;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.7rem 1.5rem;
+  border: 2px solid #cbd5e1;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.btn-ghost:hover:not(:disabled) {
+  border-color: #94a3b8;
+  color: #1e293b;
+}
+
+.select {
+  width: 100%;
+  min-height: 2.75rem;
+  border-radius: 0.75rem;
+  border: 2px solid #c7d7e8;
+  background: white;
+  color: #1e1b4b;
+  padding: 0.65rem 0.85rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.select:focus {
+  border-color: #38bdf8;
+  outline: none;
 }

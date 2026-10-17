@@ -45,14 +45,14 @@ export function MultipleChoice({ item, onAnswered }: MultipleChoiceProps) {
                 type="button"
                 onClick={() => handleChoice(index)}
                 disabled={answered}
-                className={`flex w-full items-center gap-3 rounded-2xl border-4 px-4 py-3.5 text-left text-base font-bold transition ${
+                className={`flex w-full min-h-11 items-center gap-3 rounded-2xl border-4 px-4 py-3.5 text-left text-base font-bold text-slate-800 transition ${
                   isCorrect
                     ? "animate-pop-in border-lime-500 bg-lime-50 text-lime-900"
                     : isWrongPick
                       ? "animate-shake border-coral bg-orange-50 text-orange-900"
                       : answered
                         ? "border-slate-200 bg-white text-slate-400"
-                        : "border-slate-200 bg-white text-slate-700 shadow-sm hover:-translate-y-0.5 hover:border-sky-400 hover:bg-sky-50"
+                        : "border-slate-200 bg-white text-slate-800 shadow-sm hover:-translate-y-0.5 hover:border-sky-400 hover:bg-sky-50"
                 } ${answered ? "cursor-default" : "cursor-pointer"}`}
               >
                 <span

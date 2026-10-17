@@ -120,7 +120,7 @@ export function MatchPairs({ item, onComplete }: MatchPairsProps) {
                   onClick={() => handleLeft(pair.id)}
                   disabled={isMatched || completed.current}
                   aria-pressed={isSelected}
-                  className={`w-full rounded-2xl border-4 px-4 py-3 text-left text-lg font-extrabold transition ${
+                  className={`w-full min-h-11 rounded-2xl border-4 px-4 py-3 text-left text-lg font-extrabold transition ${
                     isMatched
                       ? "border-lime-500 bg-lime-50 text-lime-800"
                       : isFlashing
@@ -148,7 +148,7 @@ export function MatchPairs({ item, onComplete }: MatchPairsProps) {
                   onClick={() => handleRight(pair.id)}
                   disabled={isMatched || completed.current}
                   aria-pressed={selectedLeftId !== null && selectedLeftId === pair.id && !isMatched}
-                  className={`w-full rounded-2xl border-4 px-4 py-3 text-left text-base font-bold leading-relaxed transition ${
+                  className={`w-full min-h-11 rounded-2xl border-4 px-4 py-3 text-left text-base font-bold leading-relaxed transition ${
                     isMatched
                       ? "border-lime-500 bg-lime-50 text-lime-800"
                       : isFlashing
