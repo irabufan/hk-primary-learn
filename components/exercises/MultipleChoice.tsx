@@ -40,7 +40,7 @@ export function MultipleChoice({ item, onAnswered }: MultipleChoiceProps) {
           const isCorrect = answered && index === item.answerIndex;
           const isWrongPick = answered && index === selected && index !== item.answerIndex;
           return (
-            <li key={choice}>
+            <li key={`${item.id}-c${index}-${choice}`}>
               <button
                 type="button"
                 onClick={() => handleChoice(index)}

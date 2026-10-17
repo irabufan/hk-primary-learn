@@ -216,26 +216,21 @@ function fractionQuestion(rng: Rng, year: Year, index: number): QuizQuestion {
   }
 
   if (variant === 2) {
-    // simplify: numerator or denominator of the simplest form
+    // simplify to lowest terms — answer is the full fraction string (e.g. "5/6")
     const [x, y] = pickOne(rng, COPRIME_PAIRS) ?? [1, 2];
     const g = pickInt(rng, 2, 4);
     const numer = g * x;
     const denom = g * y;
-    const askNumerator = rng() < 0.5;
-    const answer = askNumerator ? x : y;
+    const answer = `${x}/${y}`;
     return {
       id: `fx-simp-${index + 1}`,
-      type: "number",
-      prompt: askNumerator
-        ? {
-            zh: `把 ${numer}/${denom} 約至最簡分數，分子是多少？`,
-            en: `Simplify ${numer}/${denom}. What is the numerator of the simplest form?`,
-          }
-        : {
-            zh: `把 ${numer}/${denom} 約至最簡分數，分母是多少？`,
-            en: `Simplify ${numer}/${denom}. What is the denominator of the simplest form?`,
-          },
-      answer: String(answer),
+      type: "fill",
+      prompt: {
+        zh: `把 ${numer}/${denom} 約至最簡分數。`,
+        en: `Simplify ${numer}/${denom} to lowest terms.`,
+      },
+      answer,
+      accepts: [answer, `${x} / ${y}`],
       explanation: {
         zh: `分子分母同時除以 ${g}，得 ${x}/${y}。`,
         en: `Divide the top and bottom by ${g} to get ${x}/${y}.`,

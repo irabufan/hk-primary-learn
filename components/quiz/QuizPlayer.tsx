@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n/provider";
-import { normalizeAnswer, toText } from "@/lib/i18n/types";
+import { toText } from "@/lib/i18n/types";
+import {
+  isQuizAnswerRight,
+  shouldUseTextNumericInput,
+} from "@/lib/quiz/answers";
 import type { Quiz, QuizQuestion } from "@/lib/quiz/types";
 
 type Props = {
@@ -11,14 +15,7 @@ type Props = {
 };
 
 function isRight(q: QuizQuestion, val: string | number | null): boolean {
-  if (val === null || val === "") return false;
-  if (q.type === "number") {
-    const n = typeof val === "number" ? val : Number(val);
-    return Number.isFinite(n) && Math.abs(n - Number(q.answer)) < 0.011;
-  }
-  const given = normalizeAnswer(String(val));
-  const accepted = [q.answer, ...(q.accepts ?? [])].map((a) => normalizeAnswer(String(a)));
-  return accepted.includes(given);
+  return isQuizAnswerRight(q, val);
 }
 
 export function QuizPlayer({ quiz, onFinish }: Props) {
@@ -32,6 +29,7 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
 
   const q = quiz.questions[idx]!;
   const selected = answers[idx];
+  const textNumeric = shouldUseTextNumericInput(q);
 
   function selectChoice(c: string) {
     if (locked) return;
@@ -48,7 +46,8 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
     }
     if (!draft.trim()) return;
     const next = [...answers];
-    next[idx] = q.type === "number" ? Number(draft) : draft;
+    // Keep raw string so fractions like "5/6" are preserved (never Number() them).
+    next[idx] = draft.trim();
     setAnswers(next);
     setLocked(true);
   }
@@ -112,7 +111,7 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
             }
 
             return (
-              <li key={c}>
+              <li key={`${q.id}-c${index}-${c}`}>
                 <button
                   type="button"
                   disabled={locked}
@@ -143,8 +142,15 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
 
       {(q.type === "fill" || q.type === "number") && (
         <input
-          type={q.type === "number" ? "number" : "text"}
-          step="any"
+          type="text"
+          inputMode={textNumeric || q.type === "fill" ? "text" : "decimal"}
+          autoComplete="off"
+          spellCheck={false}
+          placeholder={
+            textNumeric && (q.answer.includes("/") || /分數|fraction/i.test(`${q.prompt.zh ?? ""} ${q.prompt.en ?? ""}`))
+              ? "e.g. 5/6"
+              : undefined
+          }
           value={locked ? String(shown ?? "") : draft}
           disabled={locked}
           onChange={(e) => setDraft(e.target.value)}

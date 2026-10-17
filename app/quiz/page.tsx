@@ -30,6 +30,7 @@ function QuizPageInner() {
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [source, setSource] = useState<QuizSource | undefined>(undefined);
   const [score, setScore] = useState(0);
+  const [playKey, setPlayKey] = useState(0);
   const [lastOpts, setLastOpts] = useState<{
     subject: SubjectSlug;
     topic: string;
@@ -52,6 +53,7 @@ function QuizPageInner() {
         })) as QuizWithSource;
         setQuiz(q);
         setSource(q.source);
+        setPlayKey((k) => k + 1);
         setPhase("play");
       } finally {
         setBusy(false);
@@ -96,7 +98,7 @@ function QuizPageInner() {
       )}
 
       {phase === "play" && quiz && (
-        <QuizPlayer key={quiz.id} quiz={quiz} onFinish={(s) => onFinish(s)} />
+        <QuizPlayer key={`${quiz.id}-${playKey}`} quiz={quiz} onFinish={(s) => onFinish(s)} />
       )}
 
       {phase === "results" && quiz && (
@@ -104,7 +106,10 @@ function QuizPageInner() {
           quiz={quiz}
           score={score}
           source={source}
-          onRetry={() => setPhase("play")}
+          onRetry={() => {
+            setPlayKey((k) => k + 1);
+            setPhase("play");
+          }}
           onRegenerate={() => {
             if (lastOpts) void generate(lastOpts, randomSeed());
           }}

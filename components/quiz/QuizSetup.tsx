@@ -31,7 +31,11 @@ export function QuizSetup({
     () => SUBJECTS.find((s) => s.slug === subject)?.topics ?? [],
     [subject],
   );
-  const [topic, setTopic] = useState(initialTopic ?? topics[0]?.slug ?? "vocab");
+  const [topic, setTopic] = useState(() => {
+    const initialTopics = SUBJECTS.find((s) => s.slug === (initialSubject ?? "chinese"))?.topics ?? [];
+    if (initialTopic && initialTopics.some((tp) => tp.slug === initialTopic)) return initialTopic;
+    return initialTopics[0]?.slug ?? "vocab";
+  });
   const [year, setYear] = useState<Year>(initialYear ?? "P4");
   const [count, setCount] = useState(5);
 

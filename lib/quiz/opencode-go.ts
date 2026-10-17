@@ -66,7 +66,8 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     "- Exactly the requested number of questions.",
     "- For type mc: provide 4 distinct choices; answer must equal one choice exactly.",
     "- For type fill: answer is the canonical accepted spelling; accepts may list alternatives.",
-    "- For type number: answer is a number as a string (e.g. \"0.75\" or \"12\").",
+    "- For type number: answer is a numeric string. Plain decimals/integers (e.g. \"0.75\", \"12\") are preferred. Fraction strings like \"5/6\" are also allowed when the value is a fraction — the UI accepts text input for those.",
+    "- When the learner must write a fraction in lowest terms (最簡分數 / simplify), prefer type \"fill\" with answer like \"5/6\" (accepts may include \"5 / 6\"). Do NOT use type number for slash answers unless the answer string itself contains /.",
     "- Keep difficulty suitable for the given year (P4 easier, P6 harder).",
     "- HK curriculum flavour; culturally familiar HK examples where helpful.",
     "- ids must be unique strings.",
@@ -79,7 +80,7 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     `Question count: ${count}`,
     `Seed (for variety, not a PRNG): ${request.seed}`,
     languageGuidance(request.subject),
-    "Prefer question types that fit the topic (e.g. maths fractions → number; English grammar → mc; Chinese vocab → mc or fill).",
+    "Prefer question types that fit the topic (e.g. maths decimals/of-a-total → number; maths simplify-to-fraction → fill with answer like \"2/3\"; English grammar → mc; Chinese vocab → mc or fill).",
     "Return the JSON array now.",
   ].join("\n");
 
@@ -161,14 +162,20 @@ export function parseQuizQuestions(rawContent: string, expectedCount: number): Q
     if (explanation) question.explanation = explanation;
 
     if (type === "mc") {
-      const choices = Array.isArray(row.choices)
+      const rawChoices = Array.isArray(row.choices)
         ? row.choices.map(asString).filter((c): c is string => Boolean(c))
         : [];
+      // Deduplicate while preserving order (duplicate React keys / identical options).
+      const choices: string[] = [];
+      for (const c of rawChoices) {
+        if (!choices.includes(c)) choices.push(c);
+      }
       if (choices.length < 2) continue;
       if (!choices.includes(answer)) {
         choices[0] = answer;
       }
-      question.choices = choices;
+      // Cap at 6; pad is unlikely but keep at least 2 distinct.
+      question.choices = choices.slice(0, 6);
     }
 
     if (type === "fill" && Array.isArray(row.accepts)) {
@@ -186,7 +193,15 @@ export function parseQuizQuestions(rawContent: string, expectedCount: number): Q
   const target = (QUIZ_COUNTS as readonly number[]).includes(expectedCount)
     ? expectedCount
     : QUIZ_COUNTS[0];
-  return questions.slice(0, target);
+  const sliced = questions.slice(0, target);
+  // Ensure unique ids even if the model repeated them.
+  const seen = new Set<string>();
+  return sliced.map((q, i) => {
+    let id = q.id;
+    if (!id || seen.has(id)) id = `${q.id || "q"}-${i + 1}`;
+    seen.add(id);
+    return id === q.id ? q : { ...q, id };
+  });
 }
 
 export function toQuiz(request: QuizRequest, questions: QuizQuestion[]): Quiz {
