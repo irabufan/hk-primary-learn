@@ -46,8 +46,10 @@ function languageGuidance(subject: SubjectSlug): string {
     return [
       "LANGUAGE (chinese subject — CRITICAL):",
       "- Primary learning content MUST be Traditional Chinese (zh): prompts, passages, explanations, hints, MC choices, and answers.",
-      "- en may be a brief English gloss only; never put English-only stems as the main prompt.",
-      "- Do not mix: never write a Chinese stem with English-only grammar choices unless the topic is translation.",
+      "- NEVER write English-only question stems for Chinese quizzes. Stems must be Traditional Chinese (e.g. \"選出最適當的量詞：中秋夜，一家人欣賞__明月。\" with choices 個/輪/隻/條).",
+      "- en may be omitted, or a brief English gloss only — never use en as the primary stem while zh is missing or weaker.",
+      "- Choices and answers MUST be Traditional Chinese (or Chinese measure words / characters), never English-only options for a Chinese vocab item.",
+      "- Do not mix: never write an English stem with Chinese-only choices, or a Chinese stem with English-only grammar choices unless the topic is translation.",
     ].join(" ");
   }
   if (subject === "english") {
@@ -247,7 +249,9 @@ function isChineseHeavy(text: string | undefined): boolean {
  * For english subject: ensure zh-HK UI (toText prefers zh) still shows English
  * learning content by using en as the display source (copy en → zh).
  * Heuristic: if zh is Chinese-heavy and en is missing/unusable, blank the field.
- * For chinese subject: swap if Chinese was put only in en. Maths: no-op.
+ * For chinese subject: ensure EN UI (toText prefers en) still shows Traditional
+ * Chinese by copying zh → en. Heuristic: if en is Latin-heavy with no usable zh,
+ * blank the field. Maths: no-op.
  */
 export function normalizeLocalizedForSubject(
   field: Localized | undefined,
@@ -273,11 +277,22 @@ export function normalizeLocalizedForSubject(
   }
 
   if (subject === "chinese") {
-    // If zh is missing but en holds Chinese, move it to zh.
-    if (!zh && en && isChineseHeavy(en)) {
-      return { zh: en, en: undefined };
+    // Usable Chinese → always mirror to en so toText("en") shows Traditional Chinese learning content.
+    if (zh && isChineseHeavy(zh)) {
+      return { zh, en: zh };
     }
-    return zh || en ? { zh, en } : undefined;
+    // Chinese was only in en → use it for both locales.
+    if (en && isChineseHeavy(en)) {
+      return { zh: en, en };
+    }
+    // Latin-heavy en with no usable Chinese stem → blank (do not show English on Chinese quizzes).
+    if (en && isMostlyEnglish(en)) {
+      return undefined;
+    }
+    // Remaining: short CJK gloss / thin fields.
+    if (zh) return { zh, en: zh };
+    if (en) return { zh: en, en };
+    return undefined;
   }
 
   return zh || en ? { zh, en } : undefined;
@@ -285,7 +300,8 @@ export function normalizeLocalizedForSubject(
 
 /**
  * Post-parse guardrail: align localized learning fields with the subject
- * so a zh-HK UI does not show Chinese stems on English quizzes.
+ * so UI chrome language does not leak into learning content
+ * (zh-HK UI ≠ Chinese stems on English quizzes; EN UI ≠ English stems on Chinese quizzes).
  */
 export function normalizeQuizForSubject(quiz: Quiz): Quiz {
   const { subject } = quiz;
@@ -295,10 +311,10 @@ export function normalizeQuizForSubject(quiz: Quiz): Quiz {
 
   const questions = quiz.questions.map((q) => {
     const normalizedPrompt = normalizeLocalizedForSubject(q.prompt, subject);
-    // prompt is required; if english wiped a Chinese-only stem, use empty English rather than keeping CJK.
+    // prompt is required; if subject wiped a wrong-language stem, use empty rather than keeping it.
     const prompt: Localized =
       normalizedPrompt ??
-      (subject === "english" ? { en: "", zh: "" } : q.prompt);
+      (subject === "english" || subject === "chinese" ? { en: "", zh: "" } : q.prompt);
 
     const next: QuizQuestion = { ...q, prompt };
 
