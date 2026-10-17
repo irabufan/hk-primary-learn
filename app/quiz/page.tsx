@@ -13,6 +13,21 @@ import type { Quiz } from "@/lib/quiz/types";
 import { randomSeed } from "@/lib/rng";
 import { addProgress } from "@/lib/storage";
 
+
+/** Short stem fingerprints for regenerate — keep payload small. */
+function quizAvoidPrompts(quiz: Quiz): string[] {
+  const out: string[] = [];
+  for (const q of quiz.questions) {
+    const parts = [q.prompt.zh, q.prompt.en]
+      .map((s) => s?.trim())
+      .filter((s): s is string => Boolean(s));
+    const unique = [...new Set(parts)];
+    const stem = unique.join(" / ").slice(0, 160);
+    if (stem) out.push(stem);
+  }
+  return out.slice(0, 15);
+}
+
 type Phase = "setup" | "play" | "results";
 
 function QuizPageInner() {
@@ -43,6 +58,7 @@ function QuizPageInner() {
     async (
       opts: { subject: SubjectSlug; topic: string; year: Year; count: number },
       seed?: number,
+      avoidPrompts?: string[],
     ) => {
       setBusy(true);
       setLastOpts(opts);
@@ -51,6 +67,7 @@ function QuizPageInner() {
         const q = (await gen.generate({
           ...opts,
           seed: seed ?? randomSeed(),
+          ...(avoidPrompts?.length ? { avoidPrompts } : {}),
         })) as QuizWithSource;
         setQuiz(q);
         setSource(q.source);
@@ -118,7 +135,9 @@ function QuizPageInner() {
             setPhase("play");
           }}
           onRegenerate={() => {
-            if (lastOpts) void generate(lastOpts, randomSeed());
+            if (lastOpts) {
+              void generate(lastOpts, randomSeed(), quizAvoidPrompts(quiz));
+            }
           }}
           onSetup={() => {
             setPhase("setup");

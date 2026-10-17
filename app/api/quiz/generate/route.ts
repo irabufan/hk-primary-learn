@@ -19,7 +19,21 @@ type Body = {
   year?: unknown;
   count?: unknown;
   seed?: unknown;
+  avoidPrompts?: unknown;
 };
+
+function normalizeAvoidPrompts(value: unknown): string[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const out: string[] = [];
+  for (const item of value) {
+    if (typeof item !== "string") continue;
+    const trimmed = item.trim();
+    if (!trimmed) continue;
+    out.push(trimmed.slice(0, 160));
+    if (out.length >= 15) break;
+  }
+  return out.length ? out : undefined;
+}
 
 function badRequest(message: string) {
   return NextResponse.json({ error: message, code: "bad_request" }, { status: 400 });
@@ -60,12 +74,15 @@ export async function POST(request: Request) {
   const seedRaw = body.seed === undefined ? Date.now() % 0x7fffffff : Number(body.seed);
   const seed = Number.isFinite(seedRaw) ? Math.abs(Math.floor(seedRaw)) : Date.now() % 0x7fffffff;
 
+  const avoidPrompts = normalizeAvoidPrompts(body.avoidPrompts);
+
   const quizRequest: QuizRequest = {
     subject: body.subject,
     topic: body.topic.trim(),
     year: body.year,
     count,
     seed,
+    ...(avoidPrompts ? { avoidPrompts } : {}),
   };
 
   const { system, user } = buildQuizPrompt(quizRequest);
@@ -73,7 +90,7 @@ export async function POST(request: Request) {
 
   try {
     const { content, model } = await callOpenCodeGoChat(system, user, sessionId);
-    const questions = parseQuizQuestions(content, count);
+    const questions = parseQuizQuestions(content, count, seed);
     const quiz = toQuiz(quizRequest, questions);
     return NextResponse.json({
       quiz,

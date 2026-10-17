@@ -21,6 +21,9 @@ export class LlmQuizGenerator implements QuizGenerator {
         year: request.year,
         count: request.count,
         seed: request.seed,
+        ...(request.avoidPrompts?.length
+          ? { avoidPrompts: request.avoidPrompts }
+          : {}),
       }),
     });
 

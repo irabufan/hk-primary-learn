@@ -38,6 +38,11 @@ export type QuizRequest = {
   count: number;
   /** Changing the seed changes the quiz. */
   seed: number;
+  /**
+   * Optional stems from a previous quiz (regenerate). The model should avoid
+   * reusing these; omit on first-time generate.
+   */
+  avoidPrompts?: string[];
 };
 
 /** The seam the UI depends on — a real LLM adapter can implement the same shape. */

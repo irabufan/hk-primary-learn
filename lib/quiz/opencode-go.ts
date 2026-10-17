@@ -5,6 +5,7 @@
 
 import type { SubjectSlug, Year } from "@/lib/curriculum";
 import type { Localized } from "@/lib/i18n/types";
+import { mulberry32, shuffle } from "@/lib/rng";
 import type { Quiz, QuizQuestion, QuizQuestionType, QuizRequest } from "./types";
 import { QUIZ_COUNTS } from "./types";
 
@@ -88,18 +89,33 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     "- Keep difficulty suitable for the given year (P4 easier, P6 harder).",
     "- HK curriculum flavour; culturally familiar HK examples where helpful.",
     "- ids must be unique strings.",
+    "- Place the correct MC answer in a random position among the 4 choices; do not always put it first.",
+    "- Vary templates, settings, vocabulary, and numbers across questions; the seed is a variety token, not a PRNG.",
   ].join("\n");
 
-  const user = [
+  const avoid = (request.avoidPrompts ?? [])
+    .map((s) => (typeof s === "string" ? s.trim() : ""))
+    .filter(Boolean)
+    .slice(0, 15)
+    .map((s) => s.slice(0, 160));
+
+  const userParts = [
     `Subject: ${request.subject}`,
     `Topic: ${label.en} / ${label.zh} (slug: ${request.topic})`,
     `Year: ${request.year}`,
     `Question count: ${count}`,
-    `Seed (for variety, not a PRNG): ${request.seed}`,
+    `Seed (variety token — produce a distinct quiz for each seed): ${request.seed}`,
     languageGuidance(request.subject),
     "Prefer question types that fit the topic (e.g. maths decimals/of-a-total → number; maths simplify-to-fraction → fill with answer like \"2/3\"; English grammar → mc; Chinese vocab → mc or fill).",
-    "Return the JSON array now.",
-  ].join("\n");
+  ];
+  if (avoid.length) {
+    userParts.push(
+      "AVOID reusing these previous question stems (do not reuse the same blanks, same facts, near-identical wording, or the same MC sets). Make meaningfully different items:",
+      ...avoid.map((s, i) => `${i + 1}. ${s}`),
+    );
+  }
+  userParts.push("Return the JSON array now.");
+  const user = userParts.join("\n");
 
   return { system, user };
 }
@@ -147,7 +163,11 @@ function extractJsonArray(text: string): unknown {
   throw new Error("Model response was not valid JSON");
 }
 
-export function parseQuizQuestions(rawContent: string, expectedCount: number): QuizQuestion[] {
+export function parseQuizQuestions(
+  rawContent: string,
+  expectedCount: number,
+  seed = 0,
+): QuizQuestion[] {
   const parsed = extractJsonArray(rawContent);
   if (!Array.isArray(parsed) || parsed.length === 0) {
     throw new Error("Model returned an empty or non-array quiz");
@@ -189,10 +209,14 @@ export function parseQuizQuestions(rawContent: string, expectedCount: number): Q
       }
       if (choices.length < 2) continue;
       if (!choices.includes(answer)) {
+        // Inject missing answer; shuffle below so it is not stuck in slot 0.
         choices[0] = answer;
       }
-      // Cap at 6; pad is unlikely but keep at least 2 distinct.
-      question.choices = choices.slice(0, 6);
+      // Cap at 6, then shuffle with seed + question index so positions vary
+      // across items but stay stable for a given quiz seed.
+      const capped = choices.slice(0, 6);
+      const rng = mulberry32((seed >>> 0) + Math.imul(i + 1, 9973));
+      question.choices = shuffle(rng, capped);
     }
 
     if (type === "fill" && Array.isArray(row.accepts)) {
@@ -378,7 +402,7 @@ export async function callOpenCodeGoChat(
       },
       body: JSON.stringify({
         model,
-        temperature: 0.4,
+        temperature: 0.7,
         max_tokens: 4096,
         messages: [
           { role: "system", content: system },
