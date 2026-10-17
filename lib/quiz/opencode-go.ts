@@ -43,12 +43,27 @@ function topicLabel(subject: SubjectSlug, topic: string): { zh: string; en: stri
 
 function languageGuidance(subject: SubjectSlug): string {
   if (subject === "chinese") {
-    return "Write all question prompts, passages, hints and explanations primarily in Traditional Chinese (zh). English (en) may be a short gloss. Choices and answers should be Traditional Chinese where appropriate.";
+    return [
+      "LANGUAGE (chinese subject — CRITICAL):",
+      "- Primary learning content MUST be Traditional Chinese (zh): prompts, passages, explanations, hints, MC choices, and answers.",
+      "- en may be a brief English gloss only; never put English-only stems as the main prompt.",
+      "- Do not mix: never write a Chinese stem with English-only grammar choices unless the topic is translation.",
+    ].join(" ");
   }
   if (subject === "english") {
-    return "Write all question prompts, passages, hints, explanations, choices and answers in English. You may omit zh or leave zh as a brief Traditional Chinese gloss.";
+    return [
+      "LANGUAGE (english subject — CRITICAL):",
+      "- Primary learning content MUST be English (en): prompts, passages, explanations, hints, MC choices, and answers.",
+      "- Grammar / vocabulary / reading stems must be English sentences or English blanks (e.g. \"My sister ___ to school by bus every day.\" with choices go/goes/going/went).",
+      "- NEVER write Traditional Chinese question stems for English quizzes. zh may be a brief Traditional Chinese gloss of the English stem, or omitted.",
+      "- Choices and answers MUST be English (or English grammar forms), never Chinese characters as the answer options for an English grammar item.",
+    ].join(" ");
   }
-  return "Write bilingual prompts (zh Traditional Chinese + en English). Numeric answers as strings. MC choices may be numbers or short bilingual phrases.";
+  return [
+    "LANGUAGE (maths subject):",
+    "Bilingual prompts are OK (zh Traditional Chinese + en English).",
+    "Numeric answers as strings. MC choices may be numbers or short bilingual phrases.",
+  ].join(" ");
 }
 
 export function buildQuizPrompt(request: QuizRequest): { system: string; user: string } {
@@ -204,8 +219,109 @@ export function parseQuizQuestions(rawContent: string, expectedCount: number): Q
   });
 }
 
+/** Count CJK ideographs in a string (Han script). */
+function countCjk(text: string): number {
+  const matches = text.match(/[\u3400-\u9FFF\uF900-\uFAFF]/g);
+  return matches ? matches.length : 0;
+}
+
+/** True when the string is mostly Latin/ASCII letters and punctuation (English-like). */
+function isMostlyEnglish(text: string): boolean {
+  const trimmed = text.trim();
+  if (!trimmed) return false;
+  const cjk = countCjk(trimmed);
+  const letters = (trimmed.match(/[A-Za-z]/g) || []).length;
+  if (letters === 0) return false;
+  // Substantial CJK relative to Latin → not English-primary.
+  if (cjk >= 4 && cjk >= letters * 0.4) return false;
+  return letters >= 3;
+}
+
+/** True when zh has enough CJK to be a Chinese-primary learning stem. */
+function isChineseHeavy(text: string | undefined): boolean {
+  if (!text?.trim()) return false;
+  return countCjk(text) >= 4;
+}
+
+/**
+ * For english subject: ensure zh-HK UI (toText prefers zh) still shows English
+ * learning content by using en as the display source (copy en → zh).
+ * Heuristic: if zh is Chinese-heavy and en is missing/unusable, blank the field.
+ * For chinese subject: swap if Chinese was put only in en. Maths: no-op.
+ */
+export function normalizeLocalizedForSubject(
+  field: Localized | undefined,
+  subject: SubjectSlug,
+): Localized | undefined {
+  if (!field) return undefined;
+  const en = field.en?.trim() || undefined;
+  const zh = field.zh?.trim() || undefined;
+
+  if (subject === "english") {
+    // Usable English → always mirror to zh so toText("zh-HK") shows English learning content.
+    if (en && isMostlyEnglish(en)) {
+      return { en, zh: en };
+    }
+    // Chinese-heavy zh with no usable English stem → blank (do not show Chinese on English quizzes).
+    if (isChineseHeavy(zh)) {
+      return undefined;
+    }
+    // Remaining: short gloss / already-English zh, or thin en.
+    if (en) return { en, zh: en };
+    if (zh) return { en: zh, zh };
+    return undefined;
+  }
+
+  if (subject === "chinese") {
+    // If zh is missing but en holds Chinese, move it to zh.
+    if (!zh && en && isChineseHeavy(en)) {
+      return { zh: en, en: undefined };
+    }
+    return zh || en ? { zh, en } : undefined;
+  }
+
+  return zh || en ? { zh, en } : undefined;
+}
+
+/**
+ * Post-parse guardrail: align localized learning fields with the subject
+ * so a zh-HK UI does not show Chinese stems on English quizzes.
+ */
+export function normalizeQuizForSubject(quiz: Quiz): Quiz {
+  const { subject } = quiz;
+  if (subject !== "english" && subject !== "chinese") {
+    return quiz;
+  }
+
+  const questions = quiz.questions.map((q) => {
+    const normalizedPrompt = normalizeLocalizedForSubject(q.prompt, subject);
+    // prompt is required; if english wiped a Chinese-only stem, use empty English rather than keeping CJK.
+    const prompt: Localized =
+      normalizedPrompt ??
+      (subject === "english" ? { en: "", zh: "" } : q.prompt);
+
+    const next: QuizQuestion = { ...q, prompt };
+
+    const passage = normalizeLocalizedForSubject(q.passage, subject);
+    if (passage) next.passage = passage;
+    else delete next.passage;
+
+    const hint = normalizeLocalizedForSubject(q.hint, subject);
+    if (hint) next.hint = hint;
+    else delete next.hint;
+
+    const explanation = normalizeLocalizedForSubject(q.explanation, subject);
+    if (explanation) next.explanation = explanation;
+    else delete next.explanation;
+
+    return next;
+  });
+
+  return { ...quiz, questions };
+}
+
 export function toQuiz(request: QuizRequest, questions: QuizQuestion[]): Quiz {
-  return {
+  const quiz: Quiz = {
     id: `quiz-llm-${request.subject}-${request.topic}-${request.year}-${request.seed}`,
     subject: request.subject,
     topic: request.topic,
@@ -213,6 +329,7 @@ export function toQuiz(request: QuizRequest, questions: QuizQuestion[]): Quiz {
     questions,
     seed: request.seed,
   };
+  return normalizeQuizForSubject(quiz);
 }
 
 export type OpenCodeGoResult = {
