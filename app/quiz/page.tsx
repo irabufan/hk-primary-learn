@@ -2,6 +2,7 @@
 
 import { Suspense, useCallback, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { QuizLoading } from "@/components/quiz/QuizLoading";
 import { QuizPlayer } from "@/components/quiz/QuizPlayer";
 import { QuizResults } from "@/components/quiz/QuizResults";
 import { QuizSetup } from "@/components/quiz/QuizSetup";
@@ -76,11 +77,15 @@ function QuizPageInner() {
     }
   }
 
+  // While regenerating from results (or briefly after generate before busy clears),
+  // show a skeleton so the UI never looks frozen.
+  const showLoadingCard = busy && phase !== "setup";
+
   return (
     <div className="wrap py-8 space-y-6 max-w-2xl">
       <div>
         <h1 className="text-3xl font-black text-ink">{t("quiz.title")}</h1>
-        {source && phase !== "setup" && (
+        {source && phase !== "setup" && !busy && (
           <p className="mt-2 text-xs font-semibold text-slate-500">
             {source === "llm" ? t("quiz.sourceLlm") : t("quiz.sourceMock")}
           </p>
@@ -97,11 +102,13 @@ function QuizPageInner() {
         />
       )}
 
-      {phase === "play" && quiz && (
+      {showLoadingCard && <QuizLoading variant="card" />}
+
+      {phase === "play" && quiz && !busy && (
         <QuizPlayer key={`${quiz.id}-${playKey}`} quiz={quiz} onFinish={(s) => onFinish(s)} />
       )}
 
-      {phase === "results" && quiz && (
+      {phase === "results" && quiz && !busy && (
         <QuizResults
           quiz={quiz}
           score={score}
