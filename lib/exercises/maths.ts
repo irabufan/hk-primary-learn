@@ -1,0 +1,325 @@
+import { both, type Localized } from "@/lib/i18n/types";
+import type { ExerciseBank } from "./types";
+
+/**
+ * Maths content — bilingual labels (zh + en): prompts and explanations are
+ * provided in both UI languages. Answers are plain numbers or bare number
+ * strings so choices stay language-independent.
+ */
+export const mathsBank: ExerciseBank = {
+  fractions: [
+    {
+      kind: "number",
+      id: "m-f1",
+      prompt: { zh: "20 的 1/2 是多少？", en: "What is 1/2 of 20?" },
+      answer: 10,
+      explanation: { zh: "20 ÷ 2 = 10，所以 20 的 1/2 是 10。", en: "20 ÷ 2 = 10, so 1/2 of 20 is 10." },
+      years: ["P4"],
+    },
+    {
+      kind: "number",
+      id: "m-f2",
+      prompt: { zh: "24 的 1/3 是多少？", en: "What is 1/3 of 24?" },
+      answer: 8,
+      explanation: { zh: "24 ÷ 3 = 8，所以 24 的 1/3 是 8。", en: "24 ÷ 3 = 8, so 1/3 of 24 is 8." },
+      years: ["P4"],
+    },
+    {
+      kind: "number",
+      id: "m-f3",
+      prompt: { zh: "35 的 1/5 是多少？", en: "What is 1/5 of 35?" },
+      answer: 7,
+      explanation: { zh: "35 ÷ 5 = 7，所以 35 的 1/5 是 7。", en: "35 ÷ 5 = 7, so 1/5 of 35 is 7." },
+      years: ["P4"],
+    },
+    {
+      kind: "number",
+      id: "m-f4",
+      prompt: {
+        zh: "把 4/8 約至最簡分數，分子是多少？",
+        en: "Simplify 4/8. What is the numerator of the simplest form?",
+      },
+      answer: 1,
+      explanation: {
+        zh: "4/8 分子分母同時除以 4，得 1/2，分子是 1。",
+        en: "Divide top and bottom by 4: 4/8 = 1/2, so the numerator is 1.",
+      },
+      years: ["P5"],
+    },
+    {
+      kind: "number",
+      id: "m-f5",
+      prompt: {
+        zh: "把 6/9 約至最簡分數，分母是多少？",
+        en: "Simplify 6/9. What is the denominator of the simplest form?",
+      },
+      answer: 3,
+      explanation: {
+        zh: "6/9 分子分母同時除以 3，得 2/3，分母是 3。",
+        en: "Divide top and bottom by 3: 6/9 = 2/3, so the denominator is 3.",
+      },
+      years: ["P5"],
+    },
+    {
+      kind: "number",
+      id: "m-f6",
+      prompt: { zh: "把 3/4 化為小數。", en: "Write 3/4 as a decimal." },
+      answer: 0.75,
+      explanation: { zh: "3 ÷ 4 = 0.75，所以 3/4 = 0.75。", en: "3 ÷ 4 = 0.75, so 3/4 = 0.75." },
+      years: ["P5", "P6"],
+    },
+    {
+      kind: "number",
+      id: "m-f7",
+      prompt: { zh: "40 的 3/4 是多少？", en: "What is 3/4 of 40?" },
+      answer: 30,
+      explanation: { zh: "40 ÷ 4 = 10，再 × 3 = 30。", en: "40 ÷ 4 = 10, then × 3 = 30." },
+      years: ["P5"],
+    },
+    {
+      kind: "number",
+      id: "m-f8",
+      prompt: { zh: "18 的 5/6 是多少？", en: "What is 5/6 of 18?" },
+      answer: 15,
+      explanation: { zh: "18 ÷ 6 = 3，再 × 5 = 15。", en: "18 ÷ 6 = 3, then × 5 = 15." },
+      years: ["P6"],
+    },
+    {
+      kind: "number",
+      id: "m-f9",
+      prompt: { zh: "把 2/5 化為小數。", en: "Write 2/5 as a decimal." },
+      answer: 0.4,
+      explanation: { zh: "2 ÷ 5 = 0.4，所以 2/5 = 0.4。", en: "2 ÷ 5 = 0.4, so 2/5 = 0.4." },
+      years: ["P5", "P6"],
+    },
+    {
+      kind: "number",
+      id: "m-f10",
+      prompt: {
+        zh: "1/2 + 1/4 = ？（以小數作答）",
+        en: "Work out 1/2 + 1/4. Give your answer as a decimal.",
+      },
+      answer: 0.75,
+      explanation: {
+        zh: "1/2 = 0.5，1/4 = 0.25，0.5 + 0.25 = 0.75。",
+        en: "1/2 = 0.5 and 1/4 = 0.25, so 0.5 + 0.25 = 0.75.",
+      },
+      years: ["P6"],
+    },
+  ],
+
+  decimals: [
+    {
+      kind: "number",
+      id: "m-d1",
+      prompt: both("0.5 + 0.25 = ?"),
+      answer: 0.75,
+      explanation: { zh: "對齊小數點：0.5 + 0.25 = 0.75。", en: "Line up the decimal points: 0.5 + 0.25 = 0.75." },
+      years: ["P4"],
+    },
+    {
+      kind: "number",
+      id: "m-d2",
+      prompt: both("1.6 − 0.8 = ?"),
+      answer: 0.8,
+      explanation: { zh: "1.6 − 0.8 = 0.8。", en: "1.6 − 0.8 = 0.8." },
+      years: ["P4"],
+    },
+    {
+      kind: "number",
+      id: "m-d3",
+      prompt: both("2.5 × 4 = ?"),
+      answer: 10,
+      explanation: { zh: "2.5 × 4 = 10。", en: "2.5 × 4 = 10." },
+      years: ["P5"],
+    },
+    {
+      kind: "number",
+      id: "m-d4",
+      prompt: both("0.3 × 0.2 = ?"),
+      answer: 0.06,
+      explanation: {
+        zh: "0.3 × 0.2 = 0.06（3 × 2 = 6，再點回兩個小數位）。",
+        en: "0.3 × 0.2 = 0.06 (3 × 2 = 6, then count two decimal places).",
+      },
+      years: ["P6"],
+    },
+    {
+      kind: "number",
+      id: "m-d5",
+      prompt: both("7.2 ÷ 9 = ?"),
+      answer: 0.8,
+      explanation: { zh: "7.2 ÷ 9 = 0.8。", en: "7.2 ÷ 9 = 0.8." },
+      years: ["P5", "P6"],
+    },
+    {
+      kind: "number",
+      id: "m-d6",
+      prompt: { zh: "把 3/5 化為小數。", en: "Write 3/5 as a decimal." },
+      answer: 0.6,
+      explanation: { zh: "3 ÷ 5 = 0.6，所以 3/5 = 0.6。", en: "3 ÷ 5 = 0.6, so 3/5 = 0.6." },
+      years: ["P5"],
+    },
+    {
+      kind: "number",
+      id: "m-d7",
+      prompt: both("4.25 + 2.75 = ?"),
+      answer: 7,
+      explanation: { zh: "4.25 + 2.75 = 7。", en: "4.25 + 2.75 = 7." },
+      years: ["P5"],
+    },
+    {
+      kind: "number",
+      id: "m-d8",
+      prompt: both("10 − 3.45 = ?"),
+      answer: 6.55,
+      explanation: { zh: "10 − 3.45 = 6.55。", en: "10 − 3.45 = 6.55." },
+      years: ["P6"],
+    },
+    {
+      kind: "number",
+      id: "m-d9",
+      prompt: both("0.1 + 0.02 = ?"),
+      answer: 0.12,
+      explanation: { zh: "0.1 + 0.02 = 0.12。", en: "0.1 + 0.02 = 0.12." },
+      years: ["P4"],
+    },
+    {
+      kind: "number",
+      id: "m-d10",
+      prompt: { zh: "把 25/100 化為小數。", en: "Write 25/100 as a decimal." },
+      answer: 0.25,
+      explanation: { zh: "25 ÷ 100 = 0.25，所以 25/100 = 0.25。", en: "25 ÷ 100 = 0.25, so 25/100 = 0.25." },
+      years: ["P4", "P5"],
+    },
+  ],
+
+  "word-problems": [
+    {
+      kind: "mc",
+      id: "m-w1",
+      prompt: {
+        zh: "一本故事書售 48 元。媽媽買了 3 本，共要付多少元？",
+        en: "A storybook costs $48. Mum buys 3 of them. How much does she pay altogether?",
+      },
+      choices: ["144", "96", "51", "132"],
+      answerIndex: 0,
+      explanation: { zh: "每本 48 元：48 × 3 = 144（元）。", en: "$48 each, 3 books: 48 × 3 = 144." },
+      years: ["P4", "P5"],
+    },
+    {
+      kind: "mc",
+      id: "m-w2",
+      prompt: {
+        zh: "小明有 56 顆糖果，平均分給 7 位朋友，每人可得多少顆？",
+        en: "Ming has 56 sweets and shares them equally among 7 friends. How many does each friend get?",
+      },
+      choices: ["9", "8", "7", "6"],
+      answerIndex: 1,
+      explanation: { zh: "56 ÷ 7 = 8，每人得 8 顆。", en: "56 ÷ 7 = 8 sweets each." },
+      years: ["P4"],
+    },
+    {
+      kind: "mc",
+      id: "m-w3",
+      prompt: {
+        zh: "一盒筆有 12 支，5 盒共有多少支筆？",
+        en: "A box holds 12 pens. How many pens are there in 5 boxes?",
+      },
+      choices: ["48", "72", "60", "17"],
+      answerIndex: 2,
+      explanation: { zh: "12 × 5 = 60（支）。", en: "12 × 5 = 60 pens." },
+      years: ["P4"],
+    },
+    {
+      kind: "mc",
+      id: "m-w4",
+      prompt: {
+        zh: "巴士上有 45 人。到了下一站，18 人下車，12 人上車，現在車上有多少人？",
+        en: "There are 45 people on a bus. At the next stop, 18 people get off and 12 people get on. How many people are on the bus now?",
+      },
+      choices: ["27", "39", "33", "51"],
+      answerIndex: 1,
+      explanation: { zh: "45 − 18 = 27，27 + 12 = 39。", en: "45 − 18 = 27, then 27 + 12 = 39." },
+      years: ["P5"],
+    },
+    {
+      kind: "mc",
+      id: "m-w5",
+      prompt: {
+        zh: "長方形的長是 8 厘米，闊是 5 厘米，面積是多少平方厘米？",
+        en: "A rectangle is 8 cm long and 5 cm wide. What is its area in square centimetres?",
+      },
+      choices: ["26", "13", "40", "24"],
+      answerIndex: 2,
+      explanation: {
+        zh: "長方形面積 = 長 × 闊：8 × 5 = 40（平方厘米）。",
+        en: "Area = length × width: 8 × 5 = 40 cm².",
+      },
+      years: ["P4", "P5"],
+    },
+    {
+      kind: "mc",
+      id: "m-w6",
+      prompt: {
+        zh: "一枝筆售 8.5 元，買 4 枝共要多少元？",
+        en: "A pen costs $8.5. How much do 4 pens cost?",
+      },
+      choices: ["32", "34", "36", "30"],
+      answerIndex: 1,
+      explanation: { zh: "8.5 × 4 = 34（元）。", en: "8.5 × 4 = $34." },
+      years: ["P5", "P6"],
+    },
+    {
+      kind: "mc",
+      id: "m-w7",
+      prompt: {
+        zh: "Jane 有 90 元，買了一個 27 元的文具盒後，還剩多少元？",
+        en: "Jane has $90. After buying a pencil case for $27, how much money is left?",
+      },
+      choices: ["67", "73", "117", "63"],
+      answerIndex: 3,
+      explanation: { zh: "90 − 27 = 63（元）。", en: "90 − 27 = $63." },
+      years: ["P4"],
+    },
+    {
+      kind: "mc",
+      id: "m-w8",
+      prompt: {
+        zh: "學校買了 6 排椅子，每排 14 張，共有多少張椅子？",
+        en: "The school buys 6 rows of chairs with 14 chairs in each row. How many chairs are there?",
+      },
+      choices: ["78", "68", "84", "96"],
+      answerIndex: 2,
+      explanation: { zh: "6 × 14 = 84（張）。", en: "6 × 14 = 84 chairs." },
+      years: ["P5"],
+    },
+    {
+      kind: "mc",
+      id: "m-w9",
+      prompt: {
+        zh: "水果店有 8 箱蘋果，每箱 15 個。賣出 30 個後，還剩多少個蘋果？",
+        en: "A fruit shop has 8 boxes of apples with 15 apples in each box. After selling 30, how many apples are left?",
+      },
+      choices: ["120", "90", "60", "88"],
+      answerIndex: 1,
+      explanation: {
+        zh: "先算總數：8 × 15 = 120，再減：120 − 30 = 90。",
+        en: "First the total: 8 × 15 = 120, then 120 − 30 = 90.",
+      },
+      years: ["P6"],
+    },
+    {
+      kind: "mc",
+      id: "m-w10",
+      prompt: {
+        zh: "一包糖售 12.5 元，買 3 包共要多少元？",
+        en: "A bag of sweets costs $12.5. How much do 3 bags cost?",
+      },
+      choices: ["37.5", "36.5", "40", "35.5"],
+      answerIndex: 0,
+      explanation: { zh: "12.5 × 3 = 37.5（元）。", en: "12.5 × 3 = $37.5." },
+      years: ["P5", "P6"],
+    },
+  ],
+};

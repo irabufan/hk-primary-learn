@@ -1,124 +1,57 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-paper: #e8f4fc;
-  --color-card: #ffffff;
-  --color-ink: #1e1b4b;
-  --color-ink-soft: #312e81;
-  --color-muted: #64748b;
-  --color-line: #c7d7e8;
-  --color-coral: #ff6b4a;
-  --color-sky: #38bdf8;
-  --color-lime: #84cc16;
-  --color-indigo: #4f46e5;
-  --color-amber: #f59e0b;
-  --font-sans: var(--font-outfit), var(--font-noto-sans-tc), "PingFang HK", "Noto Sans TC",
-    "Microsoft JhengHei", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-outfit), var(--font-noto-tc), ui-sans-serif, system-ui, sans-serif;
 }
 
-html {
-  color-scheme: light;
-  scroll-behavior: smooth;
+@theme {
+  /* Bright coral accent used for wrong-answer states and primary CTAs. */
+  --color-coral: #ff6f59;
+}
+
+:root {
+  --background: #eef8ff;
+  --foreground: #173a5e;
 }
 
 body {
-  background:
-    radial-gradient(ellipse 80% 50% at 10% -10%, #fde68a55, transparent),
-    radial-gradient(ellipse 60% 40% at 100% 0%, #bae6fd88, transparent),
-    var(--color-paper);
-  color: var(--color-ink);
+  background-color: var(--background);
+  /* Soft sky-blue polka dots — playful, not babyish. */
+  background-image: radial-gradient(rgba(125, 211, 252, 0.4) 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+  color: var(--foreground);
   font-family: var(--font-sans);
-  min-height: 100vh;
 }
 
-::selection {
-  background: #fdba74;
-  color: #1e1b4b;
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
-:focus-visible {
-  outline: 2px solid #4f46e5;
-  outline-offset: 3px;
+.animate-pop-in {
+  animation: pop-in 0.25s ease-out both;
 }
 
-button,
-a,
-summary {
-  cursor: pointer;
+@keyframes shake-x {
+  10%, 90% { transform: translateX(-2px); }
+  20%, 80% { transform: translateX(3px); }
+  30%, 50%, 70% { transform: translateX(-5px); }
+  40%, 60% { transform: translateX(5px); }
 }
 
-.wrap {
-  width: min(1040px, 100%);
-  margin-inline: auto;
-  padding-inline: 1.25rem;
+.animate-shake {
+  animation: shake-x 0.5s ease;
 }
 
-.card {
-  border-radius: 1.25rem;
-  background: white;
-  border: 2px solid #e2e8f0;
-  padding: 1.25rem;
-  box-shadow: 0 8px 24px -12px rgb(79 70 229 / 0.25);
-}
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  background: #ff6b4a;
-  color: white;
-  font-weight: 700;
-  padding: 0.65rem 1.25rem;
-  transition: transform 0.15s, filter 0.15s;
-}
-.btn-primary:hover:not(:disabled) {
-  filter: brightness(1.05);
-  transform: translateY(-1px);
-}
-.btn-primary:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  background: #eef2ff;
-  color: #3730a3;
-  font-weight: 700;
-  padding: 0.65rem 1.25rem;
-  border: 2px solid #c7d2fe;
-  transition: background 0.15s;
-}
-.btn-secondary:hover {
-  background: #e0e7ff;
-}
-
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  background: transparent;
-  color: #475569;
-  font-weight: 600;
-  padding: 0.65rem 1.25rem;
-  border: 2px solid #cbd5e1;
-}
-
-.select {
-  width: 100%;
-  border-radius: 0.75rem;
-  border: 2px solid #c7d7e8;
-  background: white;
-  padding: 0.65rem 0.85rem;
-  font-size: 1rem;
-  font-weight: 500;
-}
-.select:focus {
-  border-color: #38bdf8;
-  outline: none;
+@media (prefers-reduced-motion: reduce) {
+  .animate-pop-in,
+  .animate-shake {
+    animation: none;
+  }
 }

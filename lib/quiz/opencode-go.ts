@@ -1,0 +1,285 @@
+/**
+ * Server-only helpers for calling OpenCode Go chat completions.
+ * Never import this from client components.
+ */
+
+import type { SubjectSlug, Year } from "@/lib/curriculum";
+import type { Localized } from "@/lib/i18n/types";
+import type { Quiz, QuizQuestion, QuizQuestionType, QuizRequest } from "./types";
+import { QUIZ_COUNTS } from "./types";
+
+const DEFAULT_BASE = "https://opencode.ai/zen/go/v1";
+const DEFAULT_MODEL = "deepseek-v4.1-flash";
+const TIMEOUT_MS = 55_000;
+const USER_AGENT = "hk-primary-learn/0.1";
+
+export function getOpenCodeGoConfig(): {
+  apiKey: string | undefined;
+  baseUrl: string;
+  model: string;
+} {
+  return {
+    apiKey: process.env.OPENCODE_GO_API_KEY?.trim() || undefined,
+    baseUrl: (process.env.OPENCODE_GO_BASE_URL?.trim() || DEFAULT_BASE).replace(/\/$/, ""),
+    model: process.env.OPENCODE_GO_MODEL?.trim() || DEFAULT_MODEL,
+  };
+}
+
+const TOPIC_LABELS: Record<string, { zh: string; en: string }> = {
+  "chinese/vocab": { zh: "詞語", en: "Vocabulary" },
+  "chinese/reading": { zh: "閱讀理解", en: "Reading comprehension" },
+  "chinese/sentences": { zh: "病句與造句", en: "Sentence correction" },
+  "english/vocabulary": { zh: "英文詞彙", en: "English vocabulary" },
+  "english/reading": { zh: "英文閱讀", en: "English reading" },
+  "english/grammar": { zh: "文法", en: "Grammar" },
+  "maths/fractions": { zh: "分數", en: "Fractions" },
+  "maths/decimals": { zh: "小數", en: "Decimals" },
+  "maths/word-problems": { zh: "應用題", en: "Word problems" },
+};
+
+function topicLabel(subject: SubjectSlug, topic: string): { zh: string; en: string } {
+  return TOPIC_LABELS[`${subject}/${topic}`] ?? { zh: topic, en: topic };
+}
+
+function languageGuidance(subject: SubjectSlug): string {
+  if (subject === "chinese") {
+    return "Write all question prompts, passages, hints and explanations primarily in Traditional Chinese (zh). English (en) may be a short gloss. Choices and answers should be Traditional Chinese where appropriate.";
+  }
+  if (subject === "english") {
+    return "Write all question prompts, passages, hints, explanations, choices and answers in English. You may omit zh or leave zh as a brief Traditional Chinese gloss.";
+  }
+  return "Write bilingual prompts (zh Traditional Chinese + en English). Numeric answers as strings. MC choices may be numbers or short bilingual phrases.";
+}
+
+export function buildQuizPrompt(request: QuizRequest): { system: string; user: string } {
+  const label = topicLabel(request.subject, request.topic);
+  const count = (QUIZ_COUNTS as readonly number[]).includes(request.count)
+    ? request.count
+    : QUIZ_COUNTS[0];
+
+  const system = [
+    "You are a Hong Kong primary school (P4–P6) quiz writer.",
+    "Return JSON only — no markdown fences, no commentary.",
+    "Output a JSON array of question objects with this exact shape:",
+    '[{"id":"q1","type":"mc"|"fill"|"number","prompt":{"zh":"...","en":"..."},"passage":{"zh":"...","en":"..."}|optional,"choices":["..."]|required for mc,"answer":"...","accepts":["..."]|optional for fill,"hint":{"zh":"...","en":"..."}|optional,"explanation":{"zh":"...","en":"..."}|optional}]',
+    "Rules:",
+    "- Exactly the requested number of questions.",
+    "- For type mc: provide 4 distinct choices; answer must equal one choice exactly.",
+    "- For type fill: answer is the canonical accepted spelling; accepts may list alternatives.",
+    "- For type number: answer is a number as a string (e.g. \"0.75\" or \"12\").",
+    "- Keep difficulty suitable for the given year (P4 easier, P6 harder).",
+    "- HK curriculum flavour; culturally familiar HK examples where helpful.",
+    "- ids must be unique strings.",
+  ].join("\n");
+
+  const user = [
+    `Subject: ${request.subject}`,
+    `Topic: ${label.en} / ${label.zh} (slug: ${request.topic})`,
+    `Year: ${request.year}`,
+    `Question count: ${count}`,
+    `Seed (for variety, not a PRNG): ${request.seed}`,
+    languageGuidance(request.subject),
+    "Prefer question types that fit the topic (e.g. maths fractions → number; English grammar → mc; Chinese vocab → mc or fill).",
+    "Return the JSON array now.",
+  ].join("\n");
+
+  return { system, user };
+}
+
+function asLocalized(value: unknown): Localized | undefined {
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    return trimmed ? { zh: trimmed, en: trimmed } : undefined;
+  }
+  if (value && typeof value === "object") {
+    const obj = value as Record<string, unknown>;
+    const zh = typeof obj.zh === "string" ? obj.zh.trim() : undefined;
+    const en = typeof obj.en === "string" ? obj.en.trim() : undefined;
+    if (zh || en) return { zh, en };
+  }
+  return undefined;
+}
+
+function asString(value: unknown): string | undefined {
+  if (typeof value === "string") return value.trim();
+  if (typeof value === "number" && Number.isFinite(value)) return String(value);
+  return undefined;
+}
+
+function asType(value: unknown): QuizQuestionType | undefined {
+  return value === "mc" || value === "fill" || value === "number" ? value : undefined;
+}
+
+function extractJsonArray(text: string): unknown {
+  const trimmed = text.trim();
+  try {
+    return JSON.parse(trimmed);
+  } catch {
+    /* fall through */
+  }
+  const fence = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/i);
+  if (fence?.[1]) {
+    return JSON.parse(fence[1].trim());
+  }
+  const start = trimmed.indexOf("[");
+  const end = trimmed.lastIndexOf("]");
+  if (start >= 0 && end > start) {
+    return JSON.parse(trimmed.slice(start, end + 1));
+  }
+  throw new Error("Model response was not valid JSON");
+}
+
+export function parseQuizQuestions(rawContent: string, expectedCount: number): QuizQuestion[] {
+  const parsed = extractJsonArray(rawContent);
+  if (!Array.isArray(parsed) || parsed.length === 0) {
+    throw new Error("Model returned an empty or non-array quiz");
+  }
+
+  const questions: QuizQuestion[] = [];
+  for (let i = 0; i < parsed.length; i++) {
+    const item = parsed[i];
+    if (!item || typeof item !== "object") continue;
+    const row = item as Record<string, unknown>;
+    const type = asType(row.type);
+    const prompt = asLocalized(row.prompt);
+    const answer = asString(row.answer);
+    if (!type || !prompt || answer === undefined) continue;
+
+    const id = asString(row.id) || `llm-q${i + 1}`;
+    const question: QuizQuestion = {
+      id,
+      type,
+      prompt,
+      answer,
+    };
+
+    const passage = asLocalized(row.passage);
+    if (passage) question.passage = passage;
+    const hint = asLocalized(row.hint);
+    if (hint) question.hint = hint;
+    const explanation = asLocalized(row.explanation);
+    if (explanation) question.explanation = explanation;
+
+    if (type === "mc") {
+      const choices = Array.isArray(row.choices)
+        ? row.choices.map(asString).filter((c): c is string => Boolean(c))
+        : [];
+      if (choices.length < 2) continue;
+      if (!choices.includes(answer)) {
+        choices[0] = answer;
+      }
+      question.choices = choices;
+    }
+
+    if (type === "fill" && Array.isArray(row.accepts)) {
+      const accepts = row.accepts.map(asString).filter((c): c is string => Boolean(c));
+      if (accepts.length) question.accepts = accepts;
+    }
+
+    questions.push(question);
+  }
+
+  if (questions.length === 0) {
+    throw new Error("No valid questions could be parsed from the model response");
+  }
+
+  const target = (QUIZ_COUNTS as readonly number[]).includes(expectedCount)
+    ? expectedCount
+    : QUIZ_COUNTS[0];
+  return questions.slice(0, target);
+}
+
+export function toQuiz(request: QuizRequest, questions: QuizQuestion[]): Quiz {
+  return {
+    id: `quiz-llm-${request.subject}-${request.topic}-${request.year}-${request.seed}`,
+    subject: request.subject,
+    topic: request.topic,
+    year: request.year,
+    questions,
+    seed: request.seed,
+  };
+}
+
+export type OpenCodeGoResult = {
+  content: string;
+  model: string;
+};
+
+export async function callOpenCodeGoChat(
+  system: string,
+  user: string,
+  sessionId: string,
+): Promise<OpenCodeGoResult> {
+  const { apiKey, baseUrl, model } = getOpenCodeGoConfig();
+  if (!apiKey) {
+    throw new Error("OPENCODE_GO_API_KEY is not configured");
+  }
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+
+  try {
+    const res = await fetch(`${baseUrl}/chat/completions`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "User-Agent": USER_AGENT,
+        "x-opencode-session": sessionId,
+      },
+      body: JSON.stringify({
+        model,
+        temperature: 0.4,
+        max_tokens: 4096,
+        messages: [
+          { role: "system", content: system },
+          { role: "user", content: user },
+        ],
+      }),
+      signal: controller.signal,
+    });
+
+    const text = await res.text();
+    if (!res.ok) {
+      // Never include headers or key material; truncate body for logs.
+      const snippet = text.replace(/\s+/g, " ").slice(0, 160);
+      throw new Error(`OpenCode Go HTTP ${res.status}: ${snippet || res.statusText}`);
+    }
+
+    let data: unknown;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      throw new Error("OpenCode Go returned non-JSON");
+    }
+
+    const content =
+      data &&
+      typeof data === "object" &&
+      Array.isArray((data as { choices?: unknown }).choices) &&
+      (data as { choices: Array<{ message?: { content?: unknown } }> }).choices[0]?.message
+        ?.content;
+
+    if (typeof content !== "string" || !content.trim()) {
+      throw new Error("OpenCode Go response missing message content");
+    }
+
+    const usedModel =
+      data && typeof data === "object" && typeof (data as { model?: unknown }).model === "string"
+        ? ((data as { model: string }).model)
+        : model;
+
+    return { content, model: usedModel };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+export function isValidYear(value: unknown): value is Year {
+  return value === "P4" || value === "P5" || value === "P6";
+}
+
+export function isValidSubject(value: unknown): value is SubjectSlug {
+  return value === "chinese" || value === "english" || value === "maths";
+}

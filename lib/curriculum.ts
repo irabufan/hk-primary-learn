@@ -1,146 +1,173 @@
-export type Year = "P4" | "P5" | "P6";
-export type SubjectId = "chinese" | "english" | "maths";
+import type { Localized } from "@/lib/i18n/types";
 
-export const YEARS: Year[] = ["P4", "P5", "P6"];
+export type Year = "P4" | "P5" | "P6";
+
+export const YEARS: readonly Year[] = ["P4", "P5", "P6"];
+
+export const DEFAULT_YEAR: Year = "P4";
+
+export type SubjectSlug = "chinese" | "english" | "maths";
+
+export const SUBJECT_SLUGS: readonly SubjectSlug[] = ["chinese", "english", "maths"];
+
+export type ExerciseKind = "match" | "fill" | "mc" | "number";
 
 export type Topic = {
-  id: string;
-  nameZh: string;
-  nameEn: string;
-  blurbZh: string;
-  blurbEn: string;
-  exerciseType: "match" | "fill" | "mc" | "number";
-  emoji: string;
+  slug: string;
+  name: Localized;
+  blurb: Localized;
+  icon: string;
+  exerciseKind: ExerciseKind;
 };
 
 export type Subject = {
-  id: SubjectId;
-  nameZh: string;
-  nameEn: string;
-  color: string;
-  emoji: string;
+  slug: SubjectSlug;
+  name: Localized;
+  icon: string;
+  tagline: Localized;
+  /** Tailwind gradient classes for the subject tile. */
+  gradient: string;
+  /** Soft chip classes for small subject labels. */
+  soft: string;
+  /** Border colour on hover for cards in this subject. */
+  ring: string;
   topics: Topic[];
 };
 
 export const SUBJECTS: Subject[] = [
   {
-    id: "chinese",
-    nameZh: "中文",
-    nameEn: "Chinese",
-    color: "coral",
-    emoji: "📚",
+    slug: "chinese",
+    icon: "🐼",
+    name: { zh: "中文", en: "Chinese" },
+    tagline: { zh: "詞語、閱讀、造句", en: "Vocab, reading, sentences" },
+    gradient: "from-orange-400 via-rose-400 to-red-400",
+    soft: "bg-orange-100 text-orange-700",
+    ring: "hover:border-orange-300",
     topics: [
       {
-        id: "vocab",
-        nameZh: "詞語",
-        nameEn: "Vocabulary",
-        blurbZh: "配對詞義、認識常用詞語",
-        blurbEn: "Match meanings and learn common words",
-        exerciseType: "match",
-        emoji: "🔤",
+        slug: "vocab",
+        icon: "📝",
+        name: { zh: "詞語", en: "Vocabulary" },
+        blurb: { zh: "配對詞語與意思，擴充詞彙量。", en: "Match words to their meanings and grow your vocabulary." },
+        exerciseKind: "match",
       },
       {
-        id: "reading",
-        nameZh: "閱讀理解",
-        nameEn: "Reading",
-        blurbZh: "短文閱讀與理解題",
-        blurbEn: "Short passages and comprehension",
-        exerciseType: "mc",
-        emoji: "📖",
+        slug: "reading",
+        icon: "📖",
+        name: { zh: "閱讀理解", en: "Reading" },
+        blurb: { zh: "讀短文，填出關鍵詞語。", en: "Read short passages and fill in the key words." },
+        exerciseKind: "fill",
       },
       {
-        id: "sentences",
-        nameZh: "病句／造句",
-        nameEn: "Sentences",
-        blurbZh: "找出病句、練習造句",
-        blurbEn: "Spot errors and build sentences",
-        exerciseType: "fill",
-        emoji: "✏️",
+        slug: "sentences",
+        icon: "✏️",
+        name: { zh: "病句與造句", en: "Sentences" },
+        blurb: { zh: "修正病句，填上合適的詞語。", en: "Fix broken sentences and choose the right words." },
+        exerciseKind: "fill",
       },
     ],
   },
   {
-    id: "english",
-    nameZh: "English",
-    nameEn: "English",
-    color: "sky",
-    emoji: "🌟",
+    slug: "english",
+    icon: "🔤",
+    name: { zh: "英文", en: "English" },
+    tagline: { zh: "詞彙、閱讀、文法", en: "Vocabulary, reading, grammar" },
+    gradient: "from-sky-400 via-cyan-400 to-blue-500",
+    soft: "bg-sky-100 text-sky-700",
+    ring: "hover:border-sky-300",
     topics: [
       {
-        id: "vocab",
-        nameZh: "詞彙",
-        nameEn: "Vocabulary",
-        blurbZh: "Fill in the blank with the right word",
-        blurbEn: "Fill in the blank with the right word",
-        exerciseType: "fill",
-        emoji: "💬",
+        slug: "vocabulary",
+        icon: "💬",
+        name: { zh: "英文詞彙", en: "Vocabulary" },
+        blurb: { zh: "用詞語庫完成句子。", en: "Complete the sentences with the right word." },
+        exerciseKind: "fill",
       },
       {
-        id: "reading",
-        nameZh: "閱讀理解",
-        nameEn: "Reading",
-        blurbZh: "Comprehension questions",
-        blurbEn: "Comprehension questions",
-        exerciseType: "mc",
-        emoji: "📰",
+        slug: "reading",
+        icon: "📚",
+        name: { zh: "英文閱讀", en: "Reading" },
+        blurb: { zh: "讀短文，答理解題。", en: "Read short passages and answer comprehension questions." },
+        exerciseKind: "mc",
       },
       {
-        id: "grammar",
-        nameZh: "文法",
-        nameEn: "Grammar",
-        blurbZh: "Tenses, articles, and agreement",
-        blurbEn: "Tenses, articles, and agreement",
-        exerciseType: "mc",
-        emoji: "🧩",
+        slug: "grammar",
+        icon: "🧩",
+        name: { zh: "文法", en: "Grammar" },
+        blurb: { zh: "選出正確的文法答案。", en: "Pick the grammatically correct option." },
+        exerciseKind: "mc",
       },
     ],
   },
   {
-    id: "maths",
-    nameZh: "數學",
-    nameEn: "Maths",
-    color: "indigo",
-    emoji: "🔢",
+    slug: "maths",
+    icon: "🔢",
+    name: { zh: "數學", en: "Maths" },
+    tagline: { zh: "分數、小數、應用題", en: "Fractions, decimals, word problems" },
+    gradient: "from-indigo-400 via-violet-400 to-purple-400",
+    soft: "bg-indigo-100 text-indigo-700",
+    ring: "hover:border-indigo-300",
     topics: [
       {
-        id: "fractions",
-        nameZh: "分數",
-        nameEn: "Fractions",
-        blurbZh: "加減乘除分數練習",
-        blurbEn: "Add, subtract, multiply fractions",
-        exerciseType: "number",
-        emoji: "🍕",
+        slug: "fractions",
+        icon: "🍕",
+        name: { zh: "分數", en: "Fractions" },
+        blurb: { zh: "約分、化小數、求幾分之幾。", en: "Simplify, convert and work out fractions of quantities." },
+        exerciseKind: "number",
       },
       {
-        id: "decimals",
-        nameZh: "小數",
-        nameEn: "Decimals",
-        blurbZh: "小數運算與比較",
-        blurbEn: "Decimal operations and comparison",
-        exerciseType: "number",
-        emoji: "📏",
+        slug: "decimals",
+        icon: "🧮",
+        name: { zh: "小數", en: "Decimals" },
+        blurb: { zh: "小數加減乘除，與分數互化。", en: "Add, subtract, multiply and divide decimals." },
+        exerciseKind: "number",
       },
       {
-        id: "word-problems",
-        nameZh: "應用題",
-        nameEn: "Word problems",
-        blurbZh: "生活情境數學題",
-        blurbEn: "Real-life maths stories",
-        exerciseType: "mc",
-        emoji: "🧮",
+        slug: "word-problems",
+        icon: "🛒",
+        name: { zh: "應用題", en: "Word problems" },
+        blurb: { zh: "讀題目，選出正確答案。", en: "Read the problem and pick the right answer." },
+        exerciseKind: "mc",
       },
     ],
   },
 ];
 
-export function getSubject(id: string): Subject | undefined {
-  return SUBJECTS.find((s) => s.id === id);
+export function isSubjectSlug(value: string): value is SubjectSlug {
+  return (SUBJECT_SLUGS as readonly string[]).includes(value);
 }
 
-export function getTopic(subjectId: string, topicId: string): Topic | undefined {
-  return getSubject(subjectId)?.topics.find((t) => t.id === topicId);
+export function isYear(value: string): value is Year {
+  return (YEARS as readonly string[]).includes(value);
 }
 
-export function isSubjectId(id: string): id is SubjectId {
-  return id === "chinese" || id === "english" || id === "maths";
+export function getSubject(slug: string): Subject | undefined {
+  return SUBJECTS.find((s) => s.slug === slug);
+}
+
+export function getTopic(subject: Subject | string, topicSlug: string): Topic | undefined {
+  const resolved = typeof subject === "string" ? getSubject(subject) : subject;
+  return resolved?.topics.find((t) => t.slug === topicSlug);
+}
+
+/** Alias kept for older call sites during the refactor. */
+export type SubjectId = SubjectSlug;
+
+/** Alias kept for older call sites during the refactor. */
+export const isSubjectId = isSubjectSlug;
+
+export function subjectPath(slug: SubjectSlug, year?: Year): string {
+  return `/subject/${slug}${year ? `?year=${year}` : ""}`;
+}
+
+export function exercisePath(subject: SubjectSlug, topic: string, year?: Year): string {
+  return `/exercise/${subject}/${topic}${year ? `?year=${year}` : ""}`;
+}
+
+export function quizPath(subject: SubjectSlug, topic?: string, year?: Year): string {
+  const params = new URLSearchParams();
+  if (topic) params.set("topic", topic);
+  if (year) params.set("year", year);
+  const query = params.toString();
+  return `/quiz?subject=${subject}${query ? `&${query}` : ""}`;
 }

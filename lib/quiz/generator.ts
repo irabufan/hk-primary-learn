@@ -1,387 +1,524 @@
-import type { SubjectId, Year } from "@/lib/curriculum";
-import { mulberry32, pick, randomSeed, shuffle } from "@/lib/rng";
-import type { GenerateOpts, Quiz, QuizGenerator, QuizQuestion } from "@/lib/quiz/types";
+import type { Year } from "@/lib/curriculum";
+import { formatNumber } from "@/lib/i18n/types";
+import { chineseBank } from "@/lib/exercises/chinese";
+import { getBank } from "@/lib/exercises";
+import type { FillItem, MatchPair, McItem, NumberItem } from "@/lib/exercises/types";
+import { suitsYear } from "@/lib/exercises/types";
+import { mulberry32, pickInt, pickOne, shuffle, type Rng } from "@/lib/rng";
+import type { Quiz, QuizGenerator, QuizQuestion, QuizRequest } from "./types";
+import { QUIZ_COUNTS } from "./types";
 
-type Template = {
-  build: (rng: () => number, year: Year) => QuizQuestion;
-};
+/**
+ * Mock quiz generator: builds quizzes from the exercise banks plus seeded
+ * parameterised maths templates. Same seed → same quiz; new seed → new quiz.
+ */
 
-function id(rng: () => number): string {
-  return `q-${Math.floor(rng() * 1e9).toString(36)}`;
-}
+// Small delay so the async loading state is real (and mirrors future LLM latency).
+const ARTIFICIAL_DELAY_MS = 400;
 
-/* ---- Chinese templates ---- */
-const chineseVocab: Template[] = [
-  {
-    build: (rng) => {
-      const pairs: [string, string, string[]][] = [
-        ["愉快", "開心、快樂", ["傷心", "忙碌", "安靜"]],
-        ["勤奮", "努力不懈", ["懶惰", "匆忙", "驕傲"]],
-        ["猶豫", "拿不定主意", ["果斷", "興奮", "冷淡"]],
-        ["燦爛", "光彩耀目", ["昏暗", "平凡", "細小"]],
-        ["珍惜", "愛惜、重視", ["浪費", "忘記", "討厭"]],
-        ["勇敢", "有膽量", ["膽小", "害羞", "粗心"]],
-      ];
-      const [word, meaning, wrong] = pick(rng, pairs);
-      const choices = shuffle(rng, [meaning, ...wrong]);
-      return {
-        id: id(rng),
-        type: "mc",
-        prompt: `「${word}」的意思最接近：`,
-        choices,
-        answer: meaning,
-        explanation: `「${word}」意思是${meaning}。`,
-      };
-    },
-  },
-  {
-    build: (rng) => {
-      const items: [string, string][] = [
-        ["春暖花____", "開"],
-        ["書山有路勤為____", "徑"],
-        ["一分耕耘，一分____", "收穫"],
-        ["滴水穿____", "石"],
-      ];
-      const [prompt, answer] = pick(rng, items);
-      return {
-        id: id(rng),
-        type: "fill",
-        prompt: `補上適當的字：${prompt}`,
-        answer,
-        explanation: `正確答案是「${answer}」。`,
-      };
-    },
-  },
-];
-
-const chineseReading: Template[] = [
-  {
-    build: (rng) => {
-      const passages = [
-        {
-          text: "小明每天早上都會到公園跑步。他覺得運動能令身體更健康，頭腦更清醒。",
-          q: "小明為什麼跑步？",
-          a: "為了健康和清醒",
-          wrong: ["因為生氣", "為了買東西", "因為上學遲到"],
-        },
-        {
-          text: "圖書館裏十分安靜。同學們專心閱讀，有的做筆記，有的查找資料。",
-          q: "圖書館裏的氣氛怎樣？",
-          a: "安靜",
-          wrong: ["熱鬧", "嘈雜", "混亂"],
-        },
-        {
-          text: "颱風臨近，學校宣布明天停課。同學們既擔心又有點興奮。",
-          q: "學校為什麼停課？",
-          a: "因為颱風臨近",
-          wrong: ["因為考試", "因為假期", "因為裝修"],
-        },
-      ];
-      const p = pick(rng, passages);
-      return {
-        id: id(rng),
-        type: "mc",
-        prompt: `${p.text}\n\n${p.q}`,
-        choices: shuffle(rng, [p.a, ...p.wrong]),
-        answer: p.a,
-      };
-    },
-  },
-];
-
-const chineseSentences: Template[] = [
-  {
-    build: (rng) => {
-      const items: [string, string, string][] = [
-        ["下列哪句沒有語病？", "他認真地完成了功課。", "他認真完成了很功課。"],
-        ["選出意思通順的句子：", "媽媽買了新鮮的水果。", "媽媽買了水果的新鮮。"],
-        ["哪句用詞恰當？", "同學們興高采烈地慶祝。", "同學們興高采烈地睡覺。"],
-      ];
-      const [q, good, bad] = pick(rng, items);
-      const extra = shuffle(rng, [
-        bad,
-        "因為所以他去了學校。",
-        "非常很好的天氣。",
-      ]).slice(0, 3);
-      return {
-        id: id(rng),
-        type: "mc",
-        prompt: q,
-        choices: shuffle(rng, [good, ...extra]),
-        answer: good,
-      };
-    },
-  },
-  {
-    build: (rng) => {
-      const items: [string, string][] = [
-        ["把「高興」填入：同學們____地鼓掌。", "高興"],
-        ["把「仔細」填入：請____檢查答案。", "仔細"],
-        ["把「忽然」填入：天空____下起雨來。", "忽然"],
-      ];
-      const [prompt, answer] = pick(rng, items);
-      return { id: id(rng), type: "fill", prompt, answer };
-    },
-  },
-];
-
-/* ---- English templates ---- */
-const englishVocab: Template[] = [
-  {
-    build: (rng) => {
-      const items: [string, string, string[]][] = [
-        ["The opposite of 'hot' is ____.", "cold", ["warm", "cool", "heat"]],
-        ["A place where you borrow books is a ____.", "library", ["market", "station", "garden"]],
-        ["She is very ____ — she always helps others.", "kind", ["rude", "lazy", "noisy"]],
-        ["We use an ____ to draw a straight line.", "ruler", ["eraser", "pencil case", "glue"]],
-      ];
-      const [prompt, answer, distractors] = pick(rng, items);
-      return {
-        id: id(rng),
-        type: "mc",
-        prompt,
-        choices: shuffle(rng, [answer, ...distractors]),
-        answer,
-      };
-    },
-  },
-  {
-    build: (rng) => {
-      const items: [string, string][] = [
-        ["Complete: Good ____! (morning greeting)", "morning"],
-        ["Plural of 'child' is ____.", "children"],
-        ["Past tense of 'go' is ____.", "went"],
-      ];
-      const [prompt, answer] = pick(rng, items);
-      return { id: id(rng), type: "fill", prompt, answer };
-    },
-  },
-];
-
-const englishReading: Template[] = [
-  {
-    build: (rng) => {
-      const passages = [
-        {
-          text: "Tom has a pet rabbit named Snow. Every evening he feeds Snow carrots and lettuce.",
-          q: "What does Tom feed Snow?",
-          a: "Carrots and lettuce",
-          wrong: ["Fish and chips", "Only water", "Bread and jam"],
-        },
-        {
-          text: "The school fair is on Saturday. There will be games, food stalls and a magic show.",
-          q: "When is the school fair?",
-          a: "Saturday",
-          wrong: ["Sunday", "Friday", "Monday"],
-        },
-        {
-          text: "Maya forgot her umbrella. When it started to rain, she ran under a big tree.",
-          q: "Why did Maya run under a tree?",
-          a: "It started to rain",
-          wrong: ["She saw a bird", "She was late", "She lost her bag"],
-        },
-      ];
-      const p = pick(rng, passages);
-      return {
-        id: id(rng),
-        type: "mc",
-        prompt: `${p.text}\n\n${p.q}`,
-        choices: shuffle(rng, [p.a, ...p.wrong]),
-        answer: p.a,
-      };
-    },
-  },
-];
-
-const englishGrammar: Template[] = [
-  {
-    build: (rng) => {
-      const items: [string, string, string[]][] = [
-        ["She ____ to school every day.", "goes", ["go", "going", "gone"]],
-        ["There ____ three apples on the table.", "are", ["is", "be", "was"]],
-        ["I ____ my homework yesterday.", "finished", ["finish", "finishing", "finishes"]],
-        ["He is ____ tallest boy in the class.", "the", ["a", "an", "this"]],
-      ];
-      const [prompt, answer, wrong] = pick(rng, items);
-      return {
-        id: id(rng),
-        type: "mc",
-        prompt,
-        choices: shuffle(rng, [answer, ...wrong]),
-        answer,
-      };
-    },
-  },
-];
-
-/* ---- Maths templates ---- */
-function yearFactor(year: Year): number {
-  return year === "P4" ? 1 : year === "P5" ? 2 : 3;
-}
-
-const mathsFractions: Template[] = [
-  {
-    build: (rng, year) => {
-      const f = yearFactor(year);
-      const den = 2 + Math.floor(rng() * (4 + f));
-      const n1 = 1 + Math.floor(rng() * (den - 1));
-      const n2 = 1 + Math.floor(rng() * (den - 1));
-      const sum = n1 + n2;
-      const whole = Math.floor(sum / den);
-      const rem = sum % den;
-      const answer = rem === 0 ? String(whole) : whole > 0 ? `${whole} ${rem}/${den}` : `${sum}/${den}`;
-      // Simplify answer as improper / mixed accepted as sum/den
-      return {
-        id: id(rng),
-        type: "fill",
-        prompt: `計算：${n1}/${den} + ${n2}/${den} = ?（可用假分數，如 ${sum}/${den}）\nCalculate: ${n1}/${den} + ${n2}/${den} = ?`,
-        answer: `${sum}/${den}`,
-        explanation: `${n1}/${den} + ${n2}/${den} = ${sum}/${den}${whole > 0 && rem ? ` = ${answer}` : ""}`,
-      };
-    },
-  },
-  {
-    build: (rng, year) => {
-      const f = yearFactor(year);
-      const den = [2, 4, 5, 8, 10][Math.floor(rng() * (3 + Math.min(f, 2)))]!;
-      const num = 1 + Math.floor(rng() * (den - 1));
-      const choices = shuffle(rng, [
-        `${num}/${den}`,
-        `${den}/${num}`,
-        `${num + 1}/${den}`,
-        `${num}/${den + 1}`,
-      ]);
-      return {
-        id: id(rng),
-        type: "mc",
-        prompt: `哪一個分數等於把 1 分成 ${den} 等份後取 ${num} 份？\nWhich fraction is ${num} out of ${den} equal parts?`,
-        choices,
-        answer: `${num}/${den}`,
-      };
-    },
-  },
-];
-
-const mathsDecimals: Template[] = [
-  {
-    build: (rng, year) => {
-      const f = yearFactor(year);
-      const a = Math.round((1 + rng() * (5 + f)) * 10) / 10;
-      const b = Math.round((0.5 + rng() * (3 + f)) * 10) / 10;
-      const sum = Math.round((a + b) * 10) / 10;
-      return {
-        id: id(rng),
-        type: "number",
-        prompt: `計算 Calculate: ${a} + ${b} = ?`,
-        answer: sum,
-        explanation: `${a} + ${b} = ${sum}`,
-      };
-    },
-  },
-  {
-    build: (rng, year) => {
-      const f = yearFactor(year);
-      const a = Math.round((2 + rng() * (6 + f)) * 10) / 10;
-      const b = Math.round((0.2 + rng() * (2 + f * 0.5)) * 10) / 10;
-      const diff = Math.round((a - b) * 10) / 10;
-      return {
-        id: id(rng),
-        type: "number",
-        prompt: `計算 Calculate: ${a} − ${b} = ?`,
-        answer: diff,
-      };
-    },
-  },
-];
-
-const mathsWord: Template[] = [
-  {
-    build: (rng, year) => {
-      const f = yearFactor(year);
-      const price = 5 + Math.floor(rng() * (5 + f * 3));
-      const n = 2 + Math.floor(rng() * (3 + f));
-      const total = price * n;
-      const paid = total + 5 + Math.floor(rng() * 20);
-      const change = paid - total;
-      return {
-        id: id(rng),
-        type: "mc",
-        prompt: `貼紙每張 $${price}，小華買了 ${n} 張，付了 $${paid}。找回多少？\nStickers cost $${price} each. Wah buys ${n} and pays $${paid}. Change?`,
-        choices: shuffle(rng, [
-          `$${change}`,
-          `$${change + 5}`,
-          `$${total}`,
-          `$${paid - price}`,
-        ]),
-        answer: `$${change}`,
-        explanation: `${n} × $${price} = $${total}；$${paid} − $${total} = $${change}`,
-      };
-    },
-  },
-  {
-    build: (rng, year) => {
-      const f = yearFactor(year);
-      const rows = 3 + Math.floor(rng() * (2 + f));
-      const cols = 4 + Math.floor(rng() * (2 + f));
-      const total = rows * cols;
-      return {
-        id: id(rng),
-        type: "number",
-        prompt: `課室有 ${rows} 行，每行 ${cols} 張椅。一共多少張椅？\n${rows} rows × ${cols} chairs each. Total chairs?`,
-        answer: total,
-        explanation: `${rows} × ${cols} = ${total}`,
-      };
-    },
-  },
-];
-
-const BANKS: Record<SubjectId, Record<string, Template[]>> = {
-  chinese: {
-    vocab: chineseVocab,
-    reading: chineseReading,
-    sentences: chineseSentences,
-  },
-  english: {
-    vocab: englishVocab,
-    reading: englishReading,
-    grammar: englishGrammar,
-  },
-  maths: {
-    fractions: mathsFractions,
-    decimals: mathsDecimals,
-    "word-problems": mathsWord,
-  },
-};
-
-function fallbackBank(subject: SubjectId): Template[] {
-  const first = Object.values(BANKS[subject])[0];
-  return first ?? englishVocab;
-}
-
-export function generateQuiz(opts: GenerateOpts): Quiz {
-  const seed = opts.seed ?? randomSeed();
-  const rng = mulberry32(seed);
-  const bank = BANKS[opts.subject][opts.topic] ?? fallbackBank(opts.subject);
-  const count = Math.max(1, Math.min(20, opts.count));
-  const questions: QuizQuestion[] = [];
-  for (let i = 0; i < count; i++) {
-    const tmpl = pick(rng, bank);
-    questions.push(tmpl.build(rng, opts.year));
+export class MockQuizGenerator implements QuizGenerator {
+  async generate(request: QuizRequest): Promise<Quiz> {
+    await new Promise((resolve) => setTimeout(resolve, ARTIFICIAL_DELAY_MS));
+    const rng = mulberry32(request.seed);
+    const questions = buildQuestions(request, rng);
+    return {
+      id: `quiz-${request.subject}-${request.topic}-${request.year}-${request.seed}`,
+      subject: request.subject,
+      topic: request.topic,
+      year: request.year,
+      questions,
+      seed: request.seed,
+    };
   }
+}
+
+/** Convenience wrapper — generate a quiz through the current generator. */
+export async function generateQuiz(request: QuizRequest): Promise<Quiz> {
+  const generator = new MockQuizGenerator();
+  return generator.generate(request);
+}
+
+// ---------------------------------------------------------------------------
+// Bank helpers
+// ---------------------------------------------------------------------------
+
+type YearTagged = { years?: Year[] };
+
+/** Year-suited items first, then the rest; cycles if the bank is short. */
+function pickYearItems<T extends YearTagged>(rng: Rng, items: readonly T[], count: number, year: Year): T[] {
+  if (items.length === 0) return [];
+  const preferred = shuffle(rng, items.filter((item) => suitsYear(item, year)));
+  const others = shuffle(rng, items.filter((item) => !suitsYear(item, year)));
+  const pool = [...preferred, ...others];
+  const out: T[] = [];
+  for (let i = 0; i < count; i++) out.push(pool[i % pool.length]);
+  return out;
+}
+
+function toMcQuestion(item: McItem, index: number, rng: Rng): QuizQuestion {
   return {
-    id: `quiz-${seed.toString(36)}`,
-    subject: opts.subject,
-    topic: opts.topic,
-    year: opts.year,
-    questions,
-    seed,
+    id: `${item.id}-q${index + 1}`,
+    type: "mc",
+    prompt: item.prompt,
+    passage: item.passage,
+    choices: shuffle(rng, item.choices),
+    answer: item.choices[item.answerIndex],
+    explanation: item.explanation,
   };
 }
 
-export class MockQuizGenerator implements QuizGenerator {
-  async generate(opts: GenerateOpts): Promise<Quiz> {
-    // Simulate a tiny async boundary so UI can show "generating"
-    await new Promise((r) => setTimeout(r, 180 + Math.random() * 220));
-    return generateQuiz(opts);
+function toFillQuestion(item: FillItem, index: number): QuizQuestion {
+  return {
+    id: `${item.id}-q${index + 1}`,
+    type: "fill",
+    prompt: item.prompt,
+    passage: item.passage,
+    answer: item.accept[0],
+    accepts: item.accept,
+    hint: item.hint,
+    explanation: item.explanation,
+  };
+}
+
+function toNumberQuestion(item: NumberItem, index: number): QuizQuestion {
+  return {
+    id: `${item.id}-q${index + 1}`,
+    type: "number",
+    prompt: item.prompt,
+    answer: formatNumber(item.answer),
+    explanation: item.explanation,
+  };
+}
+
+/** Fallback for any subject/topic combo with a bank but no bespoke strategy. */
+function genericBankQuestions(rng: Rng, request: QuizRequest): QuizQuestion[] {
+  const bank = (getBank(request.subject, request.topic) ?? []).filter((item) => item.kind !== "match");
+  return pickYearItems(rng, bank, request.count, request.year).map((item, index) => {
+    if (item.kind === "mc") return toMcQuestion(item, index, rng);
+    if (item.kind === "fill") return toFillQuestion(item, index);
+    return toNumberQuestion(item, index);
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Chinese topics
+// ---------------------------------------------------------------------------
+
+const chineseVocabPairs: MatchPair[] =
+  chineseBank.vocab.find((item) => item.kind === "match")?.pairs ?? [];
+
+function vocabQuestions(rng: Rng, request: QuizRequest): QuizQuestion[] {
+  if (chineseVocabPairs.length === 0) return genericBankQuestions(rng, request);
+  return pickYearItems(rng, chineseVocabPairs, request.count, request.year).map((pair, index) => {
+    const distractors = shuffle(
+      rng,
+      chineseVocabPairs.filter((other) => other.id !== pair.id),
+    )
+      .slice(0, 3)
+      .map((other) => other.right);
+    const choices = shuffle(rng, [pair.right, ...distractors]);
+    return {
+      id: `${pair.id}-q${index + 1}`,
+      type: "mc" as const,
+      prompt: {
+        zh: `「${pair.left}」是甚麼意思？選出正確的解釋。`,
+        en: `Which meaning matches “${pair.left}”?`,
+      },
+      choices,
+      answer: pair.right,
+      explanation: {
+        zh: `「${pair.left}」的意思是「${pair.right}」。`,
+        en: `“${pair.left}” means “${pair.right}”.`,
+      },
+    };
+  });
+}
+
+function fillBankQuestions(rng: Rng, request: QuizRequest): QuizQuestion[] {
+  const bank = (getBank(request.subject, request.topic) ?? []).filter(
+    (item): item is FillItem => item.kind === "fill",
+  );
+  return pickYearItems(rng, bank, request.count, request.year).map(toFillQuestion);
+}
+
+// ---------------------------------------------------------------------------
+// English topics
+// ---------------------------------------------------------------------------
+
+function mcBankQuestions(rng: Rng, request: QuizRequest): QuizQuestion[] {
+  const bank = (getBank(request.subject, request.topic) ?? []).filter(
+    (item): item is McItem => item.kind === "mc",
+  );
+  return pickYearItems(rng, bank, request.count, request.year).map((item, index) =>
+    toMcQuestion(item, index, rng),
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Maths — parameterised templates (infinite seeded variety)
+// ---------------------------------------------------------------------------
+
+const FRACTION_LEVELS: Record<Year, { denoms: number[]; maxTotal: number }> = {
+  P4: { denoms: [2, 3, 4], maxTotal: 24 },
+  P5: { denoms: [2, 3, 4, 5, 6], maxTotal: 60 },
+  P6: { denoms: [2, 3, 4, 5, 6, 8, 10], maxTotal: 100 },
+};
+
+/** Fractions with exact terminating decimals. */
+const EASY_FRACTIONS: ReadonlyArray<readonly [number, number]> = [
+  [1, 2], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
+  [1, 8], [3, 8], [5, 8], [7, 8], [1, 10], [3, 10], [7, 10],
+  [1, 20], [3, 20], [7, 20], [1, 25],
+];
+
+/** Coprime pairs used to build "simplify this fraction" questions. */
+const COPRIME_PAIRS: ReadonlyArray<readonly [number, number]> = [
+  [1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5],
+  [4, 5], [5, 6], [1, 6], [5, 8],
+];
+
+function fractionQuestion(rng: Rng, year: Year, index: number): QuizQuestion {
+  const level = FRACTION_LEVELS[year];
+  const variant = index % 4;
+
+  if (variant === 0) {
+    // a/b of a total
+    const denom = pickOne(rng, level.denoms) ?? 2;
+    const numer = pickInt(rng, 1, denom - 1);
+    const total = denom * pickInt(rng, 2, Math.floor(level.maxTotal / denom));
+    const answer = numer * (total / denom);
+    return {
+      id: `fx-of-${index + 1}`,
+      type: "number",
+      prompt: { zh: `${total} 的 ${numer}/${denom} 是多少？`, en: `What is ${numer}/${denom} of ${total}?` },
+      answer: formatNumber(answer),
+      explanation: {
+        zh: `先除後乘：${total} ÷ ${denom} = ${total / denom}，再 × ${numer} = ${formatNumber(answer)}。`,
+        en: `Divide first, then multiply: ${total} ÷ ${denom} = ${total / denom}, then × ${numer} = ${formatNumber(answer)}.`,
+      },
+    };
   }
+
+  if (variant === 1) {
+    // fraction → decimal
+    const [numer, denom] = pickOne(rng, EASY_FRACTIONS) ?? [1, 2];
+    const answer = numer / denom;
+    return {
+      id: `fx-dec-${index + 1}`,
+      type: "number",
+      prompt: { zh: `把 ${numer}/${denom} 化為小數。`, en: `Write ${numer}/${denom} as a decimal.` },
+      answer: formatNumber(answer),
+      explanation: {
+        zh: `分子除以分母：${numer} ÷ ${denom} = ${formatNumber(answer)}。`,
+        en: `Divide the numerator by the denominator: ${numer} ÷ ${denom} = ${formatNumber(answer)}.`,
+      },
+    };
+  }
+
+  if (variant === 2) {
+    // simplify: numerator or denominator of the simplest form
+    const [x, y] = pickOne(rng, COPRIME_PAIRS) ?? [1, 2];
+    const g = pickInt(rng, 2, 4);
+    const numer = g * x;
+    const denom = g * y;
+    const askNumerator = rng() < 0.5;
+    const answer = askNumerator ? x : y;
+    return {
+      id: `fx-simp-${index + 1}`,
+      type: "number",
+      prompt: askNumerator
+        ? {
+            zh: `把 ${numer}/${denom} 約至最簡分數，分子是多少？`,
+            en: `Simplify ${numer}/${denom}. What is the numerator of the simplest form?`,
+          }
+        : {
+            zh: `把 ${numer}/${denom} 約至最簡分數，分母是多少？`,
+            en: `Simplify ${numer}/${denom}. What is the denominator of the simplest form?`,
+          },
+      answer: String(answer),
+      explanation: {
+        zh: `分子分母同時除以 ${g}，得 ${x}/${y}。`,
+        en: `Divide the top and bottom by ${g} to get ${x}/${y}.`,
+      },
+    };
+  }
+
+  // fraction + fraction as a decimal
+  let first = pickOne(rng, EASY_FRACTIONS) ?? [1, 2];
+  let second = pickOne(rng, EASY_FRACTIONS) ?? [1, 4];
+  if (first[1] === second[1]) second = [1, 4];
+  if (first[1] === second[1]) first = [1, 2];
+  const [a1, d1] = first;
+  const [a2, d2] = second;
+  const v1 = a1 / d1;
+  const v2 = a2 / d2;
+  const answer = v1 + v2;
+  return {
+    id: `fx-add-${index + 1}`,
+    type: "number",
+    prompt: {
+      zh: `${a1}/${d1} + ${a2}/${d2} = ？（以小數作答）`,
+      en: `Work out ${a1}/${d1} + ${a2}/${d2}. Give your answer as a decimal.`,
+    },
+    answer: formatNumber(answer),
+    explanation: {
+      zh: `${a1}/${d1} = ${formatNumber(v1)}，${a2}/${d2} = ${formatNumber(v2)}，相加得 ${formatNumber(answer)}。`,
+      en: `${a1}/${d1} = ${formatNumber(v1)} and ${a2}/${d2} = ${formatNumber(v2)}, so the sum is ${formatNumber(answer)}.`,
+    },
+  };
+}
+
+const DECIMAL_LEVELS: Record<Year, { scale: number; max: number }> = {
+  P4: { scale: 10, max: 99 },
+  P5: { scale: 10, max: 499 },
+  P6: { scale: 100, max: 999 },
+};
+
+function decimalQuestion(rng: Rng, year: Year, index: number): QuizQuestion {
+  const { scale, max } = DECIMAL_LEVELS[year];
+  const variant = index % 4;
+
+  if (variant === 0 || variant === 1) {
+    // add / subtract
+    const add = variant === 0;
+    const aInt = add ? pickInt(rng, 1, max) : pickInt(rng, 2, max);
+    const bInt = add ? pickInt(rng, 1, max) : pickInt(rng, 1, aInt - 1);
+    const a = aInt / scale;
+    const b = bInt / scale;
+    const answer = (add ? aInt + bInt : aInt - bInt) / scale;
+    const expr = `${formatNumber(a)} ${add ? "+" : "−"} ${formatNumber(b)}`;
+    return {
+      id: `dx-arith-${index + 1}`,
+      type: "number",
+      prompt: { zh: `${expr} = ?`, en: `${expr} = ?` },
+      answer: formatNumber(answer),
+      explanation: add
+        ? { zh: `對齊小數點再相加：${expr} = ${formatNumber(answer)}。`, en: `Line up the decimal points, then add: ${expr} = ${formatNumber(answer)}.` }
+        : { zh: `對齊小數點再相減：${expr} = ${formatNumber(answer)}。`, en: `Line up the decimal points, then subtract: ${expr} = ${formatNumber(answer)}.` },
+    };
+  }
+
+  if (variant === 2) {
+    // decimal × whole number
+    const k = pickInt(rng, 2, 9);
+    const aInt = pickInt(rng, 1, Math.floor(max / k));
+    const a = aInt / scale;
+    const answer = (k * aInt) / scale;
+    const expr = `${formatNumber(a)} × ${k}`;
+    return {
+      id: `dx-mul-${index + 1}`,
+      type: "number",
+      prompt: { zh: `${expr} = ?`, en: `${expr} = ?` },
+      answer: formatNumber(answer),
+      explanation: {
+        zh: `先乘再點回小數位：${expr} = ${formatNumber(answer)}。`,
+        en: `Multiply first, then place the decimal point: ${expr} = ${formatNumber(answer)}.`,
+      },
+    };
+  }
+
+  // decimal ÷ whole number
+  const k = pickInt(rng, 2, 9);
+  const qInt = pickInt(rng, 1, Math.floor(max / k));
+  const dividend = (k * qInt) / scale;
+  const answer = qInt / scale;
+  const expr = `${formatNumber(dividend)} ÷ ${k}`;
+  return {
+    id: `dx-div-${index + 1}`,
+    type: "number",
+    prompt: { zh: `${expr} = ?`, en: `${expr} = ?` },
+    answer: formatNumber(answer),
+    explanation: {
+      zh: `先除再點回小數位：${expr} = ${formatNumber(answer)}。`,
+      en: `Divide first, then place the decimal point: ${expr} = ${formatNumber(answer)}.`,
+    },
+  };
+}
+
+/** Four plausible-but-wrong numeric distractors around an answer. */
+function numericChoices(rng: Rng, answer: number, candidates: number[]): string[] {
+  const seen = new Set<number>([answer]);
+  const picks: number[] = [];
+  for (const candidate of [...candidates, answer + 1, answer - 1, answer + 2, answer + 3, answer + 5]) {
+    if (picks.length >= 3) break;
+    if (candidate > 0 && Number.isInteger(candidate) === Number.isInteger(answer) && !seen.has(candidate)) {
+      seen.add(candidate);
+      picks.push(candidate);
+    }
+  }
+  return shuffle(rng, [answer, ...picks]).map((value) => formatNumber(value));
+}
+
+const PRICE_RANGES: Record<Year, [number, number]> = {
+  P4: [8, 20],
+  P5: [15, 50],
+  P6: [20, 90],
+};
+
+const EACH_RANGES: Record<Year, [number, number]> = {
+  P4: [2, 8],
+  P5: [3, 10],
+  P6: [4, 12],
+};
+
+function wordProblemQuestion(rng: Rng, year: Year, index: number): QuizQuestion {
+  const variant = index % 4;
+
+  if (variant === 0) {
+    // shopping: unit price × quantity
+    const [min, max] = PRICE_RANGES[year];
+    const price = pickInt(rng, min, max);
+    const quantity = pickInt(rng, 2, 5);
+    const answer = price * quantity;
+    return {
+      id: `wp-shop-${index + 1}`,
+      type: "mc",
+      prompt: {
+        zh: `一本筆記本售 ${price} 元。陳老師買了 ${quantity} 本，共要付多少元？`,
+        en: `A notebook costs $${price}. Miss Chan buys ${quantity} of them. How much does she pay altogether?`,
+      },
+      choices: numericChoices(rng, answer, [price * (quantity + 1), price * (quantity - 1), price + quantity]),
+      answer: String(answer),
+      explanation: {
+        zh: `每本 ${price} 元：${price} × ${quantity} = ${answer}（元）。`,
+        en: `$${price} each, ${quantity} notebooks: ${price} × ${quantity} = $${answer}.`,
+      },
+    };
+  }
+
+  if (variant === 1) {
+    // sharing: total ÷ friends
+    const [min, max] = EACH_RANGES[year];
+    const friends = pickInt(rng, 2, 9);
+    const each = pickInt(rng, min, max);
+    const total = friends * each;
+    const answer = each;
+    return {
+      id: `wp-share-${index + 1}`,
+      type: "mc",
+      prompt: {
+        zh: `媽媽把 ${total} 顆朱古力平均分給 ${friends} 個孩子，每人可得多少顆？`,
+        en: `Mum shares ${total} chocolates equally among ${friends} children. How many does each child get?`,
+      },
+      choices: numericChoices(rng, answer, [each + 1, each - 1, friends]),
+      answer: String(answer),
+      explanation: {
+        zh: `平均分：${total} ÷ ${friends} = ${answer}（顆）。`,
+        en: `Share them equally: ${total} ÷ ${friends} = ${answer}.`,
+      },
+    };
+  }
+
+  if (variant === 2) {
+    // bus: start − off + on
+    const start = pickInt(rng, 30, 60);
+    const off = pickInt(rng, 5, 20);
+    const on = pickInt(rng, 3, 15);
+    const answer = start - off + on;
+    return {
+      id: `wp-bus-${index + 1}`,
+      type: "mc",
+      prompt: {
+        zh: `巴士上有 ${start} 人。到了下一站，${off} 人下車，${on} 人上車，現在車上有多少人？`,
+        en: `There are ${start} people on a bus. At the next stop, ${off} people get off and ${on} people get on. How many people are on the bus now?`,
+      },
+      choices: numericChoices(rng, answer, [start - off, start + on, start + off - on]),
+      answer: String(answer),
+      explanation: {
+        zh: `${start} − ${off} = ${start - off}，再 + ${on} = ${answer}。`,
+        en: `${start} − ${off} = ${start - off}, then + ${on} = ${answer}.`,
+      },
+    };
+  }
+
+  // change: money left after shopping
+  const have = pickInt(rng, 4, 20) * 5;
+  const price = pickInt(rng, 3, Math.floor(have / 5)) * 5;
+  const answer = have - price;
+  return {
+    id: `wp-change-${index + 1}`,
+    type: "mc",
+    prompt: {
+      zh: `樂樂有 ${have} 元，買了一個 ${price} 元的文具盒，還剩多少元？`,
+      en: `Lucas has $${have} and buys a pencil case for $${price}. How much money is left?`,
+    },
+    choices: numericChoices(rng, answer, [have + price, price, have]),
+    answer: String(answer),
+    explanation: {
+      zh: `${have} − ${price} = ${answer}（元）。`,
+      en: `$${have} − $${price} = $${answer}.`,
+    },
+  };
+}
+
+/** Mix parameterised word problems with the authored bank. */
+function wordProblemQuestions(rng: Rng, request: QuizRequest): QuizQuestion[] {
+  const bank = (getBank("maths", request.topic) ?? []).filter(
+    (item): item is McItem => item.kind === "mc",
+  );
+  const pool = pickYearItems(rng, bank, request.count, request.year);
+  const out: QuizQuestion[] = [];
+  let bankIndex = 0;
+  for (let i = 0; i < request.count; i++) {
+    const useParametric = bankIndex >= pool.length || rng() < 0.6;
+    if (useParametric) {
+      out.push(wordProblemQuestion(rng, request.year, i));
+    } else {
+      out.push(toMcQuestion(pool[bankIndex], bankIndex, rng));
+      bankIndex += 1;
+    }
+  }
+  return out;
+}
+
+/** Mix parameterised questions with the authored number bank. */
+function numberQuestions(
+  parametric: (rng: Rng, year: Year, index: number) => QuizQuestion,
+  rng: Rng,
+  request: QuizRequest,
+): QuizQuestion[] {
+  const bank = (getBank(request.subject, request.topic) ?? []).filter(
+    (item): item is NumberItem => item.kind === "number",
+  );
+  const pool = pickYearItems(rng, bank, request.count, request.year);
+  const out: QuizQuestion[] = [];
+  let bankIndex = 0;
+  for (let i = 0; i < request.count; i++) {
+    const useParametric = bankIndex >= pool.length || rng() < 0.55;
+    if (useParametric) {
+      out.push(parametric(rng, request.year, i));
+    } else {
+      out.push(toNumberQuestion(pool[bankIndex], bankIndex));
+      bankIndex += 1;
+    }
+  }
+  return out;
+}
+
+// ---------------------------------------------------------------------------
+// Dispatch
+// ---------------------------------------------------------------------------
+
+type Strategy = (rng: Rng, request: QuizRequest) => QuizQuestion[];
+
+const STRATEGIES: Record<string, Strategy> = {
+  "chinese/vocab": vocabQuestions,
+  "chinese/reading": fillBankQuestions,
+  "chinese/sentences": fillBankQuestions,
+  "english/vocabulary": fillBankQuestions,
+  "english/reading": mcBankQuestions,
+  "english/grammar": mcBankQuestions,
+  "maths/fractions": (rng, request) => numberQuestions(fractionQuestion, rng, request),
+  "maths/decimals": (rng, request) => numberQuestions(decimalQuestion, rng, request),
+  "maths/word-problems": wordProblemQuestions,
+};
+
+function normalizeCount(count: number): number {
+  return (QUIZ_COUNTS as readonly number[]).includes(count) ? count : QUIZ_COUNTS[0];
+}
+
+function buildQuestions(request: QuizRequest, rng: Rng): QuizQuestion[] {
+  const strategy = STRATEGIES[`${request.subject}/${request.topic}`];
+  const normalised: QuizRequest = { ...request, count: normalizeCount(request.count) };
+  return strategy ? strategy(rng, normalised) : genericBankQuestions(rng, normalised);
 }

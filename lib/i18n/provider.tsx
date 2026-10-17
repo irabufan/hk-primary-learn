@@ -9,17 +9,13 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { dictionaries } from "@/lib/i18n/dict";
-import {
-  DEFAULT_LOCALE,
-  LOCALE_STORAGE_KEY,
-  type Locale,
-} from "@/lib/i18n/types";
+import { dictionaries, type DictKey } from "@/lib/i18n/dict";
+import { DEFAULT_LOCALE, LOCALE_STORAGE_KEY, type Locale } from "@/lib/i18n/types";
 
 type I18nContextValue = {
   locale: Locale;
   setLocale: (locale: Locale) => void;
-  t: (key: string, vars?: Record<string, string | number>) => string;
+  t: (key: DictKey, vars?: Record<string, string | number>) => string;
 };
 
 const I18nContext = createContext<I18nContextValue | null>(null);
@@ -37,21 +33,21 @@ export function I18nProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     try {
-      const stored = localStorage.getItem(LOCALE_STORAGE_KEY);
+      const stored = window.localStorage.getItem(LOCALE_STORAGE_KEY);
       if (stored === "en" || stored === "zh-HK") {
         setLocaleState(stored);
       }
     } catch {
-      /* ignore */
+      /* storage unavailable */
     }
     setReady(true);
   }, []);
 
   useEffect(() => {
     if (!ready) return;
-    document.documentElement.lang = locale === "zh-HK" ? "zh-HK" : "en";
+    document.documentElement.lang = locale;
     try {
-      localStorage.setItem(LOCALE_STORAGE_KEY, locale);
+      window.localStorage.setItem(LOCALE_STORAGE_KEY, locale);
     } catch {
       /* ignore */
     }
@@ -61,14 +57,10 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     setLocaleState(next);
   }, []);
 
-  const t = useCallback(
-    (key: string, vars?: Record<string, string | number>) => {
-      const table = dictionaries[locale] ?? dictionaries["zh-HK"];
-      const fallback = dictionaries["zh-HK"][key] ?? dictionaries.en[key] ?? key;
-      return interpolate(table[key] ?? fallback, vars);
-    },
-    [locale],
-  );
+  const t = useCallback((key: DictKey, vars?: Record<string, string | number>) => {
+    const table = dictionaries[locale] ?? dictionaries.en;
+    return interpolate(table[key] ?? dictionaries.en[key] ?? key, vars);
+  }, [locale]);
 
   const value = useMemo(() => ({ locale, setLocale, t }), [locale, setLocale, t]);
 

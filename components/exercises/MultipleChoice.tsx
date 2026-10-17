@@ -2,100 +2,101 @@
 
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n/provider";
-import type { McItem } from "@/lib/exercises/content";
+import { toText } from "@/lib/i18n/types";
+import type { McItem, OnAnswered } from "@/lib/exercises/types";
 
-type Props = {
-  items: McItem[];
-  onComplete: (score: number, total: number) => void;
+type MultipleChoiceProps = {
+  item: McItem;
+  onAnswered?: OnAnswered;
 };
 
-export function MultipleChoice({ items, onComplete }: Props) {
-  const { t } = useI18n();
-  const [idx, setIdx] = useState(0);
-  const [selected, setSelected] = useState<string | null>(null);
-  const [locked, setLocked] = useState(false);
-  const [score, setScore] = useState(0);
+/** Multiple-choice question with instant feedback and explanation. */
+export function MultipleChoice({ item, onAnswered }: MultipleChoiceProps) {
+  const { locale, t } = useI18n();
+  const [selected, setSelected] = useState<number | null>(null);
+  const answered = selected !== null;
+  const correct = answered && selected === item.answerIndex;
 
-  const item = items[idx]!;
-  const isCorrect = selected === item.answer;
-
-  function check() {
-    if (!selected || locked) return;
-    setLocked(true);
-    if (selected === item.answer) setScore((s) => s + 1);
-  }
-
-  function goNext(currentScore: number) {
-    if (idx + 1 >= items.length) {
-      onComplete(currentScore, items.length);
-      return;
-    }
-    setIdx((i) => i + 1);
-    setSelected(null);
-    setLocked(false);
-  }
-
-  function next() {
-    const currentScore = score;
-    goNext(currentScore);
-  }
+  const handleChoice = (index: number) => {
+    if (answered) return;
+    setSelected(index);
+    onAnswered?.(index === item.answerIndex, item.choices[index]);
+  };
 
   return (
-    <div className="space-y-4">
-      <p className="text-sm font-medium text-indigo-700">
-        {t("common.question", { n: idx + 1 })} · {t("common.of", { a: idx + 1, b: items.length })}
-      </p>
+    <div>
       {item.passage && (
-        <div className="rounded-2xl bg-sky-50 border border-sky-100 p-4 text-ink-soft leading-relaxed whitespace-pre-wrap">
-          {item.passage}
-        </div>
+        <blockquote className="mb-4 rounded-2xl border-2 border-sky-100 bg-sky-50 p-4 text-base font-medium leading-relaxed text-slate-700 whitespace-pre-line">
+          {toText(item.passage, locale)}
+        </blockquote>
       )}
-      <p className="text-lg font-semibold text-ink whitespace-pre-wrap">{item.prompt}</p>
-      <div className="grid gap-2">
-        {item.choices.map((c) => {
-          let cls =
-            "rounded-xl border-2 px-4 py-3 text-left text-base font-medium transition ";
-          if (!locked) {
-            cls +=
-              selected === c
-                ? "border-coral bg-coral/10 text-ink"
-                : "border-line bg-white hover:border-sky-300";
-          } else if (c === item.answer) {
-            cls += "border-lime-500 bg-lime-50 text-ink";
-          } else if (c === selected) {
-            cls += "border-coral bg-coral/15 text-ink line-through opacity-80";
-          } else {
-            cls += "border-line bg-white opacity-60";
-          }
+
+      <h2 className="text-lg font-extrabold leading-relaxed text-indigo-900 sm:text-xl">
+        {toText(item.prompt, locale)}
+      </h2>
+
+      <ul className="mt-4 space-y-2.5">
+        {item.choices.map((choice, index) => {
+          const isCorrect = answered && index === item.answerIndex;
+          const isWrongPick = answered && index === selected && index !== item.answerIndex;
           return (
-            <button
-              key={c}
-              type="button"
-              disabled={locked}
-              className={cls}
-              onClick={() => setSelected(c)}
-            >
-              {c}
-            </button>
+            <li key={choice}>
+              <button
+                type="button"
+                onClick={() => handleChoice(index)}
+                disabled={answered}
+                className={`flex w-full items-center gap-3 rounded-2xl border-4 px-4 py-3.5 text-left text-base font-bold transition ${
+                  isCorrect
+                    ? "animate-pop-in border-lime-500 bg-lime-50 text-lime-900"
+                    : isWrongPick
+                      ? "animate-shake border-coral bg-orange-50 text-orange-900"
+                      : answered
+                        ? "border-slate-200 bg-white text-slate-400"
+                        : "border-slate-200 bg-white text-slate-700 shadow-sm hover:-translate-y-0.5 hover:border-sky-400 hover:bg-sky-50"
+                } ${answered ? "cursor-default" : "cursor-pointer"}`}
+              >
+                <span
+                  aria-hidden
+                  className={`grid h-8 w-8 shrink-0 place-items-center rounded-full text-sm font-extrabold ${
+                    isCorrect
+                      ? "bg-lime-500 text-white"
+                      : isWrongPick
+                        ? "bg-coral text-white"
+                        : "bg-sky-100 text-sky-700"
+                  }`}
+                >
+                  {isCorrect ? "✓" : isWrongPick ? "✗" : String.fromCharCode(65 + index)}
+                </span>
+                <span className="leading-relaxed">{choice}</span>
+              </button>
+            </li>
           );
         })}
-      </div>
-      {locked && (
-        <p className={`font-bold ${isCorrect ? "text-lime-700" : "text-coral"}`}>
-          {isCorrect ? t("common.correct") : t("common.wrong")}
-        </p>
+      </ul>
+
+      {answered && (
+        <div
+          className={`mt-4 animate-pop-in rounded-2xl border-4 p-4 ${
+            correct ? "border-lime-300 bg-lime-50" : "border-orange-300 bg-orange-50"
+          }`}
+        >
+          <p
+            className={`text-base font-extrabold ${correct ? "text-lime-800" : "text-orange-800"}`}
+          >
+            {correct ? `🎉 ${t("common.correct")}` : `💪 ${t("common.wrong")}`}
+          </p>
+          {!correct && (
+            <p className="mt-1 text-sm font-bold text-slate-700">
+              {t("common.answer", { answer: item.choices[item.answerIndex] })}
+            </p>
+          )}
+          {item.explanation && (
+            <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-600">
+              💡 {t("common.explanation")}: {toText(item.explanation, locale)}
+            </p>
+          )}
+        </div>
       )}
-      <div className="flex flex-wrap gap-2 pt-2">
-        {!locked ? (
-          <button type="button" disabled={!selected} onClick={check} className="btn-primary">
-            {t("common.check")}
-          </button>
-        ) : (
-          <button type="button" onClick={next} className="btn-primary">
-            {idx + 1 >= items.length ? t("common.done") : t("common.next")}
-          </button>
-        )}
-      </div>
     </div>
   );
 }

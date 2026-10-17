@@ -1,89 +1,111 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type KeyboardEvent } from "react";
 import { useI18n } from "@/lib/i18n/provider";
-import type { FillItem } from "@/lib/exercises/content";
+import { normalizeAnswer, toText } from "@/lib/i18n/types";
+import type { FillItem, OnAnswered } from "@/lib/exercises/types";
 
-type Props = {
-  items: FillItem[];
-  onComplete: (score: number, total: number) => void;
+type FillBlankProps = {
+  item: FillItem;
+  onAnswered?: OnAnswered;
 };
 
-function norm(s: string): string {
-  return s.trim().toLowerCase().replace(/\s+/g, " ");
-}
-
-export function FillBlank({ items, onComplete }: Props) {
-  const { t } = useI18n();
-  const [idx, setIdx] = useState(0);
+/** Fill-in-the-blank question: type the missing word, get instant feedback. */
+export function FillBlank({ item, onAnswered }: FillBlankProps) {
+  const { locale, t } = useI18n();
   const [value, setValue] = useState("");
-  const [locked, setLocked] = useState(false);
-  const [score, setScore] = useState(0);
+  const [status, setStatus] = useState<"idle" | "correct" | "wrong">("idle");
 
-  const item = items[idx]!;
-  const isCorrect = norm(value) === norm(item.answer);
+  const canSubmit = status === "idle" && value.trim().length > 0;
 
-  function check() {
-    if (!value.trim() || locked) return;
-    setLocked(true);
-    if (norm(value) === norm(item.answer)) setScore((s) => s + 1);
-  }
+  const submit = () => {
+    if (!canSubmit) return;
+    const correct = item.accept.some(
+      (accepted) => normalizeAnswer(accepted) === normalizeAnswer(value),
+    );
+    setStatus(correct ? "correct" : "wrong");
+    onAnswered?.(correct, value.trim());
+  };
 
-  function next() {
-    if (idx + 1 >= items.length) {
-      onComplete(score, items.length);
-      return;
-    }
-    setIdx((i) => i + 1);
-    setValue("");
-    setLocked(false);
-  }
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") submit();
+  };
 
   return (
-    <div className="space-y-4">
-      <p className="text-sm font-medium text-indigo-700">
-        {t("common.question", { n: idx + 1 })} · {t("common.of", { a: idx + 1, b: items.length })}
-      </p>
-      <p className="text-lg font-semibold text-ink whitespace-pre-wrap">{item.prompt}</p>
-      <input
-        type="text"
-        value={value}
-        disabled={locked}
-        onChange={(e) => setValue(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && !locked) check();
-        }}
-        className="w-full rounded-xl border-2 border-line bg-white px-4 py-3 text-lg focus:border-sky-400 focus:outline-none"
-        placeholder="…"
-        autoComplete="off"
-      />
-      {locked && (
-        <div>
-          <p className={`font-bold ${isCorrect ? "text-lime-700" : "text-coral"}`}>
-            {isCorrect ? t("common.correct") : t("common.wrong")}
+    <div>
+      {item.passage && (
+        <blockquote className="mb-4 rounded-2xl border-2 border-sky-100 bg-sky-50 p-4 text-base font-medium leading-relaxed text-slate-700 whitespace-pre-line">
+          {toText(item.passage, locale)}
+        </blockquote>
+      )}
+
+      <h2 className="text-lg font-extrabold leading-relaxed text-indigo-900 sm:text-xl">
+        {toText(item.prompt, locale)}
+      </h2>
+
+      {item.hint && status === "idle" && (
+        <p className="mt-3 inline-block rounded-full bg-amber-100 px-4 py-1.5 text-sm font-bold text-amber-800">
+          💡 {t("common.hint", { text: toText(item.hint, locale) })}
+        </p>
+      )}
+
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <input
+          type="text"
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          onKeyDown={handleKeyDown}
+          disabled={status !== "idle"}
+          aria-label={toText(item.prompt, locale)}
+          autoComplete="off"
+          autoFocus
+          className={`w-full max-w-sm rounded-2xl border-4 px-4 py-3 text-center text-lg font-extrabold text-slate-800 shadow-sm outline-none transition focus:border-sky-400 sm:text-left ${
+            status === "correct"
+              ? "border-lime-500 bg-lime-50"
+              : status === "wrong"
+                ? "animate-shake border-coral bg-orange-50"
+                : "border-sky-200 bg-white"
+          } ${status !== "idle" ? "cursor-default" : ""}`}
+        />
+        <button
+          type="button"
+          onClick={submit}
+          disabled={!canSubmit}
+          className={`rounded-full px-6 py-3 text-base font-extrabold shadow transition ${
+            canSubmit
+              ? "bg-gradient-to-r from-orange-400 to-coral text-white hover:-translate-y-0.5"
+              : "cursor-default bg-slate-200 text-slate-400"
+          }`}
+        >
+          {t("common.check")}
+        </button>
+      </div>
+
+      {status !== "idle" && (
+        <div
+          className={`mt-4 animate-pop-in rounded-2xl border-4 p-4 ${
+            status === "correct" ? "border-lime-300 bg-lime-50" : "border-orange-300 bg-orange-50"
+          }`}
+        >
+          <p
+            className={`text-base font-extrabold ${
+              status === "correct" ? "text-lime-800" : "text-orange-800"
+            }`}
+          >
+            {status === "correct" ? `🎉 ${t("common.correct")}` : `💪 ${t("common.wrong")}`}
           </p>
-          {!isCorrect && (
-            <p className="text-sm text-muted mt-1">
-              {t("quiz.correctAnswer")}: <strong>{item.answer}</strong>
+          {status === "wrong" && (
+            <p className="mt-1 text-sm font-bold text-slate-700">
+              {t("common.answer", { answer: item.accept[0] })}
+            </p>
+          )}
+          {item.explanation && (
+            <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-600">
+              💡 {t("common.explanation")}: {toText(item.explanation, locale)}
             </p>
           )}
         </div>
       )}
-      <div className="flex gap-2">
-        {!locked ? (
-          <button type="button" disabled={!value.trim()} onClick={check} className="btn-primary">
-            {t("common.check")}
-          </button>
-        ) : idx + 1 >= items.length ? (
-          <button type="button" onClick={() => onComplete(score, items.length)} className="btn-primary">
-            {t("common.done")}
-          </button>
-        ) : (
-          <button type="button" onClick={next} className="btn-primary">
-            {t("common.next")}
-          </button>
-        )}
-      </div>
     </div>
   );
 }

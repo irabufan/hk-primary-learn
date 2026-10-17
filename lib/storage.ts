@@ -1,68 +1,93 @@
-import type { Year } from "@/lib/curriculum";
+import { isYear, type SubjectSlug, type Year } from "@/lib/curriculum";
 
 const YEAR_KEY = "hklearn-year";
 const PROGRESS_KEY = "hklearn-progress";
 
-export function getStoredYear(): Year | null {
+const MAX_PROGRESS_ENTRIES = 50;
+
+export type ProgressKind = "exercise" | "quiz";
+
+export type ProgressEntry = {
+  id: string;
+  kind: ProgressKind;
+  subject: SubjectSlug;
+  topic: string;
+  score: number;
+  total: number;
+  at: number;
+};
+
+function safeGet(key: string): string | null {
   if (typeof window === "undefined") return null;
   try {
-    const v = localStorage.getItem(YEAR_KEY);
-    if (v === "P4" || v === "P5" || v === "P6") return v;
+    return window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function safeSet(key: string, value: string): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(key, value);
   } catch {
     /* ignore */
   }
-  return null;
+}
+
+/** Stored year (validated), or null if never saved. */
+export function getStoredYear(): Year | null {
+  const stored = safeGet(YEAR_KEY);
+  return stored && isYear(stored) ? stored : null;
 }
 
 export function setStoredYear(year: Year): void {
-  try {
-    localStorage.setItem(YEAR_KEY, year);
-  } catch {
-    /* ignore */
-  }
+  safeSet(YEAR_KEY, year);
 }
 
-export type ProgressEntry = {
-  subject: string;
-  topic: string;
-  bestScore: number;
-  attempts: number;
-  updatedAt: number;
-};
+function isProgressEntry(value: unknown): value is ProgressEntry {
+  if (typeof value !== "object" || value === null) return false;
+  const entry = value as Partial<ProgressEntry>;
+  return (
+    typeof entry.id === "string" &&
+    (entry.kind === "exercise" || entry.kind === "quiz") &&
+    typeof entry.subject === "string" &&
+    typeof entry.topic === "string" &&
+    typeof entry.score === "number" &&
+    typeof entry.total === "number" &&
+    typeof entry.at === "number"
+  );
+}
 
+/** Best-effort read of the practice history (newest first). */
 export function getProgress(): ProgressEntry[] {
-  if (typeof window === "undefined") return [];
+  const raw = safeGet(PROGRESS_KEY);
+  if (!raw) return [];
   try {
-    const raw = localStorage.getItem(PROGRESS_KEY);
-    if (!raw) return [];
-    return JSON.parse(raw) as ProgressEntry[];
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter(isProgressEntry).slice(0, MAX_PROGRESS_ENTRIES);
   } catch {
     return [];
   }
 }
 
-export function recordProgress(subject: string, topic: string, score: number): void {
+/** Record a finished exercise or quiz (best effort, never throws). */
+export function addProgress(entry: Omit<ProgressEntry, "id" | "at">): ProgressEntry | null {
+  const full: ProgressEntry = {
+    ...entry,
+    id: `p-${Date.now()}-${Math.floor(Math.random() * 1e6)}`,
+    at: Date.now(),
+  };
+  const next = [full, ...getProgress()].slice(0, MAX_PROGRESS_ENTRIES);
+  safeSet(PROGRESS_KEY, JSON.stringify(next));
+  return full;
+}
+
+export function clearProgress(): void {
+  if (typeof window === "undefined") return;
   try {
-    const list = getProgress();
-    const idx = list.findIndex((p) => p.subject === subject && p.topic === topic);
-    if (idx >= 0) {
-      const cur = list[idx]!;
-      list[idx] = {
-        ...cur,
-        bestScore: Math.max(cur.bestScore, score),
-        attempts: cur.attempts + 1,
-        updatedAt: Date.now(),
-      };
-    } else {
-      list.push({
-        subject,
-        topic,
-        bestScore: score,
-        attempts: 1,
-        updatedAt: Date.now(),
-      });
-    }
-    localStorage.setItem(PROGRESS_KEY, JSON.stringify(list));
+    window.localStorage.removeItem(PROGRESS_KEY);
   } catch {
     /* ignore */
   }

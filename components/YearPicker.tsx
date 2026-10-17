@@ -1,34 +1,51 @@
 "use client";
 
-import { YEARS, type Year } from "@/lib/curriculum";
+import { YEARS } from "@/lib/curriculum";
 import { useI18n } from "@/lib/i18n/provider";
+import type { Year } from "@/lib/curriculum";
 
-type Props = {
+type YearPickerProps = {
   value: Year;
   onChange: (year: Year) => void;
+  /** Show the "saved in this browser" note under the control. */
+  note?: boolean;
 };
 
-export function YearPicker({ value, onChange }: Props) {
+/** P4 / P5 / P6 segmented control with big, tappable buttons. */
+export function YearPicker({ value, onChange, note = false }: YearPickerProps) {
   const { t } = useI18n();
+
   return (
     <div>
-      <p className="mb-2 text-sm font-bold text-indigo-800">{t("home.pickYear")}</p>
-      <div className="flex flex-wrap gap-2">
-        {YEARS.map((y) => (
-          <button
-            key={y}
-            type="button"
-            onClick={() => onChange(y)}
-            className={`rounded-2xl px-5 py-3 text-base font-black transition shadow-sm ${
-              value === y
-                ? "bg-coral text-white scale-[1.02]"
-                : "bg-white text-ink border-2 border-line hover:border-coral/40"
-            }`}
-          >
-            {y}
-          </button>
-        ))}
+      <p className="mb-2 text-sm font-extrabold uppercase tracking-wide text-slate-500">
+        {t("year.label")}
+      </p>
+      <div
+        role="radiogroup"
+        aria-label={t("year.label")}
+        className="inline-flex rounded-2xl border-4 border-sky-100 bg-white p-1.5 shadow-sm"
+      >
+        {YEARS.map((year) => {
+          const active = value === year;
+          return (
+            <button
+              key={year}
+              type="button"
+              role="radio"
+              aria-checked={active}
+              onClick={() => onChange(year)}
+              className={`min-w-[4.5rem] rounded-xl px-4 py-2.5 text-lg font-extrabold transition ${
+                active
+                  ? "bg-indigo-600 text-white shadow"
+                  : "text-slate-600 hover:bg-sky-50 hover:text-indigo-700"
+              }`}
+            >
+              {year}
+            </button>
+          );
+        })}
       </div>
+      {note && <p className="mt-2 text-xs font-semibold text-slate-500">💾 {t("year.note")}</p>}
     </div>
   );
 }

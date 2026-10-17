@@ -2,88 +2,100 @@
 
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n/provider";
-import type { NumberItem } from "@/lib/exercises/content";
+import { formatNumber, toText } from "@/lib/i18n/types";
+import type { NumberItem, OnAnswered } from "@/lib/exercises/types";
 
-type Props = {
-  items: NumberItem[];
-  onComplete: (score: number, total: number) => void;
+type NumberInputProps = {
+  item: NumberItem;
+  onAnswered?: OnAnswered;
 };
 
-export function NumberInput({ items, onComplete }: Props) {
-  const { t } = useI18n();
-  const [idx, setIdx] = useState(0);
+/** Type-the-number question with tolerance-based checking. */
+export function NumberInput({ item, onAnswered }: NumberInputProps) {
+  const { locale, t } = useI18n();
   const [value, setValue] = useState("");
-  const [locked, setLocked] = useState(false);
-  const [score, setScore] = useState(0);
+  const [status, setStatus] = useState<"idle" | "correct" | "wrong">("idle");
 
-  const item = items[idx]!;
-  const num = Number(value);
-  const tol = item.tolerance ?? 0;
-  const isCorrect = Number.isFinite(num) && Math.abs(num - item.answer) <= tol;
+  const canSubmit = status === "idle" && value.trim().length > 0;
 
-  function check() {
-    if (value.trim() === "" || locked) return;
-    setLocked(true);
-    if (Number.isFinite(num) && Math.abs(num - item.answer) <= tol) {
-      setScore((s) => s + 1);
-    }
-  }
+  const submit = () => {
+    if (!canSubmit) return;
+    const parsed = Number(value.trim());
+    const tolerance = item.tolerance ?? 1e-6;
+    const correct = Number.isFinite(parsed) && Math.abs(parsed - item.answer) <= tolerance;
+    setStatus(correct ? "correct" : "wrong");
+    onAnswered?.(correct, value.trim());
+  };
 
-  function next() {
-    if (idx + 1 >= items.length) {
-      onComplete(score, items.length);
-      return;
-    }
-    setIdx((i) => i + 1);
-    setValue("");
-    setLocked(false);
-  }
+  const unit = item.unit ? toText(item.unit, locale) : null;
 
   return (
-    <div className="space-y-4">
-      <p className="text-sm font-medium text-indigo-700">
-        {t("common.question", { n: idx + 1 })} · {t("common.of", { a: idx + 1, b: items.length })}
-      </p>
-      <p className="text-lg font-semibold text-ink whitespace-pre-wrap">{item.prompt}</p>
-      <input
-        type="number"
-        step="any"
-        value={value}
-        disabled={locked}
-        onChange={(e) => setValue(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && !locked) check();
-        }}
-        className="w-full max-w-xs rounded-xl border-2 border-line bg-white px-4 py-3 text-lg focus:border-sky-400 focus:outline-none"
-        placeholder="0"
-      />
-      {locked && (
-        <div>
-          <p className={`font-bold ${isCorrect ? "text-lime-700" : "text-coral"}`}>
-            {isCorrect ? t("common.correct") : t("common.wrong")}
+    <div>
+      <h2 className="text-lg font-extrabold leading-relaxed text-indigo-900 sm:text-xl">
+        {toText(item.prompt, locale)}
+      </h2>
+
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <input
+          type="text"
+          inputMode="decimal"
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") submit();
+          }}
+          disabled={status !== "idle"}
+          aria-label={toText(item.prompt, locale)}
+          autoComplete="off"
+          autoFocus
+          className={`w-40 rounded-2xl border-4 px-4 py-3 text-center text-2xl font-extrabold text-slate-800 shadow-sm outline-none transition focus:border-sky-400 ${
+            status === "correct"
+              ? "border-lime-500 bg-lime-50"
+              : status === "wrong"
+                ? "animate-shake border-coral bg-orange-50"
+                : "border-sky-200 bg-white"
+          } ${status !== "idle" ? "cursor-default" : ""}`}
+        />
+        {unit && <span className="text-lg font-extrabold text-slate-500">{unit}</span>}
+        <button
+          type="button"
+          onClick={submit}
+          disabled={!canSubmit}
+          className={`rounded-full px-6 py-3 text-base font-extrabold shadow transition ${
+            canSubmit
+              ? "bg-gradient-to-r from-orange-400 to-coral text-white hover:-translate-y-0.5"
+              : "cursor-default bg-slate-200 text-slate-400"
+          }`}
+        >
+          {t("common.check")}
+        </button>
+      </div>
+
+      {status !== "idle" && (
+        <div
+          className={`mt-4 animate-pop-in rounded-2xl border-4 p-4 ${
+            status === "correct" ? "border-lime-300 bg-lime-50" : "border-orange-300 bg-orange-50"
+          }`}
+        >
+          <p
+            className={`text-base font-extrabold ${
+              status === "correct" ? "text-lime-800" : "text-orange-800"
+            }`}
+          >
+            {status === "correct" ? `🎉 ${t("common.correct")}` : `💪 ${t("common.wrong")}`}
           </p>
-          {!isCorrect && (
-            <p className="text-sm text-muted mt-1">
-              {t("quiz.correctAnswer")}: <strong>{item.answer}</strong>
+          {status === "wrong" && (
+            <p className="mt-1 text-sm font-bold text-slate-700">
+              {t("common.answer", { answer: formatNumber(item.answer) })}
+            </p>
+          )}
+          {item.explanation && (
+            <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-600">
+              💡 {t("common.explanation")}: {toText(item.explanation, locale)}
             </p>
           )}
         </div>
       )}
-      <div className="flex gap-2">
-        {!locked ? (
-          <button type="button" disabled={value.trim() === ""} onClick={check} className="btn-primary">
-            {t("common.check")}
-          </button>
-        ) : idx + 1 >= items.length ? (
-          <button type="button" onClick={() => onComplete(score, items.length)} className="btn-primary">
-            {t("common.done")}
-          </button>
-        ) : (
-          <button type="button" onClick={next} className="btn-primary">
-            {t("common.next")}
-          </button>
-        )}
-      </div>
     </div>
   );
 }

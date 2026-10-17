@@ -1,9 +1,9 @@
-import type { Metadata, Viewport } from "next";
-import { Outfit, Noto_Sans_TC } from "next/font/google";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
-import { Providers } from "@/components/Providers";
+import type { Metadata } from "next";
+import { Noto_Sans_TC, Outfit } from "next/font/google";
 import "./globals.css";
+import { Providers } from "@/components/Providers";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -11,48 +11,33 @@ const outfit = Outfit({
   display: "swap",
 });
 
-const notoSansTC = Noto_Sans_TC({
-  subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
-  variable: "--font-noto-sans-tc",
+// CJK fonts must not be preloaded (they ship many unicode-range subsets).
+const notoTC = Noto_Sans_TC({
+  preload: false,
+  variable: "--font-noto-tc",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "HK Learn — 小學中英數 POC",
-    template: "%s · HK Learn",
+    default: "香港小學學園 · HK Primary Learn",
+    template: "%s · 香港小學學園 HK Primary Learn",
   },
   description:
-    "Hong Kong primary P4–P6 learning POC: Chinese, English, Maths. Interactive exercises and mock quiz generation. 繁體 / EN.",
-  applicationName: "HK Learn",
+    "香港小四至小六學習樂園：中文、英文、數學互動練習與小測驗生成器。A bright P4–P6 learning playground for Hong Kong: Chinese, English and Maths exercises plus a quiz generator.",
 };
 
-export const viewport: Viewport = {
-  themeColor: "#4338ca",
-  width: "device-width",
-  initialScale: 1,
-};
-
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html
-      lang="zh-HK"
-      className={`${outfit.variable} ${notoSansTC.variable}`}
-      suppressHydrationWarning
-    >
-      <body className="flex min-h-screen flex-col antialiased">
+    <html lang="zh-HK">
+      <body className={`${outfit.variable} ${notoTC.variable} antialiased`}>
         <Providers>
-          <a
-            href="#content"
-            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-amber-300 focus:px-4 focus:py-2 focus:font-semibold focus:text-ink"
-          >
-            Skip to content
-          </a>
           <Header />
-          <main id="content" className="flex-1">
-            {children}
-          </main>
+          <main className="mx-auto w-full max-w-5xl px-4 pb-16 pt-8 sm:px-6">{children}</main>
           <Footer />
         </Providers>
       </body>

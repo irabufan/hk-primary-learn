@@ -1,34 +1,59 @@
-import type { SubjectId, Year } from "@/lib/curriculum";
+import type { SubjectSlug, Year } from "@/lib/curriculum";
+import type { Localized } from "@/lib/i18n/types";
 
-export type QuestionType = "mc" | "fill" | "number";
+export type QuizQuestionType = "mc" | "fill" | "number";
 
 export type QuizQuestion = {
   id: string;
-  type: QuestionType;
-  prompt: string;
+  type: QuizQuestionType;
+  prompt: Localized;
+  passage?: Localized;
+  /** Present for "mc" questions. */
   choices?: string[];
-  answer: string | number;
-  explanation?: string;
+  /** Canonical answer: exact choice text (mc), accepted word (fill), or number string (number). */
+  answer: string;
+  /** Extra accepted spellings for "fill" questions (the answer is always included). */
+  accepts?: string[];
+  hint?: Localized;
+  explanation?: Localized;
 };
 
 export type Quiz = {
   id: string;
-  subject: SubjectId;
+  subject: SubjectSlug;
   topic: string;
   year: Year;
   questions: QuizQuestion[];
   seed: number;
 };
 
-export type GenerateOpts = {
-  subject: SubjectId;
+export const QUIZ_COUNTS = [5, 8, 10] as const;
+
+export type QuizCount = (typeof QUIZ_COUNTS)[number];
+
+export type QuizRequest = {
+  subject: SubjectSlug;
   topic: string;
   year: Year;
   count: number;
-  seed?: number;
+  /** Changing the seed changes the quiz. */
+  seed: number;
 };
 
-/** Swap implementations without rewriting the quiz UI. */
+/** The seam the UI depends on — a real LLM adapter can implement the same shape. */
 export interface QuizGenerator {
-  generate(opts: GenerateOpts): Promise<Quiz>;
+  generate(request: QuizRequest): Promise<Quiz>;
 }
+
+/** One answered question, kept for the results review. */
+export type QuizAnswer = {
+  questionId: string;
+  given: string;
+  correct: boolean;
+};
+
+export type QuizResult = {
+  correct: number;
+  total: number;
+  answers: QuizAnswer[];
+};

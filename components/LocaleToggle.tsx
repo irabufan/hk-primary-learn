@@ -1,40 +1,40 @@
 "use client";
 
 import { useI18n } from "@/lib/i18n/provider";
-import type { Locale } from "@/lib/i18n/types";
 
-export function LocaleToggle({ className = "" }: { className?: string }) {
+/** EN | 繁體 segmented toggle — persists to localStorage via the provider. */
+export function LocaleToggle() {
   const { locale, setLocale, t } = useI18n();
-
-  function select(next: Locale) {
-    setLocale(next);
-  }
 
   return (
     <div
-      className={`inline-flex items-center rounded-full border border-white/30 bg-white/10 p-0.5 text-[12px] font-semibold ${className}`}
       role="group"
       aria-label={t("locale.aria")}
+      className="inline-flex rounded-full border-2 border-sky-100 bg-white p-1 shadow-sm"
     >
       <button
         type="button"
-        className={`rounded-full px-2.5 py-1 transition ${
-          locale === "zh-HK" ? "bg-white text-indigo-800 font-bold" : "text-white/80 hover:text-white"
+        aria-pressed={locale === "en"}
+        onClick={() => setLocale("en")}
+        className={`min-w-[3.5rem] rounded-full px-3 py-1.5 text-sm font-extrabold transition ${
+          locale === "en"
+            ? "bg-indigo-600 text-white shadow"
+            : "text-slate-500 hover:bg-sky-50 hover:text-indigo-700"
         }`}
-        aria-pressed={locale === "zh-HK"}
-        onClick={() => select("zh-HK")}
       >
-        {t("locale.zh")}
+        EN
       </button>
       <button
         type="button"
-        className={`rounded-full px-2.5 py-1 transition ${
-          locale === "en" ? "bg-white text-indigo-800 font-bold" : "text-white/80 hover:text-white"
+        aria-pressed={locale === "zh-HK"}
+        onClick={() => setLocale("zh-HK")}
+        className={`min-w-[3.5rem] rounded-full px-3 py-1.5 text-sm font-extrabold transition ${
+          locale === "zh-HK"
+            ? "bg-indigo-600 text-white shadow"
+            : "text-slate-500 hover:bg-sky-50 hover:text-indigo-700"
         }`}
-        aria-pressed={locale === "en"}
-        onClick={() => select("en")}
       >
-        {t("locale.en")}
+        繁體
       </button>
     </div>
   );

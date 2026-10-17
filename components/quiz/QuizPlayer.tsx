@@ -2,16 +2,13 @@
 
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n/provider";
+import { normalizeAnswer, toText } from "@/lib/i18n/types";
 import type { Quiz, QuizQuestion } from "@/lib/quiz/types";
 
 type Props = {
   quiz: Quiz;
-  onFinish: (score: number, answers: (string | number | null)[]) => void;
+  onFinish: (score: number) => void;
 };
-
-function norm(s: string): string {
-  return s.trim().toLowerCase().replace(/\s+/g, " ");
-}
 
 function isRight(q: QuizQuestion, val: string | number | null): boolean {
   if (val === null || val === "") return false;
@@ -19,11 +16,13 @@ function isRight(q: QuizQuestion, val: string | number | null): boolean {
     const n = typeof val === "number" ? val : Number(val);
     return Number.isFinite(n) && Math.abs(n - Number(q.answer)) < 0.011;
   }
-  return norm(String(val)) === norm(String(q.answer));
+  const given = normalizeAnswer(String(val));
+  const accepted = [q.answer, ...(q.accepts ?? [])].map((a) => normalizeAnswer(String(a)));
+  return accepted.includes(given);
 }
 
 export function QuizPlayer({ quiz, onFinish }: Props) {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const [idx, setIdx] = useState(0);
   const [answers, setAnswers] = useState<(string | number | null)[]>(
     () => quiz.questions.map(() => null),
@@ -56,12 +55,11 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
 
   function next() {
     if (idx + 1 >= quiz.questions.length) {
-      const finalAnswers = answers;
       let score = 0;
       quiz.questions.forEach((qq, i) => {
-        if (isRight(qq, finalAnswers[i] ?? null)) score += 1;
+        if (isRight(qq, answers[i] ?? null)) score += 1;
       });
-      onFinish(score, finalAnswers);
+      onFinish(score);
       return;
     }
     setIdx((i) => i + 1);
@@ -76,12 +74,18 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
     <div className="card space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="text-sm font-medium text-indigo-700">
-          {t("common.question", { n: idx + 1 })} ·{" "}
-          {t("common.of", { a: idx + 1, b: quiz.questions.length })}
+          {t("quiz.progress", { current: idx + 1, total: quiz.questions.length })}
         </p>
-        <p className="text-xs text-muted">{t("quiz.seed", { seed: quiz.seed })}</p>
+        <p className="text-xs text-muted">seed {quiz.seed}</p>
       </div>
-      <p className="text-lg font-semibold text-ink whitespace-pre-wrap">{q.prompt}</p>
+
+      {q.passage && (
+        <blockquote className="rounded-2xl border-2 border-sky-100 bg-sky-50 p-4 text-base font-medium leading-relaxed text-slate-700 whitespace-pre-wrap">
+          {toText(q.passage, locale)}
+        </blockquote>
+      )}
+
+      <p className="text-lg font-semibold text-ink whitespace-pre-wrap">{toText(q.prompt, locale)}</p>
 
       {q.type === "mc" && q.choices && (
         <div className="grid gap-2">
@@ -133,13 +137,13 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
           </p>
           {!correctNow && (
             <p className="text-sm text-muted mt-1">
-              {t("quiz.correctAnswer")}: <strong>{String(q.answer)}</strong>
+              {t("common.answer", { answer: String(q.answer) })}
             </p>
           )}
           {q.explanation && (
             <p className="mt-2 text-sm text-ink-soft">
               <span className="font-semibold">{t("common.explanation")}: </span>
-              {q.explanation}
+              {toText(q.explanation, locale)}
             </p>
           )}
         </div>
@@ -157,7 +161,7 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
           </button>
         ) : (
           <button type="button" className="btn-primary" onClick={next}>
-            {idx + 1 >= quiz.questions.length ? t("common.finish") : t("common.next")}
+            {idx + 1 >= quiz.questions.length ? t("quiz.finish") : t("common.next")}
           </button>
         )}
       </div>
