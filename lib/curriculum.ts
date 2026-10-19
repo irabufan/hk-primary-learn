@@ -6,9 +6,9 @@ export const YEARS: readonly Year[] = ["P1", "P2", "P3", "P4", "P5", "P6"];
 
 export const DEFAULT_YEAR: Year = "P4";
 
-export type SubjectSlug = "chinese" | "english" | "maths";
+export type SubjectSlug = "chinese" | "english" | "maths" | "gs";
 
-export const SUBJECT_SLUGS: readonly SubjectSlug[] = ["chinese", "english", "maths"];
+export const SUBJECT_SLUGS: readonly SubjectSlug[] = ["chinese", "english", "maths", "gs"];
 
 export type ExerciseKind = "match" | "fill" | "mc" | "number";
 
@@ -127,6 +127,47 @@ export const SUBJECTS: Subject[] = [
         icon: "🛒",
         name: { zh: "應用題", en: "Word problems" },
         blurb: { zh: "讀題目，選出正確答案。", en: "Read the problem and pick the right answer." },
+        exerciseKind: "mc",
+      },
+    ],
+  },
+  {
+    slug: "gs",
+    icon: "🌍",
+    name: { zh: "常識", en: "General Studies" },
+    tagline: { zh: "健康、社區、自然科學", en: "Health, community, nature & science" },
+    gradient: "from-emerald-400 via-teal-400 to-cyan-500",
+    soft: "bg-emerald-100 text-emerald-700",
+    ring: "hover:border-emerald-300",
+    topics: [
+      {
+        slug: "healthy-living",
+        icon: "💪",
+        name: { zh: "健康生活", en: "Healthy living" },
+        blurb: {
+          zh: "衛生、飲食、運動與安全。",
+          en: "Hygiene, food, exercise and safety.",
+        },
+        exerciseKind: "match",
+      },
+      {
+        slug: "community",
+        icon: "🏘️",
+        name: { zh: "社區與生活", en: "Community" },
+        blurb: {
+          zh: "社區工作者、交通、規則與環保（港鐵、街市、回收）。",
+          en: "Helpers, transport, rules and the environment (MTR, wet market, recycling).",
+        },
+        exerciseKind: "mc",
+      },
+      {
+        slug: "nature-science",
+        icon: "🔬",
+        name: { zh: "自然與科學", en: "Nature & science" },
+        blurb: {
+          zh: "動植物、天氣與簡易科學，按年級調適難度。",
+          en: "Plants, animals, weather and simple science — year-appropriate.",
+        },
         exerciseKind: "mc",
       },
     ],

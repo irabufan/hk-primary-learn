@@ -9,6 +9,7 @@ const LINKS: ReadonlyArray<{ href: string; key: DictKey }> = [
   { href: "/subject/chinese", key: "nav.chinese" },
   { href: "/subject/english", key: "nav.english" },
   { href: "/subject/maths", key: "nav.maths" },
+  { href: "/subject/gs", key: "nav.gs" },
   { href: "/quiz", key: "nav.quiz" },
 ];
 

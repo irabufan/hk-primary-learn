@@ -59,7 +59,7 @@ export async function POST(request: Request) {
   }
 
   if (!isValidSubject(body.subject)) {
-    return badRequest("subject must be chinese | english | maths");
+    return badRequest("subject must be chinese | english | maths | gs");
   }
   if (typeof body.topic !== "string" || !body.topic.trim()) {
     return badRequest("topic is required");

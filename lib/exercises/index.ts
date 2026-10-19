@@ -3,12 +3,14 @@ import { mulberry32, randomSeed, shuffle } from "@/lib/rng";
 import { chineseBank } from "./chinese";
 import { englishBank } from "./english";
 import { mathsBank } from "./maths";
+import { gsBank } from "./gs";
 import { suitsYear, type ExerciseBank, type ExerciseItem } from "./types";
 
 const BANKS: Record<SubjectSlug, ExerciseBank> = {
   chinese: chineseBank,
   english: englishBank,
   maths: mathsBank,
+  gs: gsBank,
 };
 
 /** How many questions (or pairs) make one exercise session. */

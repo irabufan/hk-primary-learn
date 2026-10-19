@@ -62,6 +62,9 @@ const TOPIC_LABELS: Record<string, { zh: string; en: string }> = {
   "maths/fractions": { zh: "分數", en: "Fractions" },
   "maths/decimals": { zh: "小數", en: "Decimals" },
   "maths/word-problems": { zh: "應用題", en: "Word problems" },
+  "gs/healthy-living": { zh: "健康生活", en: "Healthy living" },
+  "gs/community": { zh: "社區與生活", en: "Community" },
+  "gs/nature-science": { zh: "自然與科學", en: "Nature & science" },
 };
 
 function topicLabel(subject: SubjectSlug, topic: string): { zh: string; en: string } {
@@ -86,6 +89,16 @@ function languageGuidance(subject: SubjectSlug): string {
       "- Grammar / vocabulary / reading stems must be English sentences or English blanks (e.g. \"My sister ___ to school by bus every day.\" with choices go/goes/going/went).",
       "- NEVER write Traditional Chinese question stems for English quizzes. zh may be a brief Traditional Chinese gloss of the English stem, or omitted.",
       "- Choices and answers MUST be English (or English grammar forms), never Chinese characters as the answer options for an English grammar item.",
+    ].join(" ");
+  }
+  if (subject === "gs") {
+    return [
+      "LANGUAGE (gs / 常識 subject — CRITICAL):",
+      "- Primary learning content MUST be Traditional Chinese (zh): prompts, passages, explanations, hints, MC choices, and answers.",
+      "- NEVER write English-only question stems for 常識 quizzes. Stems must be Traditional Chinese (HK primary General Studies flavour).",
+      "- en may be omitted, or a brief English gloss only — never use en as the primary stem while zh is missing or weaker.",
+      "- Choices and answers MUST be Traditional Chinese (or short HK-familiar terms), never English-only options for a 常識 item.",
+      "- Topics: healthy living, community (MTR / wet market / recycling), nature & science — kid-friendly HK daily life; keep national-identity content light or skip.",
     ].join(" ");
   }
   return [
@@ -300,7 +313,7 @@ function isChineseHeavy(text: string | undefined): boolean {
  * For english subject: ensure zh-HK UI (toText prefers zh) still shows English
  * learning content by using en as the display source (copy en → zh).
  * Heuristic: if zh is Chinese-heavy and en is missing/unusable, blank the field.
- * For chinese subject: ensure EN UI (toText prefers en) still shows Traditional
+ * For chinese / gs subjects: ensure EN UI (toText prefers en) still shows Traditional
  * Chinese by copying zh → en. Heuristic: if en is Latin-heavy with no usable zh,
  * blank the field. Maths: no-op.
  */
@@ -327,7 +340,7 @@ export function normalizeLocalizedForSubject(
     return undefined;
   }
 
-  if (subject === "chinese") {
+  if (subject === "chinese" || subject === "gs") {
     // Usable Chinese → always mirror to en so toText("en") shows Traditional Chinese learning content.
     if (zh && isChineseHeavy(zh)) {
       return { zh, en: zh };
@@ -336,7 +349,7 @@ export function normalizeLocalizedForSubject(
     if (en && isChineseHeavy(en)) {
       return { zh: en, en };
     }
-    // Latin-heavy en with no usable Chinese stem → blank (do not show English on Chinese quizzes).
+    // Latin-heavy en with no usable Chinese stem → blank (do not show English on Chinese/GS quizzes).
     if (en && isMostlyEnglish(en)) {
       return undefined;
     }
@@ -356,7 +369,7 @@ export function normalizeLocalizedForSubject(
  */
 export function normalizeQuizForSubject(quiz: Quiz): Quiz {
   const { subject } = quiz;
-  if (subject !== "english" && subject !== "chinese") {
+  if (subject !== "english" && subject !== "chinese" && subject !== "gs") {
     return quiz;
   }
 
@@ -365,7 +378,9 @@ export function normalizeQuizForSubject(quiz: Quiz): Quiz {
     // prompt is required; if subject wiped a wrong-language stem, use empty rather than keeping it.
     const prompt: Localized =
       normalizedPrompt ??
-      (subject === "english" || subject === "chinese" ? { en: "", zh: "" } : q.prompt);
+      (subject === "english" || subject === "chinese" || subject === "gs"
+        ? { en: "", zh: "" }
+        : q.prompt);
 
     const next: QuizQuestion = { ...q, prompt };
 
@@ -492,5 +507,5 @@ export function isValidYear(value: unknown): value is Year {
 }
 
 export function isValidSubject(value: unknown): value is SubjectSlug {
-  return value === "chinese" || value === "english" || value === "maths";
+  return value === "chinese" || value === "english" || value === "maths" || value === "gs";
 }

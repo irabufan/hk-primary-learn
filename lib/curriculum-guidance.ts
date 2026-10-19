@@ -109,6 +109,35 @@ const GUIDANCE: GuidanceBlock[] = [
       "HK flavour: $ amounts, bus/ferry, school shopping.",
     ],
   },
+
+  {
+    band: "KS1",
+    subject: "gs",
+    lines: [
+      "Band: KS1 (P1–P3). 常識: everyday healthy habits, community helpers, simple nature.",
+      "Keep stems short Traditional Chinese; picture/everyday HK life (handwashing, MTR, wet market, plants/weather).",
+      "Avoid: abstract civic theory, dense science jargon, national-identity essays.",
+    ],
+    topics: {
+      "healthy-living": ["Hygiene, food, exercise, road safety — concrete yes/no or match."],
+      community: ["Helpers, transport (MTR), library/market rules, simple recycling."],
+      "nature-science": ["Plants need sun/water; animals; rain/clouds — literal MC."],
+    },
+  },
+  {
+    band: "KS2",
+    subject: "gs",
+    lines: [
+      "Band: KS2 (P4–P6). Richer 常識: prevention, environment, simple science concepts.",
+      "Traditional Chinese stems; HK examples (recycling, magnets, water cycle, renewable energy lightly).",
+      "Keep national-identity content light or skip for this POC.",
+    ],
+    topics: {
+      "healthy-living": ["Balanced diet, sleep, disease prevention, traffic safety."],
+      community: ["Recycling, caring for public spaces, community roles."],
+      "nature-science": ["States of water, magnets, moon reflection, solar energy — year-appropriate."],
+    },
+  },
 ];
 
 /**

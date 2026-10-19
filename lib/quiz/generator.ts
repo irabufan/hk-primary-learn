@@ -1,6 +1,7 @@
 import type { Year } from "@/lib/curriculum";
 import { formatNumber } from "@/lib/i18n/types";
 import { chineseBank } from "@/lib/exercises/chinese";
+import { gsBank } from "@/lib/exercises/gs";
 import { getBank } from "@/lib/exercises";
 import type { FillItem, MatchPair, McItem, NumberItem } from "@/lib/exercises/types";
 import { suitsYear } from "@/lib/exercises/types";
@@ -139,6 +140,53 @@ function fillBankQuestions(rng: Rng, request: QuizRequest): QuizQuestion[] {
     (item): item is FillItem => item.kind === "fill",
   );
   return pickYearItems(rng, bank, request.count, request.year).map(toFillQuestion);
+}
+
+
+const gsHealthyPairs: MatchPair[] =
+  gsBank["healthy-living"].find((item) => item.kind === "match")?.pairs ?? [];
+
+function gsHealthyLivingQuestions(rng: Rng, request: QuizRequest): QuizQuestion[] {
+  const mcFill = (getBank("gs", "healthy-living") ?? []).filter(
+    (item) => item.kind === "mc" || item.kind === "fill",
+  );
+  // Prefer MC/fill when available; also turn match pairs into MC like chinese vocab.
+  const fromPairs =
+    gsHealthyPairs.length === 0
+      ? []
+      : pickYearItems(rng, gsHealthyPairs, request.count, request.year).map((pair, index) => {
+          const distractors = shuffle(
+            rng,
+            gsHealthyPairs.filter((other) => other.id !== pair.id),
+          )
+            .slice(0, 3)
+            .map((other) => other.right);
+          const choices = shuffle(rng, [pair.right, ...distractors]);
+          return {
+            id: `${pair.id}-q${index + 1}`,
+            type: "mc" as const,
+            prompt: {
+              zh: `「${pair.left}」是甚麼意思？選出正確的解釋。`,
+              // Keep 繁體 under EN UI (gs language rule — same as chinese normalize).
+              en: `「${pair.left}」是甚麼意思？選出正確的解釋。`,
+            },
+            choices,
+            answer: pair.right,
+            explanation: {
+              zh: `「${pair.left}」的意思是「${pair.right}」。`,
+              en: `「${pair.left}」的意思是「${pair.right}」。`,
+            },
+          };
+        });
+  if (fromPairs.length >= request.count) return fromPairs.slice(0, request.count);
+  // Top up with authored MC/fill
+  const extra = pickYearItems(rng, mcFill, request.count - fromPairs.length, request.year).map(
+    (item, index) => {
+      if (item.kind === "mc") return toMcQuestion(item, fromPairs.length + index, rng);
+      return toFillQuestion(item, fromPairs.length + index);
+    },
+  );
+  return [...fromPairs, ...extra].slice(0, request.count);
 }
 
 // ---------------------------------------------------------------------------
@@ -591,6 +639,9 @@ const STRATEGIES: Record<string, Strategy> = {
   "maths/fractions": (rng, request) => numberQuestions(fractionQuestion, rng, request),
   "maths/decimals": (rng, request) => numberQuestions(decimalQuestion, rng, request),
   "maths/word-problems": wordProblemQuestions,
+  "gs/healthy-living": gsHealthyLivingQuestions,
+  "gs/community": genericBankQuestions,
+  "gs/nature-science": genericBankQuestions,
 };
 
 function normalizeCount(count: number): number {

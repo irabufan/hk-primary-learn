@@ -1,6 +1,6 @@
 # HK Learn — Primary P1–P6 POC
 
-Hong Kong primary learning demo for **中文 / English / Maths** (P1–P6).
+Hong Kong primary learning demo for **中文 / English / Maths / 常識 (GS)** (P1–P6).
 
 **Live:** https://hk-primary-learn.vercel.app
 
@@ -59,7 +59,7 @@ When the base host is OpenCode (`opencode.ai`), the client also sends a stable `
 ## Features (v0)
 
 - Home: pick year (P1–P6) + subject
-- Subject hubs with 3 topics each (HK curriculum flavour)
+- Subject hubs with 3 topics each across 4 subjects (HK curriculum flavour)
 - Interactive exercises: match pairs, fill-blank, multiple choice, number input
 - Quiz generator: subject + topic + year + count → live LLM or mock
 - Locale toggle 繁體 / EN (persists in `localStorage`)
