@@ -23,6 +23,10 @@ type ExerciseExperienceProps = {
 /**
  * Interactive exercise session: plays through the topic's exercise items with
  * instant feedback, then shows a score panel with retry / quiz links.
+ *
+ * Renders by per-item kind so mixed banks (e.g. 常識 healthy-living: match +
+ * mc + fill) never show a blank card. A session that is exactly one match
+ * board still uses the full-board UX (pair-level scoring).
  */
 export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExperienceProps) {
   const { locale, t } = useI18n();
@@ -52,10 +56,31 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
     );
   }
 
-  const total =
-    session.length === 1 && session[0].kind === "match" ? session[0].pairs.length : session.length;
-  const score =
-    matchResult?.correct ?? results.filter(Boolean).length;
+  if (session.length === 0) {
+    return (
+      <div className="rounded-3xl border-4 border-sky-100 bg-white p-10 text-center shadow-sm space-y-4">
+        <h1 className="text-2xl font-extrabold text-indigo-800">
+          找不到練習 / No exercises
+        </h1>
+        <p className="text-sm font-semibold text-slate-500">
+          這個題目暫時沒有適合的練習內容。
+        </p>
+        <Link
+          href={subjectPath(subject.slug, year)}
+          className="btn-primary inline-flex"
+        >
+          ← {t("exercise.backToSubject", { subject: toText(subject.name, locale) })}
+        </Link>
+      </div>
+    );
+  }
+
+  const matchOnly = session.length === 1 && session[0].kind === "match" ? session[0] : null;
+  const pureMatch = matchOnly !== null;
+  const total = matchOnly ? matchOnly.pairs.length : session.length;
+  const score = matchOnly
+    ? (matchResult?.correct ?? results.filter(Boolean).length)
+    : results.filter(Boolean).length;
 
   const finish = (finalScore: number) => {
     setFinished(true);
@@ -82,6 +107,13 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
     finish(result.correct);
   };
 
+  /** Match board as one question in a mixed session. */
+  const handleSequentialMatchComplete = (result: MatchResult) => {
+    if (answered) return;
+    setMatchResult(result);
+    handleAnswered(result.misses === 0);
+  };
+
   const retry = () => {
     setSession(buildSession());
     setIndex(0);
@@ -101,6 +133,28 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
           ? t("score.good")
           : t("score.again");
 
+  const currentItem = session[index];
+  const kindBadge = pureMatch
+    ? topic.exerciseKind
+    : currentItem?.kind ?? topic.exerciseKind;
+
+  const renderItem = (item: ExerciseItem) => {
+    if (item.kind === "mc") return <MultipleChoice item={item} onAnswered={handleAnswered} />;
+    if (item.kind === "fill") return <FillBlank item={item} onAnswered={handleAnswered} />;
+    if (item.kind === "number") return <NumberInput item={item} onAnswered={handleAnswered} />;
+    if (item.kind === "match") {
+      return (
+        <div>
+          <h2 className="mb-4 text-xl font-extrabold text-indigo-800 sm:text-2xl">
+            {toText(item.title, locale)}
+          </h2>
+          <MatchPairs item={item} onComplete={handleSequentialMatchComplete} />
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="space-y-5">
       {/* Header */}
@@ -118,7 +172,7 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
           {t("year.badge")}: {year}
         </span>
         <span className="ml-auto rounded-full bg-slate-100 px-4 py-2 text-sm font-extrabold text-slate-600">
-          {topic.icon} {toText(topic.name, locale)} · {t(`kind.${topic.exerciseKind}`)}
+          {topic.icon} {toText(topic.name, locale)} · {t(`kind.${kindBadge}`)}
         </span>
       </div>
 
@@ -152,14 +206,14 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
             </Link>
           </div>
         </section>
-      ) : session.length === 1 && session[0].kind === "match" ? (
-        /* Match-pairs topic: the whole board is one question */
+      ) : pureMatch && session[0].kind === "match" ? (
+        /* Match-pairs-only topic: the whole board is one question */
         <section className="rounded-3xl border-4 border-sky-100 bg-white p-6 shadow-sm sm:p-8">
           <h1 className="mb-4 text-2xl font-extrabold text-indigo-800">{toText(session[0].title, locale)}</h1>
           <MatchPairs item={session[0]} onComplete={handleMatchComplete} />
         </section>
       ) : (
-        /* One-at-a-time questions */
+        /* One-at-a-time questions — render by each item's own kind */
         <>
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm font-extrabold text-indigo-700">
@@ -188,16 +242,10 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
           </div>
 
           <section
-            key={session[index].id ?? index}
+            key={currentItem.id ?? index}
             className="animate-pop-in rounded-3xl border-4 border-sky-100 bg-white p-6 shadow-sm sm:p-8"
           >
-            {(() => {
-              const item = session[index];
-              if (item.kind === "mc") return <MultipleChoice item={item} onAnswered={handleAnswered} />;
-              if (item.kind === "fill") return <FillBlank item={item} onAnswered={handleAnswered} />;
-              if (item.kind === "number") return <NumberInput item={item} onAnswered={handleAnswered} />;
-              return null;
-            })()}
+            {renderItem(currentItem)}
           </section>
 
           <div className="flex items-center justify-end gap-3">

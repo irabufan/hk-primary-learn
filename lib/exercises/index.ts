@@ -4,7 +4,7 @@ import { chineseBank } from "./chinese";
 import { englishBank } from "./english";
 import { mathsBank } from "./maths";
 import { gsBank } from "./gs";
-import { suitsYear, type ExerciseBank, type ExerciseItem } from "./types";
+import { suitsYear, type ExerciseBank, type ExerciseItem, type McItem } from "./types";
 
 const BANKS: Record<SubjectSlug, ExerciseBank> = {
   chinese: chineseBank,
@@ -21,10 +21,23 @@ export function getBank(subject: SubjectSlug, topic: string): ExerciseItem[] | u
   return BANKS[subject]?.[topic];
 }
 
+/** Shuffle MC choices with a seeded RNG; keep answerIndex pointing at the correct choice. */
+export function shuffleMcChoices(rng: () => number, item: McItem): McItem {
+  const order = shuffle(
+    rng,
+    item.choices.map((_, index) => index),
+  );
+  return {
+    ...item,
+    choices: order.map((index) => item.choices[index]),
+    answerIndex: order.indexOf(item.answerIndex),
+  };
+}
+
 /**
  * Build one exercise session for a subject + topic + year:
- * items that suit the year come first, everything is shuffled, and a match
- * item is trimmed to a playful number of pairs.
+ * items that suit the year come first, everything is shuffled, MC choices are
+ * shuffled, and a match item is trimmed to a playful number of pairs.
  */
 export function getExerciseSession(
   subject: SubjectSlug,
@@ -46,6 +59,7 @@ export function getExerciseSession(
   const picked = [...preferred, ...others].slice(0, SESSION_SIZE);
 
   return picked.map((item) => {
+    if (item.kind === "mc") return shuffleMcChoices(rng, item);
     if (item.kind !== "match") return item;
     const goodPairs = shuffle(
       rng,

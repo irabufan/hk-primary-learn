@@ -11,6 +11,11 @@ type FillBlankProps = {
   onAnswered?: OnAnswered;
 };
 
+/** Strip leading 「提示：」/ "Hint:" so the UI prefix is not doubled. */
+function stripHintPrefix(text: string): string {
+  return text.replace(/^(提示\s*[：:]\s*|Hint\s*:\s*)+/i, "").trim();
+}
+
 /** Fill-in-the-blank question: type the missing word, get instant feedback. */
 export function FillBlank({ item, onAnswered }: FillBlankProps) {
   const { locale, t } = useI18n();
@@ -30,6 +35,8 @@ export function FillBlank({ item, onAnswered }: FillBlankProps) {
     if (event.key === "Enter") submit();
   };
 
+  const hintText = item.hint ? stripHintPrefix(toText(item.hint, locale)) : "";
+
   return (
     <div>
       {item.passage && (
@@ -42,9 +49,9 @@ export function FillBlank({ item, onAnswered }: FillBlankProps) {
         {toText(item.prompt, locale)}
       </h2>
 
-      {item.hint && status === "idle" && (
+      {hintText && status === "idle" && (
         <p className="mt-3 inline-block rounded-full bg-amber-100 px-4 py-1.5 text-sm font-bold text-amber-800">
-          💡 {t("common.hint", { text: toText(item.hint, locale) })}
+          💡 {t("common.hint", { text: hintText })}
         </p>
       )}
 

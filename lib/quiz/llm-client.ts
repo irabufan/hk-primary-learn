@@ -103,8 +103,11 @@ function languageGuidance(subject: SubjectSlug): string {
   }
   return [
     "LANGUAGE (maths subject):",
-    "Bilingual prompts are OK (zh Traditional Chinese + en English).",
-    "Numeric answers as strings. MC choices may be numbers or short bilingual phrases.",
+    "Bilingual prompts are OK (zh Traditional Chinese + en English) — both locales should be complete and parallel.",
+    "Numeric answers as plain number strings (prefer \"6\" not \"6 元\" or \"$6\").",
+    "MC choices: prefer bare numbers so they work under both UI languages.",
+    "CRITICAL — do NOT mix: never write an English-primary stem (or EN UI money story) with Chinese-only choice labels like \"8 元\", \"10 元\".",
+    "If you must label currency/units in choices, keep them bilingual/parallel (e.g. \"8\" / \"$8\" with matching stem language) — never Chinese-unit-only choices alongside an English stem.",
   ].join(" ");
 }
 

@@ -97,6 +97,7 @@ const GUIDANCE: GuidanceBlock[] = [
       ],
       "word-problems": [
         "One- or two-step shopping / sharing / length with small integers.",
+        "Money: bilingual stems OK, but MC choices must be bare numbers (or $N under EN / N元 under ZH) — never English stem with Chinese-only 元 choice labels.",
       ],
     },
   },
