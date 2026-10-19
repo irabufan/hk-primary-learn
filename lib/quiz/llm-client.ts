@@ -1,6 +1,11 @@
 /**
- * Server-only helpers for calling OpenCode Go chat completions.
+ * Server-only helpers for OpenAI-compatible chat completions.
  * Never import this from client components.
+ *
+ * Env (generic preferred; OpenCode Go aliases still work for existing deploys):
+ *   LLM_API_KEY   || OPENCODE_GO_API_KEY
+ *   LLM_MODEL     || OPENCODE_GO_MODEL
+ *   LLM_BASE_URL  || OPENCODE_GO_BASE_URL  (default: OpenCode Go zen endpoint)
  */
 
 import type { SubjectSlug, Year } from "@/lib/curriculum";
@@ -15,16 +20,36 @@ const DEFAULT_MODEL = "deepseek-v4.1-flash";
 const TIMEOUT_MS = 55_000;
 const USER_AGENT = "hk-primary-learn/0.1";
 
-export function getOpenCodeGoConfig(): {
+export function getLlmConfig(): {
   apiKey: string | undefined;
   baseUrl: string;
   model: string;
 } {
   return {
-    apiKey: process.env.OPENCODE_GO_API_KEY?.trim() || undefined,
-    baseUrl: (process.env.OPENCODE_GO_BASE_URL?.trim() || DEFAULT_BASE).replace(/\/$/, ""),
-    model: process.env.OPENCODE_GO_MODEL?.trim() || DEFAULT_MODEL,
+    apiKey:
+      process.env.LLM_API_KEY?.trim() ||
+      process.env.OPENCODE_GO_API_KEY?.trim() ||
+      undefined,
+    baseUrl: (
+      process.env.LLM_BASE_URL?.trim() ||
+      process.env.OPENCODE_GO_BASE_URL?.trim() ||
+      DEFAULT_BASE
+    ).replace(/\/$/, ""),
+    model:
+      process.env.LLM_MODEL?.trim() ||
+      process.env.OPENCODE_GO_MODEL?.trim() ||
+      DEFAULT_MODEL,
   };
+}
+
+/** True when the configured base URL looks like OpenCode (needs x-opencode-session). */
+function isOpenCodeBaseUrl(baseUrl: string): boolean {
+  try {
+    const host = new URL(baseUrl).hostname.toLowerCase();
+    return host === "opencode.ai" || host.endsWith(".opencode.ai");
+  } catch {
+    return /opencode\.ai/i.test(baseUrl);
+  }
 }
 
 const TOPIC_LABELS: Record<string, { zh: string; en: string }> = {
@@ -374,34 +399,39 @@ export function toQuiz(request: QuizRequest, questions: QuizQuestion[]): Quiz {
   return normalizeQuizForSubject(quiz);
 }
 
-export type OpenCodeGoResult = {
+export type LlmChatResult = {
   content: string;
   model: string;
 };
 
-export async function callOpenCodeGoChat(
+export async function callChatCompletion(
   system: string,
   user: string,
   sessionId: string,
-): Promise<OpenCodeGoResult> {
-  const { apiKey, baseUrl, model } = getOpenCodeGoConfig();
+): Promise<LlmChatResult> {
+  const { apiKey, baseUrl, model } = getLlmConfig();
   if (!apiKey) {
-    throw new Error("OPENCODE_GO_API_KEY is not configured");
+    throw new Error("LLM_API_KEY (or OPENCODE_GO_API_KEY) is not configured");
   }
 
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
   try {
+    const headers: Record<string, string> = {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "User-Agent": USER_AGENT,
+    };
+    // OpenCode Go expects a stable session header; omit for other OpenAI-compatible hosts.
+    if (isOpenCodeBaseUrl(baseUrl)) {
+      headers["x-opencode-session"] = sessionId;
+    }
+
     const res = await fetch(`${baseUrl}/chat/completions`, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "User-Agent": USER_AGENT,
-        "x-opencode-session": sessionId,
-      },
+      headers,
       body: JSON.stringify({
         model,
         temperature: 0.7,
@@ -418,14 +448,14 @@ export async function callOpenCodeGoChat(
     if (!res.ok) {
       // Never include headers or key material; truncate body for logs.
       const snippet = text.replace(/\s+/g, " ").slice(0, 160);
-      throw new Error(`OpenCode Go HTTP ${res.status}: ${snippet || res.statusText}`);
+      throw new Error(`LLM HTTP ${res.status}: ${snippet || res.statusText}`);
     }
 
     let data: unknown;
     try {
       data = JSON.parse(text);
     } catch {
-      throw new Error("OpenCode Go returned non-JSON");
+      throw new Error("LLM returned non-JSON");
     }
 
     const content =
@@ -436,7 +466,7 @@ export async function callOpenCodeGoChat(
         ?.content;
 
     if (typeof content !== "string" || !content.trim()) {
-      throw new Error("OpenCode Go response missing message content");
+      throw new Error("LLM response missing message content");
     }
 
     const usedModel =

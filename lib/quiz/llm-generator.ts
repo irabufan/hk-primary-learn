@@ -7,7 +7,7 @@ export type QuizGenerateResponse = {
 };
 
 /**
- * Client-side adapter: POSTs to the server route that talks to OpenCode Go.
+ * Client-side adapter: POSTs to the server route that talks to the chat completions API.
  * The API key never leaves the server.
  */
 export class LlmQuizGenerator implements QuizGenerator {

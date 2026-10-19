@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 import {
   buildQuizPrompt,
-  callOpenCodeGoChat,
-  getOpenCodeGoConfig,
+  callChatCompletion,
+  getLlmConfig,
   isValidSubject,
   isValidYear,
   parseQuizQuestions,
   toQuiz,
-} from "@/lib/quiz/opencode-go";
+} from "@/lib/quiz/llm-client";
 import { QUIZ_COUNTS, type QuizRequest } from "@/lib/quiz/types";
 
 export const runtime = "nodejs";
@@ -40,11 +40,11 @@ function badRequest(message: string) {
 }
 
 export async function POST(request: Request) {
-  const { apiKey } = getOpenCodeGoConfig();
+  const { apiKey } = getLlmConfig();
   if (!apiKey) {
     return NextResponse.json(
       {
-        error: "OPENCODE_GO_API_KEY is not configured on the server",
+        error: "LLM_API_KEY (or OPENCODE_GO_API_KEY) is not configured on the server",
         code: "llm_unavailable",
       },
       { status: 503 },
@@ -89,7 +89,7 @@ export async function POST(request: Request) {
   const sessionId = `ses-hklearn-${quizRequest.subject}-${quizRequest.topic}-${seed}`;
 
   try {
-    const { content, model } = await callOpenCodeGoChat(system, user, sessionId);
+    const { content, model } = await callChatCompletion(system, user, sessionId);
     const questions = parseQuizQuestions(content, count, seed);
     const quiz = toQuiz(quizRequest, questions);
     return NextResponse.json({
