@@ -1,4 +1,4 @@
-import { both, type Localized } from "@/lib/i18n/types";
+import { both } from "@/lib/i18n/types";
 import type { ExerciseBank } from "./types";
 
 /**
@@ -8,13 +8,38 @@ import type { ExerciseBank } from "./types";
  */
 export const mathsBank: ExerciseBank = {
   fractions: [
+
+    {
+      kind: "number",
+      id: "m-f-ks1-1",
+      prompt: { zh: "把 10 顆糖平均分給 2 人，每人得多少顆？", en: "Share 10 sweets equally between 2 children. How many each?" },
+      answer: 5,
+      explanation: { zh: "10 ÷ 2 = 5。", en: "10 ÷ 2 = 5." },
+      years: ["P1", "P2", "P3"],
+    },
+    {
+      kind: "number",
+      id: "m-f-ks1-2",
+      prompt: { zh: "8 的一半是多少？", en: "What is half of 8?" },
+      answer: 4,
+      explanation: { zh: "8 ÷ 2 = 4。", en: "8 ÷ 2 = 4." },
+      years: ["P1", "P2", "P3"],
+    },
+    {
+      kind: "number",
+      id: "m-f-ks1-3",
+      prompt: { zh: "12 的四分之一是多少？", en: "What is one quarter of 12?" },
+      answer: 3,
+      explanation: { zh: "12 ÷ 4 = 3。", en: "12 ÷ 4 = 3." },
+      years: ["P2", "P3"],
+    },
     {
       kind: "number",
       id: "m-f1",
       prompt: { zh: "20 的 1/2 是多少？", en: "What is 1/2 of 20?" },
       answer: 10,
       explanation: { zh: "20 ÷ 2 = 10，所以 20 的 1/2 是 10。", en: "20 ÷ 2 = 10, so 1/2 of 20 is 10." },
-      years: ["P4"],
+      years: ["P3", "P4"],
     },
     {
       kind: "number",
@@ -22,7 +47,7 @@ export const mathsBank: ExerciseBank = {
       prompt: { zh: "24 的 1/3 是多少？", en: "What is 1/3 of 24?" },
       answer: 8,
       explanation: { zh: "24 ÷ 3 = 8，所以 24 的 1/3 是 8。", en: "24 ÷ 3 = 8, so 1/3 of 24 is 8." },
-      years: ["P4"],
+      years: ["P3", "P4"],
     },
     {
       kind: "number",
@@ -109,6 +134,31 @@ export const mathsBank: ExerciseBank = {
   ],
 
   decimals: [
+
+    {
+      kind: "number",
+      id: "m-d-ks1-1",
+      prompt: { zh: "樂樂有 15 元，花了 7 元，還剩多少元？", en: "Lucas has $15 and spends $7. How much is left?" },
+      answer: 8,
+      explanation: { zh: "15 − 7 = 8。", en: "15 − 7 = 8." },
+      years: ["P1", "P2", "P3"],
+    },
+    {
+      kind: "number",
+      id: "m-d-ks1-2",
+      prompt: { zh: "3 + 5 = ?", en: "3 + 5 = ?" },
+      answer: 8,
+      explanation: { zh: "3 + 5 = 8。", en: "3 + 5 = 8." },
+      years: ["P1", "P2"],
+    },
+    {
+      kind: "number",
+      id: "m-d-ks1-3",
+      prompt: { zh: "媽媽給小明 20 元，爸爸再給他 10 元，一共有多少元？", en: "Mum gives Ming $20 and Dad gives him $10 more. How much altogether?" },
+      answer: 30,
+      explanation: { zh: "20 + 10 = 30。", en: "20 + 10 = 30." },
+      years: ["P1", "P2", "P3"],
+    },
     {
       kind: "number",
       id: "m-d1",
@@ -182,7 +232,7 @@ export const mathsBank: ExerciseBank = {
       prompt: both("0.1 + 0.02 = ?"),
       answer: 0.12,
       explanation: { zh: "0.1 + 0.02 = 0.12。", en: "0.1 + 0.02 = 0.12." },
-      years: ["P4"],
+      years: ["P3", "P4"],
     },
     {
       kind: "number",
@@ -195,6 +245,43 @@ export const mathsBank: ExerciseBank = {
   ],
 
   "word-problems": [
+
+    {
+      kind: "mc",
+      id: "m-w-ks1-1",
+      prompt: {
+        zh: "一支鉛筆售 3 元。小美買了 2 支，共要付多少元？",
+        en: "A pencil costs $3. May buys 2. How much does she pay?",
+      },
+      choices: ["5", "6", "7", "3"],
+      answerIndex: 1,
+      explanation: { zh: "3 × 2 = 6（元）。", en: "3 × 2 = $6." },
+      years: ["P1", "P2", "P3"],
+    },
+    {
+      kind: "mc",
+      id: "m-w-ks1-2",
+      prompt: {
+        zh: "小華有 12 顆朱古力，吃了 4 顆，還剩多少顆？",
+        en: "Wah has 12 chocolates and eats 4. How many are left?",
+      },
+      choices: ["8", "16", "4", "10"],
+      answerIndex: 0,
+      explanation: { zh: "12 − 4 = 8。", en: "12 − 4 = 8." },
+      years: ["P1", "P2", "P3"],
+    },
+    {
+      kind: "mc",
+      id: "m-w-ks1-3",
+      prompt: {
+        zh: "一盒有 5 支蠟筆，3 盒共有多少支？",
+        en: "A box has 5 crayons. How many in 3 boxes?",
+      },
+      choices: ["8", "15", "10", "20"],
+      answerIndex: 1,
+      explanation: { zh: "5 × 3 = 15。", en: "5 × 3 = 15." },
+      years: ["P1", "P2", "P3"],
+    },
     {
       kind: "mc",
       id: "m-w1",
@@ -217,7 +304,7 @@ export const mathsBank: ExerciseBank = {
       choices: ["9", "8", "7", "6"],
       answerIndex: 1,
       explanation: { zh: "56 ÷ 7 = 8，每人得 8 顆。", en: "56 ÷ 7 = 8 sweets each." },
-      years: ["P4"],
+      years: ["P2", "P3", "P4"],
     },
     {
       kind: "mc",
@@ -229,7 +316,7 @@ export const mathsBank: ExerciseBank = {
       choices: ["48", "72", "60", "17"],
       answerIndex: 2,
       explanation: { zh: "12 × 5 = 60（支）。", en: "12 × 5 = 60 pens." },
-      years: ["P4"],
+      years: ["P2", "P3", "P4"],
     },
     {
       kind: "mc",
@@ -280,7 +367,7 @@ export const mathsBank: ExerciseBank = {
       choices: ["67", "73", "117", "63"],
       answerIndex: 3,
       explanation: { zh: "90 − 27 = 63（元）。", en: "90 − 27 = $63." },
-      years: ["P4"],
+      years: ["P2", "P3", "P4"],
     },
     {
       kind: "mc",

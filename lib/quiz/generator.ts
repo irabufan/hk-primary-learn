@@ -159,6 +159,9 @@ function mcBankQuestions(rng: Rng, request: QuizRequest): QuizQuestion[] {
 // ---------------------------------------------------------------------------
 
 const FRACTION_LEVELS: Record<Year, { denoms: number[]; maxTotal: number }> = {
+  P1: { denoms: [2], maxTotal: 20 },
+  P2: { denoms: [2, 4], maxTotal: 24 },
+  P3: { denoms: [2, 3, 4], maxTotal: 24 },
   P4: { denoms: [2, 3, 4], maxTotal: 24 },
   P5: { denoms: [2, 3, 4, 5, 6], maxTotal: 60 },
   P6: { denoms: [2, 3, 4, 5, 6, 8, 10], maxTotal: 100 },
@@ -179,12 +182,38 @@ const COPRIME_PAIRS: ReadonlyArray<readonly [number, number]> = [
 
 function fractionQuestion(rng: Rng, year: Year, index: number): QuizQuestion {
   const level = FRACTION_LEVELS[year];
-  const variant = index % 4;
+  // P1–P2: avoid simplify / fraction+fraction / decimal convert — sharing & half-of only.
+  if (year === "P1" || year === "P2") {
+    const denom = year === "P1" ? 2 : (pickOne(rng, level.denoms) ?? 2);
+    const total = denom * pickInt(rng, 2, Math.max(2, Math.floor(level.maxTotal / denom)));
+    const answer = total / denom;
+    const label =
+      denom === 2
+        ? { zh: `一半`, en: `half` }
+        : denom === 4
+          ? { zh: `四分之一`, en: `one quarter` }
+          : { zh: `1/${denom}`, en: `1/${denom}` };
+    return {
+      id: `fx-share-${index + 1}`,
+      type: "number",
+      prompt: {
+        zh: `把 ${total} 顆糖果平均分給 ${denom} 人，每人得多少顆？（即 ${total} 的 ${label.zh}）`,
+        en: `Share ${total} sweets equally among ${denom} children. How many each? (That is ${label.en} of ${total}.)`,
+      },
+      answer: formatNumber(answer),
+      explanation: {
+        zh: `${total} ÷ ${denom} = ${formatNumber(answer)}。`,
+        en: `${total} ÷ ${denom} = ${formatNumber(answer)}.`,
+      },
+    };
+  }
+
+  const variant = year === "P3" ? index % 2 : index % 4; // P3: of-a-total + simple share only
 
   if (variant === 0) {
     // a/b of a total
     const denom = pickOne(rng, level.denoms) ?? 2;
-    const numer = pickInt(rng, 1, denom - 1);
+    const numer = year === "P3" ? 1 : pickInt(rng, 1, denom - 1);
     const total = denom * pickInt(rng, 2, Math.floor(level.maxTotal / denom));
     const answer = numer * (total / denom);
     return {
@@ -199,8 +228,27 @@ function fractionQuestion(rng: Rng, year: Year, index: number): QuizQuestion {
     };
   }
 
-  if (variant === 1) {
-    // fraction → decimal
+  if (variant === 1 || year === "P3") {
+    // For P3 second variant: stay on of-a-total with different numbers; for KS2 continue.
+    if (year === "P3") {
+      const denom = pickOne(rng, level.denoms) ?? 2;
+      const total = denom * pickInt(rng, 2, Math.floor(level.maxTotal / denom));
+      const answer = total / denom;
+      return {
+        id: `fx-unit-${index + 1}`,
+        type: "number",
+        prompt: {
+          zh: `${total} 的 1/${denom} 是多少？`,
+          en: `What is 1/${denom} of ${total}?`,
+        },
+        answer: formatNumber(answer),
+        explanation: {
+          zh: `${total} ÷ ${denom} = ${formatNumber(answer)}。`,
+          en: `${total} ÷ ${denom} = ${formatNumber(answer)}.`,
+        },
+      };
+    }
+    // fraction → decimal (KS2)
     const [numer, denom] = pickOne(rng, EASY_FRACTIONS) ?? [1, 2];
     const answer = numer / denom;
     return {
@@ -264,6 +312,9 @@ function fractionQuestion(rng: Rng, year: Year, index: number): QuizQuestion {
 }
 
 const DECIMAL_LEVELS: Record<Year, { scale: number; max: number }> = {
+  P1: { scale: 1, max: 20 }, // whole-number / money style for KS1
+  P2: { scale: 1, max: 50 },
+  P3: { scale: 10, max: 99 },
   P4: { scale: 10, max: 99 },
   P5: { scale: 10, max: 499 },
   P6: { scale: 100, max: 999 },
@@ -271,6 +322,31 @@ const DECIMAL_LEVELS: Record<Year, { scale: number; max: number }> = {
 
 function decimalQuestion(rng: Rng, year: Year, index: number): QuizQuestion {
   const { scale, max } = DECIMAL_LEVELS[year];
+  // P1–P2: whole-number add/subtract / simple money — avoid true decimal ops.
+  if (year === "P1" || year === "P2") {
+    const a = pickInt(rng, 2, max);
+    const b = pickInt(rng, 1, a - 1);
+    const add = index % 2 === 0;
+    const answer = add ? a + b : a - b;
+    const expr = `${a} ${add ? "+" : "−"} ${b}`;
+    return {
+      id: `dx-whole-${index + 1}`,
+      type: "number",
+      prompt: {
+        zh: add
+          ? `樂樂有 ${a} 元，再得到 ${b} 元。現在有多少元？`
+          : `樂樂有 ${a} 元，花了 ${b} 元。還剩多少元？`,
+        en: add
+          ? `Lucas has $${a} and gets $${b} more. How many dollars now?`
+          : `Lucas has $${a} and spends $${b}. How much is left?`,
+      },
+      answer: formatNumber(answer),
+      explanation: {
+        zh: `${expr} = ${formatNumber(answer)}（元）。`,
+        en: `${expr} = $${formatNumber(answer)}.`,
+      },
+    };
+  }
   const variant = index % 4;
 
   if (variant === 0 || variant === 1) {
@@ -345,12 +421,18 @@ function numericChoices(rng: Rng, answer: number, candidates: number[]): string[
 }
 
 const PRICE_RANGES: Record<Year, [number, number]> = {
+  P1: [2, 8],
+  P2: [3, 12],
+  P3: [5, 15],
   P4: [8, 20],
   P5: [15, 50],
   P6: [20, 90],
 };
 
 const EACH_RANGES: Record<Year, [number, number]> = {
+  P1: [1, 5],
+  P2: [2, 6],
+  P3: [2, 8],
   P4: [2, 8],
   P5: [3, 10],
   P6: [4, 12],
@@ -406,9 +488,9 @@ function wordProblemQuestion(rng: Rng, year: Year, index: number): QuizQuestion 
 
   if (variant === 2) {
     // bus: start − off + on
-    const start = pickInt(rng, 30, 60);
-    const off = pickInt(rng, 5, 20);
-    const on = pickInt(rng, 3, 15);
+    const start = year === "P1" || year === "P2" ? pickInt(rng, 10, 25) : pickInt(rng, 30, 60);
+    const off = year === "P1" || year === "P2" ? pickInt(rng, 2, 8) : pickInt(rng, 5, 20);
+    const on = year === "P1" || year === "P2" ? pickInt(rng, 1, 6) : pickInt(rng, 3, 15);
     const answer = start - off + on;
     return {
       id: `wp-bus-${index + 1}`,
@@ -427,8 +509,11 @@ function wordProblemQuestion(rng: Rng, year: Year, index: number): QuizQuestion 
   }
 
   // change: money left after shopping
-  const have = pickInt(rng, 4, 20) * 5;
-  const price = pickInt(rng, 3, Math.floor(have / 5)) * 5;
+  const have =
+    year === "P1" || year === "P2"
+      ? pickInt(rng, 2, 8) * 5
+      : pickInt(rng, 4, 20) * 5;
+  const price = pickInt(rng, year === "P1" || year === "P2" ? 1 : 3, Math.floor(have / 5)) * 5;
   const answer = have - price;
   return {
     id: `wp-change-${index + 1}`,

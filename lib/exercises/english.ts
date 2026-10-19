@@ -8,12 +8,48 @@ export const englishBank: ExerciseBank = {
   vocabulary: [
     {
       kind: "fill",
+      id: "en-v-ks1-1",
+      prompt: { en: "I ___ a cat. It is soft." },
+      hint: { en: "Word bank: have / run / eat" },
+      accept: ["have"],
+      explanation: { en: "We say 'I have a cat'." },
+      years: ["P1", "P2", "P3"],
+    },
+    {
+      kind: "fill",
+      id: "en-v-ks1-2",
+      prompt: { en: "The apple is ___ and sweet." },
+      hint: { en: "Word bank: red / sad / loud" },
+      accept: ["red"],
+      explanation: { en: "Apples are often described as red." },
+      years: ["P1", "P2"],
+    },
+    {
+      kind: "fill",
+      id: "en-v-ks1-3",
+      prompt: { en: "Please ___ the door." },
+      hint: { en: "Word bank: open / sleep / jump" },
+      accept: ["open"],
+      explanation: { en: "We open the door." },
+      years: ["P1", "P2", "P3"],
+    },
+    {
+      kind: "fill",
+      id: "en-v-ks1-4",
+      prompt: { en: "She is my best ___." },
+      hint: { en: "Word bank: friend / table / rain" },
+      accept: ["friend"],
+      explanation: { en: "A best friend is someone you like a lot." },
+      years: ["P1", "P2", "P3"],
+    },
+    {
+      kind: "fill",
       id: "en-v1",
       prompt: { en: "Please be ___ and tell the truth." },
       hint: { en: "Word bank: honest / lazy / angry" },
       accept: ["honest"],
       explanation: { en: "Someone who tells the truth is honest." },
-      years: ["P4"],
+      years: ["P2", "P3", "P4"],
     },
     {
       kind: "fill",
@@ -40,7 +76,7 @@ export const englishBank: ExerciseBank = {
       hint: { en: "Word bank: finish / cook / draw" },
       accept: ["finish", "complete"],
       explanation: { en: "We finish (or complete) our homework when we do it all." },
-      years: ["P4"],
+      years: ["P1", "P2", "P3", "P4"],
     },
     {
       kind: "fill",
@@ -49,7 +85,7 @@ export const englishBank: ExerciseBank = {
       hint: { en: "Word bank: brave / shy / tired" },
       accept: ["brave"],
       explanation: { en: "Brave people are not afraid of danger." },
-      years: ["P4"],
+      years: ["P2", "P3", "P4"],
     },
     {
       kind: "fill",
@@ -58,7 +94,7 @@ export const englishBank: ExerciseBank = {
       hint: { en: "Word bank: follow / break / paint" },
       accept: ["follow", "obey"],
       explanation: { en: "We follow the rules — we do what they say." },
-      years: ["P4"],
+      years: ["P2", "P3", "P4"],
     },
     {
       kind: "fill",
@@ -99,6 +135,27 @@ export const englishBank: ExerciseBank = {
   ],
 
   reading: [
+
+    {
+      kind: "mc",
+      id: "en-r-ks1-1",
+      passage: { en: "Tom has a blue bag. He puts his books in the bag." },
+      prompt: { en: "What colour is Tom's bag?" },
+      choices: ["Red", "Blue", "Green", "Yellow"],
+      answerIndex: 1,
+      explanation: { en: "The passage says Tom has a blue bag." },
+      years: ["P1", "P2", "P3"],
+    },
+    {
+      kind: "mc",
+      id: "en-r-ks1-2",
+      passage: { en: "Amy likes dogs. She has a small brown dog at home." },
+      prompt: { en: "What does Amy like?" },
+      choices: ["Cats", "Birds", "Dogs", "Fish"],
+      answerIndex: 2,
+      explanation: { en: "The passage says Amy likes dogs." },
+      years: ["P1", "P2", "P3"],
+    },
     {
       kind: "mc",
       id: "en-r1",
@@ -267,6 +324,34 @@ export const englishBank: ExerciseBank = {
   ],
 
   grammar: [
+
+    {
+      kind: "mc",
+      id: "en-g-ks1-1",
+      prompt: { en: "I ___ to school every day." },
+      choices: ["go", "goes", "going", "went"],
+      answerIndex: 0,
+      explanation: { en: "With I, we use go (present simple)." },
+      years: ["P1", "P2", "P3"],
+    },
+    {
+      kind: "mc",
+      id: "en-g-ks1-2",
+      prompt: { en: "This is ___ apple." },
+      choices: ["a", "an", "the", "some"],
+      answerIndex: 1,
+      explanation: { en: "Use an before a vowel sound: an apple." },
+      years: ["P1", "P2", "P3"],
+    },
+    {
+      kind: "mc",
+      id: "en-g-ks1-3",
+      prompt: { en: "There ___ two books on the desk." },
+      choices: ["is", "are", "am", "be"],
+      answerIndex: 1,
+      explanation: { en: "Use are with plural nouns." },
+      years: ["P2", "P3", "P4"],
+    },
     {
       kind: "mc",
       id: "en-g1",
@@ -274,7 +359,7 @@ export const englishBank: ExerciseBank = {
       choices: ["go", "goes", "going", "gone"],
       answerIndex: 1,
       explanation: { en: "'Every day' shows a habit, so we use the present simple: he goes." },
-      years: ["P4"],
+      years: ["P2", "P3", "P4"],
     },
     {
       kind: "mc",

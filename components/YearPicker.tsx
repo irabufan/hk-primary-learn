@@ -11,7 +11,7 @@ type YearPickerProps = {
   note?: boolean;
 };
 
-/** P4 / P5 / P6 segmented control with big, tappable buttons. */
+/** P1–P6 segmented control with big, tappable buttons. */
 export function YearPicker({ value, onChange, note = false }: YearPickerProps) {
   const { t } = useI18n();
 
@@ -23,7 +23,7 @@ export function YearPicker({ value, onChange, note = false }: YearPickerProps) {
       <div
         role="radiogroup"
         aria-label={t("year.label")}
-        className="inline-flex rounded-2xl border-4 border-sky-100 bg-white p-1.5 shadow-sm"
+        className="inline-flex flex-wrap rounded-2xl border-4 border-sky-100 bg-white p-1.5 shadow-sm"
       >
         {YEARS.map((year) => {
           const active = value === year;
@@ -34,7 +34,7 @@ export function YearPicker({ value, onChange, note = false }: YearPickerProps) {
               role="radio"
               aria-checked={active}
               onClick={() => onChange(year)}
-              className={`min-w-[4.5rem] rounded-xl px-4 py-2.5 text-lg font-extrabold transition ${
+              className={`min-w-[3.25rem] sm:min-w-[4rem] rounded-xl px-4 py-2.5 text-base sm:text-lg font-extrabold transition ${
                 active
                   ? "bg-indigo-600 text-white shadow"
                   : "text-slate-600 hover:bg-sky-50 hover:text-indigo-700"

@@ -13,6 +13,42 @@ export const chineseBank: ExerciseBank = {
       title: { zh: "詞語配對", en: "Match the words" },
       pairs: [
         {
+          id: "ch-vocab-ks1-1",
+          left: "學校",
+          right: "學生上課讀書的地方",
+          years: ["P1", "P2", "P3"],
+        },
+        {
+          id: "ch-vocab-ks1-2",
+          left: "媽媽",
+          right: "家中的母親",
+          years: ["P1", "P2"],
+        },
+        {
+          id: "ch-vocab-ks1-3",
+          left: "朋友",
+          right: "大家互相關心的人",
+          years: ["P1", "P2", "P3"],
+        },
+        {
+          id: "ch-vocab-ks1-4",
+          left: "快樂",
+          right: "心情開心愉快",
+          years: ["P1", "P2", "P3"],
+        },
+        {
+          id: "ch-vocab-ks1-5",
+          left: "書包",
+          right: "放書本和文具的袋子",
+          years: ["P1", "P2", "P3"],
+        },
+        {
+          id: "ch-vocab-ks1-6",
+          left: "老師",
+          right: "在學校教導學生的人",
+          years: ["P1", "P2", "P3"],
+        },
+        {
           id: "ch-vocab-1",
           left: "勤勞",
           right: "做事認真努力，不怕辛苦",
@@ -22,13 +58,13 @@ export const chineseBank: ExerciseBank = {
           id: "ch-vocab-2",
           left: "誠實",
           right: "說真話，不欺騙別人",
-          years: ["P4"],
+          years: ["P1", "P2", "P3", "P4"],
         },
         {
           id: "ch-vocab-3",
           left: "匆忙",
           right: "趕急、急忙的樣子",
-          years: ["P4"],
+          years: ["P2", "P3", "P4"],
         },
         {
           id: "ch-vocab-4",
@@ -40,13 +76,13 @@ export const chineseBank: ExerciseBank = {
           id: "ch-vocab-5",
           left: "舒適",
           right: "身心感到輕鬆自在",
-          years: ["P4"],
+          years: ["P1", "P2", "P3", "P4"],
         },
         {
           id: "ch-vocab-6",
           left: "團結",
           right: "大家同心合力去做事",
-          years: ["P4", "P5", "P6"],
+          years: ["P3", "P4", "P5", "P6"],
         },
         {
           id: "ch-vocab-7",
@@ -91,6 +127,36 @@ export const chineseBank: ExerciseBank = {
   reading: [
     {
       kind: "fill",
+      id: "ch-r-ks1-1",
+      passage: { zh: "小明喜歡上學。他每天早上背着書包，高高興興地走進課室。" },
+      prompt: { zh: "小明每天早上背着＿＿。" },
+      hint: { zh: "放書本的袋子" },
+      accept: ["書包"],
+      explanation: { zh: "短文寫小明「背着書包」。" },
+      years: ["P1", "P2", "P3"],
+    },
+    {
+      kind: "fill",
+      id: "ch-r-ks1-2",
+      passage: { zh: "公園裏有一隻小貓。小貓白白的，很可愛。小朋友輕輕地摸摸牠。" },
+      prompt: { zh: "公園裏有一隻＿＿。" },
+      hint: { zh: "短文第一句" },
+      accept: ["小貓", "貓"],
+      explanation: { zh: "短文第一句寫「有一隻小貓」。" },
+      years: ["P1", "P2"],
+    },
+    {
+      kind: "fill",
+      id: "ch-r-ks1-3",
+      passage: { zh: "今天是妹妹的生日。媽媽買了一個大蛋糕，全家人一起唱生日歌。" },
+      prompt: { zh: "媽媽買了一個大＿＿。" },
+      hint: { zh: "生日常吃的甜品" },
+      accept: ["蛋糕"],
+      explanation: { zh: "短文寫媽媽「買了一個大蛋糕」。" },
+      years: ["P1", "P2", "P3"],
+    },
+    {
+      kind: "fill",
       id: "ch-r1",
       passage: {
         zh: "春天到了，公園裏開滿了五顏六色的花朵。蜜蜂忙着採蜜，蝴蝶在花叢中飛來飛去。",
@@ -99,7 +165,7 @@ export const chineseBank: ExerciseBank = {
       hint: { zh: "短文最後一句" },
       accept: ["飛來飛去", "飛舞"],
       explanation: { zh: "短文最後寫蝴蝶在花叢中「飛來飛去」。" },
-      years: ["P4"],
+      years: ["P2", "P3", "P4"],
     },
     {
       kind: "fill",
@@ -109,7 +175,7 @@ export const chineseBank: ExerciseBank = {
       hint: { zh: "形容很重的詞語" },
       accept: ["沉重", "重"],
       explanation: { zh: "「沉重」形容袋子很重，提得很辛苦。" },
-      years: ["P4"],
+      years: ["P2", "P3", "P4"],
     },
     {
       kind: "fill",
@@ -169,7 +235,7 @@ export const chineseBank: ExerciseBank = {
       hint: { zh: "形容很靜的詞語" },
       accept: ["靜悄悄", "安靜", "靜"],
       explanation: { zh: "「靜悄悄」形容十分安靜、沒有聲音。" },
-      years: ["P4"],
+      years: ["P1", "P2", "P3", "P4"],
     },
     {
       kind: "fill",
@@ -196,12 +262,39 @@ export const chineseBank: ExerciseBank = {
   sentences: [
     {
       kind: "fill",
+      id: "ch-s-ks1-1",
+      prompt: { zh: "我有一＿＿故事書。" },
+      hint: { zh: "書的量詞" },
+      accept: ["本"],
+      explanation: { zh: "書用「本」作量詞。" },
+      years: ["P1", "P2", "P3"],
+    },
+    {
+      kind: "fill",
+      id: "ch-s-ks1-2",
+      prompt: { zh: "桌上有一＿＿鉛筆。" },
+      hint: { zh: "鉛筆的量詞" },
+      accept: ["支", "枝"],
+      explanation: { zh: "鉛筆常用量詞「支／枝」。" },
+      years: ["P1", "P2", "P3"],
+    },
+    {
+      kind: "fill",
+      id: "ch-s-ks1-3",
+      prompt: { zh: "我＿＿媽媽一起去公園。" },
+      hint: { zh: "表示「和」的意思" },
+      accept: ["和", "跟", "與"],
+      explanation: { zh: "「和／跟」表示一起。" },
+      years: ["P1", "P2", "P3"],
+    },
+    {
+      kind: "fill",
       id: "ch-s1",
       prompt: { zh: "修正病句：他跑步的速度很＿＿。" },
       hint: { zh: "「速度」應該用哪個形容詞？" },
       accept: ["快"],
       explanation: { zh: "速度用「快」或「慢」形容，不用「高」。" },
-      years: ["P4"],
+      years: ["P2", "P3", "P4"],
     },
     {
       kind: "fill",
@@ -219,7 +312,7 @@ export const chineseBank: ExerciseBank = {
       hint: { zh: "形容笑容的詞語" },
       accept: ["甜美", "燦爛", "可愛"],
       explanation: { zh: "「甜美的笑容」是常用配搭。" },
-      years: ["P4"],
+      years: ["P1", "P2", "P3", "P4"],
     },
     {
       kind: "fill",
@@ -228,7 +321,7 @@ export const chineseBank: ExerciseBank = {
       hint: { zh: "上課要留心做甚麼？" },
       accept: ["聽講", "聽課", "聽書"],
       explanation: { zh: "「留心聽講」是常用配搭，形容上課專心。" },
-      years: ["P4"],
+      years: ["P1", "P2", "P3", "P4"],
     },
     {
       kind: "fill",
@@ -273,7 +366,7 @@ export const chineseBank: ExerciseBank = {
       hint: { zh: "表示先後次序的詞語" },
       accept: ["然後", "再", "接着"],
       explanation: { zh: "「先……然後……」表示事情發生的先後次序。" },
-      years: ["P4"],
+      years: ["P2", "P3", "P4"],
     },
     {
       kind: "fill",

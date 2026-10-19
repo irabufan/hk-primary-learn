@@ -65,7 +65,7 @@ export async function POST(request: Request) {
     return badRequest("topic is required");
   }
   if (!isValidYear(body.year)) {
-    return badRequest("year must be P4 | P5 | P6");
+    return badRequest("year must be P1 | P2 | P3 | P4 | P5 | P6");
   }
 
   const countNum = typeof body.count === "number" ? body.count : Number(body.count);

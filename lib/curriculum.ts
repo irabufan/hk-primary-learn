@@ -1,8 +1,8 @@
 import type { Localized } from "@/lib/i18n/types";
 
-export type Year = "P4" | "P5" | "P6";
+export type Year = "P1" | "P2" | "P3" | "P4" | "P5" | "P6";
 
-export const YEARS: readonly Year[] = ["P4", "P5", "P6"];
+export const YEARS: readonly Year[] = ["P1", "P2", "P3", "P4", "P5", "P6"];
 
 export const DEFAULT_YEAR: Year = "P4";
 

@@ -4,7 +4,7 @@ import { Suspense, use } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { TopicCard } from "@/components/TopicCard";
-import { getSubject, isSubjectSlug, type Year } from "@/lib/curriculum";
+import { getSubject, isSubjectSlug, isYear, type Year } from "@/lib/curriculum";
 import { useI18n } from "@/lib/i18n/provider";
 import { toText } from "@/lib/i18n/types";
 
@@ -13,7 +13,7 @@ function SubjectInner({ subjectParam }: { subjectParam: string }) {
   const { t, locale } = useI18n();
   const yearParam = search.get("year");
   const year: Year =
-    yearParam === "P4" || yearParam === "P5" || yearParam === "P6" ? yearParam : "P4";
+    yearParam && isYear(yearParam) ? yearParam : "P4";
 
   if (!isSubjectSlug(subjectParam)) {
     return (

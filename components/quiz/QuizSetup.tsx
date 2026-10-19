@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { SUBJECTS, YEARS, type SubjectSlug, type Year } from "@/lib/curriculum";
+import { DEFAULT_YEAR, SUBJECTS, YEARS, type SubjectSlug, type Year } from "@/lib/curriculum";
 import { useI18n } from "@/lib/i18n/provider";
 import { toText } from "@/lib/i18n/types";
 import { QuizLoading, QuizSpinner } from "@/components/quiz/QuizLoading";
@@ -37,7 +37,7 @@ export function QuizSetup({
     if (initialTopic && initialTopics.some((tp) => tp.slug === initialTopic)) return initialTopic;
     return initialTopics[0]?.slug ?? "vocab";
   });
-  const [year, setYear] = useState<Year>(initialYear ?? "P4");
+  const [year, setYear] = useState<Year>(initialYear ?? DEFAULT_YEAR);
   const [count, setCount] = useState(5);
 
   function onSubjectChange(slug: SubjectSlug) {

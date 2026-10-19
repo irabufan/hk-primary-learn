@@ -4,6 +4,7 @@
  */
 
 import type { SubjectSlug, Year } from "@/lib/curriculum";
+import { curriculumGuidanceBlock } from "@/lib/curriculum-guidance";
 import type { Localized } from "@/lib/i18n/types";
 import { mulberry32, shuffle } from "@/lib/rng";
 import type { Quiz, QuizQuestion, QuizQuestionType, QuizRequest } from "./types";
@@ -76,7 +77,7 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     : QUIZ_COUNTS[0];
 
   const system = [
-    "You are a Hong Kong primary school (P4–P6) quiz writer.",
+    "You are a Hong Kong primary school (P1–P6) quiz writer.",
     "Return JSON only — no markdown fences, no commentary.",
     "Output a JSON array of question objects with this exact shape:",
     '[{"id":"q1","type":"mc"|"fill"|"number","prompt":{"zh":"...","en":"..."},"passage":{"zh":"...","en":"..."}|optional,"choices":["..."]|required for mc,"answer":"...","accepts":["..."]|optional for fill,"hint":{"zh":"...","en":"..."}|optional,"explanation":{"zh":"...","en":"..."}|optional}]',
@@ -86,7 +87,7 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     "- For type fill: answer is the canonical accepted spelling; accepts may list alternatives.",
     "- For type number: answer is a numeric string. Plain decimals/integers (e.g. \"0.75\", \"12\") are preferred. Fraction strings like \"5/6\" are also allowed when the value is a fraction — the UI accepts text input for those.",
     "- When the learner must write a fraction in lowest terms (最簡分數 / simplify), prefer type \"fill\" with answer like \"5/6\" (accepts may include \"5 / 6\"). Do NOT use type number for slash answers unless the answer string itself contains /.",
-    "- Keep difficulty suitable for the given year (P4 easier, P6 harder).",
+    "- Keep difficulty suitable for the given year (P1 easiest within primary; P6 hardest). Follow the CURRICULUM / DIFFICULTY block in the user message — KS1 (P1–P3) is not just easier KS2.",
     "- HK curriculum flavour; culturally familiar HK examples where helpful.",
     "- ids must be unique strings.",
     "- Place the correct MC answer in a random position among the 4 choices; do not always put it first.",
@@ -106,7 +107,8 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     `Question count: ${count}`,
     `Seed (variety token — produce a distinct quiz for each seed): ${request.seed}`,
     languageGuidance(request.subject),
-    "Prefer question types that fit the topic (e.g. maths decimals/of-a-total → number; maths simplify-to-fraction → fill with answer like \"2/3\"; English grammar → mc; Chinese vocab → mc or fill).",
+    curriculumGuidanceBlock(request.year, request.subject, request.topic),
+    "Prefer question types that fit the topic (e.g. maths decimals/of-a-total → number; maths simplify-to-fraction → fill with answer like \"2/3\"; English grammar → mc; Chinese vocab → mc or fill). For P1–P3 maths, prefer whole-number / money / simple sharing over advanced fractions.",
   ];
   if (avoid.length) {
     userParts.push(
@@ -449,7 +451,14 @@ export async function callOpenCodeGoChat(
 }
 
 export function isValidYear(value: unknown): value is Year {
-  return value === "P4" || value === "P5" || value === "P6";
+  return (
+    value === "P1" ||
+    value === "P2" ||
+    value === "P3" ||
+    value === "P4" ||
+    value === "P5" ||
+    value === "P6"
+  );
 }
 
 export function isValidSubject(value: unknown): value is SubjectSlug {

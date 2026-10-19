@@ -6,7 +6,7 @@ import { QuizLoading } from "@/components/quiz/QuizLoading";
 import { QuizPlayer } from "@/components/quiz/QuizPlayer";
 import { QuizResults } from "@/components/quiz/QuizResults";
 import { QuizSetup } from "@/components/quiz/QuizSetup";
-import { isSubjectSlug, type SubjectSlug, type Year } from "@/lib/curriculum";
+import { isSubjectSlug, isYear, type SubjectSlug, type Year } from "@/lib/curriculum";
 import { useI18n } from "@/lib/i18n/provider";
 import { createQuizGenerator, type QuizSource, type QuizWithSource } from "@/lib/quiz/llm-stub";
 import type { Quiz } from "@/lib/quiz/types";
@@ -39,7 +39,7 @@ function QuizPageInner() {
   const initialSubject: SubjectSlug | undefined =
     sub && isSubjectSlug(sub) ? sub : undefined;
   const initialYear: Year | undefined =
-    yr === "P4" || yr === "P5" || yr === "P6" ? yr : undefined;
+    yr && isYear(yr) ? yr : undefined;
 
   const [phase, setPhase] = useState<Phase>("setup");
   const [busy, setBusy] = useState(false);

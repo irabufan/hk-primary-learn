@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     template: "%s · 香港小學學園 HK Primary Learn",
   },
   description:
-    "香港小四至小六學習樂園：中文、英文、數學互動練習與小測驗生成器。A bright P4–P6 learning playground for Hong Kong: Chinese, English and Maths exercises plus a quiz generator.",
+    "香港小一至小六學習樂園：中文、英文、數學互動練習與小測驗生成器。A bright P1–P6 learning playground for Hong Kong: Chinese, English and Maths exercises plus a quiz generator.",
 };
 
 export default function RootLayout({

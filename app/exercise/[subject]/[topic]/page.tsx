@@ -4,7 +4,7 @@ import { Suspense, use } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ExerciseExperience } from "@/components/exercises/ExerciseExperience";
-import { getSubject, getTopic, isSubjectSlug, type Year } from "@/lib/curriculum";
+import { getSubject, getTopic, isSubjectSlug, isYear, type Year } from "@/lib/curriculum";
 import { useI18n } from "@/lib/i18n/provider";
 
 function ExerciseInner({
@@ -18,7 +18,7 @@ function ExerciseInner({
   const { t } = useI18n();
   const yearParam = search.get("year");
   const year: Year =
-    yearParam === "P4" || yearParam === "P5" || yearParam === "P6" ? yearParam : "P4";
+    yearParam && isYear(yearParam) ? yearParam : "P4";
 
   const subject = isSubjectSlug(subjectParam) ? getSubject(subjectParam) : undefined;
   const topic = subject ? getTopic(subject, topicParam) : undefined;
