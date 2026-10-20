@@ -1,0 +1,215 @@
+[
+  {
+    "id": "maths-ks1-number-targets",
+    "subject": "maths",
+    "topics": [
+      "fractions",
+      "decimals",
+      "word-problems"
+    ],
+    "band": "KS1",
+    "text_en": "KS1 Number dimension targets: understand whole numbers and simple fractions; manipulate whole numbers and simple fractions; use simple properties of operations; formulate and solve simple problems involving numbers.",
+    "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+  },
+  {
+    "id": "maths-ks2-number-targets",
+    "subject": "maths",
+    "topics": [
+      "fractions",
+      "decimals",
+      "word-problems"
+    ],
+    "band": "KS2",
+    "text_en": "KS2 Number dimension targets: understand different forms of numbers; interconvert forms; manipulate numbers and check reasonableness; use properties of operations; formulate and solve problems involving numbers.",
+    "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+  },
+  {
+    "id": "maths-ks1-ops",
+    "subject": "maths",
+    "topics": [
+      "word-problems"
+    ],
+    "band": "KS1",
+    "text_en": "KS1 objectives: read/write/order numbers up to 5 digits and place value; addition/subtraction within 4 places (commutative/associative of addition); multiplication with 1-digit multiplier (multiplicand up to 3 digits) and division with 1-digit divisor; mixed operations with at most two operations; simple brackets in +/−; money coins/notes up to $1000 and price tags.",
+    "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+  },
+  {
+    "id": "maths-ks1-fractions",
+    "subject": "maths",
+    "topics": [
+      "fractions"
+    ],
+    "band": "KS1",
+    "text_en": "KS1 fractions: understand and use fractions in everyday life; add/subtract fractions with the same denominator (answers not greater than 1; no simplification required).",
+    "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+  },
+  {
+    "id": "maths-ks2-fractions",
+    "subject": "maths",
+    "topics": [
+      "fractions"
+    ],
+    "band": "KS2",
+    "text_en": "KS2 fractions: proper/improper fractions, mixed numbers, equivalent fractions; +, −, ×, ÷ and simple mixed operations of simple fractions; reduce answers to simplest form; check by estimation; solve simple fraction problems.",
+    "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+  },
+  {
+    "id": "maths-ks2-decimals",
+    "subject": "maths",
+    "topics": [
+      "decimals"
+    ],
+    "band": "KS2",
+    "text_en": "KS2 decimals: read/write/order decimals and place values; +, −, ×, ÷ and simple mixed operations up to two decimal places; rounding; percentages and conversions among decimals, fractions and percentages; simple practical problems on decimals and percentages.",
+    "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+  },
+  {
+    "id": "maths-ks2-factors-avg",
+    "subject": "maths",
+    "topics": [
+      "fractions",
+      "word-problems"
+    ],
+    "band": "KS2",
+    "text_en": "KS2 number extras: common multiples/factors, LCM and HCF of ≤3 numbers; squares/square roots of whole numbers; direct/inverse proportion via unitary method; average of a small everyday data set.",
+    "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+  },
+  {
+    "id": "maths-ks1-measures",
+    "subject": "maths",
+    "topics": [
+      "word-problems"
+    ],
+    "band": "KS1",
+    "text_en": "KS1 Measures: mm/cm/m/km; perimeter of rectangles/squares; time (second, minute, hour, a.m./p.m.), calendar; compare lengths with standard units.",
+    "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+  },
+  {
+    "id": "maths-ks2-measures",
+    "subject": "maths",
+    "topics": [
+      "word-problems"
+    ],
+    "band": "KS2",
+    "text_en": "KS2 Measures: metric relationships; area (cm², m²) and formulas for rectangles/squares; areas of parallelograms, triangles, trapeziums; approximate nature of measurement.",
+    "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+  },
+  {
+    "id": "maths-ch4-ks1",
+    "subject": "maths",
+    "topics": [
+      "fractions",
+      "word-problems"
+    ],
+    "band": "KS1",
+    "text_en": "Ch.4 KS1 Number targets (summary): understand and manipulate whole numbers; understand simple fractions; examine reasonableness of results; formulate and solve simple problems involving numbers.",
+    "source": "EDB Mathematics Curriculum Guide Ch.4 — Learning Targets of Key Stages 1 and 2",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/chapter%204_1.pdf"
+  },
+  {
+    "id": "maths-ch4-ks2",
+    "subject": "maths",
+    "topics": [
+      "fractions",
+      "decimals",
+      "word-problems"
+    ],
+    "band": "KS2",
+    "text_en": "Ch.4 KS2 Number targets (summary): understand whole numbers, fractions, decimals, percentages and relations among them; manipulate numbers and examine reasonableness; formulate and solve problems involving numbers.",
+    "source": "EDB Mathematics Curriculum Guide Ch.4 — Learning Targets of Key Stages 1 and 2",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/chapter%204_1.pdf"
+  },
+  {
+    "id": "maths-p1-p2",
+    "subject": "maths",
+    "topics": [
+      "fractions",
+      "decimals",
+      "word-problems"
+    ],
+    "years": [
+      "P1",
+      "P2"
+    ],
+    "text_en": "P1–P2 practice guidance (from KS1 objectives): keep numbers small (often ≤100); prefer sharing/half-of/equal groups as whole numbers rather than simplify-to-lowest-terms; money in whole dollars or simple contexts; avoid ×÷ of two decimals.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+  },
+  {
+    "id": "maths-p3",
+    "subject": "maths",
+    "topics": [
+      "fractions",
+      "decimals",
+      "word-problems"
+    ],
+    "years": [
+      "P3"
+    ],
+    "text_en": "P3: same-denominator fraction +/− (answer ≤1, no simplification); simple unit fractions of a small total; simple one-decimal add/subtract with small values; one- or two-step shopping/sharing problems.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+  },
+  {
+    "id": "maths-p4",
+    "subject": "maths",
+    "topics": [
+      "fractions",
+      "decimals",
+      "word-problems"
+    ],
+    "years": [
+      "P4"
+    ],
+    "text_en": "P4: introduce proper/improper/mixed/equivalent fractions carefully; unit fractions of a total; one-decimal operations; multi-step still gentle.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+  },
+  {
+    "id": "maths-p5-p6",
+    "subject": "maths",
+    "topics": [
+      "fractions",
+      "decimals",
+      "word-problems"
+    ],
+    "years": [
+      "P5",
+      "P6"
+    ],
+    "text_en": "P5–P6: simplify fractions to lowest terms; mixed operations with fractions/decimals; percentage conversions; LCM/HCF where relevant; multi-step HK money/transport word problems; check reasonableness.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+  },
+  {
+    "id": "maths-word-problems-hk",
+    "subject": "maths",
+    "topics": [
+      "word-problems"
+    ],
+    "band": "KS1",
+    "text_en": "Word problems KS1: practical addition/subtraction/multiplication/division in everyday HK contexts (shopping, sharing, length/time/money). Prefer bare numeric answers for MC.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+  },
+  {
+    "id": "maths-word-problems-ks2",
+    "subject": "maths",
+    "topics": [
+      "word-problems"
+    ],
+    "band": "KS2",
+    "text_en": "Word problems KS2: multi-step problems using four rules, fractions, decimals, percentages, unitary method for proportion; still primary-realistic (bus/ferry, school shopping).",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+  }
+]

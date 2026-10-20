@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "ingest:curriculum": "node scripts/ingest-curriculum.mjs",
+    "verify:curriculum": "node scripts/verify-curriculum-prompt.mjs"
   },
   "dependencies": {
     "react": "19.1.0",

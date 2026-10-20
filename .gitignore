@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Curriculum ingest raw PDFs/text (regenerate via scripts/ingest-curriculum.mjs)
+data/curriculum/_raw/

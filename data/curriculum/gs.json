@@ -1,0 +1,221 @@
+[
+  {
+    "id": "gs-framework-strands",
+    "subject": "gs",
+    "topics": [
+      "healthy-living",
+      "community",
+      "nature-science"
+    ],
+    "band": "KS1",
+    "text_en": "GS framework six strands: Health and Living; People and Environment; Science and Technology in Everyday Life; Community and Citizenship; National Identity and Chinese Culture; Global Understanding and the Information Era. This POC maps mainly to health, community, and nature/science.",
+    "source": "General Studies Curriculum Guide for Primary Schools (2017)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+  },
+  {
+    "id": "gs-health-ks1-knowledge",
+    "subject": "gs",
+    "topics": [
+      "healthy-living"
+    ],
+    "band": "KS1",
+    "text_en": "Health & Living KS1 knowledge: identify stages of growth and development; recognise body parts and organs; uniqueness of an individual (likes/dislikes, feelings); importance of food, exercise and rest; food hygiene; basic personal/environmental hygiene (e.g. hand-washing); personal and everyday safety; proper use of medicine; harm of cigarettes/alcohol/drugs.",
+    "source": "General Studies Curriculum Guide for Primary Schools (2017)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+  },
+  {
+    "id": "gs-health-ks1-skills",
+    "subject": "gs",
+    "topics": [
+      "healthy-living"
+    ],
+    "band": "KS1",
+    "text_en": "Health & Living KS1 skills/attitudes: observe safety rules; take elders' advice on health decisions; express emotions appropriately; plan time and money simply; treasure staying healthy; positive attitude to diet, work, rest and exercise; avoid harmful substances.",
+    "source": "General Studies Curriculum Guide for Primary Schools (2017)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+  },
+  {
+    "id": "gs-health-ks2",
+    "subject": "gs",
+    "topics": [
+      "healthy-living"
+    ],
+    "band": "KS2",
+    "text_en": "Health & Living KS2: functions of major body systems/organs; puberty changes; stress/emotions; healthy lifestyles (schedule, diet, not overindulging online); causes/prevention of common diseases; environmental hygiene issues in HK; say NO to gambling/drugs/smoking/drinking; simple first aid and community health.",
+    "source": "General Studies Curriculum Guide for Primary Schools (2017)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+  },
+  {
+    "id": "gs-health-core-ks1",
+    "subject": "gs",
+    "topics": [
+      "healthy-living"
+    ],
+    "band": "KS1",
+    "text_en": "Core elements KS1 (Health): body parts/organs; growth stages; similarities/differences between boys and girls; daily schedule; getting along with friends/family; expressing feelings; conflict resolution; balanced diet, exercise, eye care; hand-washing and no littering; home/sports safety; seeking help.",
+    "source": "General Studies Curriculum Guide for Primary Schools (2017)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+  },
+  {
+    "id": "gs-community-ks1",
+    "subject": "gs",
+    "topics": [
+      "community"
+    ],
+    "band": "KS1",
+    "text_en": "Community & Citizenship KS1 flavour (from GS guide): recognise community helpers and facilities; follow rules in public places; care for shared spaces; simple understanding of rights/responsibilities in family and school; HK everyday settings (transport, market, library) as learning contexts.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+  },
+  {
+    "id": "gs-community-ks2",
+    "subject": "gs",
+    "topics": [
+      "community"
+    ],
+    "band": "KS2",
+    "text_en": "Community & Citizenship KS2 flavour: recycling and environmental responsibility in the community; caring for public spaces; analysing simple community issues; roles in contributing to the common good; respect for rule of law at a primary level.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+  },
+  {
+    "id": "gs-people-env-ks1",
+    "subject": "gs",
+    "topics": [
+      "nature-science",
+      "community"
+    ],
+    "band": "KS1",
+    "text_en": "People & Environment KS1: basic needs, features and growth of living things; simple classification of living things; green living habits (save water, reduce waste); care for animals and plants.",
+    "source": "General Studies Curriculum Guide for Primary Schools (2017)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+  },
+  {
+    "id": "gs-people-env-ks2",
+    "subject": "gs",
+    "topics": [
+      "nature-science",
+      "community"
+    ],
+    "band": "KS2",
+    "text_en": "People & Environment KS2: life cycles; biodiversity and classification; adaptations (e.g. camouflage, needle leaves); interdependence and conservation; climate/environment concern at primary level.",
+    "source": "General Studies Curriculum Guide for Primary Schools (2017)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+  },
+  {
+    "id": "gs-science-ks1",
+    "subject": "gs",
+    "topics": [
+      "nature-science"
+    ],
+    "band": "KS1",
+    "text_en": "Science & Technology KS1 core: hands-on investigation; day/night, light and shadow; common materials and uses; design/make with materials; energy in everyday life (light, electricity); heat conduction basics; push/pull forces; safety using science/tech; famous inventors at story level.",
+    "source": "General Studies Curriculum Guide for Primary Schools (2017)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+  },
+  {
+    "id": "gs-science-ks2",
+    "subject": "gs",
+    "topics": [
+      "nature-science"
+    ],
+    "band": "KS2",
+    "text_en": "Science & Technology KS2 core: light reflection, sound, closed circuits; energy conversion; friction and magnetic force; simple machines (lever, inclined plane); reversible vs irreversible changes (three forms of water vs burning); Earth/Moon/Sun patterns (eclipses); Solar System wonder; coding for computational thinking lightly; responsible use of tech.",
+    "source": "General Studies Curriculum Guide for Primary Schools (2017)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+  },
+  {
+    "id": "gs-p1-p2-health",
+    "subject": "gs",
+    "topics": [
+      "healthy-living"
+    ],
+    "years": [
+      "P1",
+      "P2"
+    ],
+    "text_zh": "小一至小二健康生活：洗手、均衡飲食、運動休息、過馬路安全；短句傳統中文；具體是非／配對。",
+    "text_en": "P1–P2 healthy living: hand-washing, balanced food, exercise/rest, road safety; short Traditional Chinese stems; concrete yes/no or match.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+  },
+  {
+    "id": "gs-p1-p2-community",
+    "subject": "gs",
+    "topics": [
+      "community"
+    ],
+    "years": [
+      "P1",
+      "P2"
+    ],
+    "text_zh": "小一至小二社區：認識警察、消防員、醫生、教師等；港鐵／巴士禮儀；街市與圖書館規則；簡單回收。",
+    "text_en": "P1–P2 community: helpers (police, firefighters, doctors, teachers); MTR/bus manners; market/library rules; simple recycling.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+  },
+  {
+    "id": "gs-p1-p2-nature",
+    "subject": "gs",
+    "topics": [
+      "nature-science"
+    ],
+    "years": [
+      "P1",
+      "P2"
+    ],
+    "text_zh": "小一至小二自然：植物需要陽光與水；常見動物；晴雨與雲；日與夜。",
+    "text_en": "P1–P2 nature: plants need sun/water; common animals; rain/clouds; day and night.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+  },
+  {
+    "id": "gs-p3-bridge",
+    "subject": "gs",
+    "topics": [
+      "healthy-living",
+      "community",
+      "nature-science"
+    ],
+    "years": [
+      "P3"
+    ],
+    "text_zh": "小三：仍屬 KS1——衛生與安全、社區規則、物料與力的初步觀察；題幹稍長但仍具體。",
+    "text_en": "P3: still KS1 — hygiene/safety, community rules, early materials/forces observation; slightly longer but concrete stems.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+  },
+  {
+    "id": "gs-p4-p5",
+    "subject": "gs",
+    "topics": [
+      "healthy-living",
+      "community",
+      "nature-science"
+    ],
+    "years": [
+      "P4",
+      "P5"
+    ],
+    "text_zh": "小四至小五：疾病預防、回收與社區責任、水的三態、磁鐵、光的反射等；傳統中文；香港例子。",
+    "text_en": "P4–P5: disease prevention, recycling/community responsibility, three forms of water, magnets, light reflection; Traditional Chinese; HK examples.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+  },
+  {
+    "id": "gs-p6",
+    "subject": "gs",
+    "topics": [
+      "healthy-living",
+      "community",
+      "nature-science"
+    ],
+    "years": [
+      "P6"
+    ],
+    "text_zh": "小六：青春期與情緒管理輕觸即可；可再生能源／簡單機械；社區健康與說不；避免沉重國民身份論述（本 POC 從輕）。",
+    "text_en": "P6: light touch on puberty/emotions; renewable energy / simple machines; community health and refusal skills; keep national-identity content light for this POC.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+  }
+]

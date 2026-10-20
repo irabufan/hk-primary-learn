@@ -1,0 +1,220 @@
+[
+  {
+    "id": "chi-ks1-vocab-chars",
+    "subject": "chinese",
+    "topics": [
+      "vocab"
+    ],
+    "band": "KS1",
+    "text_zh": "第一學習階段：認識筆畫、筆順、字形間架結構；認識常見的偏旁、部件；認識常見同音字、反義詞、同義詞、近義詞、多義詞；認識不同詞類（如名詞、動詞、形容詞、數詞、量詞）。",
+    "text_en": "KS1: strokes, stroke order, character structure; common radicals; homophones, antonyms, synonyms, near-synonyms, polysemy; word classes including measure words (量詞).",
+    "source": "小學中國語文建議學習重點（2023年修訂）",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+  },
+  {
+    "id": "chi-ks1-vocab-measure",
+    "subject": "chinese",
+    "topics": [
+      "vocab",
+      "sentences"
+    ],
+    "band": "KS1",
+    "text_zh": "第一學習階段量詞與日常詞語：配合常見量詞（個、本、隻、條、支、張等）與學校／家庭生活高頻詞；口語與書面語詞匯有別。",
+    "text_en": "KS1 measure words and high-frequency school/home vocabulary; spoken vs written lexicon differ.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+  },
+  {
+    "id": "chi-ks2-vocab-collocation",
+    "subject": "chinese",
+    "topics": [
+      "vocab",
+      "sentences"
+    ],
+    "band": "KS2",
+    "text_zh": "第二學習階段：認識詞語的搭配；認識詞語的褒貶色彩；認識字形的正體、俗體；加深同義／近義／多義詞辨析。",
+    "text_en": "KS2: collocations; commendatory/derogatory colouring of words; standard vs variant forms; finer synonym distinctions.",
+    "source": "小學中國語文建議學習重點（2023年修訂）",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+  },
+  {
+    "id": "chi-ks2-vocab-punctuation",
+    "subject": "chinese",
+    "topics": [
+      "vocab",
+      "sentences"
+    ],
+    "band": "KS2",
+    "text_zh": "標點：KS1 認識句號、逗號、問號、嘆號、頓號、省略號、書名號、專名號；KS2 加深冒號、引號、括號、分號、破折號等用法。",
+    "text_en": "Punctuation: KS1 full stop, comma, question/exclamation marks, enumeration comma, ellipsis, book/title marks; KS2 colon, quotation marks, brackets, semicolon, dash.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+  },
+  {
+    "id": "chi-ks1-reading-lit",
+    "subject": "chinese",
+    "topics": [
+      "reading"
+    ],
+    "band": "KS1",
+    "text_zh": "閱讀（第一學習階段）：認讀常用字；理解常見詞語與句子意思；理解段意、內容大意、主旨、寓意；體會作者思想感情；辨識簡單敘述手法（如順敘、倒敘）。",
+    "text_en": "Reading KS1: recognise common characters; understand words/sentences; grasp paragraph/main idea/theme/moral; feel author's feelings; simple narrative order (chronological/flashback).",
+    "source": "小學中國語文建議學習重點（2023年修訂）",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+  },
+  {
+    "id": "chi-ks2-reading-analysis",
+    "subject": "chinese",
+    "topics": [
+      "reading"
+    ],
+    "band": "KS2",
+    "text_zh": "閱讀（第二學習階段）：辨識不同性質表達方法（描寫、抒情、說明、議論）；分析綜合內容（概括、分辨事實與意見）；分析組織結構與寫作目的；評價人物性格與行為。",
+    "text_en": "Reading KS2: identify description/lyric/exposition/argument; analyse/summarise; fact vs opinion; structure and purpose; evaluate characters' traits and actions.",
+    "source": "小學中國語文建議學習重點（2023年修訂）",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+  },
+  {
+    "id": "chi-ks1-sentences-basic",
+    "subject": "chinese",
+    "topics": [
+      "sentences"
+    ],
+    "band": "KS1",
+    "text_zh": "寫作／遣辭（第一學習階段）：認識遣辭用字在表達上的效果；以短句、常見搭配完成意思完整的表達；尚不宜以正式病句分析為主。",
+    "text_en": "Sentences KS1: effects of word choice; short complete sentences and common collocations; formal 病句 analysis not yet the focus.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+  },
+  {
+    "id": "chi-ks2-sentences-types",
+    "subject": "chinese",
+    "topics": [
+      "sentences"
+    ],
+    "band": "KS2",
+    "text_zh": "寫作／篇章（第二學習階段）：認識敘述、描寫、抒情、說明、議論等文字特點；認識實用文字（書信、便條、日記、通知、報告、廣告、海報、標語等）的功能。",
+    "text_en": "Sentences/texts KS2: narrative, descriptive, lyric, expository, argumentative features; practical genres (letters, notes, diary, notices, reports, ads, posters, slogans).",
+    "source": "小學中國語文建議學習重點（2023年修訂）",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+  },
+  {
+    "id": "chi-ks1-listening-speaking",
+    "subject": "chinese",
+    "topics": [
+      "vocab",
+      "reading"
+    ],
+    "band": "KS1",
+    "text_zh": "聆聽／說話（KS1）：聽出主要信息與故事寓意；分辨事實與意見；說話發音正確、意思完整；運用陳述、感嘆、疑問、祈使語氣。",
+    "text_en": "Listening/speaking KS1: main ideas and story morals; fact vs opinion; clear pronunciation and complete meaning; statement/exclamation/question/imperative tones.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+  },
+  {
+    "id": "chi-ks2-listening-speaking",
+    "subject": "chinese",
+    "topics": [
+      "reading",
+      "sentences"
+    ],
+    "band": "KS2",
+    "text_zh": "聆聽／說話（KS2）：聽出不同觀點與言外之意；分析語段銜接；因應情境對象選用語；按需要剪裁詳略。",
+    "text_en": "Listening/speaking KS2: viewpoints and implied meaning; cohesion across segments; audience-appropriate wording; trim detail as needed.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+  },
+  {
+    "id": "chi-goals-overall",
+    "subject": "chinese",
+    "topics": [
+      "vocab",
+      "reading",
+      "sentences"
+    ],
+    "band": "KS1",
+    "text_zh": "課程學習目標：培養讀寫聽說及思維能力；以聽說讀寫為主導，結合文學、中華文化、品德情意、思維、語文自學等範疇。",
+    "text_en": "Overall aims: develop listening/speaking/reading/writing and thinking; lead with the four skills, integrating literature, Chinese culture, moral/affective, thinking, self-learning.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Primary_Chi_Lang_Curr_Guide_2023.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Primary_Chi_Lang_Curr_Guide_2023.pdf"
+  },
+  {
+    "id": "chi-goals-ks2",
+    "subject": "chinese",
+    "topics": [
+      "vocab",
+      "reading",
+      "sentences"
+    ],
+    "band": "KS2",
+    "text_zh": "高小宜加深篇章理解、詞語搭配與實用文寫作；材料可較初小長（約數句至短段），仍須傳統漢字、本地小學語境。",
+    "text_en": "Upper primary: deeper passage comprehension, collocations, practical writing; slightly longer texts; Traditional Chinese; HK primary context.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Primary_Chi_Lang_Curr_Guide_2023.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Primary_Chi_Lang_Curr_Guide_2023.pdf"
+  },
+  {
+    "id": "chi-p1-p2-focus",
+    "subject": "chinese",
+    "topics": [
+      "vocab",
+      "reading"
+    ],
+    "years": [
+      "P1",
+      "P2"
+    ],
+    "text_zh": "小一至小二：短句、圖畫／生活情境友好；高頻詞與基本量詞；短文一至三句；避免長成語與抽象文言。",
+    "text_en": "P1–P2: short stems, picture/everyday-life friendly; high-frequency words and basic measure words; 1–3 sentence passages; avoid long idioms and abstract classical language.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+  },
+  {
+    "id": "chi-p3-bridge",
+    "subject": "chinese",
+    "topics": [
+      "vocab",
+      "reading",
+      "sentences"
+    ],
+    "years": [
+      "P3"
+    ],
+    "text_zh": "小三：可引入稍長短文與簡單寓意；量詞與搭配仍以常用為主；開始接觸簡單連詞與完整段落大意。",
+    "text_en": "P3: slightly longer passages and simple morals; still common measure words/collocations; simple conjunctions and paragraph main ideas.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+  },
+  {
+    "id": "chi-p4-p5",
+    "subject": "chinese",
+    "topics": [
+      "vocab",
+      "reading",
+      "sentences"
+    ],
+    "years": [
+      "P4",
+      "P5"
+    ],
+    "text_zh": "小四至小五：較豐富詞彙與三至六句短文；可做病句／搭配修正；辨識描寫與說明等表達方法。",
+    "text_en": "P4–P5: richer vocab and 3–6 sentence passages; 病句/collocation fixes; identify descriptive vs expository expression.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+  },
+  {
+    "id": "chi-p6",
+    "subject": "chinese",
+    "topics": [
+      "vocab",
+      "reading",
+      "sentences"
+    ],
+    "years": [
+      "P6"
+    ],
+    "text_zh": "小六：接近高小挑戰——推論、主旨、寫作目的；實用文功能；詞語褒貶與較精確近義辨析。",
+    "text_en": "P6: upper-primary challenge — inference, theme, writer's purpose; practical-text functions; evaluative colouring and precise near-synonyms.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+  }
+]

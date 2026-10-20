@@ -1,0 +1,205 @@
+[
+  {
+    "id": "eng-ks1-targets-is",
+    "subject": "english",
+    "topics": [
+      "vocabulary",
+      "grammar",
+      "reading"
+    ],
+    "band": "KS1",
+    "text_en": "KS1 Interpersonal Strand: establish/maintain classroom relationships and routines; converse about feelings, interests and experiences; exchange short simple messages (e.g. greeting cards/notes); express preferences for simple arrangements; obtain/provide objects and information in simple classroom situations.",
+    "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+  },
+  {
+    "id": "eng-ks1-targets-ks",
+    "subject": "english",
+    "topics": [
+      "vocabulary",
+      "grammar",
+      "reading"
+    ],
+    "band": "KS1",
+    "text_en": "KS1 Knowledge Strand: provide/find out and present simple information on familiar topics; interpret/use simple information via labelling, matching, sequencing, describing, classifying; follow simple instructions; state opinions in simple spoken/written texts; recognise/solve simple problems; notice obvious features of English (writing direction, alphabetic script, sound patterns).",
+    "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+  },
+  {
+    "id": "eng-ks1-targets-es",
+    "subject": "english",
+    "topics": [
+      "reading",
+      "vocabulary"
+    ],
+    "band": "KS1",
+    "text_en": "KS1 Experience Strand: enjoy basic sound patterns via rhymes, songs, choral speaking; respond to characters/events in simple imaginative texts (predictions, simple evaluative remarks, captions, related experiences, story-telling); express imaginative ideas with picture sequences and simple sound/word patterns.",
+    "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+  },
+  {
+    "id": "eng-ks2-targets-is",
+    "subject": "english",
+    "topics": [
+      "vocabulary",
+      "grammar",
+      "reading"
+    ],
+    "band": "KS2",
+    "text_en": "KS2 Interpersonal Strand: maintain relationships/routines in school and familiar situations; converse about feelings, interests, preferences, ideas, experiences and plans; exchange messages (simple letters, phone calls, postcards, invitations); participate in choices/decisions for events; obtain/provide objects, services and information.",
+    "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+  },
+  {
+    "id": "eng-ks2-targets-ks",
+    "subject": "english",
+    "topics": [
+      "vocabulary",
+      "grammar",
+      "reading"
+    ],
+    "band": "KS2",
+    "text_en": "KS2 Knowledge Strand: organise and present information on familiar topics; interpret via matching, sequencing, describing, classifying, comparing, explaining, predicting, drawing conclusions; follow instructions; identify ideas, form and express opinions; recognise/solve simple problems and describe solutions; clarify and revise own written expression.",
+    "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+  },
+  {
+    "id": "eng-ks2-targets-es",
+    "subject": "english",
+    "topics": [
+      "reading"
+    ],
+    "band": "KS2",
+    "text_en": "KS2 Experience Strand: enjoy imaginative texts (poems, rhymes, songs, short plays); respond with predictions, inferences, evaluative comments, feelings towards characters/events; dramatic activities; give expression to imaginative ideas in oral/written/performative means.",
+    "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+  },
+  {
+    "id": "eng-ks1-vocab",
+    "subject": "english",
+    "topics": [
+      "vocabulary"
+    ],
+    "band": "KS1",
+    "text_en": "KS1 vocabulary focus (aligned with ELCG learning objectives): high-frequency everyday words on familiar topics (school, home, feelings, food, animals); short cloze; stems about 6–12 words; clear word-bank friendly items.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+  },
+  {
+    "id": "eng-ks2-vocab",
+    "subject": "english",
+    "topics": [
+      "vocabulary"
+    ],
+    "band": "KS2",
+    "text_en": "KS2 vocabulary: topic words (school, transport, feelings, community) with more precise synonyms; wider range of text types; still primary-appropriate, not secondary academic jargon.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+  },
+  {
+    "id": "eng-ks1-grammar",
+    "subject": "english",
+    "topics": [
+      "grammar"
+    ],
+    "band": "KS1",
+    "text_en": "KS1 grammar (ELCG language items flavour): present simple for habits/facts; a/an; basic plurals; basic pronouns; simple adjectives; avoid complex tenses (no past perfect / conditionals).",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+  },
+  {
+    "id": "eng-ks2-grammar",
+    "subject": "english",
+    "topics": [
+      "grammar"
+    ],
+    "band": "KS2",
+    "text_en": "KS2 grammar: richer tense work (present/past simple and related forms), subject–verb agreement, articles, comparatives; connect ideas in slightly longer sentences; still primary classroom English.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+  },
+  {
+    "id": "eng-ks1-reading",
+    "subject": "english",
+    "topics": [
+      "reading"
+    ],
+    "band": "KS1",
+    "text_en": "KS1 reading: 2–4 sentence stories; literal who/what/where; labelling/matching/sequencing; simple captions; imaginative texts with clear events.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+  },
+  {
+    "id": "eng-ks2-reading",
+    "subject": "english",
+    "topics": [
+      "reading"
+    ],
+    "band": "KS2",
+    "text_en": "KS2 reading: short multi-sentence passages; identify main ideas; make simple inferences and evaluative comments; compare/explain/predict; connect to personal experience.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+  },
+  {
+    "id": "eng-p1-p2",
+    "subject": "english",
+    "topics": [
+      "vocabulary",
+      "grammar",
+      "reading"
+    ],
+    "years": [
+      "P1",
+      "P2"
+    ],
+    "text_en": "P1–P2: very high-frequency words; present simple and basic patterns; tiny stories; one blank; picture-friendly.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+  },
+  {
+    "id": "eng-p3",
+    "subject": "english",
+    "topics": [
+      "vocabulary",
+      "grammar",
+      "reading"
+    ],
+    "years": [
+      "P3"
+    ],
+    "text_en": "P3: still KS1 — short cloze, present simple/a-an/plurals; slightly longer (but still simple) reading stems.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+  },
+  {
+    "id": "eng-p4",
+    "subject": "english",
+    "topics": [
+      "vocabulary",
+      "grammar",
+      "reading"
+    ],
+    "years": [
+      "P4"
+    ],
+    "text_en": "P4 (early KS2): introduce past simple alongside present; short comprehension with detail questions; clearer subject–verb agreement focus.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+  },
+  {
+    "id": "eng-p5-p6",
+    "subject": "english",
+    "topics": [
+      "vocabulary",
+      "grammar",
+      "reading"
+    ],
+    "years": [
+      "P5",
+      "P6"
+    ],
+    "text_en": "P5–P6: richer vocab and multi-sentence passages; inference and opinion; tense consistency and agreement; invitations/letters as interpersonal text types.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+  }
+]

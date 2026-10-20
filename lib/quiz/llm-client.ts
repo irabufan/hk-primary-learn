@@ -10,6 +10,7 @@
 
 import type { SubjectSlug, Year } from "@/lib/curriculum";
 import { curriculumGuidanceBlock } from "@/lib/curriculum-guidance";
+import { retrieveCurriculumContext } from "@/lib/curriculum-retrieve";
 import type { Localized } from "@/lib/i18n/types";
 import { mulberry32, shuffle } from "@/lib/rng";
 import type { Quiz, QuizQuestion, QuizQuestionType, QuizRequest } from "./types";
@@ -111,6 +112,18 @@ function languageGuidance(subject: SubjectSlug): string {
   ].join(" ");
 }
 
+
+function retrievedOrFallbackCurriculum(request: QuizRequest): string {
+  const retrieved = retrieveCurriculumContext({
+    subject: request.subject,
+    year: request.year,
+    topic: request.topic,
+    limit: 5,
+  });
+  if (retrieved) return retrieved;
+  return curriculumGuidanceBlock(request.year, request.subject, request.topic);
+}
+
 export function buildQuizPrompt(request: QuizRequest): { system: string; user: string } {
   const label = topicLabel(request.subject, request.topic);
   const count = (QUIZ_COUNTS as readonly number[]).includes(request.count)
@@ -128,7 +141,7 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     "- For type fill: answer is the canonical accepted spelling; accepts may list alternatives.",
     "- For type number: answer is a numeric string. Plain decimals/integers (e.g. \"0.75\", \"12\") are preferred. Fraction strings like \"5/6\" are also allowed when the value is a fraction — the UI accepts text input for those.",
     "- When the learner must write a fraction in lowest terms (最簡分數 / simplify), prefer type \"fill\" with answer like \"5/6\" (accepts may include \"5 / 6\"). Do NOT use type number for slash answers unless the answer string itself contains /.",
-    "- Keep difficulty suitable for the given year (P1 easiest within primary; P6 hardest). Follow the CURRICULUM / DIFFICULTY block in the user message — KS1 (P1–P3) is not just easier KS2.",
+    "- Keep difficulty suitable for the given year (P1 easiest within primary; P6 hardest). Follow the Official / EDB-aligned learning targets block (or CURRICULUM / DIFFICULTY fallback) in the user message — KS1 (P1–P3) is not just easier KS2.",
     "- HK curriculum flavour; culturally familiar HK examples where helpful.",
     "- ids must be unique strings.",
     "- Place the correct MC answer in a random position among the 4 choices; do not always put it first.",
@@ -148,7 +161,7 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     `Question count: ${count}`,
     `Seed (variety token — produce a distinct quiz for each seed): ${request.seed}`,
     languageGuidance(request.subject),
-    curriculumGuidanceBlock(request.year, request.subject, request.topic),
+    retrievedOrFallbackCurriculum(request),
     "Prefer question types that fit the topic (e.g. maths decimals/of-a-total → number; maths simplify-to-fraction → fill with answer like \"2/3\"; English grammar → mc; Chinese vocab → mc or fill). For P1–P3 maths, prefer whole-number / money / simple sharing over advanced fractions.",
   ];
   if (avoid.length) {
