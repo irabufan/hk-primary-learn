@@ -8,6 +8,8 @@ import { yearBand, type YearBand } from "@/lib/curriculum-guidance";
 
 import allChunks from "@/data/curriculum/all.json";
 
+export type CurriculumChunkKind = "objective" | "practice";
+
 export type CurriculumChunk = {
   id: string;
   subject: SubjectSlug;
@@ -18,6 +20,9 @@ export type CurriculumChunk = {
   text_en?: string;
   source: string;
   sourceUrl?: string;
+  /** objective = EDB guide targets; practice = open practice-pattern stems. */
+  kind?: CurriculumChunkKind;
+  license?: string;
 };
 
 export type RetrieveCurriculumOptions = {
@@ -59,6 +64,10 @@ function yearMatches(chunk: CurriculumChunk, year: Year, band: YearBand): boolea
   return true;
 }
 
+function isPractice(chunk: CurriculumChunk): boolean {
+  return chunk.kind === "practice";
+}
+
 function scoreChunk(
   chunk: CurriculumChunk,
   opts: { subject: SubjectSlug; year: Year; band: YearBand; topic: string; queryTokens: Set<string> },
@@ -89,13 +98,17 @@ function scoreChunk(
   // Prefer bilingual when available.
   if (chunk.text_zh && chunk.text_en) score += 0.5;
 
+  // Light boost so practice stems surface alongside objectives when topic matches.
+  if (isPractice(chunk) && chunk.topics.includes(opts.topic)) score += 1.25;
+
   return score;
 }
 
-function pickCurriculumChunks(opts: RetrieveCurriculumOptions): CurriculumChunk[] {
+type Scored = { chunk: CurriculumChunk; score: number };
+
+function rankCandidates(opts: RetrieveCurriculumOptions): Scored[] {
   const { subject, year, topic } = opts;
   const band = yearBand(year);
-  const limit = Math.max(3, Math.min(8, opts.limit ?? 5));
   const queryTokens = new Set(tokenize([topic, year, band, subject].join(" ")));
 
   return CHUNKS.map((chunk) => ({
@@ -105,9 +118,53 @@ function pickCurriculumChunks(opts: RetrieveCurriculumOptions): CurriculumChunk[
     .filter((row) => Number.isFinite(row.score) && row.score > 0)
     // Require at least a topic hit OR solid year/band + some text — drop pure noise.
     .filter((row) => row.chunk.topics.includes(topic) || row.score >= 3)
-    .sort((a, b) => b.score - a.score || a.chunk.id.localeCompare(b.chunk.id))
-    .slice(0, limit)
-    .map((row) => row.chunk);
+    .sort((a, b) => b.score - a.score || a.chunk.id.localeCompare(b.chunk.id));
+}
+
+/**
+ * Mix up to 2 practice-pattern chunks with EDB objective chunks so the quiz
+ * prompt sees both learning targets and concrete item patterns.
+ */
+function pickCurriculumChunks(opts: RetrieveCurriculumOptions): CurriculumChunk[] {
+  const limit = Math.max(3, Math.min(8, opts.limit ?? 5));
+  const ranked = rankCandidates(opts);
+  if (ranked.length === 0) return [];
+
+  const practiceSlots = Math.min(2, Math.max(1, Math.floor(limit / 3)));
+  const practice = ranked.filter((r) => isPractice(r.chunk)).slice(0, practiceSlots);
+  const objectives = ranked.filter((r) => !isPractice(r.chunk));
+
+  const picked: Scored[] = [];
+  const seen = new Set<string>();
+
+  for (const row of objectives) {
+    if (picked.length >= limit - practice.length) break;
+    picked.push(row);
+    seen.add(row.chunk.id);
+  }
+  for (const row of practice) {
+    if (picked.length >= limit) break;
+    if (seen.has(row.chunk.id)) continue;
+    picked.push(row);
+    seen.add(row.chunk.id);
+  }
+  // If practice was scarce, backfill with more objectives / remaining ranked.
+  for (const row of ranked) {
+    if (picked.length >= limit) break;
+    if (seen.has(row.chunk.id)) continue;
+    picked.push(row);
+    seen.add(row.chunk.id);
+  }
+
+  // Keep prompt order stable: objectives first (by score), then practice (by score).
+  picked.sort((a, b) => {
+    const ap = isPractice(a.chunk) ? 1 : 0;
+    const bp = isPractice(b.chunk) ? 1 : 0;
+    if (ap !== bp) return ap - bp;
+    return b.score - a.score || a.chunk.id.localeCompare(b.chunk.id);
+  });
+
+  return picked.map((row) => row.chunk);
 }
 
 /**
@@ -119,13 +176,17 @@ export function retrieveCurriculumContext(opts: RetrieveCurriculumOptions): stri
   const final = pickCurriculumChunks(opts);
   if (final.length === 0) return "";
 
+  const hasPractice = final.some(isPractice);
   const lines: string[] = [
-    "Official / EDB-aligned learning targets (use these; do not invent off-year content):",
+    hasPractice
+      ? "Official / EDB-aligned learning targets and open practice patterns (use these; do not invent off-year content):"
+      : "Official / EDB-aligned learning targets (use these; do not invent off-year content):",
   ];
 
   for (const chunk of final) {
     const label = [
       chunk.id,
+      chunk.kind === "practice" ? "practice" : undefined,
       chunk.band ?? (chunk.years ? chunk.years.join("/") : undefined),
       chunk.topics.join(","),
     ]

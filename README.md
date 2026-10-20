@@ -102,12 +102,80 @@ node scripts/verify-curriculum-prompt.mjs --subject maths --year P4 --topic frac
 
 Raw PDFs under `data/curriculum/_raw/` are gitignored (regenerable). Committed artifacts: `data/curriculum/{chinese,english,maths,gs,all}.json`.
 
-### Honesty / coverage gaps
+### Open practice grounding
+
+In addition to EDB learning-objective chunks, quiz prompts can be mixed with **open practice-pattern** chunks (`kind: "practice"`) — short item stems / skill descriptors distilled from verified-shareable sources (not commercial textbooks, not HKEAA past papers).
+
+### Ingest
+
+```bash
+# Merge distilled practice seeds into data/curriculum/{*,all,practice}.json
+# (idempotent: replaces prior kind=practice rows, keeps objective chunks)
+npm run ingest:practice
+
+# Optional: refresh HTML/PDF snapshots under data/curriculum/_raw/practice/ (gitignored)
+node scripts/ingest-practice.mjs --fetch
+```
+
+`lib/curriculum-retrieve.ts` reserves **1–2 practice slots** per retrieve (alongside EDB objective snippets) when topic/year match.
+
+### Licences used (verified before ingest)
+
+| Source | Licence | Use in repo |
+| --- | --- | --- |
+| [Illustrative Mathematics](https://tasks.illustrativemathematics.org/) tasks | CC BY-NC-SA 4.0 | Distilled fraction/decimal/word-problem patterns; attribution URL on each chunk |
+| [Chinese Grammar Wiki](https://resources.allsetlearning.com/chinese/grammar/) (AllSet Learning) | CC BY-NC-SA 3.0 | Paraphrased measure-word / SVO / comparison patterns; attribution required; NC+SA |
+| EDB *Enhancing English Vocabulary Learning and Teaching at Primary Level* handbook | Explicit **non-profit educational duplication** with acknowledgement | Paraphrased vocab/grammar/reading stems (Sports, Crafts, We Love Hong Kong units) |
+| [Pollution in our Rivers](https://probleu.pml.space/en/content/worksheet/1335/) (Earthwatch / ProBleu) | CC BY 4.0 | Distilled freshwater / pollution / human-impact stems for 常識 |
+
+Chunks use `source: "practice: <url>"` or `source: "paraphrase-practice: <url>"` plus `sourceUrl` / `license`. Prefer **patterns** over dumping worksheets.
+
+### Skipped (unclear or non-redistributable)
+
+- MathCat / HappyFree printables — personal use / unclear redistribution
+- Generic EDB Addenda worksheet pages under the site-wide copyright notice (no explicit educational-duplication clause like the English vocab handbook)
+- HKEAA past papers and commercial drill books — never ingested
+
+## Honesty / coverage gaps
 
 - Snippets are **learning objectives / key-stage descriptors**, not a full syllabus dump. Two-column PDF layouts do not auto-chunk perfectly, so the committed JSON is a **curated distillation** (~60–70 chunks) from fetched EDB documents, with `source` / `sourceUrl` on every chunk. Paraphrases are labeled `source: "paraphrase: <url>"`.
 - Maths Number (fractions/decimals/word problems) is the strongest coverage (Annex I is compact). Chinese and English are keyed to suggested learning points / ELCG strand targets. GS maps Health / Community / Science strands onto `healthy-living`, `community`, `nature-science`; National Identity content is kept light for this POC.
 - Year granularity is mostly **KS1/KS2 bands** plus a few P-year hints — not every EDB bullet per year.
-- Extending coverage: inspect `_raw/*.txt` after ingest, add chunks to `all.json` (keep topic slugs aligned with `lib/curriculum.ts`), re-run `npm run ingest:curriculum -- --skip-download` or edit subject JSON files directly, then `npm run verify:curriculum`.
+- Extending coverage: inspect `_raw/*.txt` after curriculum ingest, or add practice seeds in `scripts/ingest-practice.mjs`, then `npm run ingest:practice` and `npm run verify:curriculum`. Keep topic slugs aligned with `lib/curriculum.ts`.
+
+## Open practice grounding
+
+In addition to EDB learning-objective chunks, quiz prompts can be mixed with **open practice-pattern** chunks (`kind: "practice"`) — short item stems / skill descriptors distilled from verified-shareable sources (not commercial textbooks, not HKEAA past papers).
+
+### Ingest
+
+```bash
+# Merge distilled practice seeds into data/curriculum/{*,all,practice}.json
+# (idempotent: replaces prior kind=practice rows, keeps objective chunks)
+npm run ingest:practice
+
+# Optional: refresh HTML/PDF snapshots under data/curriculum/_raw/practice/ (gitignored)
+node scripts/ingest-practice.mjs --fetch
+```
+
+`lib/curriculum-retrieve.ts` reserves **1–2 practice slots** per retrieve (alongside EDB objective snippets) when topic/year match.
+
+### Licences used (verified before ingest)
+
+| Source | Licence | Use in repo |
+| --- | --- | --- |
+| [Illustrative Mathematics](https://tasks.illustrativemathematics.org/) tasks | CC BY-NC-SA 4.0 | Distilled fraction/decimal/word-problem patterns; attribution URL on each chunk |
+| [Chinese Grammar Wiki](https://resources.allsetlearning.com/chinese/grammar/) (AllSet Learning) | CC BY-NC-SA 3.0 | Paraphrased measure-word / SVO / comparison patterns; attribution required; NC+SA |
+| EDB *Enhancing English Vocabulary Learning and Teaching at Primary Level* handbook | Explicit **non-profit educational duplication** with acknowledgement | Paraphrased vocab/grammar/reading stems (Sports, Crafts, We Love Hong Kong units) |
+| [Pollution in our Rivers](https://probleu.pml.space/en/content/worksheet/1335/) (Earthwatch / ProBleu) | CC BY 4.0 | Distilled freshwater / pollution / human-impact stems for 常識 |
+
+Chunks use `source: "practice: <url>"` or `source: "paraphrase-practice: <url>"` plus `sourceUrl` / `license`. Prefer **patterns** over dumping worksheets.
+
+### Skipped (unclear or non-redistributable)
+
+- MathCat / HappyFree printables — personal use / unclear redistribution
+- Generic EDB Addenda worksheet pages under the site-wide copyright notice (no explicit educational-duplication clause like the English vocab handbook)
+- HKEAA past papers and commercial drill books — never ingested
 
 ## Honesty
 

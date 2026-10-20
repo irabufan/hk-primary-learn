@@ -1,0 +1,551 @@
+[
+  {
+    "id": "prac-chi-mw-cloze-ks1",
+    "subject": "chinese",
+    "kind": "practice",
+    "topics": [
+      "vocab"
+    ],
+    "band": "KS1",
+    "years": [
+      "P1",
+      "P2",
+      "P3"
+    ],
+    "text_zh": "練習模式（量詞填空）：數字／指示代詞 + ____ + 名詞。例：一___書；這___人；兩___狗。考查常見量詞（個、本、只）配對，而非默寫整課生字表。",
+    "text_en": "Practice pattern (measure-word cloze): numeral/demonstrative + ____ + noun. Stems like 一___書 / 這___人 / 兩___狗 probe classifier choice (個/本/只), not whole vocabulary lists.",
+    "source": "paraphrase-practice: https://resources.allsetlearning.com/chinese/grammar/Measure_words",
+    "sourceUrl": "https://resources.allsetlearning.com/chinese/grammar/Measure_words",
+    "license": "CC BY-NC-SA 3.0 (AllSet Learning Chinese Grammar Wiki)"
+  },
+  {
+    "id": "prac-chi-mw-pairs-ks1",
+    "subject": "chinese",
+    "kind": "practice",
+    "topics": [
+      "vocab"
+    ],
+    "band": "KS1",
+    "text_zh": "量詞－名詞配對模式：只→動物／鞋；條→魚／路／腿；輛→車；台→電腦／電視；塊→糕／肉／錢。練習以配對卡或選詞完成短語為主。",
+    "text_en": "Classifier–noun pairing pattern: 只→animals/shoes; 條→fish/roads/legs; 輛→vehicles; 台→computers/TVs; 塊→cake/meat/money. Drill as match cards or phrase completion.",
+    "source": "paraphrase-practice: https://resources.allsetlearning.com/chinese/grammar/Measure_words",
+    "sourceUrl": "https://resources.allsetlearning.com/chinese/grammar/Measure_words",
+    "license": "CC BY-NC-SA 3.0 (AllSet Learning Chinese Grammar Wiki)"
+  },
+  {
+    "id": "prac-chi-svo-sentences-ks1",
+    "subject": "chinese",
+    "kind": "practice",
+    "topics": [
+      "sentences"
+    ],
+    "band": "KS1",
+    "text_zh": "基本語序練習：主語＋動詞＋賓語（SVO）。短句重組／判斷：我／去／學校；他／說／中文。病句焦點：缺賓語或主謂顛倒。",
+    "text_en": "Basic word-order practice: Subj + Verb + Obj (SVO). Reorder/judge short stems (我／去／學校; 他／說／中文). Broken-sentence focus: missing object or inverted S–V.",
+    "source": "paraphrase-practice: https://resources.allsetlearning.com/chinese/grammar/Basic_sentence_order",
+    "sourceUrl": "https://resources.allsetlearning.com/chinese/grammar/Basic_sentence_order",
+    "license": "CC BY-NC-SA 3.0 (AllSet Learning Chinese Grammar Wiki)"
+  },
+  {
+    "id": "prac-chi-sv-predicate-ks1",
+    "subject": "chinese",
+    "kind": "practice",
+    "topics": [
+      "sentences",
+      "vocab"
+    ],
+    "band": "KS1",
+    "text_zh": "主謂短句模式：主語＋動詞（你們吃；孩子哭）。可加疑問：誰想玩？適合填充／看圖寫句。",
+    "text_en": "Subject–predicate mini stems: Subj + Verb (你們吃; 孩子哭). Optional question form 誰想玩？ Useful for fill-blank or picture writing.",
+    "source": "paraphrase-practice: https://resources.allsetlearning.com/chinese/grammar/Basic_sentence_order",
+    "sourceUrl": "https://resources.allsetlearning.com/chinese/grammar/Basic_sentence_order",
+    "license": "CC BY-NC-SA 3.0 (AllSet Learning Chinese Grammar Wiki)"
+  },
+  {
+    "id": "prac-chi-bi-compare-ks2",
+    "subject": "chinese",
+    "kind": "practice",
+    "topics": [
+      "sentences"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5",
+      "P6"
+    ],
+    "text_zh": "比較句模式：A 比 B + 形容詞；A 沒有 B + 形容詞；A 跟／和 B 一樣 + 形容詞。填充／改錯：你___我高。",
+    "text_en": "Comparison sentence patterns: A 比 B + Adj; A 沒有 B + Adj; A 跟/和 B 一樣 + Adj. Cloze/error-fix stems such as 你___我高.",
+    "source": "paraphrase-practice: https://resources.allsetlearning.com/chinese/grammar/Comparing",
+    "sourceUrl": "https://resources.allsetlearning.com/chinese/grammar/Comparing",
+    "license": "CC BY-NC-SA 3.0 (AllSet Learning Chinese Grammar Wiki)"
+  },
+  {
+    "id": "prac-chi-zui-geng-ks2",
+    "subject": "chinese",
+    "kind": "practice",
+    "topics": [
+      "vocab",
+      "sentences"
+    ],
+    "band": "KS2",
+    "text_zh": "程度比較詞：最＋形容詞（誰最有錢？）；更＋形容詞（更簡單）。閱讀／選擇題可用來辨認比較焦點。",
+    "text_en": "Degree markers: 最+Adj (誰最有錢？); 更+Adj (更簡單). Reading/MC can ask which option carries the comparison focus.",
+    "source": "paraphrase-practice: https://resources.allsetlearning.com/chinese/grammar/Comparing",
+    "sourceUrl": "https://resources.allsetlearning.com/chinese/grammar/Comparing",
+    "license": "CC BY-NC-SA 3.0 (AllSet Learning Chinese Grammar Wiki)"
+  },
+  {
+    "id": "prac-chi-mw-reading-ks1",
+    "subject": "chinese",
+    "kind": "practice",
+    "topics": [
+      "reading"
+    ],
+    "band": "KS1",
+    "text_zh": "閱讀理解小題模式：短文含數個「數詞＋量詞＋名詞」短語，題目問「共有幾___？」或圈出正確量詞。勿抄長篇課文。",
+    "text_en": "Reading mini-stem: a short paragraph with several numeral+classifier+noun phrases; ask 「共有幾___？」 or circle the correct classifier. Keep passages short.",
+    "source": "paraphrase-practice: https://resources.allsetlearning.com/chinese/grammar/Measure_words",
+    "sourceUrl": "https://resources.allsetlearning.com/chinese/grammar/Measure_words",
+    "license": "CC BY-NC-SA 3.0 (AllSet Learning Chinese Grammar Wiki)"
+  },
+  {
+    "id": "prac-chi-compare-reading-ks2",
+    "subject": "chinese",
+    "kind": "practice",
+    "topics": [
+      "reading",
+      "sentences"
+    ],
+    "band": "KS2",
+    "text_zh": "閱讀比較資訊：文中出現「比／沒有／一樣／最」，題目問誰較高／哪個最……考查抓比較關係，非全文默寫。",
+    "text_en": "Reading for comparison cues (比/沒有/一樣/最): ask who is taller / which is 最…. Probe relation tracking, not verbatim recall.",
+    "source": "paraphrase-practice: https://resources.allsetlearning.com/chinese/grammar/Comparing",
+    "sourceUrl": "https://resources.allsetlearning.com/chinese/grammar/Comparing",
+    "license": "CC BY-NC-SA 3.0 (AllSet Learning Chinese Grammar Wiki)"
+  },
+  {
+    "id": "prac-eng-paradigmatic-sports",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary"
+    ],
+    "band": "KS1",
+    "years": [
+      "P1",
+      "P2",
+      "P3"
+    ],
+    "text_en": "Paradigmatic vocab tree pattern (EDB Sports unit): sports → water sports / ball games / track and field → specific items (swimming, football, running). Item type: sort words into a tree or match hypernym→hyponym.",
+    "text_zh": "詞彙樹狀分類模式（EDB 運動單元）：sports → water sports／ball games／track and field → 具體項目。題型：分類或上位詞→下位詞配對。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-ing-ed-adj",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "grammar",
+      "vocabulary"
+    ],
+    "band": "KS1",
+    "text_en": "Adjective form cloze: use -ing adjectives for activities (exciting, tiring, boring) and -ed for feelings (excited, tired, bored). Stem: 'I am ___ as I won the race' / 'Basketball is ___'.",
+    "text_zh": "形容詞形式填空：-ing 形容活動，-ed 形容感受。例：I am ___ as I won the race／Basketball is ___。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-make-me-collocation",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary",
+      "grammar"
+    ],
+    "band": "KS1",
+    "text_en": "Collocation stem: make me + adjective (fit / strong / healthy / tall). Complete: 'Swimming can ___.' Probe fixed phrase, not free translation.",
+    "text_zh": "固定搭配：make me + adjective（fit／strong／healthy）。完成句：Swimming can ___。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-compounding",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary"
+    ],
+    "band": "KS1",
+    "text_en": "Word-formation pattern: compounding (foot+ball=football; basket+ball=basketball). Item: join two nouns or choose the compound that names a sport.",
+    "text_zh": "構詞模式：複合詞 foot+ball=football。題型：拼合兩詞或選出運動名稱。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-syntagmatic-place",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary",
+      "grammar"
+    ],
+    "band": "KS1",
+    "text_en": "Syntagmatic table: Who + What + Where — 'We play tennis on a tennis court'; 'He plays football on a football field.' Cloze one column or match activity↔facility.",
+    "text_zh": "橫向搭配表：人物＋活動＋地點（play tennis on a tennis court）。填一欄或活動↔場地配對。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-reading-letter",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "reading"
+    ],
+    "band": "KS1",
+    "years": [
+      "P2",
+      "P3"
+    ],
+    "text_en": "Reading pattern: short suggestion letter (Dear… / I suggest building… / Best regards). MC or short answer: who wrote it, what facility is suggested, why (healthy/popular/missing facility).",
+    "text_zh": "閱讀模式：簡短信函（建議興建設施）。題目：作者、建議設施、原因（健康／受歡迎／學校欠缺）。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-shapes-instructions",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary",
+      "grammar"
+    ],
+    "band": "KS1",
+    "text_en": "Shapes + imperatives pattern (We Can Make Things): triangle/rectangle/oval/heart; First,/Then,/Next,/Lastly, + verb (fold, glue, decorate). Order-the-steps or fill connective.",
+    "text_zh": "形狀＋祈使句步驟（手工單元）：First/Then/Next/Lastly + fold/glue/decorate。排序或填連接詞。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-hk-itinerary-ks2",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary",
+      "reading"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5",
+      "P6"
+    ],
+    "text_en": "KS2 itinerary pattern (We Love Hong Kong): place + activity + transport columns (Ocean Park → watch the dolphin show → by bus). Future tense 'We will…'; sequence First/Then/After that. Reading: match spot↔activity.",
+    "text_zh": "KS2 行程表模式：地點＋活動＋交通；將來式 We will…；順序連接詞。閱讀：景點↔活動配對。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-synonym-adj-ks2",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary",
+      "grammar"
+    ],
+    "band": "KS2",
+    "text_en": "Synonym adjective sets for places/activities: wonderful≈attractive≈fantastic; well-known≈famous; giant≈big. Cloze or 'which word has a similar meaning' MC in a short diary/itinerary text.",
+    "text_zh": "近義形容詞組：wonderful≈fantastic；well-known≈famous。短日記／行程文中選近義詞。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-maths-share-lunches",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "fractions",
+      "word-problems"
+    ],
+    "band": "KS2",
+    "years": [
+      "P5",
+      "P6"
+    ],
+    "text_en": "Equal-sharing stem (IM Sharing Lunches): n people share m wholes equally → each gets m/n. Ask for a diagram, then write both addition (a/b+a/b+…=m) and multiplication (k×a/b=m) equations for the same situation.",
+    "text_zh": "平均分配題幹：n 人平分 m 個整體 → 每人 m/n。先畫圖，再用加法式與乘法式表示同一情境。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-fraction-as-division",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "fractions",
+      "word-problems"
+    ],
+    "band": "KS2",
+    "years": [
+      "P5",
+      "P6"
+    ],
+    "text_en": "Fraction-as-division pattern: whole ÷ people = fraction share (e.g. 2÷3=2/3). Pair with 'of each whole' view (2×1/3=2/3). One stem, two equation forms.",
+    "text_zh": "分數即除法：整數÷人數＝每份分數（2÷3=2/3），並對應 2×1/3=2/3。同一題幹兩種算式。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-tenths-hundredths",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "decimals"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5"
+    ],
+    "text_en": "Decimal place-value stem (IM How Many Tenths and Hundredths?): finish equations like '1 tenth + 4 hundredths = ___ hundredths' and '80 hundredths = ___ tenths'. Emphasise bundling and order of addends.",
+    "text_zh": "小數位值填空：1 tenth + 4 hundredths = ___ hundredths；80 hundredths = ___ tenths。強調單位換算與加數次序。",
+    "source": "practice: https://tasks.illustrativemathematics.org/content-standards/NF/4/C/6/tasks/103",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/4/C/6/tasks/103",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-equiv-laps",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "fractions"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5"
+    ],
+    "text_en": "Equivalent-fraction comparison stem (IM Running Laps style): compare distances like 1/4 mile and 3/12 mile; justify equality via common denominators or simplifying. MC or short reason.",
+    "text_zh": "等值分數比較：如 1/4 與 3/12 哩；用通分或約分說明相等。選擇或簡述理由。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/4/NF/A/tasks/971",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/4/NF/A/tasks/971",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-unlike-add",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "fractions"
+    ],
+    "band": "KS2",
+    "years": [
+      "P5",
+      "P6"
+    ],
+    "text_en": "Unlike-denominator addition pattern: rewrite with a common denominator before adding; keep answers in simplest form. Stem can be pure computation or a short story needing a/b + c/d.",
+    "text_zh": "異分母加法模式：先通分再加，答案約至最簡。可純計算或短應用題需 a/b+c/d。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/5/A/1/tasks/855",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/5/A/1/tasks/855",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-fraction-of-quantity",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "fractions",
+      "word-problems"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5",
+      "P6"
+    ],
+    "text_en": "Fraction-of-a-quantity word-problem pattern: 'find a/b of N' (of operator). Prefer HK-flavoured everyday units (pages, dollars, minutes) but keep numbers small; ask for working.",
+    "text_zh": "求幾分之幾應用題：求 N 的 a/b。宜用日常單位（頁、元、分鐘），數字宜小，要求列式。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-decimal-order",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "decimals"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5"
+    ],
+    "text_en": "Decimal comparison/ordering pattern tied to tenths–hundredths: rewrite 0.6 and 0.62 as hundredths before comparing; warn that digit position matters (5 tenths+2 hundredths ≠ 5 hundredths+2 tenths).",
+    "text_zh": "小數比較／排序：先化成百分之一再比；提醒數位重要（5 tenths+2 hundredths ≠ 5 hundredths+2 tenths）。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/4/C/6/tasks/103",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/4/C/6/tasks/103",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-multi-rep-wp",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "word-problems",
+      "fractions"
+    ],
+    "band": "KS2",
+    "text_en": "Multi-representation word-problem pattern: one everyday share/join situation → (1) diagram, (2) addition equation, (3) multiplication or division equation. Mark partial credit if only one form is correct.",
+    "text_zh": "多元表征應用題：同一分配／合併情境 → 圖示＋加法式＋乘／除法式。只對一種形式可給部分分。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-gs-river-pollution-sources",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "nature-science"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5",
+      "P6"
+    ],
+    "text_en": "Nature–science practice stem (CC BY river pollution resource): classify pollution sources — sewage/wastewater, urban runoff, farming chemicals/fertilisers. Item: match source→effect on freshwater / sort cards into human-impact categories.",
+    "text_zh": "自然科練習模式（河流污染 CC BY）：分類污染來源——污水、市區徑流、農藥／肥料。配對來源→淡水影響或卡片分類。",
+    "source": "paraphrase-practice: https://probleu.pml.space/en/content/worksheet/1335/",
+    "sourceUrl": "https://probleu.pml.space/en/content/worksheet/1335/",
+    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)"
+  },
+  {
+    "id": "prac-gs-water-quality-debate",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "nature-science",
+      "community"
+    ],
+    "band": "KS2",
+    "text_en": "Issue-discussion stem: for/against chemical fertiliser use near rivers — list one benefit (crop yield) and one risk (nutrient pollution, algal blooms). Short written or MC justification.",
+    "text_zh": "議題討論：贊成／反對河邊使用化肥——各列一項好處（產量）與風險（營養污染、藻華）。短答或選擇理由。",
+    "source": "paraphrase-practice: https://probleu.pml.space/en/content/worksheet/1335/",
+    "sourceUrl": "https://probleu.pml.space/en/content/worksheet/1335/",
+    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)"
+  },
+  {
+    "id": "prac-gs-freshwater-keywords",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "nature-science"
+    ],
+    "band": "KS1",
+    "years": [
+      "P2",
+      "P3"
+    ],
+    "text_en": "Keyword matching (ages ~7–11 freshwater OER): river / water quality / pollution / plastic / protection. Picture–word or 'which action protects rivers' (reduce litter, care with chemicals).",
+    "text_zh": "關鍵詞配對：河流／水質／污染／塑膠／保護。圖詞配對或選出護河行動（少丟垃圾、慎用化學品）。",
+    "source": "paraphrase-practice: https://probleu.pml.space/en/content/worksheet/1335/",
+    "sourceUrl": "https://probleu.pml.space/en/content/worksheet/1335/",
+    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)"
+  },
+  {
+    "id": "prac-gs-community-scenic",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "community"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5"
+    ],
+    "text_en": "Community places pattern (from EDB HK itinerary L&T theme): match local facilities/scenic categories — heritage/museum tour, nature tour, shopping/dining — to example spots and what people do there. Probe community services, not tourist trivia alone.",
+    "text_zh": "社區／本地地方模式（EDB 行程主題）：文化古蹟／自然／購物餐飲類行程與活動配對。著重社區設施功能。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-gs-transport-community",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "community"
+    ],
+    "band": "KS1",
+    "text_en": "Community transport pattern: group public transport (bus, MTR, tram, ferry, Peak Tram) and link to everyday journeys (home→school, park visit). Item: choose suitable transport for a short scenario.",
+    "text_zh": "社區交通模式：巴士／港鐵／電車／渡輪等，連繫日常出行。情境題選合適交通工具。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-gs-healthy-sport-adj",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "healthy-living"
+    ],
+    "band": "KS1",
+    "years": [
+      "P1",
+      "P2",
+      "P3"
+    ],
+    "text_en": "Healthy-living vocab pattern (EDB Sports L&T): link activities to health adjectives (healthy, safe, tiring) and reasons ('I like swimming because it is healthy / makes me fit'). Sort safe vs dangerous practices.",
+    "text_zh": "健康生活詞彙（EDB 運動主題）：活動↔健康形容詞；陳述原因（because it is healthy／makes me fit）。分辨安全／危險做法。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-gs-school-facilities-health",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "healthy-living",
+      "community"
+    ],
+    "band": "KS1",
+    "text_en": "School facilities & health stem: survey-style items — which facilities support exercise (basketball court, swimming pool); suggest one facility the school needs and give a health reason. Ties personal health to school community.",
+    "text_zh": "校園設施與健康：哪些設施有助運動；建議新增一項並給健康理由。連結個人健康與學校社區。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-gs-human-impact-ks2",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "nature-science",
+      "community"
+    ],
+    "band": "KS2",
+    "text_en": "Human-impact chain: everyday action → pollutant pathway → freshwater effect (e.g. litter→plastic pollution→harm to river life; fertiliser→nutrients→algal blooms). Complete a 3-box cause–effect diagram.",
+    "text_zh": "人為影響鏈：日常行為→污染物路徑→淡水後果（垃圾→塑膠污染；肥料→藻華）。完成三格因果圖。",
+    "source": "paraphrase-practice: https://probleu.pml.space/en/content/worksheet/1335/",
+    "sourceUrl": "https://probleu.pml.space/en/content/worksheet/1335/",
+    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)"
+  }
+]

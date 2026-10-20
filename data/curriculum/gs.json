@@ -10,7 +10,8 @@
     "band": "KS1",
     "text_en": "GS framework six strands: Health and Living; People and Environment; Science and Technology in Everyday Life; Community and Citizenship; National Identity and Chinese Culture; Global Understanding and the Information Era. This POC maps mainly to health, community, and nature/science.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-health-ks1-knowledge",
@@ -21,7 +22,8 @@
     "band": "KS1",
     "text_en": "Health & Living KS1 knowledge: identify stages of growth and development; recognise body parts and organs; uniqueness of an individual (likes/dislikes, feelings); importance of food, exercise and rest; food hygiene; basic personal/environmental hygiene (e.g. hand-washing); personal and everyday safety; proper use of medicine; harm of cigarettes/alcohol/drugs.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-health-ks1-skills",
@@ -32,7 +34,8 @@
     "band": "KS1",
     "text_en": "Health & Living KS1 skills/attitudes: observe safety rules; take elders' advice on health decisions; express emotions appropriately; plan time and money simply; treasure staying healthy; positive attitude to diet, work, rest and exercise; avoid harmful substances.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-health-ks2",
@@ -43,7 +46,8 @@
     "band": "KS2",
     "text_en": "Health & Living KS2: functions of major body systems/organs; puberty changes; stress/emotions; healthy lifestyles (schedule, diet, not overindulging online); causes/prevention of common diseases; environmental hygiene issues in HK; say NO to gambling/drugs/smoking/drinking; simple first aid and community health.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-health-core-ks1",
@@ -54,7 +58,8 @@
     "band": "KS1",
     "text_en": "Core elements KS1 (Health): body parts/organs; growth stages; similarities/differences between boys and girls; daily schedule; getting along with friends/family; expressing feelings; conflict resolution; balanced diet, exercise, eye care; hand-washing and no littering; home/sports safety; seeking help.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-community-ks1",
@@ -65,7 +70,8 @@
     "band": "KS1",
     "text_en": "Community & Citizenship KS1 flavour (from GS guide): recognise community helpers and facilities; follow rules in public places; care for shared spaces; simple understanding of rights/responsibilities in family and school; HK everyday settings (transport, market, library) as learning contexts.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-community-ks2",
@@ -76,7 +82,8 @@
     "band": "KS2",
     "text_en": "Community & Citizenship KS2 flavour: recycling and environmental responsibility in the community; caring for public spaces; analysing simple community issues; roles in contributing to the common good; respect for rule of law at a primary level.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-people-env-ks1",
@@ -88,7 +95,8 @@
     "band": "KS1",
     "text_en": "People & Environment KS1: basic needs, features and growth of living things; simple classification of living things; green living habits (save water, reduce waste); care for animals and plants.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-people-env-ks2",
@@ -100,7 +108,8 @@
     "band": "KS2",
     "text_en": "People & Environment KS2: life cycles; biodiversity and classification; adaptations (e.g. camouflage, needle leaves); interdependence and conservation; climate/environment concern at primary level.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-science-ks1",
@@ -111,7 +120,8 @@
     "band": "KS1",
     "text_en": "Science & Technology KS1 core: hands-on investigation; day/night, light and shadow; common materials and uses; design/make with materials; energy in everyday life (light, electricity); heat conduction basics; push/pull forces; safety using science/tech; famous inventors at story level.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-science-ks2",
@@ -122,7 +132,8 @@
     "band": "KS2",
     "text_en": "Science & Technology KS2 core: light reflection, sound, closed circuits; energy conversion; friction and magnetic force; simple machines (lever, inclined plane); reversible vs irreversible changes (three forms of water vs burning); Earth/Moon/Sun patterns (eclipses); Solar System wonder; coding for computational thinking lightly; responsible use of tech.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-p1-p2-health",
@@ -137,7 +148,8 @@
     "text_zh": "小一至小二健康生活：洗手、均衡飲食、運動休息、過馬路安全；短句傳統中文；具體是非／配對。",
     "text_en": "P1–P2 healthy living: hand-washing, balanced food, exercise/rest, road safety; short Traditional Chinese stems; concrete yes/no or match.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-p1-p2-community",
@@ -152,7 +164,8 @@
     "text_zh": "小一至小二社區：認識警察、消防員、醫生、教師等；港鐵／巴士禮儀；街市與圖書館規則；簡單回收。",
     "text_en": "P1–P2 community: helpers (police, firefighters, doctors, teachers); MTR/bus manners; market/library rules; simple recycling.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-p1-p2-nature",
@@ -167,7 +180,8 @@
     "text_zh": "小一至小二自然：植物需要陽光與水；常見動物；晴雨與雲；日與夜。",
     "text_en": "P1–P2 nature: plants need sun/water; common animals; rain/clouds; day and night.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-p3-bridge",
@@ -183,7 +197,8 @@
     "text_zh": "小三：仍屬 KS1——衛生與安全、社區規則、物料與力的初步觀察；題幹稍長但仍具體。",
     "text_en": "P3: still KS1 — hygiene/safety, community rules, early materials/forces observation; slightly longer but concrete stems.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-p4-p5",
@@ -200,7 +215,8 @@
     "text_zh": "小四至小五：疾病預防、回收與社區責任、水的三態、磁鐵、光的反射等；傳統中文；香港例子。",
     "text_en": "P4–P5: disease prevention, recycling/community responsibility, three forms of water, magnets, light reflection; Traditional Chinese; HK examples.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-p6",
@@ -216,6 +232,140 @@
     "text_zh": "小六：青春期與情緒管理輕觸即可；可再生能源／簡單機械；社區健康與說不；避免沉重國民身份論述（本 POC 從輕）。",
     "text_en": "P6: light touch on puberty/emotions; renewable energy / simple machines; community health and refusal skills; keep national-identity content light for this POC.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "prac-gs-river-pollution-sources",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "nature-science"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5",
+      "P6"
+    ],
+    "text_en": "Nature–science practice stem (CC BY river pollution resource): classify pollution sources — sewage/wastewater, urban runoff, farming chemicals/fertilisers. Item: match source→effect on freshwater / sort cards into human-impact categories.",
+    "text_zh": "自然科練習模式（河流污染 CC BY）：分類污染來源——污水、市區徑流、農藥／肥料。配對來源→淡水影響或卡片分類。",
+    "source": "paraphrase-practice: https://probleu.pml.space/en/content/worksheet/1335/",
+    "sourceUrl": "https://probleu.pml.space/en/content/worksheet/1335/",
+    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)"
+  },
+  {
+    "id": "prac-gs-water-quality-debate",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "nature-science",
+      "community"
+    ],
+    "band": "KS2",
+    "text_en": "Issue-discussion stem: for/against chemical fertiliser use near rivers — list one benefit (crop yield) and one risk (nutrient pollution, algal blooms). Short written or MC justification.",
+    "text_zh": "議題討論：贊成／反對河邊使用化肥——各列一項好處（產量）與風險（營養污染、藻華）。短答或選擇理由。",
+    "source": "paraphrase-practice: https://probleu.pml.space/en/content/worksheet/1335/",
+    "sourceUrl": "https://probleu.pml.space/en/content/worksheet/1335/",
+    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)"
+  },
+  {
+    "id": "prac-gs-freshwater-keywords",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "nature-science"
+    ],
+    "band": "KS1",
+    "years": [
+      "P2",
+      "P3"
+    ],
+    "text_en": "Keyword matching (ages ~7–11 freshwater OER): river / water quality / pollution / plastic / protection. Picture–word or 'which action protects rivers' (reduce litter, care with chemicals).",
+    "text_zh": "關鍵詞配對：河流／水質／污染／塑膠／保護。圖詞配對或選出護河行動（少丟垃圾、慎用化學品）。",
+    "source": "paraphrase-practice: https://probleu.pml.space/en/content/worksheet/1335/",
+    "sourceUrl": "https://probleu.pml.space/en/content/worksheet/1335/",
+    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)"
+  },
+  {
+    "id": "prac-gs-community-scenic",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "community"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5"
+    ],
+    "text_en": "Community places pattern (from EDB HK itinerary L&T theme): match local facilities/scenic categories — heritage/museum tour, nature tour, shopping/dining — to example spots and what people do there. Probe community services, not tourist trivia alone.",
+    "text_zh": "社區／本地地方模式（EDB 行程主題）：文化古蹟／自然／購物餐飲類行程與活動配對。著重社區設施功能。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-gs-transport-community",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "community"
+    ],
+    "band": "KS1",
+    "text_en": "Community transport pattern: group public transport (bus, MTR, tram, ferry, Peak Tram) and link to everyday journeys (home→school, park visit). Item: choose suitable transport for a short scenario.",
+    "text_zh": "社區交通模式：巴士／港鐵／電車／渡輪等，連繫日常出行。情境題選合適交通工具。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-gs-healthy-sport-adj",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "healthy-living"
+    ],
+    "band": "KS1",
+    "years": [
+      "P1",
+      "P2",
+      "P3"
+    ],
+    "text_en": "Healthy-living vocab pattern (EDB Sports L&T): link activities to health adjectives (healthy, safe, tiring) and reasons ('I like swimming because it is healthy / makes me fit'). Sort safe vs dangerous practices.",
+    "text_zh": "健康生活詞彙（EDB 運動主題）：活動↔健康形容詞；陳述原因（because it is healthy／makes me fit）。分辨安全／危險做法。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-gs-school-facilities-health",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "healthy-living",
+      "community"
+    ],
+    "band": "KS1",
+    "text_en": "School facilities & health stem: survey-style items — which facilities support exercise (basketball court, swimming pool); suggest one facility the school needs and give a health reason. Ties personal health to school community.",
+    "text_zh": "校園設施與健康：哪些設施有助運動；建議新增一項並給健康理由。連結個人健康與學校社區。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-gs-human-impact-ks2",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "nature-science",
+      "community"
+    ],
+    "band": "KS2",
+    "text_en": "Human-impact chain: everyday action → pollutant pathway → freshwater effect (e.g. litter→plastic pollution→harm to river life; fertiliser→nutrients→algal blooms). Complete a 3-box cause–effect diagram.",
+    "text_zh": "人為影響鏈：日常行為→污染物路徑→淡水後果（垃圾→塑膠污染；肥料→藻華）。完成三格因果圖。",
+    "source": "paraphrase-practice: https://probleu.pml.space/en/content/worksheet/1335/",
+    "sourceUrl": "https://probleu.pml.space/en/content/worksheet/1335/",
+    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)"
   }
 ]

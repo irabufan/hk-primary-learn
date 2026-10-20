@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "ingest:curriculum": "node scripts/ingest-curriculum.mjs",
-    "verify:curriculum": "node scripts/verify-curriculum-prompt.mjs"
+    "verify:curriculum": "node scripts/verify-curriculum-prompt.mjs",
+    "ingest:practice": "node scripts/ingest-practice.mjs"
   },
   "dependencies": {
     "react": "19.1.0",

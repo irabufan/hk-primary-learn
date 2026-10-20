@@ -9,7 +9,8 @@
     "text_zh": "第一學習階段：認識筆畫、筆順、字形間架結構；認識常見的偏旁、部件；認識常見同音字、反義詞、同義詞、近義詞、多義詞；認識不同詞類（如名詞、動詞、形容詞、數詞、量詞）。",
     "text_en": "KS1: strokes, stroke order, character structure; common radicals; homophones, antonyms, synonyms, near-synonyms, polysemy; word classes including measure words (量詞).",
     "source": "小學中國語文建議學習重點（2023年修訂）",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
   },
   {
     "id": "chi-ks1-vocab-measure",
@@ -22,7 +23,8 @@
     "text_zh": "第一學習階段量詞與日常詞語：配合常見量詞（個、本、隻、條、支、張等）與學校／家庭生活高頻詞；口語與書面語詞匯有別。",
     "text_en": "KS1 measure words and high-frequency school/home vocabulary; spoken vs written lexicon differ.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
   },
   {
     "id": "chi-ks2-vocab-collocation",
@@ -35,7 +37,8 @@
     "text_zh": "第二學習階段：認識詞語的搭配；認識詞語的褒貶色彩；認識字形的正體、俗體；加深同義／近義／多義詞辨析。",
     "text_en": "KS2: collocations; commendatory/derogatory colouring of words; standard vs variant forms; finer synonym distinctions.",
     "source": "小學中國語文建議學習重點（2023年修訂）",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
   },
   {
     "id": "chi-ks2-vocab-punctuation",
@@ -48,7 +51,8 @@
     "text_zh": "標點：KS1 認識句號、逗號、問號、嘆號、頓號、省略號、書名號、專名號；KS2 加深冒號、引號、括號、分號、破折號等用法。",
     "text_en": "Punctuation: KS1 full stop, comma, question/exclamation marks, enumeration comma, ellipsis, book/title marks; KS2 colon, quotation marks, brackets, semicolon, dash.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
   },
   {
     "id": "chi-ks1-reading-lit",
@@ -60,7 +64,8 @@
     "text_zh": "閱讀（第一學習階段）：認讀常用字；理解常見詞語與句子意思；理解段意、內容大意、主旨、寓意；體會作者思想感情；辨識簡單敘述手法（如順敘、倒敘）。",
     "text_en": "Reading KS1: recognise common characters; understand words/sentences; grasp paragraph/main idea/theme/moral; feel author's feelings; simple narrative order (chronological/flashback).",
     "source": "小學中國語文建議學習重點（2023年修訂）",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
   },
   {
     "id": "chi-ks2-reading-analysis",
@@ -72,7 +77,8 @@
     "text_zh": "閱讀（第二學習階段）：辨識不同性質表達方法（描寫、抒情、說明、議論）；分析綜合內容（概括、分辨事實與意見）；分析組織結構與寫作目的；評價人物性格與行為。",
     "text_en": "Reading KS2: identify description/lyric/exposition/argument; analyse/summarise; fact vs opinion; structure and purpose; evaluate characters' traits and actions.",
     "source": "小學中國語文建議學習重點（2023年修訂）",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
   },
   {
     "id": "chi-ks1-sentences-basic",
@@ -84,7 +90,8 @@
     "text_zh": "寫作／遣辭（第一學習階段）：認識遣辭用字在表達上的效果；以短句、常見搭配完成意思完整的表達；尚不宜以正式病句分析為主。",
     "text_en": "Sentences KS1: effects of word choice; short complete sentences and common collocations; formal 病句 analysis not yet the focus.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
   },
   {
     "id": "chi-ks2-sentences-types",
@@ -96,7 +103,8 @@
     "text_zh": "寫作／篇章（第二學習階段）：認識敘述、描寫、抒情、說明、議論等文字特點；認識實用文字（書信、便條、日記、通知、報告、廣告、海報、標語等）的功能。",
     "text_en": "Sentences/texts KS2: narrative, descriptive, lyric, expository, argumentative features; practical genres (letters, notes, diary, notices, reports, ads, posters, slogans).",
     "source": "小學中國語文建議學習重點（2023年修訂）",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
   },
   {
     "id": "chi-ks1-listening-speaking",
@@ -109,7 +117,8 @@
     "text_zh": "聆聽／說話（KS1）：聽出主要信息與故事寓意；分辨事實與意見；說話發音正確、意思完整；運用陳述、感嘆、疑問、祈使語氣。",
     "text_en": "Listening/speaking KS1: main ideas and story morals; fact vs opinion; clear pronunciation and complete meaning; statement/exclamation/question/imperative tones.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
   },
   {
     "id": "chi-ks2-listening-speaking",
@@ -122,7 +131,8 @@
     "text_zh": "聆聽／說話（KS2）：聽出不同觀點與言外之意；分析語段銜接；因應情境對象選用語；按需要剪裁詳略。",
     "text_en": "Listening/speaking KS2: viewpoints and implied meaning; cohesion across segments; audience-appropriate wording; trim detail as needed.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
   },
   {
     "id": "chi-goals-overall",
@@ -136,7 +146,8 @@
     "text_zh": "課程學習目標：培養讀寫聽說及思維能力；以聽說讀寫為主導，結合文學、中華文化、品德情意、思維、語文自學等範疇。",
     "text_en": "Overall aims: develop listening/speaking/reading/writing and thinking; lead with the four skills, integrating literature, Chinese culture, moral/affective, thinking, self-learning.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Primary_Chi_Lang_Curr_Guide_2023.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Primary_Chi_Lang_Curr_Guide_2023.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Primary_Chi_Lang_Curr_Guide_2023.pdf",
+    "kind": "objective"
   },
   {
     "id": "chi-goals-ks2",
@@ -150,7 +161,8 @@
     "text_zh": "高小宜加深篇章理解、詞語搭配與實用文寫作；材料可較初小長（約數句至短段），仍須傳統漢字、本地小學語境。",
     "text_en": "Upper primary: deeper passage comprehension, collocations, practical writing; slightly longer texts; Traditional Chinese; HK primary context.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Primary_Chi_Lang_Curr_Guide_2023.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Primary_Chi_Lang_Curr_Guide_2023.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Primary_Chi_Lang_Curr_Guide_2023.pdf",
+    "kind": "objective"
   },
   {
     "id": "chi-p1-p2-focus",
@@ -166,7 +178,8 @@
     "text_zh": "小一至小二：短句、圖畫／生活情境友好；高頻詞與基本量詞；短文一至三句；避免長成語與抽象文言。",
     "text_en": "P1–P2: short stems, picture/everyday-life friendly; high-frequency words and basic measure words; 1–3 sentence passages; avoid long idioms and abstract classical language.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
   },
   {
     "id": "chi-p3-bridge",
@@ -182,7 +195,8 @@
     "text_zh": "小三：可引入稍長短文與簡單寓意；量詞與搭配仍以常用為主；開始接觸簡單連詞與完整段落大意。",
     "text_en": "P3: slightly longer passages and simple morals; still common measure words/collocations; simple conjunctions and paragraph main ideas.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
   },
   {
     "id": "chi-p4-p5",
@@ -199,7 +213,8 @@
     "text_zh": "小四至小五：較豐富詞彙與三至六句短文；可做病句／搭配修正；辨識描寫與說明等表達方法。",
     "text_en": "P4–P5: richer vocab and 3–6 sentence passages; 病句/collocation fixes; identify descriptive vs expository expression.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
   },
   {
     "id": "chi-p6",
@@ -215,7 +230,8 @@
     "text_zh": "小六：接近高小挑戰——推論、主旨、寫作目的；實用文功能；詞語褒貶與較精確近義辨析。",
     "text_en": "P6: upper-primary challenge — inference, theme, writer's purpose; practical-text functions; evaluative colouring and precise near-synonyms.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks1-targets-is",
@@ -228,7 +244,8 @@
     "band": "KS1",
     "text_en": "KS1 Interpersonal Strand: establish/maintain classroom relationships and routines; converse about feelings, interests and experiences; exchange short simple messages (e.g. greeting cards/notes); express preferences for simple arrangements; obtain/provide objects and information in simple classroom situations.",
     "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks1-targets-ks",
@@ -241,7 +258,8 @@
     "band": "KS1",
     "text_en": "KS1 Knowledge Strand: provide/find out and present simple information on familiar topics; interpret/use simple information via labelling, matching, sequencing, describing, classifying; follow simple instructions; state opinions in simple spoken/written texts; recognise/solve simple problems; notice obvious features of English (writing direction, alphabetic script, sound patterns).",
     "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks1-targets-es",
@@ -253,7 +271,8 @@
     "band": "KS1",
     "text_en": "KS1 Experience Strand: enjoy basic sound patterns via rhymes, songs, choral speaking; respond to characters/events in simple imaginative texts (predictions, simple evaluative remarks, captions, related experiences, story-telling); express imaginative ideas with picture sequences and simple sound/word patterns.",
     "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks2-targets-is",
@@ -266,7 +285,8 @@
     "band": "KS2",
     "text_en": "KS2 Interpersonal Strand: maintain relationships/routines in school and familiar situations; converse about feelings, interests, preferences, ideas, experiences and plans; exchange messages (simple letters, phone calls, postcards, invitations); participate in choices/decisions for events; obtain/provide objects, services and information.",
     "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks2-targets-ks",
@@ -279,7 +299,8 @@
     "band": "KS2",
     "text_en": "KS2 Knowledge Strand: organise and present information on familiar topics; interpret via matching, sequencing, describing, classifying, comparing, explaining, predicting, drawing conclusions; follow instructions; identify ideas, form and express opinions; recognise/solve simple problems and describe solutions; clarify and revise own written expression.",
     "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks2-targets-es",
@@ -290,7 +311,8 @@
     "band": "KS2",
     "text_en": "KS2 Experience Strand: enjoy imaginative texts (poems, rhymes, songs, short plays); respond with predictions, inferences, evaluative comments, feelings towards characters/events; dramatic activities; give expression to imaginative ideas in oral/written/performative means.",
     "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks1-vocab",
@@ -301,7 +323,8 @@
     "band": "KS1",
     "text_en": "KS1 vocabulary focus (aligned with ELCG learning objectives): high-frequency everyday words on familiar topics (school, home, feelings, food, animals); short cloze; stems about 6–12 words; clear word-bank friendly items.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks2-vocab",
@@ -312,7 +335,8 @@
     "band": "KS2",
     "text_en": "KS2 vocabulary: topic words (school, transport, feelings, community) with more precise synonyms; wider range of text types; still primary-appropriate, not secondary academic jargon.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks1-grammar",
@@ -323,7 +347,8 @@
     "band": "KS1",
     "text_en": "KS1 grammar (ELCG language items flavour): present simple for habits/facts; a/an; basic plurals; basic pronouns; simple adjectives; avoid complex tenses (no past perfect / conditionals).",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks2-grammar",
@@ -334,7 +359,8 @@
     "band": "KS2",
     "text_en": "KS2 grammar: richer tense work (present/past simple and related forms), subject–verb agreement, articles, comparatives; connect ideas in slightly longer sentences; still primary classroom English.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks1-reading",
@@ -345,7 +371,8 @@
     "band": "KS1",
     "text_en": "KS1 reading: 2–4 sentence stories; literal who/what/where; labelling/matching/sequencing; simple captions; imaginative texts with clear events.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks2-reading",
@@ -356,7 +383,8 @@
     "band": "KS2",
     "text_en": "KS2 reading: short multi-sentence passages; identify main ideas; make simple inferences and evaluative comments; compare/explain/predict; connect to personal experience.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-p1-p2",
@@ -372,7 +400,8 @@
     ],
     "text_en": "P1–P2: very high-frequency words; present simple and basic patterns; tiny stories; one blank; picture-friendly.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-p3",
@@ -387,7 +416,8 @@
     ],
     "text_en": "P3: still KS1 — short cloze, present simple/a-an/plurals; slightly longer (but still simple) reading stems.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-p4",
@@ -402,7 +432,8 @@
     ],
     "text_en": "P4 (early KS2): introduce past simple alongside present; short comprehension with detail questions; clearer subject–verb agreement focus.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-p5-p6",
@@ -418,7 +449,8 @@
     ],
     "text_en": "P5–P6: richer vocab and multi-sentence passages; inference and opinion; tense consistency and agreement; invitations/letters as interpersonal text types.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ks1-number-targets",
@@ -431,7 +463,8 @@
     "band": "KS1",
     "text_en": "KS1 Number dimension targets: understand whole numbers and simple fractions; manipulate whole numbers and simple fractions; use simple properties of operations; formulate and solve simple problems involving numbers.",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ks2-number-targets",
@@ -444,7 +477,8 @@
     "band": "KS2",
     "text_en": "KS2 Number dimension targets: understand different forms of numbers; interconvert forms; manipulate numbers and check reasonableness; use properties of operations; formulate and solve problems involving numbers.",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ks1-ops",
@@ -455,7 +489,8 @@
     "band": "KS1",
     "text_en": "KS1 objectives: read/write/order numbers up to 5 digits and place value; addition/subtraction within 4 places (commutative/associative of addition); multiplication with 1-digit multiplier (multiplicand up to 3 digits) and division with 1-digit divisor; mixed operations with at most two operations; simple brackets in +/−; money coins/notes up to $1000 and price tags.",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ks1-fractions",
@@ -466,7 +501,8 @@
     "band": "KS1",
     "text_en": "KS1 fractions: understand and use fractions in everyday life; add/subtract fractions with the same denominator (answers not greater than 1; no simplification required).",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ks2-fractions",
@@ -477,7 +513,8 @@
     "band": "KS2",
     "text_en": "KS2 fractions: proper/improper fractions, mixed numbers, equivalent fractions; +, −, ×, ÷ and simple mixed operations of simple fractions; reduce answers to simplest form; check by estimation; solve simple fraction problems.",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ks2-decimals",
@@ -488,7 +525,8 @@
     "band": "KS2",
     "text_en": "KS2 decimals: read/write/order decimals and place values; +, −, ×, ÷ and simple mixed operations up to two decimal places; rounding; percentages and conversions among decimals, fractions and percentages; simple practical problems on decimals and percentages.",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ks2-factors-avg",
@@ -500,7 +538,8 @@
     "band": "KS2",
     "text_en": "KS2 number extras: common multiples/factors, LCM and HCF of ≤3 numbers; squares/square roots of whole numbers; direct/inverse proportion via unitary method; average of a small everyday data set.",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ks1-measures",
@@ -511,7 +550,8 @@
     "band": "KS1",
     "text_en": "KS1 Measures: mm/cm/m/km; perimeter of rectangles/squares; time (second, minute, hour, a.m./p.m.), calendar; compare lengths with standard units.",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ks2-measures",
@@ -522,7 +562,8 @@
     "band": "KS2",
     "text_en": "KS2 Measures: metric relationships; area (cm², m²) and formulas for rectangles/squares; areas of parallelograms, triangles, trapeziums; approximate nature of measurement.",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ch4-ks1",
@@ -534,7 +575,8 @@
     "band": "KS1",
     "text_en": "Ch.4 KS1 Number targets (summary): understand and manipulate whole numbers; understand simple fractions; examine reasonableness of results; formulate and solve simple problems involving numbers.",
     "source": "EDB Mathematics Curriculum Guide Ch.4 — Learning Targets of Key Stages 1 and 2",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/chapter%204_1.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/chapter%204_1.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ch4-ks2",
@@ -547,7 +589,8 @@
     "band": "KS2",
     "text_en": "Ch.4 KS2 Number targets (summary): understand whole numbers, fractions, decimals, percentages and relations among them; manipulate numbers and examine reasonableness; formulate and solve problems involving numbers.",
     "source": "EDB Mathematics Curriculum Guide Ch.4 — Learning Targets of Key Stages 1 and 2",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/chapter%204_1.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/chapter%204_1.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-p1-p2",
@@ -563,7 +606,8 @@
     ],
     "text_en": "P1–P2 practice guidance (from KS1 objectives): keep numbers small (often ≤100); prefer sharing/half-of/equal groups as whole numbers rather than simplify-to-lowest-terms; money in whole dollars or simple contexts; avoid ×÷ of two decimals.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-p3",
@@ -578,7 +622,8 @@
     ],
     "text_en": "P3: same-denominator fraction +/− (answer ≤1, no simplification); simple unit fractions of a small total; simple one-decimal add/subtract with small values; one- or two-step shopping/sharing problems.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-p4",
@@ -593,7 +638,8 @@
     ],
     "text_en": "P4: introduce proper/improper/mixed/equivalent fractions carefully; unit fractions of a total; one-decimal operations; multi-step still gentle.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-p5-p6",
@@ -609,7 +655,8 @@
     ],
     "text_en": "P5–P6: simplify fractions to lowest terms; mixed operations with fractions/decimals; percentage conversions; LCM/HCF where relevant; multi-step HK money/transport word problems; check reasonableness.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-word-problems-hk",
@@ -620,7 +667,8 @@
     "band": "KS1",
     "text_en": "Word problems KS1: practical addition/subtraction/multiplication/division in everyday HK contexts (shopping, sharing, length/time/money). Prefer bare numeric answers for MC.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-word-problems-ks2",
@@ -631,7 +679,8 @@
     "band": "KS2",
     "text_en": "Word problems KS2: multi-step problems using four rules, fractions, decimals, percentages, unitary method for proportion; still primary-realistic (bus/ferry, school shopping).",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-framework-strands",
@@ -644,7 +693,8 @@
     "band": "KS1",
     "text_en": "GS framework six strands: Health and Living; People and Environment; Science and Technology in Everyday Life; Community and Citizenship; National Identity and Chinese Culture; Global Understanding and the Information Era. This POC maps mainly to health, community, and nature/science.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-health-ks1-knowledge",
@@ -655,7 +705,8 @@
     "band": "KS1",
     "text_en": "Health & Living KS1 knowledge: identify stages of growth and development; recognise body parts and organs; uniqueness of an individual (likes/dislikes, feelings); importance of food, exercise and rest; food hygiene; basic personal/environmental hygiene (e.g. hand-washing); personal and everyday safety; proper use of medicine; harm of cigarettes/alcohol/drugs.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-health-ks1-skills",
@@ -666,7 +717,8 @@
     "band": "KS1",
     "text_en": "Health & Living KS1 skills/attitudes: observe safety rules; take elders' advice on health decisions; express emotions appropriately; plan time and money simply; treasure staying healthy; positive attitude to diet, work, rest and exercise; avoid harmful substances.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-health-ks2",
@@ -677,7 +729,8 @@
     "band": "KS2",
     "text_en": "Health & Living KS2: functions of major body systems/organs; puberty changes; stress/emotions; healthy lifestyles (schedule, diet, not overindulging online); causes/prevention of common diseases; environmental hygiene issues in HK; say NO to gambling/drugs/smoking/drinking; simple first aid and community health.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-health-core-ks1",
@@ -688,7 +741,8 @@
     "band": "KS1",
     "text_en": "Core elements KS1 (Health): body parts/organs; growth stages; similarities/differences between boys and girls; daily schedule; getting along with friends/family; expressing feelings; conflict resolution; balanced diet, exercise, eye care; hand-washing and no littering; home/sports safety; seeking help.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-community-ks1",
@@ -699,7 +753,8 @@
     "band": "KS1",
     "text_en": "Community & Citizenship KS1 flavour (from GS guide): recognise community helpers and facilities; follow rules in public places; care for shared spaces; simple understanding of rights/responsibilities in family and school; HK everyday settings (transport, market, library) as learning contexts.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-community-ks2",
@@ -710,7 +765,8 @@
     "band": "KS2",
     "text_en": "Community & Citizenship KS2 flavour: recycling and environmental responsibility in the community; caring for public spaces; analysing simple community issues; roles in contributing to the common good; respect for rule of law at a primary level.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-people-env-ks1",
@@ -722,7 +778,8 @@
     "band": "KS1",
     "text_en": "People & Environment KS1: basic needs, features and growth of living things; simple classification of living things; green living habits (save water, reduce waste); care for animals and plants.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-people-env-ks2",
@@ -734,7 +791,8 @@
     "band": "KS2",
     "text_en": "People & Environment KS2: life cycles; biodiversity and classification; adaptations (e.g. camouflage, needle leaves); interdependence and conservation; climate/environment concern at primary level.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-science-ks1",
@@ -745,7 +803,8 @@
     "band": "KS1",
     "text_en": "Science & Technology KS1 core: hands-on investigation; day/night, light and shadow; common materials and uses; design/make with materials; energy in everyday life (light, electricity); heat conduction basics; push/pull forces; safety using science/tech; famous inventors at story level.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-science-ks2",
@@ -756,7 +815,8 @@
     "band": "KS2",
     "text_en": "Science & Technology KS2 core: light reflection, sound, closed circuits; energy conversion; friction and magnetic force; simple machines (lever, inclined plane); reversible vs irreversible changes (three forms of water vs burning); Earth/Moon/Sun patterns (eclipses); Solar System wonder; coding for computational thinking lightly; responsible use of tech.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-p1-p2-health",
@@ -771,7 +831,8 @@
     "text_zh": "小一至小二健康生活：洗手、均衡飲食、運動休息、過馬路安全；短句傳統中文；具體是非／配對。",
     "text_en": "P1–P2 healthy living: hand-washing, balanced food, exercise/rest, road safety; short Traditional Chinese stems; concrete yes/no or match.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-p1-p2-community",
@@ -786,7 +847,8 @@
     "text_zh": "小一至小二社區：認識警察、消防員、醫生、教師等；港鐵／巴士禮儀；街市與圖書館規則；簡單回收。",
     "text_en": "P1–P2 community: helpers (police, firefighters, doctors, teachers); MTR/bus manners; market/library rules; simple recycling.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-p1-p2-nature",
@@ -801,7 +863,8 @@
     "text_zh": "小一至小二自然：植物需要陽光與水；常見動物；晴雨與雲；日與夜。",
     "text_en": "P1–P2 nature: plants need sun/water; common animals; rain/clouds; day and night.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-p3-bridge",
@@ -817,7 +880,8 @@
     "text_zh": "小三：仍屬 KS1——衛生與安全、社區規則、物料與力的初步觀察；題幹稍長但仍具體。",
     "text_en": "P3: still KS1 — hygiene/safety, community rules, early materials/forces observation; slightly longer but concrete stems.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-p4-p5",
@@ -834,7 +898,8 @@
     "text_zh": "小四至小五：疾病預防、回收與社區責任、水的三態、磁鐵、光的反射等；傳統中文；香港例子。",
     "text_en": "P4–P5: disease prevention, recycling/community responsibility, three forms of water, magnets, light reflection; Traditional Chinese; HK examples.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
   },
   {
     "id": "gs-p6",
@@ -850,6 +915,556 @@
     "text_zh": "小六：青春期與情緒管理輕觸即可；可再生能源／簡單機械；社區健康與說不；避免沉重國民身份論述（本 POC 從輕）。",
     "text_en": "P6: light touch on puberty/emotions; renewable energy / simple machines; community health and refusal skills; keep national-identity content light for this POC.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "prac-chi-mw-cloze-ks1",
+    "subject": "chinese",
+    "kind": "practice",
+    "topics": [
+      "vocab"
+    ],
+    "band": "KS1",
+    "years": [
+      "P1",
+      "P2",
+      "P3"
+    ],
+    "text_zh": "練習模式（量詞填空）：數字／指示代詞 + ____ + 名詞。例：一___書；這___人；兩___狗。考查常見量詞（個、本、只）配對，而非默寫整課生字表。",
+    "text_en": "Practice pattern (measure-word cloze): numeral/demonstrative + ____ + noun. Stems like 一___書 / 這___人 / 兩___狗 probe classifier choice (個/本/只), not whole vocabulary lists.",
+    "source": "paraphrase-practice: https://resources.allsetlearning.com/chinese/grammar/Measure_words",
+    "sourceUrl": "https://resources.allsetlearning.com/chinese/grammar/Measure_words",
+    "license": "CC BY-NC-SA 3.0 (AllSet Learning Chinese Grammar Wiki)"
+  },
+  {
+    "id": "prac-chi-mw-pairs-ks1",
+    "subject": "chinese",
+    "kind": "practice",
+    "topics": [
+      "vocab"
+    ],
+    "band": "KS1",
+    "text_zh": "量詞－名詞配對模式：只→動物／鞋；條→魚／路／腿；輛→車；台→電腦／電視；塊→糕／肉／錢。練習以配對卡或選詞完成短語為主。",
+    "text_en": "Classifier–noun pairing pattern: 只→animals/shoes; 條→fish/roads/legs; 輛→vehicles; 台→computers/TVs; 塊→cake/meat/money. Drill as match cards or phrase completion.",
+    "source": "paraphrase-practice: https://resources.allsetlearning.com/chinese/grammar/Measure_words",
+    "sourceUrl": "https://resources.allsetlearning.com/chinese/grammar/Measure_words",
+    "license": "CC BY-NC-SA 3.0 (AllSet Learning Chinese Grammar Wiki)"
+  },
+  {
+    "id": "prac-chi-svo-sentences-ks1",
+    "subject": "chinese",
+    "kind": "practice",
+    "topics": [
+      "sentences"
+    ],
+    "band": "KS1",
+    "text_zh": "基本語序練習：主語＋動詞＋賓語（SVO）。短句重組／判斷：我／去／學校；他／說／中文。病句焦點：缺賓語或主謂顛倒。",
+    "text_en": "Basic word-order practice: Subj + Verb + Obj (SVO). Reorder/judge short stems (我／去／學校; 他／說／中文). Broken-sentence focus: missing object or inverted S–V.",
+    "source": "paraphrase-practice: https://resources.allsetlearning.com/chinese/grammar/Basic_sentence_order",
+    "sourceUrl": "https://resources.allsetlearning.com/chinese/grammar/Basic_sentence_order",
+    "license": "CC BY-NC-SA 3.0 (AllSet Learning Chinese Grammar Wiki)"
+  },
+  {
+    "id": "prac-chi-sv-predicate-ks1",
+    "subject": "chinese",
+    "kind": "practice",
+    "topics": [
+      "sentences",
+      "vocab"
+    ],
+    "band": "KS1",
+    "text_zh": "主謂短句模式：主語＋動詞（你們吃；孩子哭）。可加疑問：誰想玩？適合填充／看圖寫句。",
+    "text_en": "Subject–predicate mini stems: Subj + Verb (你們吃; 孩子哭). Optional question form 誰想玩？ Useful for fill-blank or picture writing.",
+    "source": "paraphrase-practice: https://resources.allsetlearning.com/chinese/grammar/Basic_sentence_order",
+    "sourceUrl": "https://resources.allsetlearning.com/chinese/grammar/Basic_sentence_order",
+    "license": "CC BY-NC-SA 3.0 (AllSet Learning Chinese Grammar Wiki)"
+  },
+  {
+    "id": "prac-chi-bi-compare-ks2",
+    "subject": "chinese",
+    "kind": "practice",
+    "topics": [
+      "sentences"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5",
+      "P6"
+    ],
+    "text_zh": "比較句模式：A 比 B + 形容詞；A 沒有 B + 形容詞；A 跟／和 B 一樣 + 形容詞。填充／改錯：你___我高。",
+    "text_en": "Comparison sentence patterns: A 比 B + Adj; A 沒有 B + Adj; A 跟/和 B 一樣 + Adj. Cloze/error-fix stems such as 你___我高.",
+    "source": "paraphrase-practice: https://resources.allsetlearning.com/chinese/grammar/Comparing",
+    "sourceUrl": "https://resources.allsetlearning.com/chinese/grammar/Comparing",
+    "license": "CC BY-NC-SA 3.0 (AllSet Learning Chinese Grammar Wiki)"
+  },
+  {
+    "id": "prac-chi-zui-geng-ks2",
+    "subject": "chinese",
+    "kind": "practice",
+    "topics": [
+      "vocab",
+      "sentences"
+    ],
+    "band": "KS2",
+    "text_zh": "程度比較詞：最＋形容詞（誰最有錢？）；更＋形容詞（更簡單）。閱讀／選擇題可用來辨認比較焦點。",
+    "text_en": "Degree markers: 最+Adj (誰最有錢？); 更+Adj (更簡單). Reading/MC can ask which option carries the comparison focus.",
+    "source": "paraphrase-practice: https://resources.allsetlearning.com/chinese/grammar/Comparing",
+    "sourceUrl": "https://resources.allsetlearning.com/chinese/grammar/Comparing",
+    "license": "CC BY-NC-SA 3.0 (AllSet Learning Chinese Grammar Wiki)"
+  },
+  {
+    "id": "prac-chi-mw-reading-ks1",
+    "subject": "chinese",
+    "kind": "practice",
+    "topics": [
+      "reading"
+    ],
+    "band": "KS1",
+    "text_zh": "閱讀理解小題模式：短文含數個「數詞＋量詞＋名詞」短語，題目問「共有幾___？」或圈出正確量詞。勿抄長篇課文。",
+    "text_en": "Reading mini-stem: a short paragraph with several numeral+classifier+noun phrases; ask 「共有幾___？」 or circle the correct classifier. Keep passages short.",
+    "source": "paraphrase-practice: https://resources.allsetlearning.com/chinese/grammar/Measure_words",
+    "sourceUrl": "https://resources.allsetlearning.com/chinese/grammar/Measure_words",
+    "license": "CC BY-NC-SA 3.0 (AllSet Learning Chinese Grammar Wiki)"
+  },
+  {
+    "id": "prac-chi-compare-reading-ks2",
+    "subject": "chinese",
+    "kind": "practice",
+    "topics": [
+      "reading",
+      "sentences"
+    ],
+    "band": "KS2",
+    "text_zh": "閱讀比較資訊：文中出現「比／沒有／一樣／最」，題目問誰較高／哪個最……考查抓比較關係，非全文默寫。",
+    "text_en": "Reading for comparison cues (比/沒有/一樣/最): ask who is taller / which is 最…. Probe relation tracking, not verbatim recall.",
+    "source": "paraphrase-practice: https://resources.allsetlearning.com/chinese/grammar/Comparing",
+    "sourceUrl": "https://resources.allsetlearning.com/chinese/grammar/Comparing",
+    "license": "CC BY-NC-SA 3.0 (AllSet Learning Chinese Grammar Wiki)"
+  },
+  {
+    "id": "prac-eng-paradigmatic-sports",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary"
+    ],
+    "band": "KS1",
+    "years": [
+      "P1",
+      "P2",
+      "P3"
+    ],
+    "text_en": "Paradigmatic vocab tree pattern (EDB Sports unit): sports → water sports / ball games / track and field → specific items (swimming, football, running). Item type: sort words into a tree or match hypernym→hyponym.",
+    "text_zh": "詞彙樹狀分類模式（EDB 運動單元）：sports → water sports／ball games／track and field → 具體項目。題型：分類或上位詞→下位詞配對。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-ing-ed-adj",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "grammar",
+      "vocabulary"
+    ],
+    "band": "KS1",
+    "text_en": "Adjective form cloze: use -ing adjectives for activities (exciting, tiring, boring) and -ed for feelings (excited, tired, bored). Stem: 'I am ___ as I won the race' / 'Basketball is ___'.",
+    "text_zh": "形容詞形式填空：-ing 形容活動，-ed 形容感受。例：I am ___ as I won the race／Basketball is ___。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-make-me-collocation",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary",
+      "grammar"
+    ],
+    "band": "KS1",
+    "text_en": "Collocation stem: make me + adjective (fit / strong / healthy / tall). Complete: 'Swimming can ___.' Probe fixed phrase, not free translation.",
+    "text_zh": "固定搭配：make me + adjective（fit／strong／healthy）。完成句：Swimming can ___。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-compounding",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary"
+    ],
+    "band": "KS1",
+    "text_en": "Word-formation pattern: compounding (foot+ball=football; basket+ball=basketball). Item: join two nouns or choose the compound that names a sport.",
+    "text_zh": "構詞模式：複合詞 foot+ball=football。題型：拼合兩詞或選出運動名稱。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-syntagmatic-place",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary",
+      "grammar"
+    ],
+    "band": "KS1",
+    "text_en": "Syntagmatic table: Who + What + Where — 'We play tennis on a tennis court'; 'He plays football on a football field.' Cloze one column or match activity↔facility.",
+    "text_zh": "橫向搭配表：人物＋活動＋地點（play tennis on a tennis court）。填一欄或活動↔場地配對。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-reading-letter",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "reading"
+    ],
+    "band": "KS1",
+    "years": [
+      "P2",
+      "P3"
+    ],
+    "text_en": "Reading pattern: short suggestion letter (Dear… / I suggest building… / Best regards). MC or short answer: who wrote it, what facility is suggested, why (healthy/popular/missing facility).",
+    "text_zh": "閱讀模式：簡短信函（建議興建設施）。題目：作者、建議設施、原因（健康／受歡迎／學校欠缺）。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-shapes-instructions",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary",
+      "grammar"
+    ],
+    "band": "KS1",
+    "text_en": "Shapes + imperatives pattern (We Can Make Things): triangle/rectangle/oval/heart; First,/Then,/Next,/Lastly, + verb (fold, glue, decorate). Order-the-steps or fill connective.",
+    "text_zh": "形狀＋祈使句步驟（手工單元）：First/Then/Next/Lastly + fold/glue/decorate。排序或填連接詞。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-hk-itinerary-ks2",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary",
+      "reading"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5",
+      "P6"
+    ],
+    "text_en": "KS2 itinerary pattern (We Love Hong Kong): place + activity + transport columns (Ocean Park → watch the dolphin show → by bus). Future tense 'We will…'; sequence First/Then/After that. Reading: match spot↔activity.",
+    "text_zh": "KS2 行程表模式：地點＋活動＋交通；將來式 We will…；順序連接詞。閱讀：景點↔活動配對。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-synonym-adj-ks2",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary",
+      "grammar"
+    ],
+    "band": "KS2",
+    "text_en": "Synonym adjective sets for places/activities: wonderful≈attractive≈fantastic; well-known≈famous; giant≈big. Cloze or 'which word has a similar meaning' MC in a short diary/itinerary text.",
+    "text_zh": "近義形容詞組：wonderful≈fantastic；well-known≈famous。短日記／行程文中選近義詞。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-maths-share-lunches",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "fractions",
+      "word-problems"
+    ],
+    "band": "KS2",
+    "years": [
+      "P5",
+      "P6"
+    ],
+    "text_en": "Equal-sharing stem (IM Sharing Lunches): n people share m wholes equally → each gets m/n. Ask for a diagram, then write both addition (a/b+a/b+…=m) and multiplication (k×a/b=m) equations for the same situation.",
+    "text_zh": "平均分配題幹：n 人平分 m 個整體 → 每人 m/n。先畫圖，再用加法式與乘法式表示同一情境。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-fraction-as-division",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "fractions",
+      "word-problems"
+    ],
+    "band": "KS2",
+    "years": [
+      "P5",
+      "P6"
+    ],
+    "text_en": "Fraction-as-division pattern: whole ÷ people = fraction share (e.g. 2÷3=2/3). Pair with 'of each whole' view (2×1/3=2/3). One stem, two equation forms.",
+    "text_zh": "分數即除法：整數÷人數＝每份分數（2÷3=2/3），並對應 2×1/3=2/3。同一題幹兩種算式。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-tenths-hundredths",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "decimals"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5"
+    ],
+    "text_en": "Decimal place-value stem (IM How Many Tenths and Hundredths?): finish equations like '1 tenth + 4 hundredths = ___ hundredths' and '80 hundredths = ___ tenths'. Emphasise bundling and order of addends.",
+    "text_zh": "小數位值填空：1 tenth + 4 hundredths = ___ hundredths；80 hundredths = ___ tenths。強調單位換算與加數次序。",
+    "source": "practice: https://tasks.illustrativemathematics.org/content-standards/NF/4/C/6/tasks/103",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/4/C/6/tasks/103",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-equiv-laps",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "fractions"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5"
+    ],
+    "text_en": "Equivalent-fraction comparison stem (IM Running Laps style): compare distances like 1/4 mile and 3/12 mile; justify equality via common denominators or simplifying. MC or short reason.",
+    "text_zh": "等值分數比較：如 1/4 與 3/12 哩；用通分或約分說明相等。選擇或簡述理由。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/4/NF/A/tasks/971",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/4/NF/A/tasks/971",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-unlike-add",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "fractions"
+    ],
+    "band": "KS2",
+    "years": [
+      "P5",
+      "P6"
+    ],
+    "text_en": "Unlike-denominator addition pattern: rewrite with a common denominator before adding; keep answers in simplest form. Stem can be pure computation or a short story needing a/b + c/d.",
+    "text_zh": "異分母加法模式：先通分再加，答案約至最簡。可純計算或短應用題需 a/b+c/d。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/5/A/1/tasks/855",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/5/A/1/tasks/855",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-fraction-of-quantity",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "fractions",
+      "word-problems"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5",
+      "P6"
+    ],
+    "text_en": "Fraction-of-a-quantity word-problem pattern: 'find a/b of N' (of operator). Prefer HK-flavoured everyday units (pages, dollars, minutes) but keep numbers small; ask for working.",
+    "text_zh": "求幾分之幾應用題：求 N 的 a/b。宜用日常單位（頁、元、分鐘），數字宜小，要求列式。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-decimal-order",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "decimals"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5"
+    ],
+    "text_en": "Decimal comparison/ordering pattern tied to tenths–hundredths: rewrite 0.6 and 0.62 as hundredths before comparing; warn that digit position matters (5 tenths+2 hundredths ≠ 5 hundredths+2 tenths).",
+    "text_zh": "小數比較／排序：先化成百分之一再比；提醒數位重要（5 tenths+2 hundredths ≠ 5 hundredths+2 tenths）。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/4/C/6/tasks/103",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/4/C/6/tasks/103",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-multi-rep-wp",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "word-problems",
+      "fractions"
+    ],
+    "band": "KS2",
+    "text_en": "Multi-representation word-problem pattern: one everyday share/join situation → (1) diagram, (2) addition equation, (3) multiplication or division equation. Mark partial credit if only one form is correct.",
+    "text_zh": "多元表征應用題：同一分配／合併情境 → 圖示＋加法式＋乘／除法式。只對一種形式可給部分分。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-gs-river-pollution-sources",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "nature-science"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5",
+      "P6"
+    ],
+    "text_en": "Nature–science practice stem (CC BY river pollution resource): classify pollution sources — sewage/wastewater, urban runoff, farming chemicals/fertilisers. Item: match source→effect on freshwater / sort cards into human-impact categories.",
+    "text_zh": "自然科練習模式（河流污染 CC BY）：分類污染來源——污水、市區徑流、農藥／肥料。配對來源→淡水影響或卡片分類。",
+    "source": "paraphrase-practice: https://probleu.pml.space/en/content/worksheet/1335/",
+    "sourceUrl": "https://probleu.pml.space/en/content/worksheet/1335/",
+    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)"
+  },
+  {
+    "id": "prac-gs-water-quality-debate",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "nature-science",
+      "community"
+    ],
+    "band": "KS2",
+    "text_en": "Issue-discussion stem: for/against chemical fertiliser use near rivers — list one benefit (crop yield) and one risk (nutrient pollution, algal blooms). Short written or MC justification.",
+    "text_zh": "議題討論：贊成／反對河邊使用化肥——各列一項好處（產量）與風險（營養污染、藻華）。短答或選擇理由。",
+    "source": "paraphrase-practice: https://probleu.pml.space/en/content/worksheet/1335/",
+    "sourceUrl": "https://probleu.pml.space/en/content/worksheet/1335/",
+    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)"
+  },
+  {
+    "id": "prac-gs-freshwater-keywords",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "nature-science"
+    ],
+    "band": "KS1",
+    "years": [
+      "P2",
+      "P3"
+    ],
+    "text_en": "Keyword matching (ages ~7–11 freshwater OER): river / water quality / pollution / plastic / protection. Picture–word or 'which action protects rivers' (reduce litter, care with chemicals).",
+    "text_zh": "關鍵詞配對：河流／水質／污染／塑膠／保護。圖詞配對或選出護河行動（少丟垃圾、慎用化學品）。",
+    "source": "paraphrase-practice: https://probleu.pml.space/en/content/worksheet/1335/",
+    "sourceUrl": "https://probleu.pml.space/en/content/worksheet/1335/",
+    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)"
+  },
+  {
+    "id": "prac-gs-community-scenic",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "community"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5"
+    ],
+    "text_en": "Community places pattern (from EDB HK itinerary L&T theme): match local facilities/scenic categories — heritage/museum tour, nature tour, shopping/dining — to example spots and what people do there. Probe community services, not tourist trivia alone.",
+    "text_zh": "社區／本地地方模式（EDB 行程主題）：文化古蹟／自然／購物餐飲類行程與活動配對。著重社區設施功能。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-gs-transport-community",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "community"
+    ],
+    "band": "KS1",
+    "text_en": "Community transport pattern: group public transport (bus, MTR, tram, ferry, Peak Tram) and link to everyday journeys (home→school, park visit). Item: choose suitable transport for a short scenario.",
+    "text_zh": "社區交通模式：巴士／港鐵／電車／渡輪等，連繫日常出行。情境題選合適交通工具。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-gs-healthy-sport-adj",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "healthy-living"
+    ],
+    "band": "KS1",
+    "years": [
+      "P1",
+      "P2",
+      "P3"
+    ],
+    "text_en": "Healthy-living vocab pattern (EDB Sports L&T): link activities to health adjectives (healthy, safe, tiring) and reasons ('I like swimming because it is healthy / makes me fit'). Sort safe vs dangerous practices.",
+    "text_zh": "健康生活詞彙（EDB 運動主題）：活動↔健康形容詞；陳述原因（because it is healthy／makes me fit）。分辨安全／危險做法。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-gs-school-facilities-health",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "healthy-living",
+      "community"
+    ],
+    "band": "KS1",
+    "text_en": "School facilities & health stem: survey-style items — which facilities support exercise (basketball court, swimming pool); suggest one facility the school needs and give a health reason. Ties personal health to school community.",
+    "text_zh": "校園設施與健康：哪些設施有助運動；建議新增一項並給健康理由。連結個人健康與學校社區。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-gs-human-impact-ks2",
+    "subject": "gs",
+    "kind": "practice",
+    "topics": [
+      "nature-science",
+      "community"
+    ],
+    "band": "KS2",
+    "text_en": "Human-impact chain: everyday action → pollutant pathway → freshwater effect (e.g. litter→plastic pollution→harm to river life; fertiliser→nutrients→algal blooms). Complete a 3-box cause–effect diagram.",
+    "text_zh": "人為影響鏈：日常行為→污染物路徑→淡水後果（垃圾→塑膠污染；肥料→藻華）。完成三格因果圖。",
+    "source": "paraphrase-practice: https://probleu.pml.space/en/content/worksheet/1335/",
+    "sourceUrl": "https://probleu.pml.space/en/content/worksheet/1335/",
+    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)"
   }
 ]

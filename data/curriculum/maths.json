@@ -10,7 +10,8 @@
     "band": "KS1",
     "text_en": "KS1 Number dimension targets: understand whole numbers and simple fractions; manipulate whole numbers and simple fractions; use simple properties of operations; formulate and solve simple problems involving numbers.",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ks2-number-targets",
@@ -23,7 +24,8 @@
     "band": "KS2",
     "text_en": "KS2 Number dimension targets: understand different forms of numbers; interconvert forms; manipulate numbers and check reasonableness; use properties of operations; formulate and solve problems involving numbers.",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ks1-ops",
@@ -34,7 +36,8 @@
     "band": "KS1",
     "text_en": "KS1 objectives: read/write/order numbers up to 5 digits and place value; addition/subtraction within 4 places (commutative/associative of addition); multiplication with 1-digit multiplier (multiplicand up to 3 digits) and division with 1-digit divisor; mixed operations with at most two operations; simple brackets in +/−; money coins/notes up to $1000 and price tags.",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ks1-fractions",
@@ -45,7 +48,8 @@
     "band": "KS1",
     "text_en": "KS1 fractions: understand and use fractions in everyday life; add/subtract fractions with the same denominator (answers not greater than 1; no simplification required).",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ks2-fractions",
@@ -56,7 +60,8 @@
     "band": "KS2",
     "text_en": "KS2 fractions: proper/improper fractions, mixed numbers, equivalent fractions; +, −, ×, ÷ and simple mixed operations of simple fractions; reduce answers to simplest form; check by estimation; solve simple fraction problems.",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ks2-decimals",
@@ -67,7 +72,8 @@
     "band": "KS2",
     "text_en": "KS2 decimals: read/write/order decimals and place values; +, −, ×, ÷ and simple mixed operations up to two decimal places; rounding; percentages and conversions among decimals, fractions and percentages; simple practical problems on decimals and percentages.",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ks2-factors-avg",
@@ -79,7 +85,8 @@
     "band": "KS2",
     "text_en": "KS2 number extras: common multiples/factors, LCM and HCF of ≤3 numbers; squares/square roots of whole numbers; direct/inverse proportion via unitary method; average of a small everyday data set.",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ks1-measures",
@@ -90,7 +97,8 @@
     "band": "KS1",
     "text_en": "KS1 Measures: mm/cm/m/km; perimeter of rectangles/squares; time (second, minute, hour, a.m./p.m.), calendar; compare lengths with standard units.",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ks2-measures",
@@ -101,7 +109,8 @@
     "band": "KS2",
     "text_en": "KS2 Measures: metric relationships; area (cm², m²) and formulas for rectangles/squares; areas of parallelograms, triangles, trapeziums; approximate nature of measurement.",
     "source": "EDB Mathematics Curriculum Guide Annex I — Overview of Learning Targets and Objectives (KS1–KS2)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ch4-ks1",
@@ -113,7 +122,8 @@
     "band": "KS1",
     "text_en": "Ch.4 KS1 Number targets (summary): understand and manipulate whole numbers; understand simple fractions; examine reasonableness of results; formulate and solve simple problems involving numbers.",
     "source": "EDB Mathematics Curriculum Guide Ch.4 — Learning Targets of Key Stages 1 and 2",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/chapter%204_1.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/chapter%204_1.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-ch4-ks2",
@@ -126,7 +136,8 @@
     "band": "KS2",
     "text_en": "Ch.4 KS2 Number targets (summary): understand whole numbers, fractions, decimals, percentages and relations among them; manipulate numbers and examine reasonableness; formulate and solve problems involving numbers.",
     "source": "EDB Mathematics Curriculum Guide Ch.4 — Learning Targets of Key Stages 1 and 2",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/chapter%204_1.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/chapter%204_1.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-p1-p2",
@@ -142,7 +153,8 @@
     ],
     "text_en": "P1–P2 practice guidance (from KS1 objectives): keep numbers small (often ≤100); prefer sharing/half-of/equal groups as whole numbers rather than simplify-to-lowest-terms; money in whole dollars or simple contexts; avoid ×÷ of two decimals.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-p3",
@@ -157,7 +169,8 @@
     ],
     "text_en": "P3: same-denominator fraction +/− (answer ≤1, no simplification); simple unit fractions of a small total; simple one-decimal add/subtract with small values; one- or two-step shopping/sharing problems.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-p4",
@@ -172,7 +185,8 @@
     ],
     "text_en": "P4: introduce proper/improper/mixed/equivalent fractions carefully; unit fractions of a total; one-decimal operations; multi-step still gentle.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-p5-p6",
@@ -188,7 +202,8 @@
     ],
     "text_en": "P5–P6: simplify fractions to lowest terms; mixed operations with fractions/decimals; percentage conversions; LCM/HCF where relevant; multi-step HK money/transport word problems; check reasonableness.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-word-problems-hk",
@@ -199,7 +214,8 @@
     "band": "KS1",
     "text_en": "Word problems KS1: practical addition/subtraction/multiplication/division in everyday HK contexts (shopping, sharing, length/time/money). Prefer bare numeric answers for MC.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
   },
   {
     "id": "maths-word-problems-ks2",
@@ -210,6 +226,152 @@
     "band": "KS2",
     "text_en": "Word problems KS2: multi-step problems using four rules, fractions, decimals, percentages, unitary method for proportion; still primary-realistic (bus/ferry, school shopping).",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "prac-maths-share-lunches",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "fractions",
+      "word-problems"
+    ],
+    "band": "KS2",
+    "years": [
+      "P5",
+      "P6"
+    ],
+    "text_en": "Equal-sharing stem (IM Sharing Lunches): n people share m wholes equally → each gets m/n. Ask for a diagram, then write both addition (a/b+a/b+…=m) and multiplication (k×a/b=m) equations for the same situation.",
+    "text_zh": "平均分配題幹：n 人平分 m 個整體 → 每人 m/n。先畫圖，再用加法式與乘法式表示同一情境。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-fraction-as-division",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "fractions",
+      "word-problems"
+    ],
+    "band": "KS2",
+    "years": [
+      "P5",
+      "P6"
+    ],
+    "text_en": "Fraction-as-division pattern: whole ÷ people = fraction share (e.g. 2÷3=2/3). Pair with 'of each whole' view (2×1/3=2/3). One stem, two equation forms.",
+    "text_zh": "分數即除法：整數÷人數＝每份分數（2÷3=2/3），並對應 2×1/3=2/3。同一題幹兩種算式。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-tenths-hundredths",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "decimals"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5"
+    ],
+    "text_en": "Decimal place-value stem (IM How Many Tenths and Hundredths?): finish equations like '1 tenth + 4 hundredths = ___ hundredths' and '80 hundredths = ___ tenths'. Emphasise bundling and order of addends.",
+    "text_zh": "小數位值填空：1 tenth + 4 hundredths = ___ hundredths；80 hundredths = ___ tenths。強調單位換算與加數次序。",
+    "source": "practice: https://tasks.illustrativemathematics.org/content-standards/NF/4/C/6/tasks/103",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/4/C/6/tasks/103",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-equiv-laps",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "fractions"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5"
+    ],
+    "text_en": "Equivalent-fraction comparison stem (IM Running Laps style): compare distances like 1/4 mile and 3/12 mile; justify equality via common denominators or simplifying. MC or short reason.",
+    "text_zh": "等值分數比較：如 1/4 與 3/12 哩；用通分或約分說明相等。選擇或簡述理由。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/4/NF/A/tasks/971",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/4/NF/A/tasks/971",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-unlike-add",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "fractions"
+    ],
+    "band": "KS2",
+    "years": [
+      "P5",
+      "P6"
+    ],
+    "text_en": "Unlike-denominator addition pattern: rewrite with a common denominator before adding; keep answers in simplest form. Stem can be pure computation or a short story needing a/b + c/d.",
+    "text_zh": "異分母加法模式：先通分再加，答案約至最簡。可純計算或短應用題需 a/b+c/d。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/5/A/1/tasks/855",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/5/A/1/tasks/855",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-fraction-of-quantity",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "fractions",
+      "word-problems"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5",
+      "P6"
+    ],
+    "text_en": "Fraction-of-a-quantity word-problem pattern: 'find a/b of N' (of operator). Prefer HK-flavoured everyday units (pages, dollars, minutes) but keep numbers small; ask for working.",
+    "text_zh": "求幾分之幾應用題：求 N 的 a/b。宜用日常單位（頁、元、分鐘），數字宜小，要求列式。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-decimal-order",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "decimals"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5"
+    ],
+    "text_en": "Decimal comparison/ordering pattern tied to tenths–hundredths: rewrite 0.6 and 0.62 as hundredths before comparing; warn that digit position matters (5 tenths+2 hundredths ≠ 5 hundredths+2 tenths).",
+    "text_zh": "小數比較／排序：先化成百分之一再比；提醒數位重要（5 tenths+2 hundredths ≠ 5 hundredths+2 tenths）。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/4/C/6/tasks/103",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/4/C/6/tasks/103",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "prac-maths-multi-rep-wp",
+    "subject": "maths",
+    "kind": "practice",
+    "topics": [
+      "word-problems",
+      "fractions"
+    ],
+    "band": "KS2",
+    "text_en": "Multi-representation word-problem pattern: one everyday share/join situation → (1) diagram, (2) addition equation, (3) multiplication or division equation. Mark partial credit if only one form is correct.",
+    "text_zh": "多元表征應用題：同一分配／合併情境 → 圖示＋加法式＋乘／除法式。只對一種形式可給部分分。",
+    "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
+    "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
   }
 ]

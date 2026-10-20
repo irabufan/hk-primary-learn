@@ -10,7 +10,8 @@
     "band": "KS1",
     "text_en": "KS1 Interpersonal Strand: establish/maintain classroom relationships and routines; converse about feelings, interests and experiences; exchange short simple messages (e.g. greeting cards/notes); express preferences for simple arrangements; obtain/provide objects and information in simple classroom situations.",
     "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks1-targets-ks",
@@ -23,7 +24,8 @@
     "band": "KS1",
     "text_en": "KS1 Knowledge Strand: provide/find out and present simple information on familiar topics; interpret/use simple information via labelling, matching, sequencing, describing, classifying; follow simple instructions; state opinions in simple spoken/written texts; recognise/solve simple problems; notice obvious features of English (writing direction, alphabetic script, sound patterns).",
     "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks1-targets-es",
@@ -35,7 +37,8 @@
     "band": "KS1",
     "text_en": "KS1 Experience Strand: enjoy basic sound patterns via rhymes, songs, choral speaking; respond to characters/events in simple imaginative texts (predictions, simple evaluative remarks, captions, related experiences, story-telling); express imaginative ideas with picture sequences and simple sound/word patterns.",
     "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks2-targets-is",
@@ -48,7 +51,8 @@
     "band": "KS2",
     "text_en": "KS2 Interpersonal Strand: maintain relationships/routines in school and familiar situations; converse about feelings, interests, preferences, ideas, experiences and plans; exchange messages (simple letters, phone calls, postcards, invitations); participate in choices/decisions for events; obtain/provide objects, services and information.",
     "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks2-targets-ks",
@@ -61,7 +65,8 @@
     "band": "KS2",
     "text_en": "KS2 Knowledge Strand: organise and present information on familiar topics; interpret via matching, sequencing, describing, classifying, comparing, explaining, predicting, drawing conclusions; follow instructions; identify ideas, form and express opinions; recognise/solve simple problems and describe solutions; clarify and revise own written expression.",
     "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks2-targets-es",
@@ -72,7 +77,8 @@
     "band": "KS2",
     "text_en": "KS2 Experience Strand: enjoy imaginative texts (poems, rhymes, songs, short plays); respond with predictions, inferences, evaluative comments, feelings towards characters/events; dramatic activities; give expression to imaginative ideas in oral/written/performative means.",
     "source": "English Language Curriculum Guide (Primary 1–6) (2025)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks1-vocab",
@@ -83,7 +89,8 @@
     "band": "KS1",
     "text_en": "KS1 vocabulary focus (aligned with ELCG learning objectives): high-frequency everyday words on familiar topics (school, home, feelings, food, animals); short cloze; stems about 6–12 words; clear word-bank friendly items.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks2-vocab",
@@ -94,7 +101,8 @@
     "band": "KS2",
     "text_en": "KS2 vocabulary: topic words (school, transport, feelings, community) with more precise synonyms; wider range of text types; still primary-appropriate, not secondary academic jargon.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks1-grammar",
@@ -105,7 +113,8 @@
     "band": "KS1",
     "text_en": "KS1 grammar (ELCG language items flavour): present simple for habits/facts; a/an; basic plurals; basic pronouns; simple adjectives; avoid complex tenses (no past perfect / conditionals).",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks2-grammar",
@@ -116,7 +125,8 @@
     "band": "KS2",
     "text_en": "KS2 grammar: richer tense work (present/past simple and related forms), subject–verb agreement, articles, comparatives; connect ideas in slightly longer sentences; still primary classroom English.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks1-reading",
@@ -127,7 +137,8 @@
     "band": "KS1",
     "text_en": "KS1 reading: 2–4 sentence stories; literal who/what/where; labelling/matching/sequencing; simple captions; imaginative texts with clear events.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-ks2-reading",
@@ -138,7 +149,8 @@
     "band": "KS2",
     "text_en": "KS2 reading: short multi-sentence passages; identify main ideas; make simple inferences and evaluative comments; compare/explain/predict; connect to personal experience.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-p1-p2",
@@ -154,7 +166,8 @@
     ],
     "text_en": "P1–P2: very high-frequency words; present simple and basic patterns; tiny stories; one blank; picture-friendly.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-p3",
@@ -169,7 +182,8 @@
     ],
     "text_en": "P3: still KS1 — short cloze, present simple/a-an/plurals; slightly longer (but still simple) reading stems.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-p4",
@@ -184,7 +198,8 @@
     ],
     "text_en": "P4 (early KS2): introduce past simple alongside present; short comprehension with detail questions; clearer subject–verb agreement focus.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   },
   {
     "id": "eng-p5-p6",
@@ -200,6 +215,153 @@
     ],
     "text_en": "P5–P6: richer vocab and multi-sentence passages; inference and opinion; tense consistency and agreement; invitations/letters as interpersonal text types.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "prac-eng-paradigmatic-sports",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary"
+    ],
+    "band": "KS1",
+    "years": [
+      "P1",
+      "P2",
+      "P3"
+    ],
+    "text_en": "Paradigmatic vocab tree pattern (EDB Sports unit): sports → water sports / ball games / track and field → specific items (swimming, football, running). Item type: sort words into a tree or match hypernym→hyponym.",
+    "text_zh": "詞彙樹狀分類模式（EDB 運動單元）：sports → water sports／ball games／track and field → 具體項目。題型：分類或上位詞→下位詞配對。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-ing-ed-adj",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "grammar",
+      "vocabulary"
+    ],
+    "band": "KS1",
+    "text_en": "Adjective form cloze: use -ing adjectives for activities (exciting, tiring, boring) and -ed for feelings (excited, tired, bored). Stem: 'I am ___ as I won the race' / 'Basketball is ___'.",
+    "text_zh": "形容詞形式填空：-ing 形容活動，-ed 形容感受。例：I am ___ as I won the race／Basketball is ___。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-make-me-collocation",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary",
+      "grammar"
+    ],
+    "band": "KS1",
+    "text_en": "Collocation stem: make me + adjective (fit / strong / healthy / tall). Complete: 'Swimming can ___.' Probe fixed phrase, not free translation.",
+    "text_zh": "固定搭配：make me + adjective（fit／strong／healthy）。完成句：Swimming can ___。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-compounding",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary"
+    ],
+    "band": "KS1",
+    "text_en": "Word-formation pattern: compounding (foot+ball=football; basket+ball=basketball). Item: join two nouns or choose the compound that names a sport.",
+    "text_zh": "構詞模式：複合詞 foot+ball=football。題型：拼合兩詞或選出運動名稱。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-syntagmatic-place",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary",
+      "grammar"
+    ],
+    "band": "KS1",
+    "text_en": "Syntagmatic table: Who + What + Where — 'We play tennis on a tennis court'; 'He plays football on a football field.' Cloze one column or match activity↔facility.",
+    "text_zh": "橫向搭配表：人物＋活動＋地點（play tennis on a tennis court）。填一欄或活動↔場地配對。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-reading-letter",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "reading"
+    ],
+    "band": "KS1",
+    "years": [
+      "P2",
+      "P3"
+    ],
+    "text_en": "Reading pattern: short suggestion letter (Dear… / I suggest building… / Best regards). MC or short answer: who wrote it, what facility is suggested, why (healthy/popular/missing facility).",
+    "text_zh": "閱讀模式：簡短信函（建議興建設施）。題目：作者、建議設施、原因（健康／受歡迎／學校欠缺）。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-shapes-instructions",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary",
+      "grammar"
+    ],
+    "band": "KS1",
+    "text_en": "Shapes + imperatives pattern (We Can Make Things): triangle/rectangle/oval/heart; First,/Then,/Next,/Lastly, + verb (fold, glue, decorate). Order-the-steps or fill connective.",
+    "text_zh": "形狀＋祈使句步驟（手工單元）：First/Then/Next/Lastly + fold/glue/decorate。排序或填連接詞。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-hk-itinerary-ks2",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary",
+      "reading"
+    ],
+    "band": "KS2",
+    "years": [
+      "P4",
+      "P5",
+      "P6"
+    ],
+    "text_en": "KS2 itinerary pattern (We Love Hong Kong): place + activity + transport columns (Ocean Park → watch the dolphin show → by bus). Future tense 'We will…'; sequence First/Then/After that. Reading: match spot↔activity.",
+    "text_zh": "KS2 行程表模式：地點＋活動＋交通；將來式 We will…；順序連接詞。閱讀：景點↔活動配對。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "prac-eng-synonym-adj-ks2",
+    "subject": "english",
+    "kind": "practice",
+    "topics": [
+      "vocabulary",
+      "grammar"
+    ],
+    "band": "KS2",
+    "text_en": "Synonym adjective sets for places/activities: wonderful≈attractive≈fantastic; well-known≈famous; giant≈big. Cloze or 'which word has a similar meaning' MC in a short diary/itinerary text.",
+    "text_zh": "近義形容詞組：wonderful≈fantastic；well-known≈famous。短日記／行程文中選近義詞。",
+    "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+    "license": "EDB non-profit educational duplication with acknowledgement"
   }
 ]

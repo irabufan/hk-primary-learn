@@ -48,6 +48,10 @@ function yearMatches(chunk, year, band) {
   return true;
 }
 
+function isPractice(chunk) {
+  return chunk.kind === "practice";
+}
+
 function scoreChunk(chunk, { subject, year, band, topic, queryTokens }) {
   if (chunk.subject !== subject) return -Infinity;
   if (!yearMatches(chunk, year, band)) return -Infinity;
@@ -61,14 +65,15 @@ function scoreChunk(chunk, { subject, year, band, topic, queryTokens }) {
   for (const t of bodyTokens) if (queryTokens.has(t)) overlap += 1;
   score += Math.min(6, overlap * 0.35);
   if (chunk.text_zh && chunk.text_en) score += 0.5;
+  if (isPractice(chunk) && chunk.topics.includes(topic)) score += 1.25;
   return score;
 }
 
-function retrieveCurriculumContext({ subject, year, topic, limit = 5 }) {
+function pickCurriculumChunks({ subject, year, topic, limit = 5 }) {
   const band = yearBand(year);
   const lim = Math.max(3, Math.min(8, limit));
   const queryTokens = new Set(tokenize([topic, year, band, subject].join(" ")));
-  const scored = chunks
+  const ranked = chunks
     .map((chunk) => ({
       chunk,
       score: scoreChunk(chunk, { subject, year, band, topic, queryTokens }),
@@ -77,15 +82,53 @@ function retrieveCurriculumContext({ subject, year, topic, limit = 5 }) {
     .filter((row) => row.chunk.topics.includes(topic) || row.score >= 3)
     .sort((a, b) => b.score - a.score || a.chunk.id.localeCompare(b.chunk.id));
 
-  const final = scored.slice(0, lim);
+  if (!ranked.length) return [];
+
+  const practiceSlots = Math.min(2, Math.max(1, Math.floor(lim / 3)));
+  const practice = ranked.filter((r) => isPractice(r.chunk)).slice(0, practiceSlots);
+  const objectives = ranked.filter((r) => !isPractice(r.chunk));
+  const picked = [];
+  const seen = new Set();
+  for (const row of objectives) {
+    if (picked.length >= lim - practice.length) break;
+    picked.push(row);
+    seen.add(row.chunk.id);
+  }
+  for (const row of practice) {
+    if (picked.length >= lim) break;
+    if (seen.has(row.chunk.id)) continue;
+    picked.push(row);
+    seen.add(row.chunk.id);
+  }
+  for (const row of ranked) {
+    if (picked.length >= lim) break;
+    if (seen.has(row.chunk.id)) continue;
+    picked.push(row);
+    seen.add(row.chunk.id);
+  }
+  picked.sort((a, b) => {
+    const ap = isPractice(a.chunk) ? 1 : 0;
+    const bp = isPractice(b.chunk) ? 1 : 0;
+    if (ap !== bp) return ap - bp;
+    return b.score - a.score || a.chunk.id.localeCompare(b.chunk.id);
+  });
+  return picked.map((r) => r.chunk);
+}
+
+function retrieveCurriculumContext({ subject, year, topic, limit = 5 }) {
+  const final = pickCurriculumChunks({ subject, year, topic, limit });
   if (!final.length) return "";
 
+  const hasPractice = final.some(isPractice);
   const lines = [
-    "Official / EDB-aligned learning targets (use these; do not invent off-year content):",
+    hasPractice
+      ? "Official / EDB-aligned learning targets and open practice patterns (use these; do not invent off-year content):"
+      : "Official / EDB-aligned learning targets (use these; do not invent off-year content):",
   ];
-  for (const { chunk } of final) {
+  for (const chunk of final) {
     const label = [
       chunk.id,
+      chunk.kind === "practice" ? "practice" : undefined,
       chunk.band ?? (chunk.years ? chunk.years.join("/") : undefined),
       chunk.topics.join(","),
     ]
@@ -146,7 +189,26 @@ for (const [subject, topics] of Object.entries(TOPICS)) {
 }
 
 assert.equal(failures, 0, `${failures} retrieve failures`);
-assert.ok(chunks.length >= 40 && chunks.length <= 120, `chunk count ${chunks.length}`);
+assert.ok(
+  chunks.length >= 40 && chunks.length <= 160,
+  `chunk count ${chunks.length} out of range 40–160`,
+);
+
+const practice = chunks.filter((c) => c.kind === "practice");
+assert.ok(practice.length >= 20, `expected ≥20 practice chunks, got ${practice.length}`);
+for (const c of practice) {
+  assert.ok(
+    /^practice: |^paraphrase-practice: /.test(c.source),
+    `practice ${c.id} bad source: ${c.source}`,
+  );
+  assert.ok(c.sourceUrl, `practice ${c.id} missing sourceUrl`);
+}
+
+// Spot-check: no HKEAA / textbook markers in sources
+const banned = /hkeaa|past paper|教科書|textbook publisher|商務印書館|培生|朗文練習/i;
+for (const c of chunks) {
+  assert.ok(!banned.test(c.source + (c.text_en || "") + (c.text_zh || "")), `banned marker in ${c.id}`);
+}
 
 const subjects = new Set(chunks.map((c) => c.subject));
 for (const s of ["chinese", "english", "maths", "gs"]) {
@@ -172,15 +234,22 @@ assert.ok(
   retrieveSrc.includes("Official / EDB-aligned learning targets"),
   "retrieve module must emit the Official / EDB-aligned prompt header",
 );
-
-// Demo one prompt block
-console.log("=== sample: maths / fractions / P4 ===\n");
-console.log(
-  retrieveCurriculumContext({
-    subject: "maths",
-    year: "P4",
-    topic: "fractions",
-    limit: 5,
-  }),
+assert.ok(
+  retrieveSrc.includes('kind === "practice"') || retrieveSrc.includes("isPractice"),
+  "retrieve must recognise practice kind",
 );
-console.log(`\n=== matrix ok (${chunks.length} chunks, all subject/topic/year combos non-empty) ===`);
+
+// Practice should appear for a known topic
+const sample = retrieveCurriculumContext({
+  subject: "maths",
+  year: "P4",
+  topic: "fractions",
+  limit: 5,
+});
+assert.ok(sample.includes("practice"), "fractions retrieve should mix in a practice chunk");
+
+console.log("=== sample: maths / fractions / P4 ===\n");
+console.log(sample);
+console.log(
+  `\n=== matrix ok (${chunks.length} chunks, ${practice.length} practice, all subject/topic/year combos non-empty) ===`,
+);

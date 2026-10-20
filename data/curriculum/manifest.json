@@ -1,33 +1,81 @@
 {
-  "generatedAt": "2026-10-20T14:51:45.965Z",
-  "chunkCount": 66,
+  "generatedAt": "2026-10-20T19:30:50.401Z",
+  "chunkCount": 99,
+  "objectiveChunkCount": 66,
+  "practiceChunkCount": 33,
   "subjects": {
-    "chinese": 16,
-    "english": 16,
-    "maths": 17,
-    "gs": 17
+    "chinese": 24,
+    "english": 25,
+    "maths": 25,
+    "gs": 25
   },
-  "sources": [
+  "sources": {
+    "curriculumGuides": [
+      {
+        "key": "maths-annex1",
+        "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+      },
+      {
+        "key": "maths-ch4",
+        "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/chapter%204_1.pdf"
+      },
+      {
+        "key": "chi-lo-2023",
+        "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+      },
+      {
+        "key": "eng-elcg-2025",
+        "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
+      },
+      {
+        "key": "gs-2017",
+        "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+      }
+    ],
+    "practice": [
+      {
+        "key": "illustrative-mathematics",
+        "license": "CC BY-NC-SA 4.0",
+        "url": "https://tasks.illustrativemathematics.org/",
+        "note": "Distilled task patterns; attribution required; non-commercial / share-alike."
+      },
+      {
+        "key": "chinese-grammar-wiki",
+        "license": "CC BY-NC-SA 3.0",
+        "url": "https://resources.allsetlearning.com/chinese/grammar/",
+        "note": "Paraphrased grammar patterns with AllSet Learning Chinese Grammar Wiki attribution; NC + SA."
+      },
+      {
+        "key": "edb-eng-vocab-primary",
+        "license": "EDB non-profit educational duplication (with acknowledgement)",
+        "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
+        "note": "Handbook states materials may be duplicated freely for non-profit educational purposes with proper acknowledgements."
+      },
+      {
+        "key": "probleu-pollution-rivers",
+        "license": "CC BY 4.0",
+        "url": "https://probleu.pml.space/en/content/worksheet/1335/",
+        "note": "Earthwatch river-pollution worksheet metadata / topic stems; attribution required."
+      }
+    ]
+  },
+  "note": "Objectives/guides + open practice patterns only; no commercial textbooks or HKEAA past papers.",
+  "skippedCandidates": [
     {
-      "key": "maths-annex1",
-      "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf"
+      "name": "MathCat printable worksheets (mathcat.fun)",
+      "reason": "Terms allow personal non-commercial use only; no redistribution / CC licence stated."
     },
     {
-      "key": "maths-ch4",
-      "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/chapter%204_1.pdf"
+      "name": "HappyFree HK maths packs",
+      "reason": "Licence / third-party rights unclear."
     },
     {
-      "key": "chi-lo-2023",
-      "url": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf"
+      "name": "EDB Addenda Series worksheets (general edb.gov.hk terms)",
+      "reason": "Site copyright limits redistribution/public dissemination without written authorisation; unlike the English vocab handbook these pages lack an explicit educational-duplication clause we could rely on for repo excerpts."
     },
     {
-      "key": "eng-elcg-2025",
-      "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf"
-    },
-    {
-      "key": "gs-2017",
-      "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+      "name": "HKEAA past papers / commercial drill books",
+      "reason": "Explicitly disallowed."
     }
-  ],
-  "note": "Objectives/guides only; no commercial textbooks or HKEAA past papers."
+  ]
 }
