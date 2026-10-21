@@ -36,10 +36,16 @@ function QuizPageInner() {
   const sub = search.get("subject");
   const top = search.get("topic") ?? undefined;
   const yr = search.get("year");
+  const cnt = search.get("count");
   const initialSubject: SubjectSlug | undefined =
     sub && isSubjectSlug(sub) ? sub : undefined;
   const initialYear: Year | undefined =
     yr && isYear(yr) ? yr : undefined;
+  const parsedCount = cnt ? Number.parseInt(cnt, 10) : NaN;
+  const initialCount =
+    parsedCount === 5 || parsedCount === 8 || parsedCount === 10
+      ? parsedCount
+      : undefined;
 
   const [phase, setPhase] = useState<Phase>("setup");
   const [busy, setBusy] = useState(false);
@@ -114,6 +120,7 @@ function QuizPageInner() {
           initialSubject={initialSubject}
           initialTopic={top}
           initialYear={initialYear}
+          initialCount={initialCount}
           busy={busy}
           onGenerate={(opts) => void generate(opts)}
         />

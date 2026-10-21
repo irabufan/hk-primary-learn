@@ -205,10 +205,16 @@ export function exercisePath(subject: SubjectSlug, topic: string, year?: Year): 
   return `/exercise/${subject}/${topic}${year ? `?year=${year}` : ""}`;
 }
 
-export function quizPath(subject: SubjectSlug, topic?: string, year?: Year): string {
+export function quizPath(
+  subject: SubjectSlug,
+  topic?: string,
+  year?: Year,
+  count?: number,
+): string {
   const params = new URLSearchParams();
+  params.set("subject", subject);
   if (topic) params.set("topic", topic);
   if (year) params.set("year", year);
-  const query = params.toString();
-  return `/quiz?subject=${subject}${query ? `&${query}` : ""}`;
+  if (count != null) params.set("count", String(count));
+  return `/quiz?${params.toString()}`;
 }

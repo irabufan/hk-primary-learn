@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { DEFAULT_YEAR, SUBJECTS, YEARS, type SubjectSlug, type Year } from "@/lib/curriculum";
 import { useI18n } from "@/lib/i18n/provider";
 import { toText } from "@/lib/i18n/types";
@@ -10,6 +11,7 @@ type Props = {
   initialSubject?: SubjectSlug;
   initialTopic?: string;
   initialYear?: Year;
+  initialCount?: number;
   busy?: boolean;
   onGenerate: (opts: {
     subject: SubjectSlug;
@@ -19,13 +21,22 @@ type Props = {
   }) => void;
 };
 
+const COUNT_OPTIONS = [5, 8, 10] as const;
+
+function resolveCount(value: number | undefined): number {
+  if (value && (COUNT_OPTIONS as readonly number[]).includes(value)) return value;
+  return 5;
+}
+
 export function QuizSetup({
   initialSubject,
   initialTopic,
   initialYear,
+  initialCount,
   busy,
   onGenerate,
 }: Props) {
+  const router = useRouter();
   const { t, locale } = useI18n();
   const [subject, setSubject] = useState<SubjectSlug>(initialSubject ?? "chinese");
   const topics = useMemo(
@@ -38,12 +49,47 @@ export function QuizSetup({
     return initialTopics[0]?.slug ?? "vocab";
   });
   const [year, setYear] = useState<Year>(initialYear ?? DEFAULT_YEAR);
-  const [count, setCount] = useState(5);
+  const [count, setCount] = useState(() => resolveCount(initialCount));
+
+  /** Keep address bar in sync without stacking history or remounting the form. */
+  const syncUrl = useCallback(
+    (next: { subject: SubjectSlug; topic: string; year: Year; count: number }) => {
+      const params = new URLSearchParams();
+      params.set("subject", next.subject);
+      params.set("topic", next.topic);
+      params.set("year", next.year);
+      params.set("count", String(next.count));
+      router.replace(`/quiz?${params.toString()}`, { scroll: false });
+    },
+    [router],
+  );
 
   function onSubjectChange(slug: SubjectSlug) {
+    const first = SUBJECTS.find((s) => s.slug === slug)?.topics[0]?.slug ?? topic;
     setSubject(slug);
-    const first = SUBJECTS.find((s) => s.slug === slug)?.topics[0]?.slug;
-    if (first) setTopic(first);
+    setTopic(first);
+    syncUrl({ subject: slug, topic: first, year, count });
+  }
+
+  function onTopicChange(nextTopic: string) {
+    setTopic(nextTopic);
+    syncUrl({ subject, topic: nextTopic, year, count });
+  }
+
+  function onYearChange(nextYear: Year) {
+    setYear(nextYear);
+    syncUrl({ subject, topic, year: nextYear, count });
+  }
+
+  function onCountChange(nextCount: number) {
+    setCount(nextCount);
+    syncUrl({ subject, topic, year, count: nextCount });
+  }
+
+  function handleGenerate() {
+    const opts = { subject, topic, year, count };
+    syncUrl(opts);
+    onGenerate(opts);
   }
 
   return (
@@ -76,7 +122,7 @@ export function QuizSetup({
 
         <label className="block space-y-1">
           <span className="text-sm font-semibold text-ink-soft">{t("quiz.topic")}</span>
-          <select className="select" value={topic} onChange={(e) => setTopic(e.target.value)}>
+          <select className="select" value={topic} onChange={(e) => onTopicChange(e.target.value)}>
             {topics.map((tp) => (
               <option key={tp.slug} value={tp.slug}>
                 {toText(tp.name, locale)}
@@ -92,7 +138,7 @@ export function QuizSetup({
               <button
                 key={y}
                 type="button"
-                onClick={() => setYear(y)}
+                onClick={() => onYearChange(y)}
                 className={`rounded-full px-4 py-2 text-sm font-bold transition ${
                   year === y
                     ? "min-h-11 bg-indigo-600 text-white shadow"
@@ -108,11 +154,11 @@ export function QuizSetup({
         <label className="block space-y-1">
           <span className="text-sm font-semibold text-ink-soft">{t("quiz.count")}</span>
           <div className="flex flex-wrap gap-2">
-            {[5, 8, 10].map((n) => (
+            {COUNT_OPTIONS.map((n) => (
               <button
                 key={n}
                 type="button"
-                onClick={() => setCount(n)}
+                onClick={() => onCountChange(n)}
                 className={`rounded-full px-4 py-2 text-sm font-bold transition ${
                   count === n
                     ? "min-h-11 bg-coral text-white shadow"
@@ -131,7 +177,7 @@ export function QuizSetup({
         disabled={busy}
         aria-busy={busy || undefined}
         className="btn-primary w-full sm:w-auto"
-        onClick={() => onGenerate({ subject, topic, year, count })}
+        onClick={handleGenerate}
       >
         {busy ? (
           <>
