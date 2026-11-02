@@ -4,13 +4,21 @@ import { chineseBank } from "./chinese";
 import { englishBank } from "./english";
 import { mathsBank } from "./maths";
 import { gsBank } from "./gs";
+import { earlyYearsBanks } from "./early-years";
 import { yearFit, type ExerciseBank, type ExerciseItem, type MatchPair, type McItem } from "./types";
 
+/** Append extra items per topic (keeps the base bank's items first). */
+function withExtra(base: ExerciseBank, extra: ExerciseBank): ExerciseBank {
+  const out: ExerciseBank = { ...base };
+  for (const [topic, items] of Object.entries(extra)) out[topic] = [...(out[topic] ?? []), ...items];
+  return out;
+}
+
 const BANKS: Record<SubjectSlug, ExerciseBank> = {
-  chinese: chineseBank,
-  english: englishBank,
-  maths: mathsBank,
-  gs: gsBank,
+  chinese: withExtra(chineseBank, earlyYearsBanks.chinese),
+  english: withExtra(englishBank, earlyYearsBanks.english),
+  maths: withExtra(mathsBank, earlyYearsBanks.maths),
+  gs: withExtra(gsBank, earlyYearsBanks.gs),
 };
 
 /** How many questions (or pairs) make one exercise session. */

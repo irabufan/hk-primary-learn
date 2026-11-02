@@ -76,7 +76,7 @@ export const englishBank: ExerciseBank = {
       hint: { en: "Word bank: finish / cook / draw" },
       accept: ["finish", "complete"],
       explanation: { en: "We finish (or complete) our homework when we do it all." },
-      years: ["P1", "P2", "P3", "P4"],
+      years: ["P2", "P3", "P4"],
     },
     {
       kind: "fill",
