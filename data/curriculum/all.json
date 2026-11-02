@@ -1305,8 +1305,8 @@
     "years": [
       "P1"
     ],
-    "text_zh": "小一（第一學習階段起步）：認識家庭、學校、動物、顏色、數字等常用字詞；句子短（約十五字內）；短文一至兩句；基本量詞（個、本、隻、條、支、張、把）；簡單反義詞（大／小）。不考成語、病句、修辭。",
-    "text_en": "P1 (start of KS1): recognise common characters and words about home, school, animals, colours and numbers; very short sentences (≤15 characters); 1–2 sentence passages; basic measure words 個、本、隻、條、支、張、把; simple antonyms (大/小). No idioms, 病句 or rhetoric.",
+    "text_zh": "小一（第一學習階段起步）：認識家人、學校、動物、食物、身體、顏色、數字、天氣、交通工具等常用字詞；句子短（約十五字內）；短文一至兩句；常用量詞（個、本、隻、條、支、張、把、朵、件、位、杯、架）；動詞配詞（動作＋東西）；常見反義詞；字詞分類；疊詞（AA的）；簡單部首（口、木、氵、扌、亻）。不考成語、病句、修辭。",
+    "text_en": "P1 (start of KS1): recognise common words about family, school, animals, food, the body, colours, numbers, weather and transport; very short sentences (≤15 characters); 1–2 sentence passages; common measure words (個、本、隻、條、支、張、把、朵、件、位、杯、架); verb–noun pairs; common antonyms; sorting words into groups; reduplicated words (AA的); simple radicals (口、木、氵、扌、亻). No idioms, 病句 or rhetoric.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
     "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
     "kind": "objective"
@@ -1322,8 +1322,8 @@
     "years": [
       "P2"
     ],
-    "text_zh": "小二（第一學習階段）：擴闊生活詞彙；常見近義詞／反義詞；更多量詞（輛、件、朵、棵、間、雙、對）；連接詞「和、也、還、然後」；基本標點（，。？！）；兩至三句短文，從文中找出詞語作答。",
-    "text_en": "P2 (KS1): broaden everyday vocabulary; common near-synonyms/antonyms; more measure words (輛、件、朵、棵、間、雙、對); joining words 和、也、還、然後; basic punctuation (，。？！); 2–3 sentence passages answered by locating words in the text.",
+    "text_zh": "小二（第一學習階段）：擴闊生活詞彙；常見近義詞／反義詞；更多量詞（輛、棵、間、雙、對、頂、塊、粒、盒）；連接詞「和、也、還、然後」；基本標點（，。？！）；兩至三句短文，從文中找出詞語作答。",
+    "text_en": "P2 (KS1): broaden everyday vocabulary; common near-synonyms/antonyms; more measure words (輛、棵、間、雙、對、頂、塊、粒、盒); joining words 和、也、還、然後; basic punctuation (，。？！); 2–3 sentence passages answered by locating words in the text.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
     "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
     "kind": "objective"

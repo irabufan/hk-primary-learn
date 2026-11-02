@@ -28,7 +28,7 @@ const GUIDANCE: GuidanceBlock[] = [
     lines: [
       "Band: KS1 (P1–P3). Keep stems short and picture/everyday-life friendly.",
       "Focus: basic Traditional Chinese vocab, simple sentences, short passages (1–3 sentences).",
-      "Measure words: common ones only (個、本、隻、條、支、張). Traditional Chinese throughout.",
+      "Measure words: as listed in the year LIMIT lines. Traditional Chinese throughout.",
       "Avoid: 病句 analysis, long idioms, abstract literary language.",
     ],
     topics: {
@@ -165,20 +165,24 @@ type YearSpec = {
 const YEAR_SPECS: Record<SubjectSlug, Record<Year, YearSpec>> = {
   chinese: {
     P1: {
-      focus: "一年級：常見字詞、量詞配對、極短句子",
+      focus: "一年級：常見字詞、量詞、配詞、反義詞、分類、極短句子",
       limits: [
-        "Stem ≤ 15 Chinese characters (excluding choices); passage ≤ 2 short sentences (≤ 30 字).",
-        "Only everyday P1 words (家人、學校、動物、顏色、數字、身體、食物); MC choices 1–3 字.",
-        "量詞 only from 個、本、隻、條、支、張、把 — no 輪、座、匹、幅 etc.",
-        "Allowed: 配詞、量詞填充、very common 反義詞 (大/小、上/下)、找出短句中的人物/東西.",
+        "Stem ≤ 15 Chinese characters (excluding choices); passage ≤ 2 short sentences (≤ 30 字); MC choices 1–3 字.",
+        "Words from a 6-year-old's world: 家人、學校與文具、動物、食物與水果、身體、顏色、數字、天氣、玩具、交通工具、常用動作（跑、跳、吃、喝、看、聽、寫、畫）.",
+        "量詞 only from 個、本、隻、條、支、張、把、朵、件、位、杯、架 — no 輪、座、匹、幅 etc.",
+        "Question types (mix at least 3 per quiz): 量詞填充、動詞配詞（動作＋東西）、反義詞（大/小、多/少、長/短、高/矮、開/關、來/去、冷/熱、快/慢、前/後、黑/白）、分類（哪一個是水果/動物/文具）、選字填句、疊詞（AA的）、簡單部首（口、木、氵、扌、亻）.",
+        "Variety: at most 2 量詞 items and 1 反義詞 item per quiz; never reuse the same noun or word pair in two items.",
         "Not allowed: 四字詞、成語、病句、修辭、近義詞細分、推論題.",
       ],
+      rotate: {
+        "*": ["家人", "學校與文具", "動物", "食物與水果", "身體", "顏色", "數字", "天氣", "玩具與遊戲", "交通工具", "常用動作", "衣服"],
+      },
     },
     P2: {
       focus: "二年級：常用詞語、量詞擴展、2–3 句短文",
       limits: [
         "Stem ≤ 20 字; passage 2–3 sentences (≤ 50 字); MC choices ≤ 4 字.",
-        "量詞 may add 輛、件、朵、棵、間、雙、對、把 on top of the P1 set.",
+        "量詞 may add 輛、棵、間、雙、對、頂、塊、粒、盒 on top of the P1 set.",
         "Allowed: 近義詞/反義詞 of common words, 連詞 和/也/還/然後, 標點 (，。？！).",
         "Not allowed: 成語、病句術語、修辭術語、推論作者意圖.",
       ],
