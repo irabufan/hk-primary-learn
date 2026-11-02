@@ -150,6 +150,7 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     "- For type mc: provide 4 distinct choices; answer must equal one choice exactly.",
     "- For type fill: answer is the canonical accepted spelling; accepts may list alternatives.",
     "- For type number: answer is a numeric string. Plain decimals/integers (e.g. \"0.75\", \"12\") are preferred. Fraction strings like \"5/6\" are also allowed when the value is a fraction — the UI accepts text input for those.",
+    "- Every fraction answer (and every fraction MC choice that is correct) must be in lowest terms, as a mixed number where the year uses them, unless the question explicitly asks for an unsimplified form.",
     "- When the learner must write a fraction in lowest terms (最簡分數 / simplify), prefer type \"fill\" with answer like \"5/6\" (accepts may include \"5 / 6\"). Do NOT use type number for slash answers unless the answer string itself contains /.",
     "- Difficulty is set per YEAR, not per key stage: obey every \"LIMIT\" line in the CURRICULUM / DIFFICULTY block (lengths, number ranges, allowed grammar/words). Each year must be clearly harder than the year below and easier than the year above.",
     "- Before answering, check every question against the year limits; replace any question that breaks one.",

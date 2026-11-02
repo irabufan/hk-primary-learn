@@ -60,7 +60,9 @@ const GUIDANCE: GuidanceBlock[] = [
       "Avoid: complex tenses, long comprehension, multi-clause grammar.",
     ],
     topics: {
-      vocabulary: ["Everyday adjectives/verbs (happy, big, like, go, have)."],
+      vocabulary: [
+        "VOCABULARY item = word meaning / word choice in a short context. Choices are DIFFERENT words of the same word class — never forms of one word (tense, -s, -ing): that is grammar, not vocabulary.",
+      ],
       reading: ["2–4 sentence stories; literal who/what/where MC."],
       grammar: ["Present simple / a-an / plurals / basic pronouns — not past perfect."],
     },
@@ -73,7 +75,9 @@ const GUIDANCE: GuidanceBlock[] = [
       "P4: present/past simple; P5–P6: richer vocab and multi-sentence passages.",
     ],
     topics: {
-      vocabulary: ["Topic words (school, transport, feelings) with precise synonyms."],
+      vocabulary: [
+        "VOCABULARY item = meaning, synonyms/antonyms, word choice in context, collocations or word families. Choices are DIFFERENT words — never tense, agreement or other grammar forms of one word. No grammar items in a vocabulary quiz.",
+      ],
       reading: ["Short passage + inference or detail MC."],
       grammar: ["Tenses, agreement, articles, comparatives as appropriate for the year."],
     },
@@ -109,6 +113,7 @@ const GUIDANCE: GuidanceBlock[] = [
     ],
     topics: {
       "multiply-divide": ["P4: × ÷ by 2-digit numbers, multiples/factors, common multiples/factors by listing."],
+      fractions: ["P4: improper/mixed numbers and lowest terms only; P5: different-denominator ±, × and ÷; P6: fraction ↔ decimal and mixed operations."],
       percentages: ["P6: % of a quantity, A as a % of B, % increase/decrease, discounts (八折 = 80%)."],
     },
   },
@@ -226,6 +231,7 @@ const YEAR_SPECS: Record<SubjectSlug, Record<Year, YearSpec>> = {
         "Vocabulary: colours, numbers 1–10, family, animals, toys, food, school things, body parts.",
         "Grammar: a/an, this/that, simple plurals with -s, I/you/he/she/it, am/is/are, can.",
         "Not allowed: third-person -s verbs (goes, does), past tense, -ing/-ed adjectives, comparatives.",
+        "Every stem is a complete short sentence with a subject and a verb — never a bare noun phrase or a blank plus one word.",
       ],
     },
     P2: {
@@ -290,7 +296,7 @@ const YEAR_SPECS: Record<SubjectSlug, Record<Year, YearSpec>> = {
       focus: "P3: 2-digit × / ÷ 1-digit, brackets; first fractions (part of a whole/set, same-denominator ±); km, g/kg, L/mL, 24-hour time",
       limits: [
         "Numbers up to 5 digits; 2-digit × 1-digit, 2-digit ÷ 1-digit; mixed operations with brackets. (EDB 3N1–3N5)",
-        "Fractions: part of a whole/set, equivalent-fraction idea, compare same denominator/numerator, ± same denominator with result ≤ 1. No simplifying, improper/mixed numbers or decimals.",
+        "Fractions: part of a whole/set, equivalent-fraction idea, compare same denominator/numerator, ± same denominator with result ≤ 1. No simplifying, improper/mixed numbers or decimals — so pick numbers whose answers are already in lowest terms.",
         "Measures: km, g/kg, mL/L, 24-hour time; shapes: triangles, parallel lines.",
         "Word problems: up to two steps.",
       ],
@@ -299,7 +305,7 @@ const YEAR_SPECS: Record<SubjectSlug, Record<Year, YearSpec>> = {
       focus: "P4: multi-digit × ÷, multiples/factors; improper & mixed numbers, simplifying; decimals (1–2 d.p.) ±; perimeter/area",
       limits: [
         "× ÷ by 2-digit numbers; multiples, factors, common multiples/factors by listing. (EDB 4N1–4N8)",
-        "Fractions: proper/improper/mixed, expand/reduce to lowest terms, compare same denominator. No fraction × ÷, no different-denominator ±.",
+        "Fractions: proper/improper/mixed, expand/reduce to lowest terms, compare same denominator. No fraction × ÷, no different-denominator ±, and NO decimal ↔ fraction conversion questions (EDB 6N2, P6) — fractions items contain no decimals.",
         "Decimals: meaning and ± with 1–2 decimal places only (no × ÷ of decimals). No percentages.",
         "Measures: perimeter, area of rectangles/squares (cm², m²).",
       ],

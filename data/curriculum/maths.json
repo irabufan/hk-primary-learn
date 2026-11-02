@@ -480,8 +480,8 @@
     "years": [
       "P4"
     ],
-    "text_zh": "小四分數及小數：真分數、假分數、帶分數及互化；擴分、約分至最簡；比較同分母分數；認識小數與分數的關係；一至兩位小數的加減。未學分數乘除、小數乘除。",
-    "text_en": "P4 fractions and decimals: proper and improper fractions, mixed numbers and interconversion; expanding and reducing fractions to lowest terms; compare same-denominator fractions; decimals as another form of fractions; add/subtract decimals with 1–2 decimal places. No fraction × ÷, no decimal × ÷.",
+    "text_zh": "小四分數及小數：真分數、假分數、帶分數及互化；擴分、約分至最簡；比較同分母分數；認識小數是表示數的另一種形式（十分位、百分位）；一至兩位小數的加減。未學分數乘除、小數乘除；正式的小數與分數互化屬小六（6N2）。",
+    "text_en": "P4 fractions and decimals: proper and improper fractions, mixed numbers and interconversion; expanding and reducing fractions to lowest terms; compare same-denominator fractions; decimals as another way to write numbers (tenths, hundredths); add/subtract decimals with 1–2 decimal places. No fraction × ÷ or decimal × ÷; formal decimal ↔ fraction interconversion is P6 (6N2).",
     "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 4N6–4N8",
     "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
     "kind": "objective"
