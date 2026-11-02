@@ -19,6 +19,12 @@ import { QUIZ_COUNTS } from "./types";
 const DEFAULT_BASE = "https://opencode.ai/zen/go/v1";
 const DEFAULT_MODEL = "deepseek-v4.1-flash";
 const TIMEOUT_MS = 55_000;
+/** Whole-request budget (route maxDuration is 60 s); a retry only runs inside it. */
+const TOTAL_BUDGET_MS = 57_000;
+/** Don't start a retry with less time than this left. */
+const MIN_RETRY_MS = 12_000;
+const MAX_TOKENS = 4096;
+const RETRY_MAX_TOKENS = 8192;
 const USER_AGENT = "hk-primary-learn/0.1";
 
 export function getLlmConfig(): {
@@ -452,10 +458,37 @@ export type LlmChatResult = {
   model: string;
 };
 
+type ChatOptions = { timeoutMs?: number; maxTokens?: number };
+
+type ChatMessage = { content?: unknown; reasoning_content?: unknown; reasoning?: unknown };
+
+/** Errors worth one more attempt: empty/garbled output, rate limits, server errors, timeouts. */
+class RetryableLlmError extends Error {}
+
+/**
+ * Message text to parse. Some reasoning models occasionally put the whole
+ * answer in `reasoning_content` and leave `content` empty — use the reasoning
+ * text only when it really contains a JSON array.
+ */
+function messageText(message: ChatMessage | undefined): string | undefined {
+  if (typeof message?.content === "string" && message.content.trim()) return message.content;
+  for (const field of [message?.reasoning_content, message?.reasoning]) {
+    if (typeof field !== "string" || !field.includes("[")) continue;
+    try {
+      const parsed = extractJsonArray(field);
+      if (Array.isArray(parsed) && parsed.length) return JSON.stringify(parsed);
+    } catch {
+      /* not usable */
+    }
+  }
+  return undefined;
+}
+
 export async function callChatCompletion(
   system: string,
   user: string,
   sessionId: string,
+  options: ChatOptions = {},
 ): Promise<LlmChatResult> {
   const { apiKey, baseUrl, model } = getLlmConfig();
   if (!apiKey) {
@@ -463,7 +496,7 @@ export async function callChatCompletion(
   }
 
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  const timer = setTimeout(() => controller.abort(), options.timeoutMs ?? TIMEOUT_MS);
 
   try {
     const headers: Record<string, string> = {
@@ -477,44 +510,51 @@ export async function callChatCompletion(
       headers["x-opencode-session"] = sessionId;
     }
 
-    const res = await fetch(`${baseUrl}/chat/completions`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        model,
-        temperature: 0.7,
-        max_tokens: 4096,
-        messages: [
-          { role: "system", content: system },
-          { role: "user", content: user },
-        ],
-      }),
-      signal: controller.signal,
-    });
+    let res: Response;
+    try {
+      res = await fetch(`${baseUrl}/chat/completions`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          model,
+          temperature: 0.7,
+          max_tokens: options.maxTokens ?? MAX_TOKENS,
+          messages: [
+            { role: "system", content: system },
+            { role: "user", content: user },
+          ],
+        }),
+        signal: controller.signal,
+      });
+    } catch (err) {
+      const aborted = err instanceof Error && err.name === "AbortError";
+      throw new RetryableLlmError(aborted ? "LLM request timed out" : "LLM request failed");
+    }
 
     const text = await res.text();
     if (!res.ok) {
       // Never include headers or key material; truncate body for logs.
       const snippet = text.replace(/\s+/g, " ").slice(0, 160);
-      throw new Error(`LLM HTTP ${res.status}: ${snippet || res.statusText}`);
+      const message = `LLM HTTP ${res.status}: ${snippet || res.statusText}`;
+      throw res.status === 429 || res.status >= 500 ? new RetryableLlmError(message) : new Error(message);
     }
 
     let data: unknown;
     try {
       data = JSON.parse(text);
     } catch {
-      throw new Error("LLM returned non-JSON");
+      throw new RetryableLlmError("LLM returned non-JSON");
     }
 
-    const content =
-      data &&
-      typeof data === "object" &&
-      Array.isArray((data as { choices?: unknown }).choices) &&
-      (data as { choices: Array<{ message?: { content?: unknown } }> }).choices[0]?.message
-        ?.content;
+    const choice =
+      data && typeof data === "object" && Array.isArray((data as { choices?: unknown }).choices)
+        ? (data as { choices: Array<{ message?: ChatMessage; finish_reason?: unknown }> }).choices[0]
+        : undefined;
+    const content = messageText(choice?.message);
 
-    if (typeof content !== "string" || !content.trim()) {
-      throw new Error("LLM response missing message content");
+    if (!content) {
+      const reason = typeof choice?.finish_reason === "string" ? ` (finish_reason=${choice.finish_reason})` : "";
+      throw new RetryableLlmError(`LLM response missing message content${reason}`);
     }
 
     const usedModel =
@@ -526,6 +566,42 @@ export async function callChatCompletion(
   } finally {
     clearTimeout(timer);
   }
+}
+
+/**
+ * Call the model and parse the quiz, retrying once (with more output room)
+ * when the reply is empty, unparseable, rate-limited or a server error — as
+ * long as enough of the request budget is left.
+ */
+export async function generateQuizQuestions(
+  system: string,
+  user: string,
+  sessionId: string,
+  count: number,
+  seed: number,
+): Promise<{ questions: QuizQuestion[]; model: string; attempts: number }> {
+  const deadline = Date.now() + TOTAL_BUDGET_MS;
+  let lastError: unknown;
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    const remaining = deadline - Date.now();
+    if (attempt > 1 && remaining < MIN_RETRY_MS) break;
+    try {
+      const { content, model } = await callChatCompletion(system, user, sessionId, {
+        timeoutMs: Math.min(TIMEOUT_MS, remaining),
+        maxTokens: attempt === 1 ? MAX_TOKENS : RETRY_MAX_TOKENS,
+      });
+      try {
+        return { questions: parseQuizQuestions(content, count, seed), model, attempts: attempt };
+      } catch (err) {
+        throw new RetryableLlmError(err instanceof Error ? err.message : "Unparseable quiz");
+      }
+    } catch (err) {
+      lastError = err;
+      if (!(err instanceof RetryableLlmError)) break;
+      console.warn(`[quiz/generate] attempt ${attempt} failed: ${err.message}`);
+    }
+  }
+  throw lastError instanceof Error ? lastError : new Error("LLM generation failed");
 }
 
 export function isValidYear(value: unknown): value is Year {

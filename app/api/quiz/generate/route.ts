@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
 import {
   buildQuizPrompt,
-  callChatCompletion,
+  generateQuizQuestions,
   getLlmConfig,
   isValidSubject,
   isValidYear,
-  parseQuizQuestions,
   toQuiz,
 } from "@/lib/quiz/llm-client";
 import { QUIZ_COUNTS, type QuizRequest } from "@/lib/quiz/types";
@@ -89,8 +88,7 @@ export async function POST(request: Request) {
   const sessionId = `ses-hklearn-${quizRequest.subject}-${quizRequest.topic}-${seed}`;
 
   try {
-    const { content, model } = await callChatCompletion(system, user, sessionId);
-    const questions = parseQuizQuestions(content, count, seed);
+    const { questions, model } = await generateQuizQuestions(system, user, sessionId, count, seed);
     const quiz = toQuiz(quizRequest, questions);
     return NextResponse.json({
       quiz,
