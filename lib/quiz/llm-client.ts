@@ -24,7 +24,6 @@ const TOTAL_BUDGET_MS = 57_000;
 /** Don't start a retry with less time than this left. */
 const MIN_RETRY_MS = 12_000;
 const MAX_TOKENS = 4096;
-const RETRY_MAX_TOKENS = 8192;
 const USER_AGENT = "hk-primary-learn/0.1";
 
 export function getLlmConfig(): {
@@ -458,7 +457,18 @@ export type LlmChatResult = {
   model: string;
 };
 
-type ChatOptions = { timeoutMs?: number; maxTokens?: number };
+type ChatOptions = { timeoutMs?: number; thinking?: "low" | "off" };
+
+/**
+ * DeepSeek reasoning controls. With default reasoning the model sometimes
+ * spends the whole max_tokens budget thinking (finish_reason=length, empty or
+ * cut-off JSON). First attempt: low effort; retry: thinking off (fast, ~5–10 s).
+ * Only sent to DeepSeek models — other OpenAI-compatible hosts may reject them.
+ */
+function thinkingParams(model: string, thinking: ChatOptions["thinking"]): Record<string, unknown> {
+  if (!thinking || !/deepseek/i.test(model)) return {};
+  return thinking === "off" ? { thinking: { type: "disabled" } } : { reasoning_effort: "low" };
+}
 
 type ChatMessage = { content?: unknown; reasoning_content?: unknown; reasoning?: unknown };
 
@@ -518,11 +528,12 @@ export async function callChatCompletion(
         body: JSON.stringify({
           model,
           temperature: 0.7,
-          max_tokens: options.maxTokens ?? MAX_TOKENS,
+          max_tokens: MAX_TOKENS,
           messages: [
             { role: "system", content: system },
             { role: "user", content: user },
           ],
+          ...thinkingParams(model, options.thinking),
         }),
         signal: controller.signal,
       });
@@ -569,9 +580,9 @@ export async function callChatCompletion(
 }
 
 /**
- * Call the model and parse the quiz, retrying once (with more output room)
- * when the reply is empty, unparseable, rate-limited or a server error — as
- * long as enough of the request budget is left.
+ * Call the model and parse the quiz, retrying once (thinking off, so it is
+ * fast) when the reply is empty, unparseable, rate-limited or a server error —
+ * as long as enough of the request budget is left.
  */
 export async function generateQuizQuestions(
   system: string,
@@ -588,7 +599,7 @@ export async function generateQuizQuestions(
     try {
       const { content, model } = await callChatCompletion(system, user, sessionId, {
         timeoutMs: Math.min(TIMEOUT_MS, remaining),
-        maxTokens: attempt === 1 ? MAX_TOKENS : RETRY_MAX_TOKENS,
+        thinking: attempt === 1 ? "low" : "off",
       });
       try {
         return { questions: parseQuizQuestions(content, count, seed), model, attempts: attempt };
