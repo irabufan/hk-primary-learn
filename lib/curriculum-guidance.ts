@@ -64,7 +64,9 @@ const GUIDANCE: GuidanceBlock[] = [
         "VOCABULARY item = word meaning / word choice in a short context. Choices are DIFFERENT words of the same word class — never forms of one word (tense, -s, -ing): that is grammar, not vocabulary.",
       ],
       reading: ["2–4 sentence stories; literal who/what/where MC."],
-      grammar: ["Present simple / a-an / plurals / basic pronouns — not past perfect."],
+      grammar: [
+        "GRAMMAR item = choose the right form or function word (am/is/are, a/an, plural -s, pronouns, can, verb forms the year allows). Choices are forms of one word or function words — never different content words (that is vocabulary). Themes only set the context.",
+      ],
     },
   },
   {
@@ -79,7 +81,9 @@ const GUIDANCE: GuidanceBlock[] = [
         "VOCABULARY item = meaning, synonyms/antonyms, word choice in context, collocations or word families. Choices are DIFFERENT words — never tense, agreement or other grammar forms of one word. No grammar items in a vocabulary quiz.",
       ],
       reading: ["Short passage + inference or detail MC."],
-      grammar: ["Tenses, agreement, articles, comparatives as appropriate for the year."],
+      grammar: [
+        "GRAMMAR item = tenses, agreement, articles, comparatives, connectives as the year allows. Choices are forms of one word or function words — never different content words (that is vocabulary).",
+      ],
     },
   },
   {
