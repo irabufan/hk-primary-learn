@@ -376,6 +376,11 @@ export function normalizeLocalizedForSubject(
     if (en && isChineseHeavy(en)) {
       return { zh: en, en };
     }
+    // Short Chinese stems (P1 limit is ≤15 字, e.g. 「我用眼睛＿＿。」) have <4 characters
+    // but are still Chinese — keep them rather than blanking the question.
+    if (zh && countCjk(zh) > 0) {
+      return { zh, en: zh };
+    }
     // Latin-heavy en with no usable Chinese stem → blank (do not show English on Chinese/GS quizzes).
     if (en && isMostlyEnglish(en)) {
       return undefined;
