@@ -77,7 +77,7 @@ function languageGuidance(subject: SubjectSlug): string {
     return [
       "LANGUAGE (chinese subject — CRITICAL):",
       "- Primary learning content MUST be Traditional Chinese (zh): prompts, passages, explanations, hints, MC choices, and answers.",
-      "- NEVER write English-only question stems for Chinese quizzes. Stems must be Traditional Chinese (e.g. \"選出最適當的量詞：中秋夜，一家人欣賞__明月。\" with choices 個/輪/隻/條).",
+      "- NEVER write English-only question stems for Chinese quizzes. Stems must be Traditional Chinese.",
       "- en may be omitted, or a brief English gloss only — never use en as the primary stem while zh is missing or weaker.",
       "- Choices and answers MUST be Traditional Chinese (or Chinese measure words / characters), never English-only options for a Chinese vocab item.",
       "- Do not mix: never write an English stem with Chinese-only choices, or a Chinese stem with English-only grammar choices unless the topic is translation.",
@@ -87,7 +87,7 @@ function languageGuidance(subject: SubjectSlug): string {
     return [
       "LANGUAGE (english subject — CRITICAL):",
       "- Primary learning content MUST be English (en): prompts, passages, explanations, hints, MC choices, and answers.",
-      "- Grammar / vocabulary / reading stems must be English sentences or English blanks (e.g. \"My sister ___ to school by bus every day.\" with choices go/goes/going/went).",
+      "- Grammar / vocabulary / reading stems must be English sentences or English blanks.",
       "- NEVER write Traditional Chinese question stems for English quizzes. zh may be a brief Traditional Chinese gloss of the English stem, or omitted.",
       "- Choices and answers MUST be English (or English grammar forms), never Chinese characters as the answer options for an English grammar item.",
     ].join(" ");
@@ -108,20 +108,24 @@ function languageGuidance(subject: SubjectSlug): string {
     "Numeric answers as plain number strings (prefer \"6\" not \"6 元\" or \"$6\").",
     "MC choices: prefer bare numbers so they work under both UI languages.",
     "CRITICAL — do NOT mix: never write an English-primary stem (or EN UI money story) with Chinese-only choice labels like \"8 元\", \"10 元\".",
-    "If you must label currency/units in choices, keep them bilingual/parallel (e.g. \"8\" / \"$8\" with matching stem language) — never Chinese-unit-only choices alongside an English stem.",
+    "If you must label currency/units in choices, keep them bilingual/parallel with the stem language — never Chinese-unit-only choices alongside an English stem.",
   ].join(" ");
 }
 
 
-function retrievedOrFallbackCurriculum(request: QuizRequest): string {
+/**
+ * Retrieved EDB chunks (if any) followed by the per-year limits block.
+ * The limits block is always present and comes last so it wins on conflicts.
+ */
+function curriculumContext(request: QuizRequest): string {
   const retrieved = retrieveCurriculumContext({
     subject: request.subject,
     year: request.year,
     topic: request.topic,
     limit: 5,
   });
-  if (retrieved) return retrieved;
-  return curriculumGuidanceBlock(request.year, request.subject, request.topic);
+  const guidance = curriculumGuidanceBlock(request.year, request.subject, request.topic);
+  return retrieved ? `${retrieved}\n${guidance}` : guidance;
 }
 
 export function buildQuizPrompt(request: QuizRequest): { system: string; user: string } {
@@ -141,7 +145,8 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     "- For type fill: answer is the canonical accepted spelling; accepts may list alternatives.",
     "- For type number: answer is a numeric string. Plain decimals/integers (e.g. \"0.75\", \"12\") are preferred. Fraction strings like \"5/6\" are also allowed when the value is a fraction — the UI accepts text input for those.",
     "- When the learner must write a fraction in lowest terms (最簡分數 / simplify), prefer type \"fill\" with answer like \"5/6\" (accepts may include \"5 / 6\"). Do NOT use type number for slash answers unless the answer string itself contains /.",
-    "- Keep difficulty suitable for the given year (P1 easiest within primary; P6 hardest). Follow the Official / EDB-aligned learning targets block (or CURRICULUM / DIFFICULTY fallback) in the user message — KS1 (P1–P3) is not just easier KS2.",
+    "- Difficulty is set per YEAR, not per key stage: obey every \"LIMIT\" line in the CURRICULUM / DIFFICULTY block (lengths, number ranges, allowed grammar/words). Each year must be clearly harder than the year below and easier than the year above.",
+    "- Before answering, check every question against the year limits; replace any question that breaks one.",
     "- HK curriculum flavour; culturally familiar HK examples where helpful.",
     "- ids must be unique strings.",
     "- Place the correct MC answer in a random position among the 4 choices; do not always put it first.",
@@ -161,8 +166,8 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     `Question count: ${count}`,
     `Seed (variety token — produce a distinct quiz for each seed): ${request.seed}`,
     languageGuidance(request.subject),
-    retrievedOrFallbackCurriculum(request),
-    "Prefer question types that fit the topic (e.g. maths decimals/of-a-total → number; maths simplify-to-fraction → fill with answer like \"2/3\"; English grammar → mc; Chinese vocab → mc or fill). For P1–P3 maths, prefer whole-number / money / simple sharing over advanced fractions.",
+    curriculumContext(request),
+    "Prefer question types that fit the topic (e.g. maths decimals/of-a-total → number; maths simplify-to-fraction → fill with answer like \"2/3\"; English grammar → mc; Chinese vocab → mc or fill). If the topic and the year limits conflict, the year limits win (write easier items within the topic).",
   ];
   if (avoid.length) {
     userParts.push(

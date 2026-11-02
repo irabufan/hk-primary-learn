@@ -222,12 +222,12 @@ assert.ok(
   "llm-client.ts must call retrieveCurriculumContext",
 );
 assert.ok(
-  llmClient.includes("retrievedOrFallbackCurriculum"),
-  "llm-client.ts must use retrievedOrFallbackCurriculum in buildQuizPrompt",
+  llmClient.includes("curriculumContext(request)"),
+  "llm-client.ts must use curriculumContext in buildQuizPrompt",
 );
 assert.ok(
   llmClient.includes("curriculumGuidanceBlock"),
-  "llm-client must keep curriculumGuidanceBlock as empty-retrieve fallback",
+  "llm-client must always include the per-year curriculumGuidanceBlock",
 );
 const retrieveSrc = readFileSync(join(ROOT, "lib/curriculum-retrieve.ts"), "utf8");
 assert.ok(

@@ -4,7 +4,7 @@ import { chineseBank } from "@/lib/exercises/chinese";
 import { gsBank } from "@/lib/exercises/gs";
 import { getBank } from "@/lib/exercises";
 import type { FillItem, MatchPair, McItem, NumberItem } from "@/lib/exercises/types";
-import { suitsYear } from "@/lib/exercises/types";
+import { yearFit } from "@/lib/exercises/types";
 import { mulberry32, pickInt, pickOne, shuffle, type Rng } from "@/lib/rng";
 import type { Quiz, QuizGenerator, QuizQuestion, QuizRequest } from "./types";
 import { QUIZ_COUNTS } from "./types";
@@ -45,12 +45,16 @@ export async function generateQuiz(request: QuizRequest): Promise<Quiz> {
 
 type YearTagged = { years?: Year[] };
 
-/** Year-suited items first, then the rest; cycles if the bank is short. */
+/**
+ * Exact-year items first, then adjacent grades (±1); cycles if short.
+ * Distant grades are used only when nothing nearby exists at all.
+ */
 function pickYearItems<T extends YearTagged>(rng: Rng, items: readonly T[], count: number, year: Year): T[] {
   if (items.length === 0) return [];
-  const preferred = shuffle(rng, items.filter((item) => suitsYear(item, year)));
-  const others = shuffle(rng, items.filter((item) => !suitsYear(item, year)));
-  const pool = [...preferred, ...others];
+  const exact = shuffle(rng, items.filter((item) => yearFit(item, year) === 0));
+  const adjacent = shuffle(rng, items.filter((item) => yearFit(item, year) === 1));
+  const near = [...exact, ...adjacent];
+  const pool = near.length ? near : shuffle(rng, [...items]);
   const out: T[] = [];
   for (let i = 0; i < count; i++) out.push(pool[i % pool.length]);
   return out;

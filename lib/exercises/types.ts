@@ -1,4 +1,4 @@
-import type { Year } from "@/lib/curriculum";
+import { YEARS, type Year } from "@/lib/curriculum";
 import type { Localized } from "@/lib/i18n/types";
 
 /** A word ↔ meaning pair for the match-pairs game. */
@@ -62,4 +62,16 @@ export type ExerciseBank = Record<string, ExerciseItem[]>;
 export function suitsYear(item: { years?: Year[] } | ExerciseItem, year: Year): boolean {
   const years = "years" in item ? item.years : undefined;
   return !years || years.includes(year);
+}
+
+/**
+ * How well an item fits a year: 0 = exact (untagged or tagged for the year),
+ * 1 = adjacent grade only (±1), null = too far away to show.
+ */
+export function yearFit(item: { years?: Year[] } | ExerciseItem, year: Year): 0 | 1 | null {
+  if (suitsYear(item, year)) return 0;
+  const years = "years" in item ? item.years : undefined;
+  const index = YEARS.indexOf(year);
+  const adjacent = [YEARS[index - 1], YEARS[index + 1]].filter(Boolean);
+  return years?.some((y) => adjacent.includes(y)) ? 1 : null;
 }

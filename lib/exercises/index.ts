@@ -4,7 +4,7 @@ import { chineseBank } from "./chinese";
 import { englishBank } from "./english";
 import { mathsBank } from "./maths";
 import { gsBank } from "./gs";
-import { suitsYear, type ExerciseBank, type ExerciseItem, type McItem } from "./types";
+import { yearFit, type ExerciseBank, type ExerciseItem, type MatchPair, type McItem } from "./types";
 
 const BANKS: Record<SubjectSlug, ExerciseBank> = {
   chinese: chineseBank,
@@ -35,9 +35,24 @@ export function shuffleMcChoices(rng: () => number, item: McItem): McItem {
 }
 
 /**
- * Build one exercise session for a subject + topic + year:
- * items that suit the year come first, everything is shuffled, MC choices are
- * shuffled, and a match item is trimmed to a playful number of pairs.
+ * Exact-year items first, then adjacent-grade (±1) items; each tier shuffled.
+ * Items from grades further away are never used — a short session beats a
+ * P1 child meeting P5 work.
+ */
+function pickForYear<T extends ExerciseItem | MatchPair>(
+  rng: () => number,
+  items: T[],
+  year: Year,
+): T[] {
+  const exact = shuffle(rng, items.filter((item) => yearFit(item, year) === 0));
+  const adjacent = shuffle(rng, items.filter((item) => yearFit(item, year) === 1));
+  return [...exact, ...adjacent].slice(0, SESSION_SIZE);
+}
+
+/**
+ * Build one exercise session for a subject + topic + year: exact-year items,
+ * topped up from adjacent grades only (may be shorter than SESSION_SIZE),
+ * MC choices shuffled, and a match item trimmed to a playful number of pairs.
  */
 export function getExerciseSession(
   subject: SubjectSlug,
@@ -47,28 +62,10 @@ export function getExerciseSession(
   const bank = getBank(subject, topic) ?? [];
   const rng = mulberry32(randomSeed());
 
-  const preferred = shuffle(
-    rng,
-    bank.filter((item) => suitsYear(item, year)),
-  );
-  const others = shuffle(
-    rng,
-    bank.filter((item) => !suitsYear(item, year)),
-  );
-
-  const picked = [...preferred, ...others].slice(0, SESSION_SIZE);
-
-  return picked.map((item) => {
-    if (item.kind === "mc") return shuffleMcChoices(rng, item);
-    if (item.kind !== "match") return item;
-    const goodPairs = shuffle(
-      rng,
-      item.pairs.filter((pair) => suitsYear(pair, year)),
-    );
-    const otherPairs = shuffle(
-      rng,
-      item.pairs.filter((pair) => !suitsYear(pair, year)),
-    );
-    return { ...item, pairs: [...goodPairs, ...otherPairs].slice(0, SESSION_SIZE) };
+  return pickForYear(rng, bank, year).flatMap((item): ExerciseItem[] => {
+    if (item.kind === "mc") return [shuffleMcChoices(rng, item)];
+    if (item.kind !== "match") return [item];
+    const pairs = pickForYear(rng, item.pairs, year);
+    return pairs.length ? [{ ...item, pairs }] : [];
   });
 }
