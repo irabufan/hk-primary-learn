@@ -527,7 +527,7 @@ function buildPracticeChunks() {
       kind: "practice",
       topics: ["nature-science"],
       band: "KS2",
-      years: ["P4", "P5", "P6"],
+      years: ["P4"],
       text_en:
         "Nature–science practice stem (CC BY river pollution resource): classify pollution sources — sewage/wastewater, urban runoff, farming chemicals/fertilisers. Item: match source→effect on freshwater / sort cards into human-impact categories.",
       text_zh:
@@ -542,6 +542,7 @@ function buildPracticeChunks() {
       kind: "practice",
       topics: ["nature-science", "community"],
       band: "KS2",
+      years: ["P6"],
       text_en:
         "Issue-discussion stem: for/against chemical fertiliser use near rivers — list one benefit (crop yield) and one risk (nutrient pollution, algal blooms). Short written or MC justification.",
       text_zh:
@@ -586,6 +587,7 @@ function buildPracticeChunks() {
       kind: "practice",
       topics: ["community"],
       band: "KS1",
+      years: ["P2", "P3"],
       text_en:
         "Community transport pattern: group public transport (bus, MTR, tram, ferry, Peak Tram) and link to everyday journeys (home→school, park visit). Item: choose suitable transport for a short scenario.",
       text_zh:
@@ -629,6 +631,7 @@ function buildPracticeChunks() {
       kind: "practice",
       topics: ["nature-science", "community"],
       band: "KS2",
+      years: ["P5"],
       text_en:
         "Human-impact chain: everyday action → pollutant pathway → freshwater effect (e.g. litter→plastic pollution→harm to river life; fertiliser→nutrients→algal blooms). Complete a 3-box cause–effect diagram.",
       text_zh:

@@ -96,7 +96,11 @@
     "text_en": "People & Environment KS1: basic needs, features and growth of living things; simple classification of living things; green living habits (save water, reduce waste); care for animals and plants.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
     "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "kind": "objective"
+    "kind": "objective",
+    "years": [
+      "P2",
+      "P3"
+    ]
   },
   {
     "id": "gs-people-env-ks2",
@@ -178,9 +182,7 @@
     ],
     "band": "KS2",
     "years": [
-      "P4",
-      "P5",
-      "P6"
+      "P4"
     ],
     "text_en": "Nature–science practice stem (CC BY river pollution resource): classify pollution sources — sewage/wastewater, urban runoff, farming chemicals/fertilisers. Item: match source→effect on freshwater / sort cards into human-impact categories.",
     "text_zh": "自然科練習模式（河流污染 CC BY）：分類污染來源——污水、市區徑流、農藥／肥料。配對來源→淡水影響或卡片分類。",
@@ -201,7 +203,10 @@
     "text_zh": "議題討論：贊成／反對河邊使用化肥——各列一項好處（產量）與風險（營養污染、藻華）。短答或選擇理由。",
     "source": "paraphrase-practice: https://probleu.pml.space/en/content/worksheet/1335/",
     "sourceUrl": "https://probleu.pml.space/en/content/worksheet/1335/",
-    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)"
+    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)",
+    "years": [
+      "P6"
+    ]
   },
   {
     "id": "prac-gs-freshwater-keywords",
@@ -251,7 +256,11 @@
     "text_zh": "社區交通模式：巴士／港鐵／電車／渡輪等，連繫日常出行。情境題選合適交通工具。",
     "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
     "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
-    "license": "EDB non-profit educational duplication with acknowledgement"
+    "license": "EDB non-profit educational duplication with acknowledgement",
+    "years": [
+      "P2",
+      "P3"
+    ]
   },
   {
     "id": "prac-gs-healthy-sport-adj",
@@ -300,7 +309,10 @@
     "text_zh": "人為影響鏈：日常行為→污染物路徑→淡水後果（垃圾→塑膠污染；肥料→藻華）。完成三格因果圖。",
     "source": "paraphrase-practice: https://probleu.pml.space/en/content/worksheet/1335/",
     "sourceUrl": "https://probleu.pml.space/en/content/worksheet/1335/",
-    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)"
+    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)",
+    "years": [
+      "P5"
+    ]
   },
   {
     "id": "gs-p1-health",
@@ -311,8 +323,8 @@
     "years": [
       "P1"
     ],
-    "text_zh": "小一健康生活：身體部分與感官；洗手、刷牙、早睡；多吃蔬果；過馬路要拖着大人的手。",
-    "text_en": "P1 healthy living: body parts and senses; washing hands, brushing teeth, enough sleep; eat fruit and vegetables; hold an adult's hand when crossing the road.",
+    "text_zh": "小一健康生活：認識自己的身體和五官；個人衞生（洗手、刷牙、剪指甲）；早睡早起；家居安全（熱水、刀、電插頭、不給陌生人開門）。",
+    "text_en": "P1 healthy living: knowing my body and the five senses; personal hygiene (washing hands, brushing teeth, cutting nails); early to bed; home safety (hot water, knives, plugs, not opening the door to strangers).",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "kind": "objective"
@@ -326,8 +338,8 @@
     "years": [
       "P1"
     ],
-    "text_zh": "小一社區：我的家庭和學校；社區幫手（警察、消防員、醫生、老師）；有禮貌；排隊。",
-    "text_en": "P1 community: my family and my school; community helpers (police, firefighters, doctors, teachers); being polite; queueing.",
+    "text_zh": "小一社區與生活＝我的家和我的學校：家人稱呼、在家幫忙做家務；校園地方（課室、操場、禮堂、校務處）；課室規則；對老師和同學有禮貌；排隊。",
+    "text_en": "P1 community = my home and my school: family members, helping with chores; places in school (classroom, playground, hall, school office); classroom rules; being polite to teachers and classmates; queueing.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "kind": "objective"
@@ -341,8 +353,8 @@
     "years": [
       "P1"
     ],
-    "text_zh": "小一自然：白天和黑夜；晴天和雨天；植物需要水和陽光；常見動物和牠們住的地方。",
-    "text_en": "P1 nature: day and night; sunny and rainy days; plants need water and sunlight; common animals and where they live.",
+    "text_zh": "小一自然：白天和黑夜（太陽、月亮、星星；日間和晚上做的事）；簡單天氣（晴天、雨天、颳風、冷和熱）及應穿甚麼、帶甚麼。",
+    "text_en": "P1 nature: day and night (sun, moon, stars; what we do in the daytime and at night); simple weather (sunny, rainy, windy, hot and cold) and what to wear or bring.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "kind": "objective"
@@ -356,8 +368,8 @@
     "years": [
       "P2"
     ],
-    "text_zh": "小二健康生活：家居安全（熱水、利器、電）；道路及乘車安全；健康小食與垃圾食物；運動與休息。",
-    "text_en": "P2 healthy living: home safety (hot water, sharp objects, electricity); road and transport safety; healthy snacks vs junk food; exercise and rest.",
+    "text_zh": "小二健康生活：道路及乘車安全（燈號、斑馬線、扣安全帶）；健康小食與零食；運動與休息；生病看醫生、用藥要聽大人指示。",
+    "text_en": "P2 healthy living: road and transport safety (lights, zebra crossings, seat belts); healthy snacks vs junk food; exercise and rest; seeing a doctor and taking medicine only as adults tell you.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "kind": "objective"
@@ -371,8 +383,8 @@
     "years": [
       "P2"
     ],
-    "text_zh": "小二社區：社區設施（圖書館、街市、公園、診所）及規則；乘搭港鐵、巴士的禮儀；保持公眾地方清潔。",
-    "text_en": "P2 community: community facilities (library, wet market, park, clinic) and their rules; MTR and bus manners; keeping public places clean.",
+    "text_zh": "小二社區：社區幫手和他們的工作（警察、消防員、郵差、醫生、清潔工人）；社區設施（圖書館、街市、公園、診所）及規則；乘搭港鐵、巴士的禮儀；傳統節日（農曆新年、端午節、中秋節）的習俗。",
+    "text_en": "P2 community: community helpers and their jobs (police, firefighters, postal workers, doctors, cleaners); community facilities (library, wet market, park, clinic) and their rules; MTR and bus manners; traditional festivals (Lunar New Year, Tuen Ng, Mid-Autumn) and their customs.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "kind": "objective"
@@ -386,8 +398,8 @@
     "years": [
       "P2"
     ],
-    "text_zh": "小二自然：天氣與衣著；動植物的生長；動物吃甚麼；常見物料（紙、木、塑膠、金屬）及用途。",
-    "text_en": "P2 nature: weather and clothing; how plants and animals grow; what animals eat; everyday materials (paper, wood, plastic, metal) and simple uses.",
+    "text_zh": "小二自然：生物與非生物；動植物生長的需要（水、空氣、陽光、食物）；動物的居所（海洋、池塘、樹林、郊野）；四季的特徵；常見物料（紙、木、塑膠、金屬、布）及用途。",
+    "text_en": "P2 nature: living and non-living things; what plants and animals need to grow (water, air, sunlight, food); animal habitats (sea, pond, woods, countryside); features of the four seasons; everyday materials (paper, wood, plastic, metal, cloth) and their uses.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "kind": "objective"

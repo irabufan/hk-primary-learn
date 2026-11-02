@@ -1,4 +1,5 @@
 import { YEARS, type SubjectSlug, type Year } from "@/lib/curriculum";
+import { mulberry32, shuffle } from "@/lib/rng";
 
 /** HK primary key-stage bands (CDC primary curriculum flavour). */
 export type YearBand = "KS1" | "KS2";
@@ -137,7 +138,7 @@ const GUIDANCE: GuidanceBlock[] = [
     topics: {
       "healthy-living": ["Balanced diet, sleep, disease prevention, traffic safety."],
       community: ["Recycling, caring for public spaces, community roles."],
-      "nature-science": ["States of water, magnets, moon reflection, solar energy — year-appropriate."],
+      "nature-science": ["Science as allowed by the year LIMIT lines: P4 names concepts, P5 explains causes, P6 compares and evaluates."],
     },
   },
 ];
@@ -147,6 +148,13 @@ type YearSpec = {
   focus: string;
   /** Hard limits for this year (lengths, number ranges, grammar, word sets). */
   limits: string[];
+  /** Year-specific topic notes; replace the key-stage topic notes when present. */
+  topics?: Record<string, string[]>;
+  /**
+   * Themes rotated by seed (key = topic slug, or "*" for every topic) so
+   * different seeds lean on different parts of the year's content.
+   */
+  rotate?: Record<string, string[]>;
 };
 
 /**
@@ -312,20 +320,32 @@ const YEAR_SPECS: Record<SubjectSlug, Record<Year, YearSpec>> = {
   },
   gs: {
     P1: {
-      focus: "P1：身體與衞生、家庭與學校、社區幫手、天氣、動植物最基本需要",
+      focus: "P1：我的身體與衞生、我的家、我的學校、家居安全、白天與黑夜、簡單天氣",
       limits: [
-        "Stem ≤ 15 字; each MC choice ≤ 6 字 (prefer 2–4 字 single things, e.g. 肥皂、雨傘、陽光和水).",
-        "Only things a 6-year-old sees daily: 洗手、刷牙、食物、上學、家人、警察/消防員、晴天/雨天、白天/黑夜、植物要水和陽光、常見動物.",
+        "Stem ≤ 15 字; each MC choice ≤ 6 字 (prefer 2–4 字 single things).",
+        "P1 themes ONLY: 身體與五官、個人衞生、早睡早起、家居安全、家人與家務、學校地方與課室規則、禮貌與排隊、白天與黑夜、晴天/雨天/颳風/冷熱與衣著.",
+        "NOT P1 (these are P2): 動植物的需要和居所、生物與非生物、物料、社區幫手和社區設施、交通與乘車、四季、節日.",
         "No science terms (蒸發、凝結、磁極、細菌名稱), no calculations, no long sentence choices.",
       ],
+      topics: {
+        "healthy-living": ["P1 健康生活: 身體部位與五官的用處、洗手刷牙剪指甲、早睡早起、家居安全（熱水、刀、電插頭、不給陌生人開門）."],
+        community: ["P1 社區與生活 = 我的家和我的學校: 家人稱呼、幫忙做家務、校園地方（課室、操場、禮堂、校務處）、課室規則、有禮貌、排隊. Not community helpers or facilities (P2)."],
+        "nature-science": ["P1 自然: 白天與黑夜（太陽、月亮、星星、日間/晚上做的事）、天氣（晴、雨、風、冷熱）與應穿/帶甚麼. Not plants, animals or materials (P2)."],
+      },
     },
     P2: {
-      focus: "P2：家居/道路安全、社區設施、天氣與衣著、動植物生長、常見物料",
+      focus: "P2：生物與非生物、動植物的需要與居所、常見物料、社區幫手與設施、道路安全、四季、節日",
       limits: [
         "Stem ≤ 20 字; each MC choice ≤ 8 字.",
-        "Topics: 過馬路與乘車安全、圖書館/街市/公園規則、天氣與衣著、動物的居所與食物、紙/木/膠/金屬等物料.",
+        "P2 themes: 生物與非生物、動植物生長的需要（水、空氣、陽光、食物）、動物的居所、常見物料及用途、社區幫手和他們的工作、社區設施及規則、道路及乘車安全、四季特徵、傳統節日習俗.",
+        "Do NOT repeat P1 themes (身體與五官、洗手刷牙、白天黑夜、晴天雨天帶傘、家人稱呼、課室規則).",
         "No science terms beyond everyday words; no multi-step reasoning.",
       ],
+      topics: {
+        "healthy-living": ["P2 健康生活: 道路及乘車安全（燈號、斑馬線、安全帶）、健康小食與零食、運動與休息、生病看醫生和用藥要聽大人指示."],
+        community: ["P2 社區: 社區幫手和他們的工作、社區設施（圖書館、街市、公園、診所）及規則、港鐵/巴士禮儀、農曆新年/端午節/中秋節的習俗."],
+        "nature-science": ["P2 自然: 生物與非生物、動植物的需要、動物的居所（海洋、池塘、樹林）、四季特徵、常見物料（紙、木、塑膠、金屬、布）及用途."],
+      },
     },
     P3: {
       focus: "P3：光與影、物料特性、疾病預防初步、香港交通與地區、節約資源",
@@ -348,14 +368,22 @@ const YEAR_SPECS: Record<SubjectSlug, Record<Year, YearSpec>> = {
         "Stem ≤ 50 字; at least half of the items ask WHY / WHAT WOULD HAPPEN (cause → effect), not just naming a term.",
         "Allowed: 光的反射、聲音、能量轉換、摩擦力、水污染與保育、青春期初步、香港與內地的聯繫 (light).",
         "Avoid repeating P4 naming questions (e.g. 'this process is called 蒸發').",
+        "Every item tests a DIFFERENT idea. At most ONE pollution item per quiz, and not fertiliser → algae (藻華) unless the seed rotation names water pollution.",
       ],
+      rotate: {
+        "nature-science": ["光的反射", "聲音的傳播", "能量轉換", "摩擦力", "水污染與保育", "生物適應環境", "日、月、地球的運行"],
+      },
     },
     P6: {
       focus: "P6：可再生能源、簡單機械、青春期與情緒、公民責任、科技與生活 — 比較與評鑑",
       limits: [
         "Stem ≤ 60 字; include comparing/evaluating options or reading simple data.",
         "Allowed: 可再生/不可再生能源、槓桿/滑輪/斜面、青春期與情緒、拒絕誘惑、公民責任、科技對生活的影響.",
+        "Every item tests a DIFFERENT idea. At most ONE environment item per quiz; water pollution only as a for/against evaluation — never the P5 cause→effect question (fertiliser → algae / 藻華).",
       ],
+      rotate: {
+        "nature-science": ["可再生與不可再生能源", "槓桿", "滑輪與斜面", "科技對生活的影響", "太陽系", "氣候變化與減碳", "電的安全與節約"],
+      },
     },
   },
 };
@@ -390,6 +418,7 @@ export function curriculumGuidanceLines(
   year: Year,
   subject: SubjectSlug,
   topic?: string,
+  seed?: number,
 ): string[] {
   const band = yearBand(year);
   const spec = YEAR_SPECS[subject][year];
@@ -400,8 +429,19 @@ export function curriculumGuidanceLines(
     ...spec.limits.map((line) => `${year} LIMIT: ${line}`),
     ...neighbourLines(subject, year),
   ];
-  if (topic && block?.topics?.[topic]) out.push(...block.topics[topic]);
+  const topicNotes = topic ? (spec.topics?.[topic] ?? block?.topics?.[topic]) : undefined;
+  if (topicNotes) out.push(...topicNotes);
+  const rotation = rotationLine(spec, topic, seed);
+  if (rotation) out.push(rotation);
   return out;
+}
+
+/** Seeded pick of 3 themes from the year's rotation list (same seed → same themes). */
+function rotationLine(spec: YearSpec, topic: string | undefined, seed: number | undefined): string | undefined {
+  const themes = (topic && spec.rotate?.[topic]) || spec.rotate?.["*"];
+  if (!themes?.length || seed === undefined) return undefined;
+  const picked = shuffle(mulberry32(seed), themes).slice(0, 3);
+  return `This quiz's themes (rotated by seed): ${picked.join("、")} — draw most items from these, one idea per question.`;
 }
 
 /** Single block for the quiz prompt. */
@@ -409,9 +449,10 @@ export function curriculumGuidanceBlock(
   year: Year,
   subject: SubjectSlug,
   topic?: string,
+  seed?: number,
 ): string {
   return [
     `CURRICULUM / DIFFICULTY for ${year} (HK primary — these limits override the chunks above):`,
-    ...curriculumGuidanceLines(year, subject, topic).map((line) => `- ${line}`),
+    ...curriculumGuidanceLines(year, subject, topic, seed).map((line) => `- ${line}`),
   ].join("\n");
 }

@@ -130,7 +130,7 @@ function curriculumContext(request: QuizRequest): string {
     topic: request.topic,
     limit: 5,
   });
-  const guidance = curriculumGuidanceBlock(request.year, request.subject, request.topic);
+  const guidance = curriculumGuidanceBlock(request.year, request.subject, request.topic, request.seed);
   return retrieved ? `${retrieved}\n${guidance}` : guidance;
 }
 

@@ -424,9 +424,7 @@
     ],
     "band": "KS2",
     "years": [
-      "P4",
-      "P5",
-      "P6"
+      "P4"
     ],
     "text_en": "Nature–science practice stem (CC BY river pollution resource): classify pollution sources — sewage/wastewater, urban runoff, farming chemicals/fertilisers. Item: match source→effect on freshwater / sort cards into human-impact categories.",
     "text_zh": "自然科練習模式（河流污染 CC BY）：分類污染來源——污水、市區徑流、農藥／肥料。配對來源→淡水影響或卡片分類。",
@@ -447,7 +445,10 @@
     "text_zh": "議題討論：贊成／反對河邊使用化肥——各列一項好處（產量）與風險（營養污染、藻華）。短答或選擇理由。",
     "source": "paraphrase-practice: https://probleu.pml.space/en/content/worksheet/1335/",
     "sourceUrl": "https://probleu.pml.space/en/content/worksheet/1335/",
-    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)"
+    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)",
+    "years": [
+      "P6"
+    ]
   },
   {
     "id": "prac-gs-freshwater-keywords",
@@ -497,7 +498,11 @@
     "text_zh": "社區交通模式：巴士／港鐵／電車／渡輪等，連繫日常出行。情境題選合適交通工具。",
     "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
     "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
-    "license": "EDB non-profit educational duplication with acknowledgement"
+    "license": "EDB non-profit educational duplication with acknowledgement",
+    "years": [
+      "P2",
+      "P3"
+    ]
   },
   {
     "id": "prac-gs-healthy-sport-adj",
@@ -546,6 +551,9 @@
     "text_zh": "人為影響鏈：日常行為→污染物路徑→淡水後果（垃圾→塑膠污染；肥料→藻華）。完成三格因果圖。",
     "source": "paraphrase-practice: https://probleu.pml.space/en/content/worksheet/1335/",
     "sourceUrl": "https://probleu.pml.space/en/content/worksheet/1335/",
-    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)"
+    "license": "CC BY 4.0 (Earthwatch / ProBleu worksheet)",
+    "years": [
+      "P5"
+    ]
   }
 ]
