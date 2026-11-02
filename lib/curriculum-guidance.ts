@@ -233,6 +233,9 @@ const YEAR_SPECS: Record<SubjectSlug, Record<Year, YearSpec>> = {
         "Not allowed: third-person -s verbs (goes, does), past tense, -ing/-ed adjectives, comparatives.",
         "Every stem is a complete short sentence with a subject and a verb — never a bare noun phrase or a blank plus one word.",
       ],
+      rotate: {
+        "*": ["family", "colours", "numbers 1–10", "animals", "toys", "food", "school things", "body parts", "feelings", "actions (can)"],
+      },
     },
     P2: {
       focus: "P2: present simple with he/she -s, there is/are, prepositions, short 2–3 sentence texts",
@@ -342,6 +345,11 @@ const YEAR_SPECS: Record<SubjectSlug, Record<Year, YearSpec>> = {
         community: ["P1 社區與生活 = 我的家和我的學校: 家人稱呼、幫忙做家務、校園地方（課室、操場、禮堂、校務處）、課室規則、有禮貌、排隊. Not community helpers or facilities (P2)."],
         "nature-science": ["P1 自然: 白天與黑夜（太陽、月亮、星星、日間/晚上做的事）、天氣（晴、雨、風、冷熱）與應穿/帶甚麼. Not plants, animals or materials (P2)."],
       },
+      rotate: {
+        "healthy-living": ["五官", "身體部位", "洗手", "刷牙與剪指甲", "早睡早起", "熱水與利器", "電的安全", "陌生人"],
+        community: ["家人稱呼", "幫忙做家務", "課室", "校園地方", "課室規則", "禮貌用語", "排隊與輪候"],
+        "nature-science": ["白天", "黑夜", "晴天", "雨天", "颳風", "冷天", "熱天"],
+      },
     },
     P2: {
       focus: "P2：生物與非生物、動植物的需要與居所、常見物料、社區幫手與設施、道路安全、四季、節日",
@@ -355,6 +363,11 @@ const YEAR_SPECS: Record<SubjectSlug, Record<Year, YearSpec>> = {
         "healthy-living": ["P2 健康生活: 道路及乘車安全（燈號、斑馬線、安全帶）、健康小食與零食、運動與休息、生病看醫生和用藥要聽大人指示."],
         community: ["P2 社區: 社區幫手和他們的工作、社區設施（圖書館、街市、公園、診所）及規則、港鐵/巴士禮儀、農曆新年/端午節/中秋節的習俗."],
         "nature-science": ["P2 自然: 生物與非生物、動植物的需要、動物的居所（海洋、池塘、樹林）、四季特徵、常見物料（紙、木、塑膠、金屬、布）及用途."],
+      },
+      rotate: {
+        "healthy-living": ["過馬路", "乘車安全", "健康小食", "運動與休息", "看醫生與用藥"],
+        community: ["社區幫手", "社區設施", "港鐵與巴士禮儀", "農曆新年", "端午節", "中秋節"],
+        "nature-science": ["生物與非生物", "植物的需要", "動物的居所", "動物吃甚麼", "四季", "常見物料"],
       },
     },
     P3: {
@@ -451,7 +464,7 @@ function rotationLine(spec: YearSpec, topic: string | undefined, seed: number | 
   const themes = (topic && spec.rotate?.[topic]) || spec.rotate?.["*"];
   if (!themes?.length || seed === undefined) return undefined;
   const picked = shuffle(mulberry32(seed), themes).slice(0, 3);
-  return `This quiz's themes (rotated by seed): ${picked.join("、")} — draw most items from these, one idea per question.`;
+  return `This quiz's themes (rotated by seed): ${picked.join(" / ")} — draw most items from these, one idea per question.`;
 }
 
 /** Single block for the quiz prompt. */
