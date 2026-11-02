@@ -153,23 +153,6 @@
     "kind": "objective"
   },
   {
-    "id": "eng-p1-p2",
-    "subject": "english",
-    "topics": [
-      "vocabulary",
-      "grammar",
-      "reading"
-    ],
-    "years": [
-      "P1",
-      "P2"
-    ],
-    "text_en": "P1–P2: very high-frequency words; present simple and basic patterns; tiny stories; one blank; picture-friendly.",
-    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "kind": "objective"
-  },
-  {
     "id": "eng-p3",
     "subject": "english",
     "topics": [
@@ -202,23 +185,6 @@
     "kind": "objective"
   },
   {
-    "id": "eng-p5-p6",
-    "subject": "english",
-    "topics": [
-      "vocabulary",
-      "grammar",
-      "reading"
-    ],
-    "years": [
-      "P5",
-      "P6"
-    ],
-    "text_en": "P5–P6: richer vocab and multi-sentence passages; inference and opinion; tense consistency and agreement; invitations/letters as interpersonal text types.",
-    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
-    "kind": "objective"
-  },
-  {
     "id": "prac-eng-paradigmatic-sports",
     "subject": "english",
     "kind": "practice",
@@ -244,6 +210,10 @@
     "topics": [
       "grammar",
       "vocabulary"
+    ],
+    "years": [
+      "P3",
+      "P4"
     ],
     "band": "KS1",
     "text_en": "Adjective form cloze: use -ing adjectives for activities (exciting, tiring, boring) and -ed for feelings (excited, tired, bored). Stem: 'I am ___ as I won the race' / 'Basketball is ___'.",
@@ -363,5 +333,69 @@
     "source": "paraphrase-practice: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
     "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Enhancing%20Vocab%20Primary/Handbook.pdf",
     "license": "EDB non-profit educational duplication with acknowledgement"
+  },
+  {
+    "id": "eng-p1",
+    "subject": "english",
+    "topics": [
+      "vocabulary",
+      "grammar",
+      "reading"
+    ],
+    "years": [
+      "P1"
+    ],
+    "text_en": "P1 (start of KS1): single words and 3–6 word sentences on self, family, colours, numbers 1–10, toys, food and classroom objects; patterns I am / This is a / I like / I can; a/an, simple -s plurals, am/is/are, basic pronouns; read 1–2 sentence captions with pictures.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "eng-p2",
+    "subject": "english",
+    "topics": [
+      "vocabulary",
+      "grammar",
+      "reading"
+    ],
+    "years": [
+      "P2"
+    ],
+    "text_en": "P2 (KS1): present simple incl. he/she/it -s for habits; there is/are; prepositions in/on/under; possessives my/your/his/her; common irregular plurals; 2–3 sentence stories with literal who/what/where questions.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "eng-p5",
+    "subject": "english",
+    "topics": [
+      "vocabulary",
+      "grammar",
+      "reading"
+    ],
+    "years": [
+      "P5"
+    ],
+    "text_en": "P5 (KS2): past continuous for interrupted actions; present perfect with ever/never/already; modals should/must; connectives because/so/although; ~100–130 word passages with inference questions; topic vocabulary with precise synonyms.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "eng-p6",
+    "subject": "english",
+    "topics": [
+      "vocabulary",
+      "grammar",
+      "reading"
+    ],
+    "years": [
+      "P6"
+    ],
+    "text_en": "P6 (end of KS2): contrast present perfect and past simple; simple passive; relative clauses with who/which/that; first conditional; ~150–180 word texts (emails, notices, stories) with inference, opinion and writer's purpose questions.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/eng-edu/Curriculum%20Document/Pri_ELCG_Primary_1-6_2025.pdf",
+    "kind": "objective"
   }
 ]

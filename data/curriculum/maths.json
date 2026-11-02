@@ -3,8 +3,10 @@
     "id": "maths-ks1-number-targets",
     "subject": "maths",
     "topics": [
+      "numbers",
+      "add-subtract",
+      "multiply-divide",
       "fractions",
-      "decimals",
       "word-problems"
     ],
     "band": "KS1",
@@ -17,8 +19,10 @@
     "id": "maths-ks2-number-targets",
     "subject": "maths",
     "topics": [
+      "multiply-divide",
       "fractions",
       "decimals",
+      "percentages",
       "word-problems"
     ],
     "band": "KS2",
@@ -31,6 +35,9 @@
     "id": "maths-ks1-ops",
     "subject": "maths",
     "topics": [
+      "numbers",
+      "add-subtract",
+      "multiply-divide",
       "word-problems"
     ],
     "band": "KS1",
@@ -79,6 +86,7 @@
     "id": "maths-ks2-factors-avg",
     "subject": "maths",
     "topics": [
+      "multiply-divide",
       "fractions",
       "word-problems"
     ],
@@ -92,6 +100,7 @@
     "id": "maths-ks1-measures",
     "subject": "maths",
     "topics": [
+      "money-time",
       "word-problems"
     ],
     "band": "KS1",
@@ -116,6 +125,8 @@
     "id": "maths-ch4-ks1",
     "subject": "maths",
     "topics": [
+      "numbers",
+      "add-subtract",
       "fractions",
       "word-problems"
     ],
@@ -131,78 +142,13 @@
     "topics": [
       "fractions",
       "decimals",
+      "percentages",
       "word-problems"
     ],
     "band": "KS2",
     "text_en": "Ch.4 KS2 Number targets (summary): understand whole numbers, fractions, decimals, percentages and relations among them; manipulate numbers and examine reasonableness; formulate and solve problems involving numbers.",
     "source": "EDB Mathematics Curriculum Guide Ch.4 — Learning Targets of Key Stages 1 and 2",
     "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/chapter%204_1.pdf",
-    "kind": "objective"
-  },
-  {
-    "id": "maths-p1-p2",
-    "subject": "maths",
-    "topics": [
-      "fractions",
-      "decimals",
-      "word-problems"
-    ],
-    "years": [
-      "P1",
-      "P2"
-    ],
-    "text_en": "P1–P2 practice guidance (from KS1 objectives): keep numbers small (often ≤100); prefer sharing/half-of/equal groups as whole numbers rather than simplify-to-lowest-terms; money in whole dollars or simple contexts; avoid ×÷ of two decimals.",
-    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "kind": "objective"
-  },
-  {
-    "id": "maths-p3",
-    "subject": "maths",
-    "topics": [
-      "fractions",
-      "decimals",
-      "word-problems"
-    ],
-    "years": [
-      "P3"
-    ],
-    "text_en": "P3: same-denominator fraction +/− (answer ≤1, no simplification); simple unit fractions of a small total; simple one-decimal add/subtract with small values; one- or two-step shopping/sharing problems.",
-    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "kind": "objective"
-  },
-  {
-    "id": "maths-p4",
-    "subject": "maths",
-    "topics": [
-      "fractions",
-      "decimals",
-      "word-problems"
-    ],
-    "years": [
-      "P4"
-    ],
-    "text_en": "P4: introduce proper/improper/mixed/equivalent fractions carefully; unit fractions of a total; one-decimal operations; multi-step still gentle.",
-    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "kind": "objective"
-  },
-  {
-    "id": "maths-p5-p6",
-    "subject": "maths",
-    "topics": [
-      "fractions",
-      "decimals",
-      "word-problems"
-    ],
-    "years": [
-      "P5",
-      "P6"
-    ],
-    "text_en": "P5–P6: simplify fractions to lowest terms; mixed operations with fractions/decimals; percentage conversions; LCM/HCF where relevant; multi-step HK money/transport word problems; check reasonableness.",
-    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/annex%201.pdf",
     "kind": "objective"
   },
   {
@@ -373,5 +319,236 @@
     "source": "paraphrase-practice: https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
     "sourceUrl": "https://tasks.illustrativemathematics.org/content-standards/NF/5/B/3/tasks/2074",
     "license": "CC BY-NC-SA 4.0 (Illustrative Mathematics)"
+  },
+  {
+    "id": "maths-p1-number",
+    "subject": "maths",
+    "topics": [
+      "numbers",
+      "add-subtract",
+      "word-problems"
+    ],
+    "years": [
+      "P1"
+    ],
+    "text_zh": "小一數：20 以內、100 以內的數（數數、讀寫、比較、單雙數、個位和十位）；先做 18 以內加減，再做最多兩位數的加減（須進位）；一步應用題。小一不學乘、除、分數。",
+    "text_en": "P1 number: numbers to 20 then to 100 (count, read, write, order, odd/even, tens and units); addition and subtraction within 18 first, then two numbers of at most two digits with carrying; one-step problems. No ×, ÷ or fractions in P1.",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 1N1–1N4",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "maths-p1-measures",
+    "subject": "maths",
+    "topics": [
+      "money-time",
+      "word-problems"
+    ],
+    "years": [
+      "P1"
+    ],
+    "text_zh": "小一度量：直接比較長短、以厘米量度；認識香港硬幣、看價錢牌（整數元）；看鐘：整點和半點。",
+    "text_en": "P1 measures: compare lengths directly and in cm; recognise HK coins and read price tags in whole dollars; tell time to the hour and half hour on an analog clock.",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 1M1–1M4",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "maths-p1-shapes",
+    "subject": "maths",
+    "topics": [
+      "shapes"
+    ],
+    "years": [
+      "P1"
+    ],
+    "text_zh": "小一圖形與空間：直觀認識柱體、錐體和球體；直線與曲線；三角形、四邊形、圓形；用上、下、左、右、前、後、中間描述位置。",
+    "text_en": "P1 shapes and space: recognise prisms, cylinders, pyramids, cones and spheres intuitively; straight lines and curves; triangles, quadrilaterals, circles; describe positions with over/under/left/right/in front of/behind/between.",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 1S1–1S3",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "maths-p2-number",
+    "subject": "maths",
+    "topics": [
+      "numbers",
+      "add-subtract",
+      "multiply-divide",
+      "word-problems"
+    ],
+    "years": [
+      "P2"
+    ],
+    "text_zh": "小二數：三位數、四位數，認識 > 和 <；最多三個三位數的加法（進位）及退位減法；乘法表（0–10）；乘法表範圍內的除法（包括餘數）；一步或兩步應用題。",
+    "text_en": "P2 number: 3-digit and 4-digit numbers, > and <; addition of up to three numbers (≤3 digits, with carrying) and subtraction with borrowing; multiplication tables 0–10; basic division within the tables, including remainders; one- or two-step problems.",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 2N1–2N6",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "maths-p2-measures",
+    "subject": "maths",
+    "topics": [
+      "money-time",
+      "shapes",
+      "word-problems"
+    ],
+    "years": [
+      "P2"
+    ],
+    "text_zh": "小二度量與空間：米和厘米；看鐘至分鐘（指針鐘及數字鐘）；香港紙幣和硬幣、找續；立體的面；角（比較大小）；東南西北。",
+    "text_en": "P2 measures and space: metres and centimetres; time to the nearest minute (analog and digital); HK notes and coins, giving change; faces of 3-D shapes; angles (compare sizes); east/south/west/north.",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 2M1–2M3, 2S1–2S4",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "maths-p3-number",
+    "subject": "maths",
+    "topics": [
+      "add-subtract",
+      "multiply-divide",
+      "word-problems"
+    ],
+    "years": [
+      "P3"
+    ],
+    "text_zh": "小三數：五位數；兩位數乘一位數、兩位數除以一位數；括號及四則混合計算（最多四個數）；兩步應用題。",
+    "text_en": "P3 number: 5-digit numbers; 2-digit × 1-digit and 2-digit ÷ 1-digit; brackets and mixed operations (+ − with ×) of up to four numbers; two-step problems.",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 3N1–3N4",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "maths-p3-fractions",
+    "subject": "maths",
+    "topics": [
+      "fractions",
+      "word-problems"
+    ],
+    "years": [
+      "P3"
+    ],
+    "text_zh": "小三分數（初步）：分數是一個整體或一組物件的部分；以圖像認識等值分數；比較同分母或同分子分數；同分母分數加減（結果不大於 1）。未學約分規則、假分數或小數。",
+    "text_en": "P3 fractions (first contact): fractions as parts of one whole object or a set; equivalent fractions with concrete pictures; compare fractions with the same denominator or numerator; add/subtract same-denominator fractions with results not greater than 1. No simplifying rules, improper fractions or decimals yet.",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 3N5",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "maths-p3-measures",
+    "subject": "maths",
+    "topics": [
+      "money-time",
+      "shapes",
+      "word-problems"
+    ],
+    "years": [
+      "P3"
+    ],
+    "text_zh": "小三度量與空間：公里；秒；容量（升、毫升）；24 小時報時；重量（克、公斤）；平行線；直角、等腰、等邊及不等邊三角形；棒形圖。",
+    "text_en": "P3 measures and space: kilometres; seconds; capacity (L, mL); 24-hour time; weight (g, kg); parallel lines; right-angled, isosceles, equilateral and scalene triangles; bar charts.",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 3M1–3M5, 3S1–3S2, 3D1",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "maths-p4-number",
+    "subject": "maths",
+    "topics": [
+      "multiply-divide",
+      "word-problems"
+    ],
+    "years": [
+      "P4"
+    ],
+    "text_zh": "小四數：兩位數乘法、除數是兩位數的除法；倍數和因數；以列舉法找公倍數和公因數；乘法分配律；整數多步應用題。",
+    "text_en": "P4 number: multiplication and division by 2-digit numbers; multiples and factors; common multiples and common factors by listing; distributive property; multi-step problems with whole numbers.",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 4N1–4N5",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "maths-p4-fractions-decimals",
+    "subject": "maths",
+    "topics": [
+      "fractions",
+      "decimals",
+      "word-problems"
+    ],
+    "years": [
+      "P4"
+    ],
+    "text_zh": "小四分數及小數：真分數、假分數、帶分數及互化；擴分、約分至最簡；比較同分母分數；認識小數與分數的關係；一至兩位小數的加減。未學分數乘除、小數乘除。",
+    "text_en": "P4 fractions and decimals: proper and improper fractions, mixed numbers and interconversion; expanding and reducing fractions to lowest terms; compare same-denominator fractions; decimals as another form of fractions; add/subtract decimals with 1–2 decimal places. No fraction × ÷, no decimal × ÷.",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 4N6–4N8",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "maths-p5-fractions",
+    "subject": "maths",
+    "topics": [
+      "fractions",
+      "word-problems"
+    ],
+    "years": [
+      "P5"
+    ],
+    "text_zh": "小五分數：比較及加減最多三個異分母分數；分數乘法（包括整數）；分數作為商；分數除法；三個數的混合計算；答案以最簡分數表示。",
+    "text_en": "P5 fractions: compare and add/subtract up to three fractions with different denominators; multiply fractions (and whole numbers); fractions as quotients; divide fractions; mixed operations of three numbers; answers in lowest terms.",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 5N2–5N3, 5N5",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "maths-p5-decimals",
+    "subject": "maths",
+    "topics": [
+      "decimals",
+      "word-problems"
+    ],
+    "years": [
+      "P5"
+    ],
+    "text_zh": "小五小數及度量：一個數乘以 10、100、1000 及 0.1、0.01；小數乘法；三角形、平行四邊形、梯形面積；長方體體積；以符號代表數。未學百分數。",
+    "text_en": "P5 decimals and measures: multiply a number by 10, 100, 1000 and by 0.1, 0.01; multiplication involving decimals; area of triangles, parallelograms and trapeziums; volume of cuboids; letters for numbers. No percentages yet.",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 5N4, 5M1–5M2, 5A1",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "maths-p6-decimals",
+    "subject": "maths",
+    "topics": [
+      "decimals",
+      "fractions",
+      "word-problems"
+    ],
+    "years": [
+      "P6"
+    ],
+    "text_zh": "小六小數：除以 10、100、1000 及 0.1、0.01；涉及小數的除法；分數與小數互化；化成小數比較分數大小；四捨五入至十分位／百分位。",
+    "text_en": "P6 decimals: divide by 10, 100, 1000 and 0.1, 0.01; division involving decimals (decimal ÷ whole, whole ÷ decimal, decimal ÷ decimal); interconvert fractions and decimals; compare fractions via decimals; round to tenths/hundredths.",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 6N1–6N2",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "maths-p6-percentages",
+    "subject": "maths",
+    "topics": [
+      "percentages",
+      "word-problems"
+    ],
+    "years": [
+      "P6"
+    ],
+    "text_zh": "小六百分數：認識百分數；百分數與分數、小數互化；求一個數的百分之幾、甲是乙的百分之幾、增加／減少百分之幾（折扣）；平均數；圓與圓周率。",
+    "text_en": "P6 percentages: meaning of %; convert between percentages, fractions and decimals; find a percentage of a quantity, what percentage one number is of another, increase/decrease by a percentage (discounts); averages; circles and π.",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 6N3–6N4, 6D1, 6M3",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
   }
 ]

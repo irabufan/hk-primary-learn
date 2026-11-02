@@ -491,7 +491,8 @@ const EACH_RANGES: Record<Year, [number, number]> = {
 };
 
 function wordProblemQuestion(rng: Rng, year: Year, index: number): QuizQuestion {
-  const variant = index % 4;
+  // P1 has no × or ÷ (EDB 1N1–1N4): only the bus and change templates.
+  const variant = year === "P1" ? 2 + (index % 2) : index % 4;
 
   if (variant === 0) {
     // shopping: unit price × quantity

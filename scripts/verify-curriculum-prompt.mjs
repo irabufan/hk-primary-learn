@@ -79,8 +79,18 @@ function pickCurriculumChunks({ subject, year, topic, limit = 5 }) {
       score: scoreChunk(chunk, { subject, year, band, topic, queryTokens }),
     }))
     .filter((row) => Number.isFinite(row.score) && row.score > 0)
-    .filter((row) => row.chunk.topics.includes(topic) || row.score >= 3)
+    .filter((row) => row.chunk.topics.includes(topic) || row.chunk.topics.length === 0)
     .sort((a, b) => b.score - a.score || a.chunk.id.localeCompare(b.chunk.id));
+
+  // Mirror lib/curriculum-retrieve.ts capBandOnly: P1–P2 ≤1 key-stage chunk, others ≤2.
+  const cap = year === "P1" || year === "P2" ? 1 : 2;
+  let bandOnly = 0;
+  const capped = ranked.filter((row) => {
+    if (row.chunk.years?.length) return true;
+    bandOnly += 1;
+    return bandOnly <= cap;
+  });
+  ranked.splice(0, ranked.length, ...capped);
 
   if (!ranked.length) return [];
 
@@ -144,11 +154,22 @@ function retrieveCurriculumContext({ subject, year, topic, limit = 5 }) {
   return lines.join("\n");
 }
 
+// Mirror of lib/curriculum.ts topic year ranges (undefined = every year).
 const TOPICS = {
-  chinese: ["vocab", "reading", "sentences"],
-  english: ["vocabulary", "reading", "grammar"],
-  maths: ["fractions", "decimals", "word-problems"],
-  gs: ["healthy-living", "community", "nature-science"],
+  chinese: { vocab: undefined, reading: undefined, sentences: undefined },
+  english: { vocabulary: undefined, reading: undefined, grammar: undefined },
+  maths: {
+    numbers: ["P1", "P2"],
+    "add-subtract": ["P1", "P2", "P3"],
+    "multiply-divide": ["P2", "P3", "P4"],
+    "money-time": ["P1", "P2", "P3"],
+    shapes: ["P1", "P2", "P3"],
+    fractions: ["P3", "P4", "P5", "P6"],
+    decimals: ["P4", "P5", "P6"],
+    percentages: ["P6"],
+    "word-problems": undefined,
+  },
+  gs: { "healthy-living": undefined, community: undefined, "nature-science": undefined },
 };
 const YEARS = ["P1", "P2", "P3", "P4", "P5", "P6"];
 
@@ -176,9 +197,20 @@ if (args.subject && args.year && args.topic) {
 
 // Full matrix: every subject × topic × year must retrieve a non-empty block.
 let failures = 0;
+let bandLeaks = 0;
 for (const [subject, topics] of Object.entries(TOPICS)) {
-  for (const topic of topics) {
-    for (const year of YEARS) {
+  for (const [topic, topicYears] of Object.entries(topics)) {
+    for (const year of topicYears ?? YEARS) {
+      const picked = pickCurriculumChunks({ subject, year, topic, limit: 5 });
+      const bandOnly = picked.filter((c) => !c.years?.length).length;
+      if (bandOnly > (year === "P1" || year === "P2" ? 1 : 2)) {
+        console.error(`FAIL ${subject}/${topic}/${year}: ${bandOnly} key-stage chunks`);
+        bandLeaks++;
+      }
+      if (!picked.some((c) => c.years?.includes(year))) {
+        console.error(`FAIL ${subject}/${topic}/${year}: no year-specific chunk`);
+        bandLeaks++;
+      }
       const block = retrieveCurriculumContext({ subject, year, topic, limit: 5 });
       if (!block || !block.includes("Official / EDB-aligned")) {
         console.error(`FAIL ${subject}/${topic}/${year}: empty retrieve`);
@@ -189,6 +221,7 @@ for (const [subject, topics] of Object.entries(TOPICS)) {
 }
 
 assert.equal(failures, 0, `${failures} retrieve failures`);
+assert.equal(bandLeaks, 0, `${bandLeaks} year-grounding failures`);
 assert.ok(
   chunks.length >= 40 && chunks.length <= 160,
   `chunk count ${chunks.length} out of range 40–160`,

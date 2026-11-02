@@ -116,8 +116,9 @@ function rankCandidates(opts: RetrieveCurriculumOptions): Scored[] {
     score: scoreChunk(chunk, { subject, year, band, topic, queryTokens }),
   }))
     .filter((row) => Number.isFinite(row.score) && row.score > 0)
-    // Require at least a topic hit OR solid year/band + some text — drop pure noise.
-    .filter((row) => row.chunk.topics.includes(topic) || row.score >= 3)
+    // Require a topic hit (untagged chunks apply to every topic) — same-year
+    // chunks for other topics only dilute the prompt.
+    .filter((row) => row.chunk.topics.includes(topic) || row.chunk.topics.length === 0)
     .sort((a, b) => b.score - a.score || a.chunk.id.localeCompare(b.chunk.id));
 }
 
@@ -125,9 +126,27 @@ function rankCandidates(opts: RetrieveCurriculumOptions): Scored[] {
  * Mix up to 2 practice-pattern chunks with EDB objective chunks so the quiz
  * prompt sees both learning targets and concrete item patterns.
  */
+/**
+ * Key-stage chunks (band only, no year list) describe all of P1–P3 or P4–P6,
+ * so they drag P1 toward P3 content. P1–P2 get at most one; others at most two.
+ */
+function bandOnlyCap(year: Year): number {
+  return year === "P1" || year === "P2" ? 1 : 2;
+}
+
+function capBandOnly(ranked: Scored[], year: Year): Scored[] {
+  let bandOnly = 0;
+  const cap = bandOnlyCap(year);
+  return ranked.filter((row) => {
+    if (row.chunk.years?.length) return true;
+    bandOnly += 1;
+    return bandOnly <= cap;
+  });
+}
+
 function pickCurriculumChunks(opts: RetrieveCurriculumOptions): CurriculumChunk[] {
   const limit = Math.max(3, Math.min(8, opts.limit ?? 5));
-  const ranked = rankCandidates(opts);
+  const ranked = capBandOnly(rankCandidates(opts), opts.year);
   if (ranked.length === 0) return [];
 
   const practiceSlots = Math.min(2, Math.max(1, Math.floor(limit / 3)));

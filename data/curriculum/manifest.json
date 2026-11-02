@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-10-20T19:30:50.401Z",
-  "chunkCount": 99,
-  "objectiveChunkCount": 66,
+  "generatedAt": "2026-11-02T14:49:35.000Z",
+  "chunkCount": 117,
+  "objectiveChunkCount": 84,
   "practiceChunkCount": 33,
   "subjects": {
-    "chinese": 24,
-    "english": 25,
-    "maths": 25,
-    "gs": 25
+    "chinese": 26,
+    "english": 27,
+    "maths": 35,
+    "gs": 29
   },
   "sources": {
     "curriculumGuides": [
@@ -30,6 +30,10 @@
       {
         "key": "gs-2017",
         "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf"
+      },
+      {
+        "key": "maths-pmc2017",
+        "url": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf"
       }
     ],
     "practice": [

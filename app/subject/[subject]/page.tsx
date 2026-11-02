@@ -4,7 +4,7 @@ import { Suspense, use } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { TopicCard } from "@/components/TopicCard";
-import { getSubject, isSubjectSlug, isYear, type Year } from "@/lib/curriculum";
+import { getSubject, isSubjectSlug, isYear, topicsForYear, type Year } from "@/lib/curriculum";
 import { useI18n } from "@/lib/i18n/provider";
 import { toText } from "@/lib/i18n/types";
 
@@ -46,7 +46,7 @@ function SubjectInner({ subjectParam }: { subjectParam: string }) {
         </div>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {subject.topics.map((topic) => (
+        {topicsForYear(subject, year).map((topic) => (
           <TopicCard key={topic.slug} subject={subject} topic={topic} year={year} />
         ))}
       </div>

@@ -1,8 +1,16 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { DEFAULT_YEAR, SUBJECTS, YEARS, type SubjectSlug, type Year } from "@/lib/curriculum";
+import {
+  DEFAULT_YEAR,
+  SUBJECTS,
+  YEARS,
+  resolveTopicForYear,
+  topicsForYear,
+  type SubjectSlug,
+  type Year,
+} from "@/lib/curriculum";
 import { useI18n } from "@/lib/i18n/provider";
 import { toText } from "@/lib/i18n/types";
 import { QuizLoading, QuizSpinner } from "@/components/quiz/QuizLoading";
@@ -39,16 +47,12 @@ export function QuizSetup({
   const router = useRouter();
   const { t, locale } = useI18n();
   const [subject, setSubject] = useState<SubjectSlug>(initialSubject ?? "chinese");
-  const topics = useMemo(
-    () => SUBJECTS.find((s) => s.slug === subject)?.topics ?? [],
-    [subject],
-  );
-  const [topic, setTopic] = useState(() => {
-    const initialTopics = SUBJECTS.find((s) => s.slug === (initialSubject ?? "chinese"))?.topics ?? [];
-    if (initialTopic && initialTopics.some((tp) => tp.slug === initialTopic)) return initialTopic;
-    return initialTopics[0]?.slug ?? "vocab";
-  });
   const [year, setYear] = useState<Year>(initialYear ?? DEFAULT_YEAR);
+  const topics = useMemo(() => topicsForYear(subject, year), [subject, year]);
+  // Topics depend on the year (maths); an unknown / off-year topic falls back to the first valid one.
+  const [topic, setTopic] = useState(
+    () => resolveTopicForYear(initialSubject ?? "chinese", initialYear ?? DEFAULT_YEAR, initialTopic) ?? "vocab",
+  );
   const [count, setCount] = useState(() => resolveCount(initialCount));
 
   /** Keep address bar in sync without stacking history or remounting the form. */
@@ -64,8 +68,15 @@ export function QuizSetup({
     [router],
   );
 
+  // If the URL asked for a topic that is not valid for its year, rewrite it once.
+  useEffect(() => {
+    if (initialTopic && initialTopic !== topic) syncUrl({ subject, topic, year, count });
+    // Mount-only: later changes sync through the handlers below.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function onSubjectChange(slug: SubjectSlug) {
-    const first = SUBJECTS.find((s) => s.slug === slug)?.topics[0]?.slug ?? topic;
+    const first = resolveTopicForYear(slug, year) ?? topic;
     setSubject(slug);
     setTopic(first);
     syncUrl({ subject: slug, topic: first, year, count });
@@ -77,8 +88,10 @@ export function QuizSetup({
   }
 
   function onYearChange(nextYear: Year) {
+    const nextTopic = resolveTopicForYear(subject, nextYear, topic) ?? topic;
     setYear(nextYear);
-    syncUrl({ subject, topic, year: nextYear, count });
+    setTopic(nextTopic);
+    syncUrl({ subject, topic: nextTopic, year: nextYear, count });
   }
 
   function onCountChange(nextCount: number) {

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n/provider";
 import { toText } from "@/lib/i18n/types";
-import { subjectPath } from "@/lib/curriculum";
+import { subjectPath, topicsForYear } from "@/lib/curriculum";
 import type { Subject, Year } from "@/lib/curriculum";
 
 type SubjectCardProps = {
@@ -14,6 +14,7 @@ type SubjectCardProps = {
 /** Bright gradient card linking to a subject hub (carries the picked year). */
 export function SubjectCard({ subject, year }: SubjectCardProps) {
   const { locale, t } = useI18n();
+  const topics = topicsForYear(subject, year);
 
   return (
     <Link
@@ -30,7 +31,7 @@ export function SubjectCard({ subject, year }: SubjectCardProps) {
       </h3>
       <p className="mt-1 text-sm font-semibold text-slate-600">{toText(subject.tagline, locale)}</p>
       <ul className="mt-4 space-y-1.5">
-        {subject.topics.map((topic) => (
+        {topics.map((topic) => (
           <li key={topic.slug} className="flex items-center gap-2 text-sm font-bold text-slate-600">
             <span aria-hidden>{topic.icon}</span>
             {toText(topic.name, locale)}
@@ -41,7 +42,7 @@ export function SubjectCard({ subject, year }: SubjectCardProps) {
         <span
           className={`rounded-full px-3 py-1 text-xs font-extrabold ${subject.soft}`}
         >
-          {t("hub.topics", { n: subject.topics.length })}
+          {t("hub.topics", { n: topics.length })}
         </span>
         <span className="text-sm font-extrabold text-indigo-600 transition-all group-hover:-translate-y-0.5">
           {t("common.start")} →

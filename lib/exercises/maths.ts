@@ -1,4 +1,5 @@
 import { both } from "@/lib/i18n/types";
+import { mathsBasicsBank } from "./maths-basics";
 import type { ExerciseBank } from "./types";
 
 /**
@@ -7,6 +8,7 @@ import type { ExerciseBank } from "./types";
  * strings so choices stay language-independent.
  */
 export const mathsBank: ExerciseBank = {
+  ...mathsBasicsBank,
   fractions: [
 
     {
@@ -15,7 +17,7 @@ export const mathsBank: ExerciseBank = {
       prompt: { zh: "把 10 顆糖平均分給 2 人，每人得多少顆？", en: "Share 10 sweets equally between 2 children. How many each?" },
       answer: 5,
       explanation: { zh: "10 ÷ 2 = 5。", en: "10 ÷ 2 = 5." },
-      years: ["P1", "P2", "P3"],
+      years: ["P2", "P3"],
     },
     {
       kind: "number",
@@ -23,7 +25,7 @@ export const mathsBank: ExerciseBank = {
       prompt: { zh: "8 的一半是多少？", en: "What is half of 8?" },
       answer: 4,
       explanation: { zh: "8 ÷ 2 = 4。", en: "8 ÷ 2 = 4." },
-      years: ["P1", "P2", "P3"],
+      years: ["P2", "P3"],
     },
     {
       kind: "number",
@@ -137,30 +139,6 @@ export const mathsBank: ExerciseBank = {
 
     {
       kind: "number",
-      id: "m-d-ks1-1",
-      prompt: { zh: "樂樂有 15 元，花了 7 元，還剩多少元？", en: "Lucas has $15 and spends $7. How much is left?" },
-      answer: 8,
-      explanation: { zh: "15 − 7 = 8。", en: "15 − 7 = 8." },
-      years: ["P1", "P2", "P3"],
-    },
-    {
-      kind: "number",
-      id: "m-d-ks1-2",
-      prompt: { zh: "3 + 5 = ?", en: "3 + 5 = ?" },
-      answer: 8,
-      explanation: { zh: "3 + 5 = 8。", en: "3 + 5 = 8." },
-      years: ["P1", "P2"],
-    },
-    {
-      kind: "number",
-      id: "m-d-ks1-3",
-      prompt: { zh: "媽媽給小明 20 元，爸爸再給他 10 元，一共有多少元？", en: "Mum gives Ming $20 and Dad gives him $10 more. How much altogether?" },
-      answer: 30,
-      explanation: { zh: "20 + 10 = 30。", en: "20 + 10 = 30." },
-      years: ["P1", "P2", "P3"],
-    },
-    {
-      kind: "number",
       id: "m-d1",
       prompt: both("0.5 + 0.25 = ?"),
       answer: 0.75,
@@ -245,6 +223,33 @@ export const mathsBank: ExerciseBank = {
   ],
 
   "word-problems": [
+    {
+      kind: "mc",
+      id: "m-w-p1-1",
+      prompt: { zh: "樹上有 6 隻鳥，再飛來 3 隻，共有多少隻？", en: "6 birds are in a tree. 3 more come. How many birds now?" },
+      choices: ["8", "9", "3", "10"],
+      answerIndex: 1,
+      explanation: { zh: "6 + 3 = 9。", en: "6 + 3 = 9." },
+      years: ["P1"],
+    },
+    {
+      kind: "mc",
+      id: "m-w-p1-2",
+      prompt: { zh: "小美有 10 粒波子，送了 4 粒給弟弟，還剩多少粒？", en: "May has 10 marbles and gives 4 to her brother. How many are left?" },
+      choices: ["14", "5", "6", "4"],
+      answerIndex: 2,
+      explanation: { zh: "10 − 4 = 6。", en: "10 − 4 = 6." },
+      years: ["P1"],
+    },
+    {
+      kind: "mc",
+      id: "m-w-p1-3",
+      prompt: { zh: "籃子裏有 7 個蘋果和 5 個橙，共有多少個水果？", en: "A basket has 7 apples and 5 oranges. How many fruits altogether?" },
+      choices: ["12", "2", "11", "13"],
+      answerIndex: 0,
+      explanation: { zh: "7 + 5 = 12。", en: "7 + 5 = 12." },
+      years: ["P1"],
+    },
 
     {
       kind: "mc",
@@ -256,7 +261,7 @@ export const mathsBank: ExerciseBank = {
       choices: ["5", "6", "7", "3"],
       answerIndex: 1,
       explanation: { zh: "3 × 2 = 6（元）。", en: "3 × 2 = $6." },
-      years: ["P1", "P2", "P3"],
+      years: ["P2", "P3"],
     },
     {
       kind: "mc",
@@ -280,7 +285,7 @@ export const mathsBank: ExerciseBank = {
       choices: ["8", "15", "10", "20"],
       answerIndex: 1,
       explanation: { zh: "5 × 3 = 15。", en: "5 × 3 = 15." },
-      years: ["P1", "P2", "P3"],
+      years: ["P2", "P3"],
     },
     {
       kind: "mc",

@@ -165,23 +165,6 @@
     "kind": "objective"
   },
   {
-    "id": "chi-p1-p2-focus",
-    "subject": "chinese",
-    "topics": [
-      "vocab",
-      "reading"
-    ],
-    "years": [
-      "P1",
-      "P2"
-    ],
-    "text_zh": "小一至小二：短句、圖畫／生活情境友好；高頻詞與基本量詞；短文一至三句；避免長成語與抽象文言。",
-    "text_en": "P1–P2: short stems, picture/everyday-life friendly; high-frequency words and basic measure words; 1–3 sentence passages; avoid long idioms and abstract classical language.",
-    "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
-    "kind": "objective"
-  },
-  {
     "id": "chi-p3-bridge",
     "subject": "chinese",
     "topics": [
@@ -194,24 +177,6 @@
     ],
     "text_zh": "小三：可引入稍長短文與簡單寓意；量詞與搭配仍以常用為主；開始接觸簡單連詞與完整段落大意。",
     "text_en": "P3: slightly longer passages and simple morals; still common measure words/collocations; simple conjunctions and paragraph main ideas.",
-    "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
-    "kind": "objective"
-  },
-  {
-    "id": "chi-p4-p5",
-    "subject": "chinese",
-    "topics": [
-      "vocab",
-      "reading",
-      "sentences"
-    ],
-    "years": [
-      "P4",
-      "P5"
-    ],
-    "text_zh": "小四至小五：較豐富詞彙與三至六句短文；可做病句／搭配修正；辨識描寫與說明等表達方法。",
-    "text_en": "P4–P5: richer vocab and 3–6 sentence passages; 病句/collocation fixes; identify descriptive vs expository expression.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
     "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
     "kind": "objective"
@@ -357,5 +322,73 @@
     "source": "paraphrase-practice: https://resources.allsetlearning.com/chinese/grammar/Comparing",
     "sourceUrl": "https://resources.allsetlearning.com/chinese/grammar/Comparing",
     "license": "CC BY-NC-SA 3.0 (AllSet Learning Chinese Grammar Wiki)"
+  },
+  {
+    "id": "chi-p1",
+    "subject": "chinese",
+    "topics": [
+      "vocab",
+      "reading",
+      "sentences"
+    ],
+    "years": [
+      "P1"
+    ],
+    "text_zh": "小一（第一學習階段起步）：認識家庭、學校、動物、顏色、數字等常用字詞；句子短（約十五字內）；短文一至兩句；基本量詞（個、本、隻、條、支、張、把）；簡單反義詞（大／小）。不考成語、病句、修辭。",
+    "text_en": "P1 (start of KS1): recognise common characters and words about home, school, animals, colours and numbers; very short sentences (≤15 characters); 1–2 sentence passages; basic measure words 個、本、隻、條、支、張、把; simple antonyms (大/小). No idioms, 病句 or rhetoric.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "chi-p2",
+    "subject": "chinese",
+    "topics": [
+      "vocab",
+      "reading",
+      "sentences"
+    ],
+    "years": [
+      "P2"
+    ],
+    "text_zh": "小二（第一學習階段）：擴闊生活詞彙；常見近義詞／反義詞；更多量詞（輛、件、朵、棵、間、雙、對）；連接詞「和、也、還、然後」；基本標點（，。？！）；兩至三句短文，從文中找出詞語作答。",
+    "text_en": "P2 (KS1): broaden everyday vocabulary; common near-synonyms/antonyms; more measure words (輛、件、朵、棵、間、雙、對); joining words 和、也、還、然後; basic punctuation (，。？！); 2–3 sentence passages answered by locating words in the text.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "chi-p4",
+    "subject": "chinese",
+    "topics": [
+      "vocab",
+      "reading",
+      "sentences"
+    ],
+    "years": [
+      "P4"
+    ],
+    "text_zh": "小四（第二學習階段起步）：段落理解（四至六句）；簡單病句（搭配不當、成分殘缺）；常用四字詞；分辨記敘與描寫；初步認識褒義詞與貶義詞。",
+    "text_en": "P4 (start of KS2): paragraph comprehension (4–6 sentences); simple 病句 types (wrong collocation, missing part); common four-character words; tell narration from description; first look at commendatory vs derogatory words.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "chi-p5",
+    "subject": "chinese",
+    "topics": [
+      "vocab",
+      "reading",
+      "sentences"
+    ],
+    "years": [
+      "P5"
+    ],
+    "text_zh": "小五（第二學習階段）：較長篇章（約二百字）並設推論題；關聯詞配搭（不但……而且、即使……也）；比喻、擬人；褒貶義辨析；說明方法初步；常見成語運用。",
+    "text_en": "P5 (KS2): longer texts (~200 characters) with inference questions; paired connectives (不但…而且、即使…也); simile and personification; finer commendatory/derogatory distinctions; basic expository methods; common idioms in context.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/tc/curriculum-development/kla/chi-edu/curriculum-documents/Pri_Chin_Lang_LO_2023.pdf",
+    "kind": "objective"
   }
 ]

@@ -87,14 +87,12 @@ const GUIDANCE: GuidanceBlock[] = [
       "HK flavour: dollars, MTR/bus, school stationery — keep realistic primary contexts.",
     ],
     topics: {
-      fractions: [
-        "P1: no fractions at all (whole numbers only). P2: equal sharing with whole-number answers only — no fraction notation.",
-        "P3: simple unit fractions of a small total only.",
-      ],
-      decimals: [
-        "P1–P2: treat as money in whole dollars or simple tenths if needed; avoid ×÷ of two decimals.",
-        "P3: simple add/subtract of one-decimal numbers with small values.",
-      ],
+      numbers: ["Counting, reading/writing numbers, place value, odd/even, comparing with > and < (P2) — answers are numbers."],
+      "add-subtract": ["Bare calculations or one-line stories; vary carrying/borrowing within the year's number range."],
+      "multiply-divide": ["P2: times tables 0–10 and sharing/grouping within them; P3: 2-digit × or ÷ 1-digit."],
+      "money-time": ["HK coins/notes, price tags, change; clock times; length/weight/capacity units allowed for the year."],
+      shapes: ["Name or count features of shapes (sides, faces, corners) and positions/directions; numeric answers where possible."],
+      fractions: ["P3 only within KS1: part of a whole/set, compare, same-denominator ± with result ≤ 1."],
       "word-problems": [
         "Shopping / length / time contexts with small whole numbers; number of steps and operations as allowed by the year LIMIT lines.",
         "Money: bilingual stems OK, but MC choices must be bare numbers (or $N under EN / N元 under ZH) — never English stem with Chinese-only 元 choice labels.",
@@ -105,10 +103,13 @@ const GUIDANCE: GuidanceBlock[] = [
     band: "KS2",
     subject: "maths",
     lines: [
-      "Band: KS2 (P4–P6). Fractions, decimals, multi-step word problems (existing topic set).",
-      "P4: unit fractions of a total, one-decimal ops; P5–P6: simplify, convert, multi-step.",
+      "Band: KS2 (P4–P6). Fractions, decimals, multi-step word problems.",
       "HK flavour: $ amounts, bus/ferry, school shopping.",
     ],
+    topics: {
+      "multiply-divide": ["P4: × ÷ by 2-digit numbers, multiples/factors, common multiples/factors by listing."],
+      percentages: ["P6: % of a quantity, A as a % of B, % increase/decrease, discounts (八折 = 80%)."],
+    },
   },
 
   {

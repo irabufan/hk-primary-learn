@@ -18,6 +18,8 @@ export type Topic = {
   blurb: Localized;
   icon: string;
   exerciseKind: ExerciseKind;
+  /** Years this topic is taught in; omitted = every year. */
+  years?: Year[];
 };
 
 export type Subject = {
@@ -103,17 +105,58 @@ export const SUBJECTS: Subject[] = [
     slug: "maths",
     icon: "🔢",
     name: { zh: "數學", en: "Maths" },
-    tagline: { zh: "分數、小數、應用題", en: "Fractions, decimals, word problems" },
+    tagline: { zh: "數與計算、圖形、應用題", en: "Numbers, shapes, word problems" },
     gradient: "from-indigo-400 via-violet-400 to-purple-400",
     soft: "bg-indigo-100 text-indigo-700",
     ring: "hover:border-indigo-300",
     topics: [
       {
+        slug: "numbers",
+        icon: "🔟",
+        name: { zh: "數的認識", en: "Numbers" },
+        blurb: { zh: "數數、讀寫和比較數的大小。", en: "Count, read, write and compare numbers." },
+        exerciseKind: "number",
+        years: ["P1", "P2"],
+      },
+      {
+        slug: "add-subtract",
+        icon: "➕",
+        name: { zh: "加與減", en: "Add & subtract" },
+        blurb: { zh: "加法和減法計算。", en: "Practise adding and subtracting." },
+        exerciseKind: "number",
+        years: ["P1", "P2", "P3"],
+      },
+      {
+        slug: "multiply-divide",
+        icon: "✖️",
+        name: { zh: "乘與除", en: "Multiply & divide" },
+        blurb: { zh: "乘法表、乘法和除法。", en: "Times tables, multiplication and division." },
+        exerciseKind: "number",
+        years: ["P2", "P3", "P4"],
+      },
+      {
+        slug: "money-time",
+        icon: "🕒",
+        name: { zh: "錢幣、時間與量度", en: "Money, time & measures" },
+        blurb: { zh: "香港錢幣、看鐘、長度和重量。", en: "HK money, telling time, length and weight." },
+        exerciseKind: "number",
+        years: ["P1", "P2", "P3"],
+      },
+      {
+        slug: "shapes",
+        icon: "🔺",
+        name: { zh: "圖形與方向", en: "Shapes & position" },
+        blurb: { zh: "立體、平面圖形、位置和方向。", en: "3-D and 2-D shapes, position and direction." },
+        exerciseKind: "number",
+        years: ["P1", "P2", "P3"],
+      },
+      {
         slug: "fractions",
         icon: "🍕",
         name: { zh: "分數", en: "Fractions" },
-        blurb: { zh: "約分、化小數、求幾分之幾。", en: "Simplify, convert and work out fractions of quantities." },
+        blurb: { zh: "認識分數、約分、求幾分之幾。", en: "Understand, simplify and work out fractions of quantities." },
         exerciseKind: "number",
+        years: ["P3", "P4", "P5", "P6"],
       },
       {
         slug: "decimals",
@@ -121,6 +164,15 @@ export const SUBJECTS: Subject[] = [
         name: { zh: "小數", en: "Decimals" },
         blurb: { zh: "小數加減乘除，與分數互化。", en: "Add, subtract, multiply and divide decimals." },
         exerciseKind: "number",
+        years: ["P4", "P5", "P6"],
+      },
+      {
+        slug: "percentages",
+        icon: "💯",
+        name: { zh: "百分數", en: "Percentages" },
+        blurb: { zh: "百分數、折扣和增減。", en: "Percentages, discounts and percentage change." },
+        exerciseKind: "number",
+        years: ["P6"],
       },
       {
         slug: "word-problems",
@@ -189,6 +241,26 @@ export function getSubject(slug: string): Subject | undefined {
 export function getTopic(subject: Subject | string, topicSlug: string): Topic | undefined {
   const resolved = typeof subject === "string" ? getSubject(subject) : subject;
   return resolved?.topics.find((t) => t.slug === topicSlug);
+}
+
+export function topicSuitsYear(topic: Topic, year: Year): boolean {
+  return !topic.years || topic.years.includes(year);
+}
+
+/** Topics taught in a given year (maths varies by grade; others are all-year). */
+export function topicsForYear(subject: Subject | string, year: Year): Topic[] {
+  const resolved = typeof subject === "string" ? getSubject(subject) : subject;
+  return resolved?.topics.filter((topic) => topicSuitsYear(topic, year)) ?? [];
+}
+
+/** The requested topic if it is taught in this year, else the year's first topic. */
+export function resolveTopicForYear(
+  subject: Subject | string,
+  year: Year,
+  topicSlug?: string,
+): string | undefined {
+  const topics = topicsForYear(subject, year);
+  return topics.find((topic) => topic.slug === topicSlug)?.slug ?? topics[0]?.slug;
 }
 
 /** Alias kept for older call sites during the refactor. */

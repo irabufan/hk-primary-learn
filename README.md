@@ -79,10 +79,13 @@ Quiz LLM prompts are grounded with short **EDB-aligned learning-target snippets*
 `lib/curriculum-retrieve.ts` → `retrieveCurriculumContext({ subject, year, topic, limit })`:
 
 1. Filter chunks by `subject`.
-2. Match year via explicit `years` (P1–P6) or `band` (KS1 = P1–P3, KS2 = P4–P6).
+2. Match year via explicit `years` (P1–P6) or `band` (KS1 = P1–P3, KS2 = P4–P6); require a topic-tag match.
 3. Score: topic-tag match (primary) + year/band bonus + light keyword overlap on chunk text.
-4. Return **3–8** snippets as a prompt block headed *Official / EDB-aligned learning targets…*.
-5. `buildQuizPrompt` in `lib/quiz/llm-client.ts` injects that block; if retrieve is empty, it falls back to the thin map in `lib/curriculum-guidance.ts`.
+4. Cap key-stage (band-only) chunks: at most 1 for P1–P2, 2 for P3–P6, so year-specific chunks dominate.
+5. Return up to 5 snippets as a prompt block headed *Official / EDB-aligned learning targets…*.
+6. `buildQuizPrompt` in `lib/quiz/llm-client.ts` always appends the per-year limits from `lib/curriculum-guidance.ts` (`YEAR_SPECS`: lengths, number ranges, grammar/量詞 sets, harder-than/easier-than neighbour lines) after the chunks.
+
+Maths topics are grade-dependent (`years` on each topic in `lib/curriculum.ts`, EDB 2017 learning units): numbers P1–P2, add/subtract P1–P3, multiply/divide P2–P4, money/time & shapes P1–P3, fractions P3–P6, decimals P4–P6, percentages P6, word problems all years. Static exercise sessions use exact-year items first, then only ±1 grade, and shorten rather than pad.
 
 ### Refresh the data folder
 
@@ -140,7 +143,7 @@ Chunks use `source: "practice: <url>"` or `source: "paraphrase-practice: <url>"`
 
 - Snippets are **learning objectives / key-stage descriptors**, not a full syllabus dump. Two-column PDF layouts do not auto-chunk perfectly, so the committed JSON is a **curated distillation** (~60–70 chunks) from fetched EDB documents, with `source` / `sourceUrl` on every chunk. Paraphrases are labeled `source: "paraphrase: <url>"`.
 - Maths Number (fractions/decimals/word problems) is the strongest coverage (Annex I is compact). Chinese and English are keyed to suggested learning points / ELCG strand targets. GS maps Health / Community / Science strands onto `healthy-living`, `community`, `nature-science`; National Identity content is kept light for this POC.
-- Year granularity is mostly **KS1/KS2 bands** plus a few P-year hints — not every EDB bullet per year.
+- Every subject/topic/year retrieves a year-specific chunk (checked by `npm run verify:curriculum`). Maths year chunks cite EDB 2017 Supplement learning units; Chinese / English / GS year chunks are a year-by-year progression paraphrased from the KS1/KS2 learning objectives (EDB does not publish those per year).
 - Extending coverage: inspect `_raw/*.txt` after curriculum ingest, or add practice seeds in `scripts/ingest-practice.mjs`, then `npm run ingest:practice` and `npm run verify:curriculum`. Keep topic slugs aligned with `lib/curriculum.ts`.
 
 ## Open practice grounding

@@ -287,6 +287,8 @@ function buildPracticeChunks() {
       subject: "english",
       kind: "practice",
       topics: ["grammar", "vocabulary"],
+      // -ing/-ed adjectives are beyond P1–P2; keep this pattern to P3–P4.
+      years: ["P3", "P4"],
       band: "KS1",
       text_en:
         "Adjective form cloze: use -ing adjectives for activities (exciting, tiring, boring) and -ed for feelings (excited, tired, bored). Stem: 'I am ___ as I won the race' / 'Basketball is ___'.",
