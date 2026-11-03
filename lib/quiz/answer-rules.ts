@@ -147,9 +147,22 @@ export function numericComparisonKeyOk(q: QuizQuestion): boolean {
 }
 
 /** Key for "same choice" checks: numeric value for numbers, lenient text otherwise. */
+/**
+ * Key for "are these two mc choices the same option?". Only formatting is folded
+ * (width, case, spacing, trailing full stop); apostrophes and hyphens are kept,
+ * because they make different answers in grammar items: cat / cats / cat's / cats'.
+ * (lenientKey strips them — right for marking typed answers, wrong here.)
+ */
 function choiceKey(choice: string): string {
   const n = parseNumericAnswer(choice);
-  return n !== null ? `#${n}` : lenientKey(choice);
+  if (n !== null) return `#${n}`;
+  return choice
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/[’‘`]/g, "'")
+    .replace(/\s+/g, " ")
+    .replace(/[\s.。!！?？]+$/u, "")
+    .trim();
 }
 
 /** Nearby whole numbers as distractors for an integer answer. */
@@ -246,7 +259,21 @@ export function matchAnswerKey(pairs: QuizMatchPair[]): string {
  * Apply the year's answer-type rules. Order is kept; invalid items are repaired
  * (→ mc) or dropped, so the result may be shorter than the input.
  */
-export type RuleStats = { toMc: number; repairedMc: number; dropped: number; droppedTypes?: string[] };
+export type RuleStats = {
+  toMc: number;
+  repairedMc: number;
+  dropped: number;
+  droppedTypes?: string[];
+  /** One entry per drop: which rule, and a short view of the item (for logs). */
+  drops?: { reason: string; item: string }[];
+};
+
+/** Short one-line view of an item for drop logs (no secrets, ≤ 160 chars). */
+function itemSummary(q: QuizQuestion): string {
+  const stem = (q.prompt.en || q.prompt.zh || "").slice(0, 60);
+  const extra = q.type === "match" ? (q.pairs ?? []).map((p) => `${p.left}→${p.right}`).join(";") : `ans=${q.answer} ch=${(q.choices ?? []).join("/")}`;
+  return `${q.type} "${stem}" ${extra}`.slice(0, 160);
+}
 
 export function enforceAnswerTypes(
   questions: QuizQuestion[],
@@ -254,9 +281,10 @@ export function enforceAnswerTypes(
   stats: RuleStats = { toMc: 0, repairedMc: 0, dropped: 0 },
 ): QuizQuestion[] {
   const policy = gradePolicy(opts.year);
-  const drop = (q: QuizQuestion) => {
+  const drop = (q: QuizQuestion, reason: string) => {
     stats.dropped += 1;
     (stats.droppedTypes ??= []).push(q.type);
+    (stats.drops ??= []).push({ reason, item: itemSummary(q) });
   };
   let fills = 0;
   let matches = 0;
@@ -266,13 +294,13 @@ export function enforceAnswerTypes(
     const rng = mulberry32((opts.seed >>> 0) + Math.imul(i + 1, 9973));
 
     if (refersToMissingPassage(q)) {
-      drop(q);
+      drop(q, "missing-passage");
       return;
     }
     /** mc result must also pass the numeric "largest/smallest" key check. */
     const pushMc = (mc: QuizQuestion, converted: boolean) => {
       if (!numericComparisonKeyOk(mc)) {
-        drop(q);
+        drop(q, "numeric-compare-key");
         return;
       }
       if (converted) stats.toMc += 1;
@@ -282,7 +310,7 @@ export function enforceAnswerTypes(
     if (q.type === "match") {
       const pairs = cleanMatchPairs(q.pairs);
       if (!pairs || matches >= policy.maxMatch) {
-        drop(q);
+        drop(q, !pairs ? "match-invalid" : "match-cap");
         return;
       }
       matches += 1;
@@ -295,7 +323,7 @@ export function enforceAnswerTypes(
 
     if (q.type === "mc") {
       const fixed = repairMc(q, rng);
-      if (!fixed) drop(q);
+      if (!fixed) drop(q, "mc-not-4-distinct");
       else {
         const before = q.choices ?? [];
         const changed = before.length !== MC_CHOICES || !before.includes(fixed.answer) ||
@@ -315,7 +343,7 @@ export function enforceAnswerTypes(
       }
       const asMc = repairMc(q, rng);
       if (asMc) pushMc(asMc, true);
-      else drop(q);
+      else drop(q, "number-not-allowed");
       return;
     }
 
@@ -329,7 +357,7 @@ export function enforceAnswerTypes(
     }
     const asMc = repairMc(q, rng);
     if (asMc) pushMc(asMc, true);
-    else drop(q);
+    else drop(q, fills >= policy.maxFill ? "fill-cap" : "fill-too-long");
   });
 
   return out;

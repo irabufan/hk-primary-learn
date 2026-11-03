@@ -163,6 +163,9 @@ function curriculumContext(request: QuizRequest): string {
   return retrieved ? `${retrieved}\n${guidance}` : guidance;
 }
 
+/** Spare items asked for in the first call so a dropped item rarely needs a backfill round trip. */
+export const FIRST_CALL_EXTRA = 2;
+
 export function buildQuizPrompt(request: QuizRequest): { system: string; user: string } {
   const label = topicLabel(request.subject, request.topic);
   const count = (QUIZ_COUNTS as readonly number[]).includes(request.count)
@@ -175,8 +178,9 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     "Output a JSON array of question objects with this exact shape:",
     '[{"id":"q1","type":"mc"|"fill"|"number"|"match","prompt":{"zh":"...","en":"..."},"passage":{"zh":"...","en":"..."}|optional,"choices":["..."]|required for mc (optional distractor set for fill),"answer":"..."|omit for match,"accepts":["..."]|optional for fill,"pairs":[{"left":"...","right":"..."}]|required for match (4–5 pairs),"hint":{"zh":"...","en":"..."}|optional,"explanation":{"zh":"...","en":"..."}|optional}]',
     "Rules:",
-    "- Exactly the requested number of questions.",
-    "- For type mc: provide exactly 4 distinct choices (never 3, never duplicates); answer must equal one choice exactly.",
+    "- Exactly the requested number of questions (Question count).",
+    "- Every prompt is self-contained: it holds the actual sentence, blank or question (e.g. \"While I ___ my homework, the lights went out.\"), never only an instruction such as \"Choose the correct verb form.\"",
+    "- For type mc: provide exactly 4 distinct choices (never 3, never duplicates); answer must equal one choice exactly. Distractors are real, plausible forms (e.g. cat / cats / cat's), never invented misspellings, and each must be clearly wrong in that sentence (e.g. for an a/an blank do not offer \"the\" or \"this\").",
     "- For type match: 4–5 pairs (use the count the ANSWER TYPES block asks for); all lefts unique, all rights unique, exactly one correct right for each left. The app shuffles the right side.",
     "- Obey the ANSWER TYPES block for the year (which types are allowed and how many).",
     "- For type fill: answer is the canonical accepted spelling; accepts may list alternatives.",
@@ -187,6 +191,7 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     "- Before answering, check every question against the year limits; replace any question that breaks one.",
     "- HK curriculum flavour; culturally familiar HK examples where helpful.",
     "- ids must be unique strings.",
+    "- Several items on the same passage: give the full \"passage\" only on the first of them; the others carry \"passageRef\": \"<that item's id>\" instead of repeating the text.",
     "- Place the correct MC answer in a random position among the 4 choices; do not always put it first.",
     "- Vary templates, settings, vocabulary, and numbers across questions; the seed is a variety token, not a PRNG.",
   ].join("\n");
@@ -201,7 +206,7 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     `Subject: ${request.subject}`,
     `Topic: ${label.en} / ${label.zh} (slug: ${request.topic})`,
     `Year: ${request.year}`,
-    `Question count: ${count}`,
+    `Question count: ${count + FIRST_CALL_EXTRA} (${count} are used; the ${FIRST_CALL_EXTRA} spare items replace any that fail a check)`,
     `Seed (variety token — produce a distinct quiz for each seed): ${request.seed}`,
     languageGuidance(request.subject),
     curriculumContext(request),
@@ -295,6 +300,8 @@ export function parseQuizQuestions(
   }
 
   const questions: QuizQuestion[] = [];
+  /** Passages by item id, so later items can say "passageRef": "<id>" instead of repeating it. */
+  const passagesById = new Map<string, Localized>();
   for (let i = 0; i < parsed.length; i++) {
     const item = parsed[i];
     if (!item || typeof item !== "object") continue;
@@ -313,8 +320,14 @@ export function parseQuizQuestions(
       answer,
     };
 
-    const passage = asLocalized(row.passage);
-    if (passage) question.passage = passage;
+    const ref = asString(row.passageRef);
+    const passage = asLocalized(row.passage) ?? (ref ? passagesById.get(ref) : undefined);
+    if (passage) {
+      question.passage = passage;
+      passagesById.set(id, passage);
+      const rawId = asString(row.id);
+      if (rawId) passagesById.set(rawId, passage);
+    }
     const hint = asLocalized(row.hint);
     if (hint) question.hint = hint;
     const explanation = asLocalized(row.explanation);
@@ -362,16 +375,14 @@ export function parseQuizQuestions(
     : questions;
   if (rules && (stats.toMc || stats.repairedMc || stats.dropped)) {
     console.info(
-      `[quiz/rules] ${rules.subject} ${rules.year}: parsed=${questions.length} kept=${checked.length} toMc=${stats.toMc} repairedMc=${stats.repairedMc} dropped=${stats.dropped}${stats.droppedTypes?.length ? ` (${stats.droppedTypes.join(",")})` : ""}`,
+      `[quiz/rules] ${rules.subject} ${rules.year}: parsed=${questions.length} kept=${checked.length} toMc=${stats.toMc} repairedMc=${stats.repairedMc} dropped=${stats.dropped}${stats.drops?.length ? ` — ${stats.drops.map((d) => `${d.reason}: ${d.item}`).join(" | ")}` : ""}`,
     );
   }
   if (checked.length === 0) {
     throw new Error("No valid questions could be parsed from the model response");
   }
 
-  const target = (QUIZ_COUNTS as readonly number[]).includes(expectedCount)
-    ? expectedCount
-    : QUIZ_COUNTS[0];
+  const target = Number.isInteger(expectedCount) && expectedCount > 0 ? Math.min(expectedCount, 20) : QUIZ_COUNTS[0];
   const sliced = checked.slice(0, target);
   // Ensure unique ids even if the model repeated them.
   const seen = new Set<string>();
@@ -531,8 +542,18 @@ type ChatOptions = { timeoutMs?: number; thinking?: "low" | "off" };
  * Only sent to DeepSeek models — other OpenAI-compatible hosts may reject them.
  */
 function thinkingParams(model: string, thinking: ChatOptions["thinking"]): Record<string, unknown> {
-  if (!thinking || !/deepseek/i.test(model)) return {};
-  return thinking === "off" ? { thinking: { type: "disabled" } } : { reasoning_effort: "low" };
+  if (!thinking) return {};
+  if (/deepseek/i.test(model)) {
+    return thinking === "off" ? { thinking: { type: "disabled" } } : { reasoning_effort: "low" };
+  }
+  if (/gpt-/i.test(model)) {
+    // GPT reasoning models (gpt-6-luna): keep medium thinking for the quiz itself — in our
+    // eval "low"/"none" were 2–3× faster but produced 3–4× more wrong/ambiguous/off-topic
+    // items. Retries and the small backfill call use "none". LLM_REASONING_EFFORT overrides.
+    const effort = thinking === "off" ? "none" : process.env.LLM_REASONING_EFFORT?.trim() || "medium";
+    return { reasoning_effort: effort };
+  }
+  return {};
 }
 
 type ChatMessage = { content?: unknown; reasoning_content?: unknown; reasoning?: unknown };
@@ -708,10 +729,30 @@ export function topUpFromFallback(questions: QuizQuestion[], request: QuizReques
   return merged;
 }
 
+/** Quizzes of at least this many items are written as two parallel half-quizzes. */
+export const SPLIT_MIN_COUNT = 8;
+
+/**
+ * Prompt for one half of a split quiz: asks for half the items plus one spare, and
+ * gives each half a different focus so the two parallel calls rarely overlap.
+ */
+export function partUserPrompt(user: string, count: number, part: 1 | 2): string {
+  const ask = Math.ceil(count / 2) + 1;
+  const note =
+    part === 1
+      ? `PART 1 of 2: this quiz is written in two parts at the same time. Write ${ask} items on the FIRST half of the topic's sub-skills, with simpler settings; any match item goes in this part.`
+      : `PART 2 of 2: this quiz is written in two parts at the same time. Write ${ask} items on the SECOND half of the topic's sub-skills, with different settings, names and vocabulary from a typical first half; do NOT include a match item.`;
+  return user
+    .replace(/^Question count: .*$/m, `Question count: ${ask}`)
+    .replace(/Return the JSON array now\.$/, `${note}\nReturn the JSON array now.`);
+}
+
 export type FillPath = "none" | "backfill" | "fallback" | "backfill+fallback" | "short";
 
 type GenerateDeps = {
   chat?: typeof callChatCompletion;
+  /** Write quizzes of SPLIT_MIN_COUNT+ items as two parallel halves (default true). */
+  split?: boolean;
   now?: () => number;
   log?: (line: string) => void;
 };
@@ -737,21 +778,64 @@ export async function generateQuizQuestions(
   const deadline = now() + TOTAL_BUDGET_MS;
   let lastError: unknown;
   let result: { questions: QuizQuestion[]; model: string; attempts: number } | undefined;
-  for (let attempt = 1; attempt <= 2 && !result; attempt++) {
+  const fin: FinalizeStats = { rules: 0, repeats: 0 };
+  let rawCount = 0;
+  const firstReplyLog = (parsed: QuizQuestion[], note = "") => {
+    if (fin.rules || fin.repeats || parsed.length < count) {
+      log(`[quiz/fill] ${request.subject}/${request.topic} ${request.year} seed=${seed} first reply${note}: ${rawCount} valid, repeats=${fin.repeats} ruleDrops=${fin.rules}, kept ${parsed.length}/${count}`);
+    }
+  };
+
+  // Attempt 1 for longer quizzes: two half-quizzes in parallel (each call thinks and
+  // writes about half as much, so the wall time is roughly that of a short quiz).
+  if ((deps.split ?? true) && count >= SPLIT_MIN_COUNT) {
+    const calls = ([1, 2] as const).map(async (part) => {
+      const { content, model } = await chat(system, partUserPrompt(user, count, part), `${sessionId}-p${part}`, {
+        timeoutMs: Math.min(TIMEOUT_MS, deadline - now()),
+        thinking: "low",
+      });
+      const items = parseQuizQuestions(content, Math.ceil(count / 2) + 1, seed + part - 1, request).map((q) => ({
+        ...q,
+        id: `p${part}-${q.id}`,
+      }));
+      return { items, model };
+    });
+    const settled = await Promise.allSettled(calls);
+    const ok = settled.flatMap((r) => (r.status === "fulfilled" ? [r.value] : []));
+    for (const r of settled) {
+      if (r.status === "rejected") {
+        lastError = r.reason;
+        log(`[quiz/fill] ${request.subject}/${request.topic} ${request.year} seed=${seed} split part failed: ${r.reason instanceof Error ? r.reason.message : r.reason}`);
+      }
+    }
+    if (ok.length) {
+      // Interleave the halves so both parts' items survive the count cap.
+      const merged: QuizQuestion[] = [];
+      const [a, b = { items: [] as QuizQuestion[] }] = ok;
+      for (let i = 0; i < Math.max(a.items.length, b.items.length); i++) {
+        if (a.items[i]) merged.push(a.items[i]);
+        if (b.items[i]) merged.push(b.items[i]);
+      }
+      rawCount = merged.length;
+      const parsed = finalizeQuestions(merged, request, fin);
+      firstReplyLog(parsed, ` (split ${ok.length}/2)`);
+      result = { questions: parsed, model: ok[0].model, attempts: 1 };
+    }
+  }
+
+  for (let attempt = result ? 3 : 1; attempt <= 2 && !result; attempt++) {
     const remaining = deadline - now();
     if (attempt > 1 && remaining < MIN_RETRY_MS) break;
     try {
       const { content, model } = await chat(system, user, sessionId, {
         timeoutMs: Math.min(TIMEOUT_MS, remaining),
-        thinking: attempt === 1 ? "low" : "off",
+        thinking: attempt === 1 && !lastError ? "low" : "off",
       });
       try {
-        const fin: FinalizeStats = { rules: 0, repeats: 0 };
-        const raw = parseQuizQuestions(content, QUIZ_COUNTS[QUIZ_COUNTS.length - 1], seed, request);
+        const raw = parseQuizQuestions(content, count + FIRST_CALL_EXTRA, seed, request);
+        rawCount = raw.length;
         const parsed = finalizeQuestions(raw, request, fin);
-        if (fin.rules || fin.repeats || raw.length < count) {
-          log(`[quiz/fill] ${request.subject}/${request.topic} ${request.year} seed=${seed} first reply: ${raw.length} valid, repeats=${fin.repeats} ruleDrops=${fin.rules}, kept ${parsed.length}/${count}`);
-        }
+        firstReplyLog(parsed);
         result = { questions: parsed, model, attempts: attempt };
       } catch (err) {
         throw new RetryableLlmError(err instanceof Error ? err.message : "Unparseable quiz");
