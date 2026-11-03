@@ -5,7 +5,7 @@ import { gsBank } from "@/lib/exercises/gs";
 import { getBank } from "@/lib/exercises";
 import type { FillItem, MatchItem, MatchPair, McItem, NumberItem } from "@/lib/exercises/types";
 import type { Localized } from "@/lib/i18n/types";
-import { cleanMatchPairs, matchAnswerKey, MATCH_MAX_PAIRS } from "./answer-rules";
+import { cleanMatchPairs, enforceAnswerTypes, matchAnswerKey, MATCH_MAX_PAIRS } from "./answer-rules";
 import { yearFit } from "@/lib/exercises/types";
 import { mulberry32, pickInt, pickOne, shuffle, type Rng } from "@/lib/rng";
 import type { Quiz, QuizGenerator, QuizQuestion, QuizRequest } from "./types";
@@ -22,8 +22,7 @@ const ARTIFICIAL_DELAY_MS = 400;
 export class MockQuizGenerator implements QuizGenerator {
   async generate(request: QuizRequest): Promise<Quiz> {
     await new Promise((resolve) => setTimeout(resolve, ARTIFICIAL_DELAY_MS));
-    const rng = mulberry32(request.seed);
-    const questions = buildQuestions(request, rng);
+    const questions = buildRuledQuestions(request);
     return {
       id: `quiz-${request.subject}-${request.topic}-${request.year}-${request.seed}`,
       subject: request.subject,
@@ -694,4 +693,57 @@ function buildQuestions(request: QuizRequest, rng: Rng): QuizQuestion[] {
   const strategy = STRATEGIES[`${request.subject}/${request.topic}`];
   const normalised: QuizRequest = { ...request, count: normalizeCount(request.count) };
   return strategy ? strategy(rng, normalised) : genericBankQuestions(rng, normalised);
+}
+
+/** Short answers from the topic bank (fill answers, mc choices, match rights) used as mc distractors. */
+function bankDistractors(request: QuizRequest): string[] {
+  const out: string[] = [];
+  for (const item of getBank(request.subject, request.topic) ?? []) {
+    if (item.kind === "fill") out.push(item.accept[0]);
+    else if (item.kind === "mc") out.push(...item.choices);
+    else if (item.kind === "number") out.push(formatNumber(item.answer));
+    else out.push(...item.pairs.map((p) => p.right));
+  }
+  return out;
+}
+
+/** Give fill / number items a candidate choice set (answer + bank / sibling answers) so the rules can turn them into mc. */
+function withCandidateChoices(questions: QuizQuestion[], pool: string[], rng: Rng): QuizQuestion[] {
+  const siblings = questions.filter((q) => q.type === "fill" || q.type === "number").map((q) => q.answer);
+  const all = [...new Set([...siblings, ...pool])];
+  return questions.map((q) => {
+    if ((q.type !== "fill" && q.type !== "number") || q.choices?.length) return q;
+    // Prefer distractors of the same kind (numbers with numbers, words with words).
+    const numeric = /^[-\d\s./]+$/.test(q.answer);
+    const same = all.filter((a) => a !== q.answer && /^[-\d\s./]+$/.test(a) === numeric);
+    return { ...q, choices: [q.answer, ...shuffle(rng, same).slice(0, 6)] };
+  });
+}
+
+/**
+ * Bank/template questions with the same grade answer-type rules as LLM quizzes
+ * (lib/quiz/answer-rules.ts). Dropped items are topped up from re-seeded batches.
+ */
+export function buildRuledQuestions(request: QuizRequest): QuizQuestion[] {
+  const count = normalizeCount(request.count);
+  const pool = bankDistractors(request);
+  const opts = { year: request.year, subject: request.subject, seed: request.seed };
+  let merged: QuizQuestion[] = [];
+  const seen = new Set<string>();
+  for (let attempt = 0; attempt < 4 && merged.length < count; attempt++) {
+    const seed = request.seed + attempt * 7919;
+    const rng = mulberry32(seed);
+    const raw = withCandidateChoices(buildQuestions({ ...request, seed }, rng), pool, rng);
+    const fresh = raw
+      .filter((q) => {
+        const key = `${q.prompt.zh ?? ""}|${q.prompt.en ?? ""}|${q.answer}`;
+        // Small banks: allow repeats in the last top-up rounds, as the old cycling picker did.
+        if (seen.has(key) && attempt < 2) return false;
+        seen.add(key);
+        return true;
+      })
+      .map((q) => (attempt === 0 ? q : { ...q, id: `${q.id}-r${attempt}` }));
+    merged = enforceAnswerTypes([...merged, ...fresh], opts);
+  }
+  return merged.slice(0, count);
 }

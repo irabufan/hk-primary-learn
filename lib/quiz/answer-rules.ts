@@ -46,7 +46,9 @@ export function gradePolicy(year: Year): GradePolicy {
 }
 
 /** Prompt block describing the allowed answer types for the year. */
-export function answerTypeGuidance(year: Year, subject: SubjectSlug): string {
+export function answerTypeGuidance(year: Year, subject: SubjectSlug, seed = 0): string {
+  // The model defaults to 4 pairs; ask for 5 on even seeds so both sizes appear.
+  const pairCount = seed % 2 === 0 ? 5 : 4;
   const matchIdeas =
     subject === "chinese"
       ? "量詞↔名詞, 詞語↔意思, 近義詞/反義詞"
@@ -56,7 +58,11 @@ export function answerTypeGuidance(year: Year, subject: SubjectSlug): string {
           ? "number ↔ 中文數字 / number word, sum ↔ result, shape ↔ number of sides, time ↔ words"
           : "動物↔居所, 物品↔用途, 職業↔工作地點, 食物↔食物類別";
   const matchShape =
-    'A "match" item has a short instruction prompt and "pairs": 4–5 {"left","right"} objects; every left and every right must be unique, each right fits exactly one left (no ambiguous pairs), each side ≤ 8 字 / 3 English words. Leave out "answer" and "choices" for match.';
+    `A "match" item has a short instruction prompt and "pairs": exactly ${pairCount} {"left","right"} objects; every left and every right must be unique, each right fits exactly one left (no ambiguous pairs), each side ≤ 8 字 / 3 English words. Leave out "answer" and "choices" for match.`;
+  const fillShape =
+    '- Every fill answer is one word or a short term: at most 6 Chinese characters or 3 English words (numbers/fractions are fine). If the answer would be a phrase or sentence, write the item as mc instead.';
+  const passageRule =
+    '- An item that refers to a passage/短文/文中 MUST include that passage in its own "passage" field.';
   if (year === "P1" || year === "P2") {
     return [
       `ANSWER TYPES (${year} — CRITICAL):`,
@@ -67,6 +73,7 @@ export function answerTypeGuidance(year: Year, subject: SubjectSlug): string {
       '- NEVER use type "fill" (young pupils cannot type Chinese/English answers). Write any fill-in-the-blank as mc with 4 choices instead.',
       `- Include 1–2 match items when the topic suits pairing (e.g. ${matchIdeas}); all other items mc.`,
       `- ${matchShape}`,
+      passageRule,
     ].join("\n");
   }
   if (year === "P3") {
@@ -77,6 +84,8 @@ export function answerTypeGuidance(year: Year, subject: SubjectSlug): string {
       subject === "maths" ? '- type "number" is fine for numeric answers.' : '- Do NOT use type "number".',
       `- Include 1–2 match items when the topic suits pairing (e.g. ${matchIdeas}).`,
       `- ${matchShape}`,
+      fillShape,
+      passageRule,
     ].join("\n");
   }
   return [
@@ -84,7 +93,57 @@ export function answerTypeGuidance(year: Year, subject: SubjectSlug): string {
     '- Use mc, fill and number as they fit the topic.',
     `- At most 1 match item, only when the topic naturally suits pairing (e.g. ${matchIdeas}); 0 is fine.`,
     `- ${matchShape}`,
+    fillShape,
+    '- For each fill, also give "choices": the answer plus 3 plausible wrong options (used if the item must become mc).',
+    passageRule,
   ].join("\n");
+}
+
+export const FILL_MAX_CJK = 6;
+export const FILL_MAX_WORDS = 3;
+
+/** Fill answers must be one word / a short term: ≤ 6 漢字 or ≤ 3 English words (numbers always OK). */
+export function isShortFillAnswer(answer: string): boolean {
+  const a = answer.trim();
+  if (!a) return false;
+  if (parseNumericAnswer(a) !== null) return true;
+  const cjk = (a.match(/[\u3400-\u9FFF\uF900-\uFAFF]/g) ?? []).length;
+  if (cjk > FILL_MAX_CJK) return false;
+  const words = a.replace(/[\u3400-\u9FFF\uF900-\uFAFF]/g, " ").split(/[\s/]+/).filter((w) => /[A-Za-z]/.test(w));
+  return words.length <= FILL_MAX_WORDS && a.length <= 30;
+}
+
+const PASSAGE_REF_ZH = /(短文|文章|根據文|文中|上文|故事中|閱讀(以下|下面))/;
+const PASSAGE_REF_EN = /\b(the passage|the text|the story|the article)\b/i;
+
+/** True when the item points at a passage/短文 but has none attached. */
+export function refersToMissingPassage(q: QuizQuestion): boolean {
+  if (q.passage?.zh?.trim() || q.passage?.en?.trim()) return false;
+  const text = `${q.prompt.zh ?? ""} ${q.prompt.en ?? ""}`;
+  return PASSAGE_REF_ZH.test(text) || PASSAGE_REF_EN.test(text);
+}
+
+const COMPARE_MAX = /(最大|較大|大得多|largest|greatest|biggest|larger|greater)/i;
+const COMPARE_MIN = /(最小|較小|smallest|least|smaller)/i;
+/** Prompts where 最大/最小 is part of a computed answer (HCF, minimum count …), not a comparison. */
+const COMPARE_SKIP = /(因數|倍數|多少|幾多|計算|factor|multiple|how many|how much|at least|at most)/i;
+
+/**
+ * For "which is largest/smallest" mc items whose choices are all numbers/fractions,
+ * verify the key by value. Returns false when the keyed answer is not the unique max/min.
+ */
+export function numericComparisonKeyOk(q: QuizQuestion): boolean {
+  if (q.type !== "mc" || !q.choices?.length) return true;
+  const text = `${q.prompt.zh ?? ""} ${q.prompt.en ?? ""}`;
+  const wantMax = COMPARE_MAX.test(text);
+  const wantMin = COMPARE_MIN.test(text);
+  if (wantMax === wantMin || COMPARE_SKIP.test(text)) return true;
+  const values = q.choices.map((c) => parseNumericAnswer(c));
+  if (values.some((v) => v === null)) return true;
+  const nums = values as number[];
+  const target = wantMax ? Math.max(...nums) : Math.min(...nums);
+  const key = parseNumericAnswer(q.answer);
+  return key !== null && Math.abs(key - target) < 1e-9 && nums.filter((v) => Math.abs(v - target) < 1e-9).length === 1;
 }
 
 /** Key for "same choice" checks: numeric value for numbers, lenient text otherwise. */
@@ -191,6 +250,20 @@ export function enforceAnswerTypes(
   questions.forEach((q, i) => {
     const rng = mulberry32((opts.seed >>> 0) + Math.imul(i + 1, 9973));
 
+    if (refersToMissingPassage(q)) {
+      drop(q);
+      return;
+    }
+    /** mc result must also pass the numeric "largest/smallest" key check. */
+    const pushMc = (mc: QuizQuestion, converted: boolean) => {
+      if (!numericComparisonKeyOk(mc)) {
+        drop(q);
+        return;
+      }
+      if (converted) stats.toMc += 1;
+      out.push(mc);
+    };
+
     if (q.type === "match") {
       const pairs = cleanMatchPairs(q.pairs);
       if (!pairs || matches >= policy.maxMatch) {
@@ -213,7 +286,7 @@ export function enforceAnswerTypes(
         const changed = before.length !== MC_CHOICES || !before.includes(fixed.answer) ||
           fixed.choices!.some((c) => !before.includes(c));
         if (changed) stats.repairedMc += 1;
-        out.push(fixed);
+        pushMc(fixed, false);
       }
       return;
     }
@@ -226,15 +299,13 @@ export function enforceAnswerTypes(
         return;
       }
       const asMc = repairMc(q, rng);
-      if (asMc) {
-        stats.toMc += 1;
-        out.push(asMc);
-      } else drop(q);
+      if (asMc) pushMc(asMc, true);
+      else drop(q);
       return;
     }
 
-    // fill
-    if (fills < policy.maxFill) {
+    // fill: keep only short answers, within the year's cap; otherwise → mc or drop.
+    if (fills < policy.maxFill && isShortFillAnswer(q.answer)) {
       fills += 1;
       const next = { ...q };
       delete next.choices;
@@ -242,10 +313,8 @@ export function enforceAnswerTypes(
       return;
     }
     const asMc = repairMc(q, rng);
-    if (asMc) {
-      stats.toMc += 1;
-      out.push(asMc);
-    } else drop(q);
+    if (asMc) pushMc(asMc, true);
+    else drop(q);
   });
 
   return out;

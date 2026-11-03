@@ -176,7 +176,7 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     "Rules:",
     "- Exactly the requested number of questions.",
     "- For type mc: provide exactly 4 distinct choices (never 3, never duplicates); answer must equal one choice exactly.",
-    "- For type match: 4–5 pairs; all lefts unique, all rights unique, exactly one correct right for each left. The app shuffles the right side.",
+    "- For type match: 4–5 pairs (use the count the ANSWER TYPES block asks for); all lefts unique, all rights unique, exactly one correct right for each left. The app shuffles the right side.",
     "- Obey the ANSWER TYPES block for the year (which types are allowed and how many).",
     "- For type fill: answer is the canonical accepted spelling; accepts may list alternatives.",
     "- For type number: answer is a numeric string. Plain decimals/integers (e.g. \"0.75\", \"12\") are preferred. Fraction strings like \"5/6\" are also allowed when the value is a fraction — the UI accepts text input for those.",
@@ -204,7 +204,7 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     `Seed (variety token — produce a distinct quiz for each seed): ${request.seed}`,
     languageGuidance(request.subject),
     curriculumContext(request),
-    answerTypeGuidance(request.year, request.subject),
+    answerTypeGuidance(request.year, request.subject, request.seed),
     "Within the ANSWER TYPES allowed for the year, prefer types that fit the topic (e.g. maths decimals/of-a-total → number; maths simplify-to-fraction → fill with answer like \"2/3\"; English grammar → mc; Chinese vocab → mc, match or fill). If the topic and the year limits conflict, the year limits win (write easier items within the topic).",
   ];
   if (avoid.length) {
@@ -694,7 +694,10 @@ export async function generateQuizQuestions(
         timeoutMs: Math.min(TIMEOUT_MS, remaining),
         thinking: "off",
       });
-      const extra = parseQuizQuestions(content, count, seed + 7919, request);
+      const stem = (q: QuizQuestion) => (q.prompt.zh || q.prompt.en || "").replace(/\s+/g, "").toLowerCase();
+      const haveStems = new Set(result.questions.map(stem));
+      // The model sometimes repeats a stem it was told to avoid; skip exact repeats.
+      const extra = parseQuizQuestions(content, count, seed + 7919, request).filter((q) => !haveStems.has(stem(q)));
       // Re-check the merged set so caps (fill / match per quiz) hold across both calls.
       const merged = enforceAnswerTypes([...result.questions, ...extra], request).slice(0, count);
       const seen = new Set<string>();
