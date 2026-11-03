@@ -5,7 +5,8 @@ import { englishBank } from "./english";
 import { mathsBank } from "./maths";
 import { gsBank } from "./gs";
 import { earlyYearsBanks } from "./early-years";
-import { yearFit, type ExerciseBank, type ExerciseItem, type MatchPair, type McItem } from "./types";
+import { FILL_DISTRACTORS } from "./fill-choices";
+import { yearFit, type ExerciseBank, type ExerciseItem, type FillItem, type MatchPair, type McItem } from "./types";
 
 /** Append extra items per topic (keeps the base bank's items first). */
 function withExtra(base: ExerciseBank, extra: ExerciseBank): ExerciseBank {
@@ -42,6 +43,51 @@ export function shuffleMcChoices(rng: () => number, item: McItem): McItem {
   };
 }
 
+/** P1–P2: no typed word answers; P3: at most this many typed fills per session. */
+export const P3_MAX_FILLS = 2;
+
+/** A fill shown as mc: the canonical answer plus its hand-picked distractors (null if none). */
+export function fillAsMc(item: FillItem): McItem | null {
+  const wrong = FILL_DISTRACTORS[item.id];
+  if (!wrong) return null;
+  return {
+    kind: "mc",
+    id: item.id,
+    ...(item.passage ? { passage: item.passage } : {}),
+    prompt: item.prompt,
+    choices: [item.accept[0], ...wrong],
+    answerIndex: 0,
+    ...(item.explanation ? { explanation: item.explanation } : {}),
+    ...(item.years ? { years: item.years } : {}),
+  };
+}
+
+/** Whole number 0–999: short enough for a P1–P2 child to type. */
+function isShortWholeNumber(answer: number): boolean {
+  return Number.isInteger(answer) && answer >= 0 && answer <= 999;
+}
+
+/**
+ * Grade answer-type rules for the static bank (same policy as quizzes):
+ * P1–P2 — fills become mc (dropped if no distractors), numbers only for 0–999
+ * whole numbers; P3 — at most P3_MAX_FILLS typed fills, extra fills become mc.
+ */
+export function applyGradeRules(items: ExerciseItem[], year: Year): ExerciseItem[] {
+  const early = year === "P1" || year === "P2";
+  let fills = 0;
+  return items.flatMap((item): ExerciseItem[] => {
+    if (early && item.kind === "number" && !isShortWholeNumber(item.answer)) return [];
+    if (item.kind !== "fill") return [item];
+    if (year === "P3" && fills < P3_MAX_FILLS) {
+      fills += 1;
+      return [item];
+    }
+    if (!early && year !== "P3") return [item];
+    const mc = fillAsMc(item);
+    return mc ? [mc] : [];
+  });
+}
+
 /**
  * Exact-year items first, then adjacent-grade (±1) items; each tier shuffled.
  * Items from grades further away are never used — a short session beats a
@@ -70,7 +116,12 @@ export function getExerciseSession(
   const bank = getBank(subject, topic) ?? [];
   const rng = mulberry32(randomSeed());
 
-  return pickForYear(rng, bank, year).flatMap((item): ExerciseItem[] => {
+  // P1–P2: convert before picking so dropped items don't shorten the session.
+  // P3: cap fills after picking so the cap applies to the items actually shown.
+  const early = year === "P1" || year === "P2";
+  const pool = early ? applyGradeRules(bank, year) : bank;
+  const picked = applyGradeRules(pickForYear(rng, pool, year), year);
+  return picked.flatMap((item): ExerciseItem[] => {
     if (item.kind === "mc") return [shuffleMcChoices(rng, item)];
     if (item.kind !== "match") return [item];
     const pairs = pickForYear(rng, item.pairs, year);

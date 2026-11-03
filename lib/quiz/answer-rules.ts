@@ -58,7 +58,7 @@ export function answerTypeGuidance(year: Year, subject: SubjectSlug, seed = 0): 
           ? "number ↔ 中文數字 / number word, sum ↔ result, shape ↔ number of sides, time ↔ words"
           : "動物↔居所, 物品↔用途, 職業↔工作地點, 食物↔食物類別";
   const matchShape =
-    `A "match" item has a short instruction prompt and "pairs": exactly ${pairCount} {"left","right"} objects; every left and every right must be unique, each right fits exactly one left (no ambiguous pairs), each side ≤ 8 字 / 3 English words. Leave out "answer" and "choices" for match.`;
+    `A "match" item has a short instruction prompt and "pairs": exactly ${pairCount} {"left","right"} objects; every left and every right must be unique, pairs must be mutually exclusive: each right is correct for exactly one left and wrong for every other left (BAD: "ball games→football" with "racket sports→tennis", because tennis is also a ball game; avoid overlapping category labels), each side ≤ 8 字 / 3 English words. Leave out "answer" and "choices" for match.`;
   const fillShape =
     '- Every fill answer is one word or a short term: at most 6 Chinese characters or 3 English words (numbers/fractions are fine). If the answer would be a phrase or sentence, write the item as mc instead.';
   const passageRule =
@@ -80,7 +80,7 @@ export function answerTypeGuidance(year: Year, subject: SubjectSlug, seed = 0): 
     return [
       "ANSWER TYPES (P3 — CRITICAL):",
       '- Mostly type "mc".',
-      '- At most 2 items of type "fill", only for short answers (one word / 1–4 字). For each fill: list every acceptable alternate in "accepts" (e.g. with and without 一: "一首" and "首"; synonyms), and also give "choices": the answer plus 3 plausible wrong options.',
+      '- At most 2 items of type "fill", only for short answers (one word / 1–4 字). For each fill: list every acceptable alternate in "accepts" (with and without the count word, e.g. "一座小屋" and "小屋"; synonyms; traditional variants), and also give "choices": the answer plus 3 plausible wrong options.',
       subject === "maths" ? '- type "number" is fine for numeric answers.' : '- Do NOT use type "number".',
       `- Include 1–2 match items when the topic suits pairing (e.g. ${matchIdeas}).`,
       `- ${matchShape}`,
@@ -94,7 +94,7 @@ export function answerTypeGuidance(year: Year, subject: SubjectSlug, seed = 0): 
     `- At most 1 match item, only when the topic naturally suits pairing (e.g. ${matchIdeas}); 0 is fine.`,
     `- ${matchShape}`,
     fillShape,
-    '- For each fill, also give "choices": the answer plus 3 plausible wrong options (used if the item must become mc).',
+    '- For each fill, list every acceptable alternate in "accepts" (with and without the count word, e.g. "一座小屋" and "小屋"; synonyms; British/American spellings), and also give "choices": the answer plus 3 plausible wrong options (used if the item must become mc).',
     passageRule,
   ].join("\n");
 }
@@ -204,6 +204,21 @@ export function repairMc(q: QuizQuestion, rng: Rng): QuizQuestion | null {
 }
 
 /** 4–5 pairs with unique (lenient) lefts and rights, or null. */
+/** Category-style labels that tend to overlap (tennis is a ball game AND a racket sport). */
+const OVERLAP_PRONE_EN = /\b(games?|sports?|activit(y|ies)|things|stuff)$/i;
+const OVERLAP_PRONE_ZH = /(運動|遊戲|活動|東西|用品)$/;
+
+/**
+ * Heuristic check that pairs are mutually exclusive: a side with two or more
+ * overlap-prone category labels ("ball games" + "racket sports") is flagged,
+ * since one right can then fit several lefts. The prompt rule does the rest.
+ */
+export function matchPairsAmbiguous(pairs: QuizMatchPair[]): boolean {
+  return (["left", "right"] as const).some(
+    (side) => pairs.filter((p) => OVERLAP_PRONE_EN.test(p[side].trim()) || OVERLAP_PRONE_ZH.test(p[side].trim())).length >= 2,
+  );
+}
+
 export function cleanMatchPairs(pairs: QuizMatchPair[] | undefined): QuizMatchPair[] | null {
   const lefts = new Set<string>();
   const rights = new Set<string>();
@@ -220,7 +235,7 @@ export function cleanMatchPairs(pairs: QuizMatchPair[] | undefined): QuizMatchPa
     out.push({ left, right });
     if (out.length === MATCH_MAX_PAIRS) break;
   }
-  return out.length >= MATCH_MIN_PAIRS ? out : null;
+  return out.length >= MATCH_MIN_PAIRS && !matchPairsAmbiguous(out) ? out : null;
 }
 
 export function matchAnswerKey(pairs: QuizMatchPair[]): string {

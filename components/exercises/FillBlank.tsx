@@ -4,7 +4,7 @@ import { useState, type KeyboardEvent } from "react";
 import { useI18n } from "@/lib/i18n/provider";
 import { toText } from "@/lib/i18n/types";
 import type { FillItem, OnAnswered } from "@/lib/exercises/types";
-import { answersEqual } from "@/lib/quiz/answers";
+import { fillAnswersEqual } from "@/lib/quiz/answers";
 
 type FillBlankProps = {
   item: FillItem;
@@ -26,7 +26,7 @@ export function FillBlank({ item, onAnswered }: FillBlankProps) {
 
   const submit = () => {
     if (!canSubmit) return;
-    const correct = item.accept.some((accepted) => answersEqual(value, accepted));
+    const correct = item.accept.some((accepted) => fillAnswersEqual(value, accepted));
     setStatus(correct ? "correct" : "wrong");
     onAnswered?.(correct, value.trim());
   };

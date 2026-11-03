@@ -100,17 +100,41 @@ export function lenientKey(input: string): string {
   return normalizeAnswer(normalizeFractionSpacing(String(input).normalize("NFKC"))).replace(/\s+/g, "");
 }
 
-/** "一首" → "首": drop a leading count word in front of a single measure word. */
-function withoutCountWord(key: string): string {
-  const m = key.match(/^(?:一|1)([\u3400-\u9FFF])$/);
-  return m ? m[1] : key;
+const MEASURE_WORDS =
+  "個隻只條本張枝支朵棵株座間輛架匹頭位件雙對把顆粒塊杯碗首篇封頂部台臺盞扇幅艘串根輪份套瓶盒袋";
+const DIGIT_TO_ZH: Record<string, string> = {
+  "1": "一", "2": "兩", "3": "三", "4": "四", "5": "五", "6": "六", "7": "七", "8": "八", "9": "九", "10": "十",
+};
+const COUNT_PREFIX_RE = new RegExp(`^(\\d{1,2}|[一二兩三四五六七八九十]{1,3})([${MEASURE_WORDS}])(.*)$`, "u");
+
+/** "2隻" / "二隻" → "兩隻": fold a leading count so digits and 二/兩 compare equal. */
+function foldCount(key: string): string {
+  const m = key.match(COUNT_PREFIX_RE);
+  if (!m) return key;
+  let num = DIGIT_TO_ZH[m[1]] ?? m[1];
+  if (num === "二") num = "兩";
+  return `${num}${m[2]}${m[3]}`;
 }
 
-/** Fill marking: exact/numeric match, or equal after lenient normalisation (with or without 一). */
+/**
+ * Drop a leading "一 + 量詞" so an article-like count is optional:
+ * "一首" → "首", "一座小屋" → "小屋". Other counts (兩隻小鳥) stay, because there
+ * the number is usually the point of the question.
+ */
+function withoutCountWord(key: string): string {
+  const m = key.match(COUNT_PREFIX_RE);
+  if (!m || m[1] !== "一") return key;
+  return m[3] ? m[3] : m[2];
+}
+
+/**
+ * Fill marking: exact/numeric match, or equal after lenient normalisation;
+ * digits ↔ 漢字 counts fold (2隻 = 兩隻) and a leading 一+量詞 is optional.
+ */
 export function fillAnswersEqual(given: string, expected: string): boolean {
   if (answersEqual(given, expected)) return true;
-  const a = lenientKey(given);
-  const b = lenientKey(expected);
+  const a = foldCount(lenientKey(given));
+  const b = foldCount(lenientKey(expected));
   if (!a || !b) return false;
   return a === b || withoutCountWord(a) === withoutCountWord(b);
 }
