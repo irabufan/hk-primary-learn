@@ -16,6 +16,7 @@ import type { Localized } from "@/lib/i18n/types";
 import { mulberry32, shuffle } from "@/lib/rng";
 import type { Quiz, QuizQuestion, QuizQuestionType, QuizRequest } from "./types";
 import { QUIZ_COUNTS } from "./types";
+import { applyHkForms } from "./hk-forms";
 
 const DEFAULT_BASE = "https://opencode.ai/zen/go/v1";
 const DEFAULT_MODEL = "gpt-6-luna";
@@ -91,6 +92,16 @@ function topicLabel(subject: SubjectSlug, topic: string): { zh: string; en: stri
   return TOPIC_LABELS[`${subject}/${topic}`] ?? { zh: topic, en: topic };
 }
 
+/** Appended to every quiz with Chinese text (chinese, gs, maths). Rules only — no example questions. */
+const HK_WORDING = [
+  "HK WORDING (zh):",
+  "- Standard Hong Kong written Chinese (書面語), Traditional characters in HK school forms: 甚麼 (not 什麼), 裏 (not 裡), 着 for zhe/zhuó (穿着, 着急; but 著名, 顯著, 著作 keep 著), 綫/線 as HK textbooks use.",
+  "- Use HK vocabulary, not Mainland or Taiwan terms: 巴士 (not 公車/公交), 雪櫃 (not 冰箱), 擦膠 (not 橡皮擦/橡皮), 的士 (not 計程車), 港鐵 (not 捷運/地鐵), 乳酪 (not 優酪乳), 菠蘿 (not 鳳梨), 薯仔 (not 馬鈴薯/土豆), 單車 (not 腳踏車/自行車), 粒 for small round food (not 顆); 番茄 is fine.",
+  "- No spoken Cantonese (食咗, 幾多, 佢, 唔, 邊個, 落雨) unless a 病句 / 口語 item deliberately tests it.",
+  "- Answers must be factually correct in a Hong Kong setting (e.g. MTR etiquette; school roles and places such as 校長室 vs 校務處).",
+  "- Stay on the requested topic; do not drift into another subject or topic.",
+].join(" ");
+
 function languageGuidance(subject: SubjectSlug): string {
   if (subject === "chinese") {
     return [
@@ -100,6 +111,7 @@ function languageGuidance(subject: SubjectSlug): string {
       "- en may be omitted, or a brief English gloss only — never use en as the primary stem while zh is missing or weaker.",
       "- Choices and answers MUST be Traditional Chinese (or Chinese measure words / characters), never English-only options for a Chinese vocab item.",
       "- Do not mix: never write an English stem with Chinese-only choices, or a Chinese stem with English-only grammar choices unless the topic is translation.",
+      HK_WORDING,
     ].join(" ");
   }
   if (subject === "english") {
@@ -119,6 +131,7 @@ function languageGuidance(subject: SubjectSlug): string {
       "- en may be omitted, or a brief English gloss only — never use en as the primary stem while zh is missing or weaker.",
       "- Choices and answers MUST be Traditional Chinese (or short HK-familiar terms), never English-only options for a 常識 item.",
       "- Topics: healthy living, community (MTR / wet market / recycling), nature & science — kid-friendly HK daily life; keep national-identity content light or skip.",
+      HK_WORDING,
     ].join(" ");
   }
   return [
@@ -128,6 +141,7 @@ function languageGuidance(subject: SubjectSlug): string {
     "MC choices: prefer bare numbers so they work under both UI languages.",
     "CRITICAL — do NOT mix: never write an English-primary stem (or EN UI money story) with Chinese-only choice labels like \"8 元\", \"10 元\".",
     "If you must label currency/units in choices, keep them bilingual/parallel with the stem language — never Chinese-unit-only choices alongside an English stem.",
+    HK_WORDING,
   ].join(" ");
 }
 
@@ -457,7 +471,7 @@ export function toQuiz(request: QuizRequest, questions: QuizQuestion[]): Quiz {
     questions,
     seed: request.seed,
   };
-  return normalizeQuizForSubject(quiz);
+  return normalizeQuizForSubject(applyHkForms(quiz));
 }
 
 export type LlmChatResult = {
