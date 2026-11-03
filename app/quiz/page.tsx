@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useCallback, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { QuizLoading } from "@/components/quiz/QuizLoading";
 import { QuizPlayer } from "@/components/quiz/QuizPlayer";
@@ -100,14 +100,19 @@ function QuizPageInner() {
     }
   }
 
+  // New phase (setup → play → results): start at the top, especially on phones.
+  useEffect(() => {
+    if (window.scrollY > 0) window.scrollTo({ top: 0 });
+  }, [phase]);
+
   // While regenerating from results (or briefly after generate before busy clears),
   // show a skeleton so the UI never looks frozen.
   const showLoadingCard = busy && phase !== "setup";
 
   return (
-    <div className="wrap py-8 space-y-6 max-w-2xl">
+    <div className="wrap max-w-2xl space-y-5 py-2 sm:space-y-6 sm:py-8">
       <div>
-        <h1 className="text-3xl font-black text-ink">{t("quiz.title")}</h1>
+        <h1 className="text-2xl font-black text-ink sm:text-3xl">{t("quiz.title")}</h1>
         {source && phase !== "setup" && !busy && (
           <p className="mt-2 text-xs font-semibold text-slate-500">
             {source === "llm" ? t("quiz.sourceLlm") : t("quiz.sourceMock")}

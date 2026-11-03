@@ -29,9 +29,9 @@ function SubjectInner({ subjectParam }: { subjectParam: string }) {
   const subject = getSubject(subjectParam)!;
 
   return (
-    <div className="wrap py-8 space-y-6">
+    <div className="wrap space-y-6 py-4 sm:py-8">
       <div className="flex flex-wrap items-center gap-3">
-        <Link href="/" className="text-sm font-semibold text-indigo-600 hover:underline">
+        <Link href="/" className="inline-flex min-h-11 items-center text-sm font-semibold text-indigo-600 hover:underline">
           ← {t("hub.back")}
         </Link>
         <span className="rounded-full bg-indigo-100 px-3 py-0.5 text-xs font-bold text-indigo-800">

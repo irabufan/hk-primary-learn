@@ -16,7 +16,7 @@ export function LocaleToggle() {
         type="button"
         aria-pressed={locale === "en"}
         onClick={() => setLocale("en")}
-        className={`min-w-[3.5rem] rounded-full px-3 py-1.5 text-sm font-extrabold transition ${
+        className={`min-h-11 min-w-11 rounded-full px-2.5 text-sm sm:min-w-[3.5rem] sm:px-3 font-extrabold transition ${
           locale === "en"
             ? "bg-indigo-600 text-white shadow"
             : "text-slate-500 hover:bg-sky-50 hover:text-indigo-700"
@@ -28,7 +28,7 @@ export function LocaleToggle() {
         type="button"
         aria-pressed={locale === "zh-HK"}
         onClick={() => setLocale("zh-HK")}
-        className={`min-w-[3.5rem] rounded-full px-3 py-1.5 text-sm font-extrabold transition ${
+        className={`min-h-11 min-w-11 rounded-full px-2.5 text-sm sm:min-w-[3.5rem] sm:px-3 font-extrabold transition ${
           locale === "zh-HK"
             ? "bg-indigo-600 text-white shadow"
             : "text-slate-500 hover:bg-sky-50 hover:text-indigo-700"

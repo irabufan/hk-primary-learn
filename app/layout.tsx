@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Noto_Sans_TC, Outfit } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
@@ -27,6 +27,13 @@ export const metadata: Metadata = {
     "香港小一至小六學習樂園：中文、英文、數學、常識互動練習與小測驗生成器。A bright P1–P6 learning playground for Hong Kong: Chinese, English, Maths and General Studies exercises plus a quiz generator.",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover", // lets env(safe-area-inset-*) work on notched phones
+  themeColor: "#eef8ff",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -37,7 +44,7 @@ export default function RootLayout({
       <body className={`${outfit.variable} ${notoTC.variable} antialiased`}>
         <Providers>
           <Header />
-          <main className="mx-auto w-full max-w-5xl px-4 pb-16 pt-8 sm:px-6">{children}</main>
+          <main className="mx-auto w-full max-w-5xl px-4 pb-[calc(4rem+env(safe-area-inset-bottom))] pt-4 pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] sm:px-6 sm:pt-8">{children}</main>
           <Footer />
         </Providers>
       </body>

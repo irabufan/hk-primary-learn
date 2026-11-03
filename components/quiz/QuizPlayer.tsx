@@ -83,13 +83,15 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
     setIdx((i) => i + 1);
     setDraft("");
     setLocked(false);
+    // On phones the feedback pushes the page down; start the next question at the top.
+    if (window.scrollY > 0) window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   const shown = locked ? answers[idx] : q.type === "mc" ? selected : draft;
   const correctNow = locked && isRight(q, answers[idx] ?? null);
 
   return (
-    <div className="card space-y-4">
+    <div className="card space-y-4 max-sm:px-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <p className="text-sm font-extrabold text-indigo-700">
           {t("quiz.progress", { current: idx + 1, total: quiz.questions.length })}
@@ -224,12 +226,12 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
       )}
       </div>
 
-      <div className="flex gap-2 pt-1">
+      <div className="action-bar flex gap-2 pt-1 [&:not(:has(button))]:hidden">
         {!locked ? (
           q.type === "match" ? null : (
           <button
             type="button"
-            className="btn-primary"
+            className="btn-primary w-full sm:w-auto"
             disabled={q.type === "mc" ? selected === null : !draft.trim()}
             onClick={check}
           >
@@ -237,7 +239,7 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
           </button>
           )
         ) : (
-          <button type="button" className="btn-primary" onClick={next}>
+          <button type="button" className="btn-primary w-full sm:w-auto" onClick={next}>
             {idx + 1 >= quiz.questions.length ? t("quiz.finish") : `${t("common.next")} →`}
           </button>
         )}

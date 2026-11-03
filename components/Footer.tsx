@@ -33,10 +33,10 @@ export function Footer() {
           <p className="text-sm font-extrabold uppercase tracking-wide text-slate-500">
             {t("footer.links")}
           </p>
-          <ul className="mt-3 space-y-2 text-sm font-semibold">
+          <ul className="mt-2 grid grid-cols-3 gap-x-4 text-sm font-semibold sm:mt-3 sm:block sm:space-y-2">
             {LINKS.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="text-indigo-600 hover:text-coral hover:underline">
+                <Link href={link.href} className="flex min-h-11 w-full items-center text-base text-indigo-600 hover:text-coral hover:underline sm:min-h-0 sm:text-sm">
                   {t(link.key)}
                 </Link>
               </li>

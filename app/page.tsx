@@ -34,7 +34,7 @@ export default function HomePage() {
         <p className="inline-block rounded-full bg-white px-4 py-1.5 text-sm font-extrabold text-indigo-700 shadow-sm">
           🇭🇰 {t("home.badge")}
         </p>
-        <h1 className="mt-4 text-3xl font-extrabold leading-tight text-indigo-800 sm:text-5xl">
+        <h1 className="mt-4 text-balance text-3xl font-extrabold leading-tight text-indigo-800 sm:text-5xl">
           {t("home.title")}
         </h1>
         <p className="mt-4 max-w-2xl text-base font-semibold leading-relaxed text-slate-600 sm:text-lg">

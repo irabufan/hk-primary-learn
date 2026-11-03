@@ -172,7 +172,7 @@ export function QuizSetup({
                 key={n}
                 type="button"
                 onClick={() => onCountChange(n)}
-                className={`rounded-full px-4 py-2 text-sm font-bold transition ${
+                className={`min-w-11 rounded-full px-4 py-2 text-sm font-bold transition ${
                   count === n
                     ? "min-h-11 bg-coral text-white shadow"
                     : "min-h-11 bg-white border-2 border-line text-ink-soft hover:border-coral"

@@ -61,7 +61,7 @@ export function NumberInput({ item, onAnswered }: NumberInputProps) {
           type="button"
           onClick={submit}
           disabled={!canSubmit}
-          className={`rounded-full px-6 py-3 text-base font-extrabold shadow transition ${
+          className={`min-h-12 w-full rounded-full px-6 py-3 text-base font-extrabold shadow transition sm:w-auto ${
             canSubmit
               ? "bg-gradient-to-r from-orange-400 to-coral text-white hover:-translate-y-0.5"
               : "cursor-default bg-slate-200 text-slate-400"

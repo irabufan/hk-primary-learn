@@ -14,6 +14,11 @@ import { getExerciseSession } from "@/lib/exercises";
 import type { ExerciseItem } from "@/lib/exercises/types";
 import { addProgress } from "@/lib/storage";
 
+/** After Next / Finish on a phone the page is often scrolled down; bring the new card back into view. */
+function scrollToTopIfNeeded() {
+  if (typeof window !== "undefined" && window.scrollY > 0) window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 type ExerciseExperienceProps = {
   subject: Subject;
   topic: Topic;
@@ -84,6 +89,7 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
 
   const finish = (finalScore: number) => {
     setFinished(true);
+    scrollToTopIfNeeded();
     addProgress({ kind: "exercise", subject: subject.slug, topic: topic.slug, score: finalScore, total });
   };
 
@@ -100,6 +106,7 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
     }
     setIndex(nextIndex);
     setAnswered(false);
+    scrollToTopIfNeeded();
   };
 
   const handleMatchComplete = (result: MatchResult) => {
@@ -161,7 +168,7 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
       <div className="flex flex-wrap items-center gap-3">
         <Link
           href={subjectPath(subject.slug, year)}
-          className="rounded-full border-2 border-sky-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-600 transition hover:border-sky-400 hover:text-indigo-700"
+          className="inline-flex min-h-11 items-center rounded-full border-2 border-sky-200 bg-white px-4 text-sm font-extrabold text-slate-600 transition hover:border-sky-400 hover:text-indigo-700"
         >
           ← {t("exercise.backToSubject", { subject: toText(subject.name, locale) })}
         </Link>
@@ -248,17 +255,17 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
             {renderItem(currentItem)}
           </section>
 
-          <div className="flex items-center justify-end gap-3">
-            {answered && (
+          {answered && (
+            <div className="action-bar flex items-center justify-end gap-3">
               <button
                 type="button"
                 onClick={handleNext}
-                className="animate-pop-in rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 px-8 py-3.5 text-base font-extrabold text-white shadow transition hover:-translate-y-0.5"
+                className="animate-pop-in min-h-12 w-full rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 px-8 py-3.5 text-lg font-extrabold text-white shadow transition hover:-translate-y-0.5 sm:w-auto sm:text-base"
               >
                 {index + 1 >= session.length ? t("common.finish") : t("common.next")} →
               </button>
-            )}
-          </div>
+            </div>
+          )}
         </>
       )}
 

@@ -16,6 +16,11 @@
   --foreground: #173a5e;
 }
 
+html,
+body {
+  overflow-x: clip; /* never scroll sideways on phones */
+}
+
 body {
   background-color: var(--background);
   /* Soft sky-blue polka dots — playful, not babyish. */
@@ -201,5 +206,30 @@ summary {
   .quiz-skeleton {
     animation: none;
     background: #e2e8f0;
+  }
+}
+
+/*
+ * Primary action row (Check / Next). On phones it sticks to the bottom of the
+ * screen (above the home indicator) so kids never have to scroll to continue;
+ * from sm up it is a normal inline row.
+ */
+.action-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 30;
+  margin-inline: -1rem;
+  padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, rgb(var(--bar-bg, 238 248 255) / 0.97) 75%, rgb(var(--bar-bg, 238 248 255) / 0));
+}
+.card .action-bar {
+  --bar-bg: 255 255 255;
+}
+@media (min-width: 640px) {
+  .action-bar {
+    position: static;
+    margin-inline: 0;
+    padding: 0;
+    background: none;
   }
 }

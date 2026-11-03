@@ -107,8 +107,9 @@ export function MatchPairs({ item, onComplete }: MatchPairsProps) {
         </div>
       </div>
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-2">
-        <ul className="space-y-2.5">
+      {/* Two columns at every width (left items | right items), so a pair is always side by side. */}
+      <div className="mt-4 grid grid-cols-2 gap-2 sm:gap-3">
+        <ul className="min-w-0 space-y-2 sm:space-y-2.5">
           {lefts.map((pair) => {
             const isMatched = matched.has(pair.id);
             const isSelected = selectedLeftId === pair.id;
@@ -120,7 +121,7 @@ export function MatchPairs({ item, onComplete }: MatchPairsProps) {
                   onClick={() => handleLeft(pair.id)}
                   disabled={isMatched || completed.current}
                   aria-pressed={isSelected}
-                  className={`w-full min-h-11 rounded-2xl border-4 px-4 py-3 text-left text-lg font-extrabold transition ${
+                  className={`w-full min-h-12 break-words rounded-2xl border-4 px-2.5 py-2.5 text-left text-base font-extrabold transition sm:px-4 sm:py-3 sm:text-lg ${
                     isMatched
                       ? "border-lime-500 bg-lime-50 text-lime-800"
                       : isFlashing
@@ -137,7 +138,7 @@ export function MatchPairs({ item, onComplete }: MatchPairsProps) {
           })}
         </ul>
 
-        <ul className="space-y-2.5">
+        <ul className="min-w-0 space-y-2 sm:space-y-2.5">
           {rights.map((pair) => {
             const isMatched = matched.has(pair.id);
             const isFlashing = flash?.rightId === pair.id;
@@ -148,7 +149,7 @@ export function MatchPairs({ item, onComplete }: MatchPairsProps) {
                   onClick={() => handleRight(pair.id)}
                   disabled={isMatched || completed.current}
                   aria-pressed={selectedLeftId !== null && selectedLeftId === pair.id && !isMatched}
-                  className={`w-full min-h-11 rounded-2xl border-4 px-4 py-3 text-left text-base font-bold leading-relaxed transition ${
+                  className={`w-full min-h-12 break-words rounded-2xl border-4 px-2.5 py-2.5 text-left text-base font-bold leading-snug transition sm:px-4 sm:py-3 sm:leading-relaxed ${
                     isMatched
                       ? "border-lime-500 bg-lime-50 text-lime-800"
                       : isFlashing

@@ -25,7 +25,7 @@ function ExerciseInner({
   }
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6 py-8">
+    <div className="mx-auto max-w-2xl space-y-6 py-2 sm:py-8">
       <ExerciseExperience subject={subject} topic={topic} initialYear={year} />
     </div>
   );
