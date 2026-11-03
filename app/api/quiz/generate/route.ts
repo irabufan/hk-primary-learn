@@ -88,7 +88,7 @@ export async function POST(request: Request) {
   const sessionId = `ses-hklearn-${quizRequest.subject}-${quizRequest.topic}-${seed}`;
 
   try {
-    const { questions, model } = await generateQuizQuestions(system, user, sessionId, count, seed);
+    const { questions, model } = await generateQuizQuestions(system, user, sessionId, quizRequest);
     const quiz = toQuiz(quizRequest, questions);
     return NextResponse.json({
       quiz,

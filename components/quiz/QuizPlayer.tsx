@@ -3,8 +3,11 @@
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n/provider";
 import { toText } from "@/lib/i18n/types";
+import { MatchPairs, type MatchResult } from "@/components/exercises/MatchPairs";
+import type { MatchItem } from "@/lib/exercises/types";
 import {
   isQuizAnswerRight,
+  matchGiven,
   shouldUseTextNumericInput,
 } from "@/lib/quiz/answers";
 import type { Quiz, QuizQuestion } from "@/lib/quiz/types";
@@ -16,6 +19,15 @@ type Props = {
 
 function isRight(q: QuizQuestion, val: string | number | null): boolean {
   return isQuizAnswerRight(q, val);
+}
+
+function toMatchItem(q: QuizQuestion): MatchItem {
+  return {
+    kind: "match",
+    id: q.id,
+    title: q.prompt,
+    pairs: (q.pairs ?? []).map((p, i) => ({ id: `${q.id}-p${i}`, left: p.left, right: p.right })),
+  };
 }
 
 export function QuizPlayer({ quiz, onFinish }: Props) {
@@ -36,6 +48,13 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
     const next = [...answers];
     next[idx] = c;
     setAnswers(next);
+  }
+
+  function finishMatch(result: MatchResult) {
+    const next = [...answers];
+    next[idx] = matchGiven(result.correct, result.total);
+    setAnswers(next);
+    setLocked(true);
   }
 
   function check() {
@@ -140,6 +159,10 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
         </ul>
       )}
 
+      {q.type === "match" && q.pairs && (
+        <MatchPairs key={`${q.id}-match`} item={toMatchItem(q)} onComplete={finishMatch} />
+      )}
+
       {(q.type === "fill" || q.type === "number") && (
         <input
           type="text"
@@ -173,10 +196,24 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
           <p className={`text-base font-extrabold ${correctNow ? "text-lime-800" : "text-orange-800"}`}>
             {correctNow ? `🎉 ${t("common.correct")}` : `💪 ${t("common.wrong")}`}
           </p>
-          {!correctNow && (
-            <p className="mt-1 text-sm font-bold text-slate-700">
-              {t("common.answer", { answer: String(q.answer) })}
-            </p>
+          {q.type === "match" ? (
+            <>
+              <p className="mt-1 text-sm font-bold text-slate-700">
+                {t("match.firstTry", {
+                  correct: String(answers[idx] ?? "0/0").split("/")[0],
+                  total: q.pairs?.length ?? 0,
+                })}
+              </p>
+              {!correctNow && (
+                <p className="mt-1 text-xs font-semibold text-slate-500">{t("match.allNeeded")}</p>
+              )}
+            </>
+          ) : (
+            !correctNow && (
+              <p className="mt-1 text-sm font-bold text-slate-700">
+                {t("common.answer", { answer: String(q.answer) })}
+              </p>
+            )
           )}
           {q.explanation && (
             <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-600">
@@ -189,6 +226,7 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
 
       <div className="flex gap-2 pt-1">
         {!locked ? (
+          q.type === "match" ? null : (
           <button
             type="button"
             className="btn-primary"
@@ -197,6 +235,7 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
           >
             {t("common.check")}
           </button>
+          )
         ) : (
           <button type="button" className="btn-primary" onClick={next}>
             {idx + 1 >= quiz.questions.length ? t("quiz.finish") : `${t("common.next")} →`}

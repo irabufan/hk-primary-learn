@@ -1,7 +1,10 @@
 import type { SubjectSlug, Year } from "@/lib/curriculum";
 import type { Localized } from "@/lib/i18n/types";
 
-export type QuizQuestionType = "mc" | "fill" | "number";
+export type QuizQuestionType = "mc" | "fill" | "number" | "match";
+
+/** One left ↔ right pair of a "match" question. */
+export type QuizMatchPair = { left: string; right: string };
 
 export type QuizQuestion = {
   id: string;
@@ -10,7 +13,12 @@ export type QuizQuestion = {
   passage?: Localized;
   /** Present for "mc" questions. */
   choices?: string[];
-  /** Canonical answer: exact choice text (mc), accepted word (fill), or number string (number). */
+  /** Present for "match" questions: 4–5 pairs, unique lefts and rights. */
+  pairs?: QuizMatchPair[];
+  /**
+   * Canonical answer: exact choice text (mc), accepted word (fill), number string (number),
+   * or a readable "left → right; …" key (match — scoring uses pairs, not this string).
+   */
   answer: string;
   /** Extra accepted spellings for "fill" questions (the answer is always included). */
   accepts?: string[];

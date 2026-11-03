@@ -14,9 +14,10 @@ import { curriculumGuidanceBlock } from "@/lib/curriculum-guidance";
 import { retrieveCurriculumContext } from "@/lib/curriculum-retrieve";
 import type { Localized } from "@/lib/i18n/types";
 import { mulberry32, shuffle } from "@/lib/rng";
-import type { Quiz, QuizQuestion, QuizQuestionType, QuizRequest } from "./types";
+import type { Quiz, QuizMatchPair, QuizQuestion, QuizQuestionType, QuizRequest } from "./types";
 import { QUIZ_COUNTS } from "./types";
 import { applyHkForms } from "./hk-forms";
+import { answerTypeGuidance, enforceAnswerTypes, type RuleStats } from "./answer-rules";
 
 const DEFAULT_BASE = "https://opencode.ai/zen/go/v1";
 const DEFAULT_MODEL = "gpt-6-luna";
@@ -171,10 +172,12 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     "You are a Hong Kong primary school (P1–P6) quiz writer.",
     "Return JSON only — no markdown fences, no commentary.",
     "Output a JSON array of question objects with this exact shape:",
-    '[{"id":"q1","type":"mc"|"fill"|"number","prompt":{"zh":"...","en":"..."},"passage":{"zh":"...","en":"..."}|optional,"choices":["..."]|required for mc,"answer":"...","accepts":["..."]|optional for fill,"hint":{"zh":"...","en":"..."}|optional,"explanation":{"zh":"...","en":"..."}|optional}]',
+    '[{"id":"q1","type":"mc"|"fill"|"number"|"match","prompt":{"zh":"...","en":"..."},"passage":{"zh":"...","en":"..."}|optional,"choices":["..."]|required for mc (optional distractor set for fill),"answer":"..."|omit for match,"accepts":["..."]|optional for fill,"pairs":[{"left":"...","right":"..."}]|required for match (4–5 pairs),"hint":{"zh":"...","en":"..."}|optional,"explanation":{"zh":"...","en":"..."}|optional}]',
     "Rules:",
     "- Exactly the requested number of questions.",
-    "- For type mc: provide 4 distinct choices; answer must equal one choice exactly.",
+    "- For type mc: provide exactly 4 distinct choices (never 3, never duplicates); answer must equal one choice exactly.",
+    "- For type match: 4–5 pairs; all lefts unique, all rights unique, exactly one correct right for each left. The app shuffles the right side.",
+    "- Obey the ANSWER TYPES block for the year (which types are allowed and how many).",
     "- For type fill: answer is the canonical accepted spelling; accepts may list alternatives.",
     "- For type number: answer is a numeric string. Plain decimals/integers (e.g. \"0.75\", \"12\") are preferred. Fraction strings like \"5/6\" are also allowed when the value is a fraction — the UI accepts text input for those.",
     "- Every fraction answer (and every fraction MC choice that is correct) must be in lowest terms, as a mixed number where the year uses them, unless the question explicitly asks for an unsimplified form.",
@@ -201,7 +204,8 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     `Seed (variety token — produce a distinct quiz for each seed): ${request.seed}`,
     languageGuidance(request.subject),
     curriculumContext(request),
-    "Prefer question types that fit the topic (e.g. maths decimals/of-a-total → number; maths simplify-to-fraction → fill with answer like \"2/3\"; English grammar → mc; Chinese vocab → mc or fill). If the topic and the year limits conflict, the year limits win (write easier items within the topic).",
+    answerTypeGuidance(request.year, request.subject),
+    "Within the ANSWER TYPES allowed for the year, prefer types that fit the topic (e.g. maths decimals/of-a-total → number; maths simplify-to-fraction → fill with answer like \"2/3\"; English grammar → mc; Chinese vocab → mc, match or fill). If the topic and the year limits conflict, the year limits win (write easier items within the topic).",
   ];
   if (avoid.length) {
     userParts.push(
@@ -236,7 +240,23 @@ function asString(value: unknown): string | undefined {
 }
 
 function asType(value: unknown): QuizQuestionType | undefined {
-  return value === "mc" || value === "fill" || value === "number" ? value : undefined;
+  return value === "mc" || value === "fill" || value === "number" || value === "match"
+    ? value
+    : undefined;
+}
+
+function asPairs(value: unknown): QuizMatchPair[] {
+  if (!Array.isArray(value)) return [];
+  const out: QuizMatchPair[] = [];
+  for (const p of value) {
+    const [left, right] = Array.isArray(p)
+      ? [asString(p[0]), asString(p[1])]
+      : p && typeof p === "object"
+        ? [asString((p as Record<string, unknown>).left), asString((p as Record<string, unknown>).right)]
+        : [undefined, undefined];
+    if (left && right) out.push({ left, right });
+  }
+  return out;
 }
 
 function extractJsonArray(text: string): unknown {
@@ -258,10 +278,15 @@ function extractJsonArray(text: string): unknown {
   throw new Error("Model response was not valid JSON");
 }
 
+/**
+ * Parse the model's JSON. With `rules`, the year's answer-type rules are applied
+ * (repair → mc or drop), so the result may hold fewer than `expectedCount` items.
+ */
 export function parseQuizQuestions(
   rawContent: string,
   expectedCount: number,
   seed = 0,
+  rules?: Pick<QuizRequest, "year" | "subject">,
 ): QuizQuestion[] {
   const parsed = extractJsonArray(rawContent);
   if (!Array.isArray(parsed) || parsed.length === 0) {
@@ -275,7 +300,8 @@ export function parseQuizQuestions(
     const row = item as Record<string, unknown>;
     const type = asType(row.type);
     const prompt = asLocalized(row.prompt);
-    const answer = asString(row.answer);
+    const pairs = type === "match" ? asPairs(row.pairs) : [];
+    const answer = type === "match" ? "" : asString(row.answer);
     if (!type || !prompt || answer === undefined) continue;
 
     const id = asString(row.id) || `llm-q${i + 1}`;
@@ -293,7 +319,9 @@ export function parseQuizQuestions(
     const explanation = asLocalized(row.explanation);
     if (explanation) question.explanation = explanation;
 
-    if (type === "mc") {
+    if (type === "match") question.pairs = pairs;
+
+    if (type === "mc" || type === "fill" || type === "number") {
       const rawChoices = Array.isArray(row.choices)
         ? row.choices.map(asString).filter((c): c is string => Boolean(c))
         : [];
@@ -302,7 +330,12 @@ export function parseQuizQuestions(
       for (const c of rawChoices) {
         if (!choices.includes(c)) choices.push(c);
       }
-      if (choices.length < 2) continue;
+      if (type === "mc" && choices.length < 2) continue;
+      if (choices.length) question.choices = choices;
+    }
+
+    if (type === "mc" && !rules) {
+      const choices = question.choices ?? [];
       if (!choices.includes(answer)) {
         // Inject missing answer; shuffle below so it is not stuck in slot 0.
         choices[0] = answer;
@@ -322,14 +355,23 @@ export function parseQuizQuestions(
     questions.push(question);
   }
 
-  if (questions.length === 0) {
+  const stats: RuleStats = { toMc: 0, repairedMc: 0, dropped: 0 };
+  const checked = rules
+    ? enforceAnswerTypes(questions, { year: rules.year, subject: rules.subject, seed }, stats)
+    : questions;
+  if (rules && (stats.toMc || stats.repairedMc || stats.dropped)) {
+    console.info(
+      `[quiz/rules] ${rules.subject} ${rules.year}: parsed=${questions.length} kept=${checked.length} toMc=${stats.toMc} repairedMc=${stats.repairedMc} dropped=${stats.dropped}${stats.droppedTypes?.length ? ` (${stats.droppedTypes.join(",")})` : ""}`,
+    );
+  }
+  if (checked.length === 0) {
     throw new Error("No valid questions could be parsed from the model response");
   }
 
   const target = (QUIZ_COUNTS as readonly number[]).includes(expectedCount)
     ? expectedCount
     : QUIZ_COUNTS[0];
-  const sliced = questions.slice(0, target);
+  const sliced = checked.slice(0, target);
   // Ensure unique ids even if the model repeated them.
   const seen = new Set<string>();
   return sliced.map((q, i) => {
@@ -602,20 +644,22 @@ export async function callChatCompletion(
 }
 
 /**
- * Call the model and parse the quiz, retrying once (thinking off, so it is
- * fast) when the reply is empty, unparseable, rate-limited or a server error —
- * as long as enough of the request budget is left.
+ * Call the model and parse the quiz (answer-type rules applied), retrying once
+ * (thinking off, so it is fast) when the reply is empty, unparseable,
+ * rate-limited or a server error. When rules dropped items, one backfill call
+ * asks for just the missing ones — as long as enough of the budget is left.
  */
 export async function generateQuizQuestions(
   system: string,
   user: string,
   sessionId: string,
-  count: number,
-  seed: number,
+  request: QuizRequest,
 ): Promise<{ questions: QuizQuestion[]; model: string; attempts: number }> {
+  const { count, seed } = request;
   const deadline = Date.now() + TOTAL_BUDGET_MS;
   let lastError: unknown;
-  for (let attempt = 1; attempt <= 2; attempt++) {
+  let result: { questions: QuizQuestion[]; model: string; attempts: number } | undefined;
+  for (let attempt = 1; attempt <= 2 && !result; attempt++) {
     const remaining = deadline - Date.now();
     if (attempt > 1 && remaining < MIN_RETRY_MS) break;
     try {
@@ -624,7 +668,7 @@ export async function generateQuizQuestions(
         thinking: attempt === 1 ? "low" : "off",
       });
       try {
-        return { questions: parseQuizQuestions(content, count, seed), model, attempts: attempt };
+        result = { questions: parseQuizQuestions(content, count, seed, request), model, attempts: attempt };
       } catch (err) {
         throw new RetryableLlmError(err instanceof Error ? err.message : "Unparseable quiz");
       }
@@ -634,7 +678,37 @@ export async function generateQuizQuestions(
       console.warn(`[quiz/generate] attempt ${attempt} failed: ${err.message}`);
     }
   }
-  throw lastError instanceof Error ? lastError : new Error("LLM generation failed");
+  if (!result) throw lastError instanceof Error ? lastError : new Error("LLM generation failed");
+
+  const missing = count - result.questions.length;
+  const remaining = deadline - Date.now();
+  if (missing > 0 && remaining >= MIN_RETRY_MS) {
+    const have = result.questions.map((q) => (q.prompt.zh || q.prompt.en || "").slice(0, 120));
+    const backfillUser = [
+      user,
+      `BACKFILL: return a JSON array of exactly ${missing} NEW question(s) (not ${count}), same rules and ANSWER TYPES. Do not repeat these stems:`,
+      ...have.map((s, i) => `${i + 1}. ${s}`),
+    ].join("\n");
+    try {
+      const { content } = await callChatCompletion(system, backfillUser, `${sessionId}-fill`, {
+        timeoutMs: Math.min(TIMEOUT_MS, remaining),
+        thinking: "off",
+      });
+      const extra = parseQuizQuestions(content, count, seed + 7919, request);
+      // Re-check the merged set so caps (fill / match per quiz) hold across both calls.
+      const merged = enforceAnswerTypes([...result.questions, ...extra], request).slice(0, count);
+      const seen = new Set<string>();
+      result.questions = merged.map((q, i) => {
+        const id = seen.has(q.id) ? `${q.id}-b${i + 1}` : q.id;
+        seen.add(id);
+        return id === q.id ? q : { ...q, id };
+      });
+      result.attempts += 1;
+    } catch (err) {
+      console.warn(`[quiz/generate] backfill failed: ${err instanceof Error ? err.message : err}`);
+    }
+  }
+  return result;
 }
 
 export function isValidYear(value: unknown): value is Year {

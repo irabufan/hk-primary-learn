@@ -86,9 +86,11 @@ const en: Dict = {
   "exercise.langNote": "Questions appear in the subject's own language.",
 
   // Match pairs
-  "match.instruction": "Tap a word, then tap its meaning.",
+  "match.instruction": "Tap one on the left, then its match on the right.",
   "match.progress": "Matched {matched} of {total}",
   "match.misses": "Misses: {n}",
+  "match.firstTry": "Right on the first try: {correct} of {total} pairs",
+  "match.allNeeded": "Every pair must be right on the first try to score this question.",
 
   // Quiz generator
   "quiz.title": "Quiz generator",
@@ -210,9 +212,11 @@ const zh: Record<keyof typeof en, string> = {
   "exercise.langNote": "題目內容跟隨科目語言。",
 
   // Match pairs
-  "match.instruction": "先點詞語，再點它的意思。",
+  "match.instruction": "先點左邊一項，再點右邊和它配對的一項。",
   "match.progress": "已配對 {matched} / {total}",
   "match.misses": "配錯 {n} 次",
+  "match.firstTry": "第一次就配對正確：{correct} / {total} 對",
+  "match.allNeeded": "每一對都要第一次就配對正確，這題才算答對。",
 
   // Quiz generator
   "quiz.title": "小測驗生成器",

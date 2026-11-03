@@ -3,7 +3,9 @@ import { formatNumber } from "@/lib/i18n/types";
 import { chineseBank } from "@/lib/exercises/chinese";
 import { gsBank } from "@/lib/exercises/gs";
 import { getBank } from "@/lib/exercises";
-import type { FillItem, MatchPair, McItem, NumberItem } from "@/lib/exercises/types";
+import type { FillItem, MatchItem, MatchPair, McItem, NumberItem } from "@/lib/exercises/types";
+import type { Localized } from "@/lib/i18n/types";
+import { cleanMatchPairs, matchAnswerKey, MATCH_MAX_PAIRS } from "./answer-rules";
 import { yearFit } from "@/lib/exercises/types";
 import { mulberry32, pickInt, pickOne, shuffle, type Rng } from "@/lib/rng";
 import type { Quiz, QuizGenerator, QuizQuestion, QuizRequest } from "./types";
@@ -95,14 +97,37 @@ function toNumberQuestion(item: NumberItem, index: number): QuizQuestion {
   };
 }
 
+/** A quiz "match" question from 4–5 year-fit bank pairs (null if too few unique pairs). */
+function toMatchQuestion(
+  rng: Rng,
+  pairs: readonly MatchPair[],
+  year: Year,
+  id: string,
+  prompt: Localized,
+): QuizQuestion | null {
+  const picked = cleanMatchPairs(
+    pickYearItems(rng, pairs, MATCH_MAX_PAIRS * 2, year).map((p) => ({ left: p.left, right: p.right })),
+  );
+  if (!picked) return null;
+  return { id, type: "match", prompt, pairs: shuffle(rng, picked), answer: matchAnswerKey(picked) };
+}
+
 /** Fallback for any subject/topic combo with a bank but no bespoke strategy. */
 function genericBankQuestions(rng: Rng, request: QuizRequest): QuizQuestion[] {
-  const bank = (getBank(request.subject, request.topic) ?? []).filter((item) => item.kind !== "match");
-  return pickYearItems(rng, bank, request.count, request.year).map((item, index) => {
+  const bank = getBank(request.subject, request.topic) ?? [];
+  // At most one match board per quiz; the rest are mc / fill / number.
+  const match = bank.find((item): item is MatchItem => item.kind === "match");
+  const first = match
+    ? toMatchQuestion(rng, match.pairs, request.year, `${match.id}-match`, match.title)
+    : null;
+  const rest = bank.filter((item) => item.kind !== "match");
+  const items = rest.length ? pickYearItems(rng, rest, request.count - (first ? 1 : 0), request.year) : [];
+  const questions = items.map((item, index) => {
     if (item.kind === "mc") return toMcQuestion(item, index, rng);
     if (item.kind === "fill") return toFillQuestion(item, index);
-    return toNumberQuestion(item, index);
+    return toNumberQuestion(item as NumberItem, index);
   });
+  return first ? [first, ...questions] : questions;
 }
 
 // ---------------------------------------------------------------------------
@@ -114,7 +139,12 @@ const chineseVocabPairs: MatchPair[] =
 
 function vocabQuestions(rng: Rng, request: QuizRequest): QuizQuestion[] {
   if (chineseVocabPairs.length === 0) return genericBankQuestions(rng, request);
-  return pickYearItems(rng, chineseVocabPairs, request.count, request.year).map((pair, index) => {
+  const match = toMatchQuestion(rng, chineseVocabPairs, request.year, "ch-vocab-match", {
+    zh: "把詞語和意思配對。",
+    en: "把詞語和意思配對。",
+  });
+  const mcCount = request.count - (match ? 1 : 0);
+  const mcs = pickYearItems(rng, chineseVocabPairs, mcCount, request.year).map((pair, index) => {
     const distractors = shuffle(
       rng,
       chineseVocabPairs.filter((other) => other.id !== pair.id),
@@ -137,6 +167,7 @@ function vocabQuestions(rng: Rng, request: QuizRequest): QuizQuestion[] {
       },
     };
   });
+  return match ? [match, ...mcs] : mcs;
 }
 
 function fillBankQuestions(rng: Rng, request: QuizRequest): QuizQuestion[] {
@@ -154,11 +185,16 @@ function gsHealthyLivingQuestions(rng: Rng, request: QuizRequest): QuizQuestion[
   const mcFill = (getBank("gs", "healthy-living") ?? []).filter(
     (item) => item.kind === "mc" || item.kind === "fill",
   );
-  // Prefer MC/fill when available; also turn match pairs into MC like chinese vocab.
+  // One match board from the pairs, plus MC built from the pairs, topped up with MC/fill.
+  const match = toMatchQuestion(rng, gsHealthyPairs, request.year, "gs-hl-match", {
+    zh: "把左右兩邊配對。",
+    en: "把左右兩邊配對。",
+  });
+  const pairMcCount = request.count - (match ? 1 : 0);
   const fromPairs =
     gsHealthyPairs.length === 0
       ? []
-      : pickYearItems(rng, gsHealthyPairs, request.count, request.year).map((pair, index) => {
+      : pickYearItems(rng, gsHealthyPairs, pairMcCount, request.year).map((pair, index) => {
           const distractors = shuffle(
             rng,
             gsHealthyPairs.filter((other) => other.id !== pair.id),
@@ -182,15 +218,16 @@ function gsHealthyLivingQuestions(rng: Rng, request: QuizRequest): QuizQuestion[
             },
           };
         });
-  if (fromPairs.length >= request.count) return fromPairs.slice(0, request.count);
+  const head = match ? [match, ...fromPairs] : fromPairs;
+  if (head.length >= request.count) return head.slice(0, request.count);
   // Top up with authored MC/fill
-  const extra = pickYearItems(rng, mcFill, request.count - fromPairs.length, request.year).map(
+  const extra = pickYearItems(rng, mcFill, request.count - head.length, request.year).map(
     (item, index) => {
       if (item.kind === "mc") return toMcQuestion(item, fromPairs.length + index, rng);
       return toFillQuestion(item, fromPairs.length + index);
     },
   );
-  return [...fromPairs, ...extra].slice(0, request.count);
+  return [...head, ...extra].slice(0, request.count);
 }
 
 // ---------------------------------------------------------------------------

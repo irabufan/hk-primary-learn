@@ -14,10 +14,16 @@ export function parseFraction(raw: string): number | null {
   return numer / denom;
 }
 
-/** Parse a plain decimal/integer or a fraction string into a number. */
+const MIXED_NUMBER_RE = /^(\d+)\s+(\d+)\s*\/\s*(\d+)$/;
+
+/** Parse a plain decimal/integer, a fraction or a mixed number ("1 5/12") into a number. */
 export function parseNumericAnswer(raw: string): number | null {
   const trimmed = String(raw).trim();
   if (!trimmed) return null;
+  const mixed = trimmed.match(MIXED_NUMBER_RE);
+  if (mixed && Number(mixed[3]) !== 0) {
+    return Number(mixed[1]) + Number(mixed[2]) / Number(mixed[3]);
+  }
   const frac = parseFraction(trimmed);
   if (frac !== null) return frac;
   if (!PLAIN_NUMBER_RE.test(trimmed)) return null;
@@ -86,13 +92,48 @@ export function answersEqual(
   return a === b;
 }
 
+/**
+ * Lenient key for typed (fill) answers: full/half-width folded (NFKC), case,
+ * punctuation and all whitespace ignored.
+ */
+export function lenientKey(input: string): string {
+  return normalizeAnswer(normalizeFractionSpacing(String(input).normalize("NFKC"))).replace(/\s+/g, "");
+}
+
+/** "一首" → "首": drop a leading count word in front of a single measure word. */
+function withoutCountWord(key: string): string {
+  const m = key.match(/^(?:一|1)([\u3400-\u9FFF])$/);
+  return m ? m[1] : key;
+}
+
+/** Fill marking: exact/numeric match, or equal after lenient normalisation (with or without 一). */
+export function fillAnswersEqual(given: string, expected: string): boolean {
+  if (answersEqual(given, expected)) return true;
+  const a = lenientKey(given);
+  const b = lenientKey(expected);
+  if (!a || !b) return false;
+  return a === b || withoutCountWord(a) === withoutCountWord(b);
+}
+
+/** Recorded answer for a match item: "<first-try pairs>/<total pairs>". */
+export function matchGiven(firstTry: number, total: number): string {
+  return `${firstTry}/${total}`;
+}
+
 /** Whether a quiz answer (including optional accepts) matches the given value. */
 export function isQuizAnswerRight(
   q: QuizQuestion,
   val: string | number | null | undefined,
 ): boolean {
   if (val === null || val === undefined || val === "") return false;
+  if (q.type === "match") {
+    // Whole item is right only when every pair was matched on the first try.
+    const n = q.pairs?.length ?? 0;
+    return n > 0 && String(val) === matchGiven(n, n);
+  }
   const candidates = [q.answer, ...(q.accepts ?? [])];
+  if (q.type === "fill") {
+    return candidates.some((accepted) => fillAnswersEqual(String(val), accepted));
+  }
   return candidates.some((accepted) => answersEqual(val, accepted));
 }
-

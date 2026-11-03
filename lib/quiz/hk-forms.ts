@@ -45,6 +45,7 @@ function fixQuestion(q: QuizQuestion): QuizQuestion {
     explanation: fixLocalized(q.explanation),
   };
   if (q.choices) next.choices = q.choices.map(toHkForms);
+  if (q.pairs) next.pairs = q.pairs.map((p) => ({ left: toHkForms(p.left), right: toHkForms(p.right) }));
   if (q.type === "fill" && (q.accepts || answer !== q.answer)) {
     // Keep the original spellings accepted so a learner typing 裡/什麼 is not marked wrong.
     const all = [...(q.accepts ?? []).map(toHkForms), ...(q.accepts ?? []), q.answer];
