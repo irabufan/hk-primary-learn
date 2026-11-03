@@ -18,6 +18,7 @@ import type { Quiz, QuizMatchPair, QuizQuestion, QuizQuestionType, QuizRequest }
 import { QUIZ_COUNTS } from "./types";
 import { applyHkForms } from "./hk-forms";
 import { answerTypeGuidance, enforceAnswerTypes, type RuleStats } from "./answer-rules";
+import { buildRuledQuestions } from "./generator";
 
 const DEFAULT_BASE = "https://opencode.ai/zen/go/v1";
 const DEFAULT_MODEL = "gpt-6-luna";
@@ -643,32 +644,115 @@ export async function callChatCompletion(
   }
 }
 
+/** Don't start a backfill call with less time than this left (it runs with thinking off, ~5–10 s). */
+const MIN_BACKFILL_MS = 8_000;
+/** Time kept back for the offline top-up and the response itself. */
+const RESERVE_MS = 1_500;
+
+/**
+ * Repeat key: both prompt languages plus the answer. English items often carry a
+ * generic zh instruction ("選出正確的字。") and match items a generic stem, so the
+ * stem alone (the old `zh || en` key) made distinct items look like repeats.
+ */
+const stemKey = (q: QuizQuestion) =>
+  [q.prompt.zh, q.prompt.en, q.answer].map((s) => (s ?? "").replace(/\s+/g, "").toLowerCase()).join("|");
+
+/**
+ * The single place where questions are dropped after parsing: grade rules over
+ * the merged set (fill / match caps, passage + numeric-key checks, match
+ * exclusivity), repeated stems, then the count cap and unique ids. The shortfall
+ * is always measured on this function's output, so nothing can drop items later.
+ */
+export type FinalizeStats = { rules: number; repeats: number };
+
+export function finalizeQuestions(
+  questions: QuizQuestion[],
+  request: QuizRequest,
+  stats: FinalizeStats = { rules: 0, repeats: 0 },
+): QuizQuestion[] {
+  const ruleStats: RuleStats = { toMc: 0, repairedMc: 0, dropped: 0 };
+  const ruled = enforceAnswerTypes(questions, { year: request.year, subject: request.subject, seed: request.seed }, ruleStats);
+  stats.rules += ruleStats.dropped;
+  const stems = new Set<string>();
+  const ids = new Set<string>();
+  const out: QuizQuestion[] = [];
+  for (const q of ruled) {
+    const key = stemKey(q);
+    if (key && stems.has(key)) {
+      stats.repeats += 1;
+      continue;
+    }
+    stems.add(key);
+    let id = q.id || `q${out.length + 1}`;
+    while (ids.has(id)) id = `${id}-${out.length + 1}`;
+    ids.add(id);
+    out.push(id === q.id ? q : { ...q, id });
+    if (out.length === request.count) break;
+  }
+  return out;
+}
+
+/**
+ * Top up from the offline generator (same grade rules, subject, topic), skipping
+ * stems already in the quiz. Tries a few seeds; small banks may still fall short.
+ */
+export function topUpFromFallback(questions: QuizQuestion[], request: QuizRequest): QuizQuestion[] {
+  let merged = questions;
+  for (let attempt = 1; attempt <= 4 && merged.length < request.count; attempt++) {
+    const have = new Set(merged.map(stemKey));
+    const extra = buildRuledQuestions({ ...request, seed: request.seed + attempt * 104_729 })
+      .filter((q) => !have.has(stemKey(q)))
+      .map((q) => ({ ...q, id: `fb${attempt}-${q.id}` }));
+    merged = finalizeQuestions([...merged, ...extra], request);
+  }
+  return merged;
+}
+
+export type FillPath = "none" | "backfill" | "fallback" | "backfill+fallback" | "short";
+
+type GenerateDeps = {
+  chat?: typeof callChatCompletion;
+  now?: () => number;
+  log?: (line: string) => void;
+};
+
 /**
  * Call the model and parse the quiz (answer-type rules applied), retrying once
  * (thinking off, so it is fast) when the reply is empty, unparseable,
- * rate-limited or a server error. When rules dropped items, one backfill call
- * asks for just the missing ones — as long as enough of the budget is left.
+ * rate-limited or a server error. A shortfall (items dropped by any check) is
+ * filled by one backfill call when the time budget allows, then from the offline
+ * generator, so the quiz always has the requested count. `[quiz/fill]` logs the path.
  */
 export async function generateQuizQuestions(
   system: string,
   user: string,
   sessionId: string,
   request: QuizRequest,
-): Promise<{ questions: QuizQuestion[]; model: string; attempts: number }> {
+  deps: GenerateDeps = {},
+): Promise<{ questions: QuizQuestion[]; model: string; attempts: number; fill: FillPath }> {
+  const chat = deps.chat ?? callChatCompletion;
+  const now = deps.now ?? Date.now;
+  const log = deps.log ?? ((line: string) => console.info(line));
   const { count, seed } = request;
-  const deadline = Date.now() + TOTAL_BUDGET_MS;
+  const deadline = now() + TOTAL_BUDGET_MS;
   let lastError: unknown;
   let result: { questions: QuizQuestion[]; model: string; attempts: number } | undefined;
   for (let attempt = 1; attempt <= 2 && !result; attempt++) {
-    const remaining = deadline - Date.now();
+    const remaining = deadline - now();
     if (attempt > 1 && remaining < MIN_RETRY_MS) break;
     try {
-      const { content, model } = await callChatCompletion(system, user, sessionId, {
+      const { content, model } = await chat(system, user, sessionId, {
         timeoutMs: Math.min(TIMEOUT_MS, remaining),
         thinking: attempt === 1 ? "low" : "off",
       });
       try {
-        result = { questions: parseQuizQuestions(content, count, seed, request), model, attempts: attempt };
+        const fin: FinalizeStats = { rules: 0, repeats: 0 };
+        const raw = parseQuizQuestions(content, QUIZ_COUNTS[QUIZ_COUNTS.length - 1], seed, request);
+        const parsed = finalizeQuestions(raw, request, fin);
+        if (fin.rules || fin.repeats || raw.length < count) {
+          log(`[quiz/fill] ${request.subject}/${request.topic} ${request.year} seed=${seed} first reply: ${raw.length} valid, repeats=${fin.repeats} ruleDrops=${fin.rules}, kept ${parsed.length}/${count}`);
+        }
+        result = { questions: parsed, model, attempts: attempt };
       } catch (err) {
         throw new RetryableLlmError(err instanceof Error ? err.message : "Unparseable quiz");
       }
@@ -680,38 +764,50 @@ export async function generateQuizQuestions(
   }
   if (!result) throw lastError instanceof Error ? lastError : new Error("LLM generation failed");
 
-  const missing = count - result.questions.length;
-  const remaining = deadline - Date.now();
-  if (missing > 0 && remaining >= MIN_RETRY_MS) {
-    const have = result.questions.map((q) => (q.prompt.zh || q.prompt.en || "").slice(0, 120));
+  const tag = `[quiz/fill] ${request.subject}/${request.topic} ${request.year} seed=${seed}`;
+  const firstMissing = count - result.questions.length;
+  if (firstMissing <= 0) return { ...result, fill: "none" };
+
+  let backfilled = 0;
+  const remaining = deadline - now() - RESERVE_MS;
+  if (remaining < MIN_BACKFILL_MS) {
+    log(`${tag} missing=${firstMissing} backfill skipped (${Math.max(0, Math.round(remaining))}ms left)`);
+  } else {
+    const have = result.questions.map((q) => [q.prompt.en, q.prompt.zh].filter(Boolean).join(" / ").slice(0, 160));
+    // Ask for a little extra: some of what comes back may be dropped again.
+    const ask = firstMissing + 1;
     const backfillUser = [
       user,
-      `BACKFILL: return a JSON array of exactly ${missing} NEW question(s) (not ${count}), same rules and ANSWER TYPES. Do not repeat these stems:`,
+      `BACKFILL: return a JSON array of exactly ${ask} NEW question(s) (not ${count}), same rules and ANSWER TYPES. Do not repeat these stems:`,
       ...have.map((s, i) => `${i + 1}. ${s}`),
     ].join("\n");
     try {
-      const { content } = await callChatCompletion(system, backfillUser, `${sessionId}-fill`, {
+      const { content } = await chat(system, backfillUser, `${sessionId}-fill`, {
         timeoutMs: Math.min(TIMEOUT_MS, remaining),
         thinking: "off",
       });
-      const stem = (q: QuizQuestion) => (q.prompt.zh || q.prompt.en || "").replace(/\s+/g, "").toLowerCase();
-      const haveStems = new Set(result.questions.map(stem));
-      // The model sometimes repeats a stem it was told to avoid; skip exact repeats.
-      const extra = parseQuizQuestions(content, count, seed + 7919, request).filter((q) => !haveStems.has(stem(q)));
-      // Re-check the merged set so caps (fill / match per quiz) hold across both calls.
-      const merged = enforceAnswerTypes([...result.questions, ...extra], request).slice(0, count);
-      const seen = new Set<string>();
-      result.questions = merged.map((q, i) => {
-        const id = seen.has(q.id) ? `${q.id}-b${i + 1}` : q.id;
-        seen.add(id);
-        return id === q.id ? q : { ...q, id };
-      });
+      const extra = parseQuizQuestions(content, QUIZ_COUNTS[QUIZ_COUNTS.length - 1], seed + 7919, request).map((q) => ({
+        ...q,
+        id: `b-${q.id}`,
+      }));
+      const before = result.questions.length;
+      result.questions = finalizeQuestions([...result.questions, ...extra], request);
+      backfilled = result.questions.length - before;
       result.attempts += 1;
+      log(`${tag} missing=${firstMissing} backfill +${backfilled} (got ${extra.length}, kept ${backfilled})`);
     } catch (err) {
-      console.warn(`[quiz/generate] backfill failed: ${err instanceof Error ? err.message : err}`);
+      log(`${tag} missing=${firstMissing} backfill failed: ${err instanceof Error ? err.message : err}`);
     }
   }
-  return result;
+
+  if (result.questions.length >= count) return { ...result, fill: "backfill" };
+  const before = result.questions.length;
+  result.questions = topUpFromFallback(result.questions, request);
+  const added = result.questions.length - before;
+  const short = count - result.questions.length;
+  log(`${tag} fallback +${added}${short > 0 ? ` (still ${short} short)` : ""}`);
+  const fill: FillPath = short > 0 ? "short" : backfilled > 0 ? "backfill+fallback" : "fallback";
+  return { ...result, fill };
 }
 
 export function isValidYear(value: unknown): value is Year {

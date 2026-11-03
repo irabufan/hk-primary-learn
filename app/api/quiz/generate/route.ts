@@ -88,12 +88,17 @@ export async function POST(request: Request) {
   const sessionId = `ses-hklearn-${quizRequest.subject}-${quizRequest.topic}-${seed}`;
 
   try {
-    const { questions, model } = await generateQuizQuestions(system, user, sessionId, quizRequest);
+    const { questions, model, fill } = await generateQuizQuestions(system, user, sessionId, quizRequest);
+    // toQuiz only rewrites text (HK forms, subject language); it never drops items.
     const quiz = toQuiz(quizRequest, questions);
+    if (quiz.questions.length < count) {
+      console.warn(`[quiz/fill] ${quizRequest.subject}/${quizRequest.topic} ${quizRequest.year} returned ${quiz.questions.length}/${count}`);
+    }
     return NextResponse.json({
       quiz,
       source: "llm" as const,
       model,
+      fill,
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "LLM generation failed";
