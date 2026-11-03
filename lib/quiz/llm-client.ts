@@ -4,7 +4,7 @@
  *
  * Env (generic preferred; OpenCode Go aliases still work for existing deploys):
  *   LLM_API_KEY   || OPENCODE_GO_API_KEY
- *   LLM_MODEL     || OPENCODE_GO_MODEL     (default: claude-haiku-5-5;
+ *   LLM_MODEL     || OPENCODE_GO_MODEL     (default: gpt-6-luna;
  *                                           set deepseek-v4.1-flash to revert)
  *   LLM_BASE_URL  || OPENCODE_GO_BASE_URL  (default: OpenCode Go zen endpoint)
  */
@@ -18,7 +18,7 @@ import type { Quiz, QuizQuestion, QuizQuestionType, QuizRequest } from "./types"
 import { QUIZ_COUNTS } from "./types";
 
 const DEFAULT_BASE = "https://opencode.ai/zen/go/v1";
-const DEFAULT_MODEL = "claude-haiku-5-5";
+const DEFAULT_MODEL = "gpt-6-luna";
 const TIMEOUT_MS = 55_000;
 /** Whole-request budget (route maxDuration is 60 s); a retry only runs inside it. */
 const TOTAL_BUDGET_MS = 57_000;
@@ -26,8 +26,8 @@ const TOTAL_BUDGET_MS = 57_000;
 const MIN_RETRY_MS = 12_000;
 /**
  * Output budget. DeepSeek stays at 4096 (more lets its reasoning run past the
- * time budget). Claude Haiku writes long reading passages once per question
- * and hit 4096 mid-JSON on P6 reading, so other models get 8192.
+ * time budget). Other models (gpt-6-luna, Claude Haiku) get 8192: Haiku hit
+ * 4096 mid-JSON on P6 reading.
  */
 function maxTokensFor(model: string): number {
   return /deepseek/i.test(model) ? 4096 : 8192;
