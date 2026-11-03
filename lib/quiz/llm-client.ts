@@ -96,7 +96,7 @@ function topicLabel(subject: SubjectSlug, topic: string): { zh: string; en: stri
 const HK_WORDING = [
   "HK WORDING (zh):",
   "- Standard Hong Kong written Chinese (書面語), Traditional characters in HK school forms: 甚麼 (not 什麼), 裏 (not 裡), 着 for zhe/zhuó (穿着, 着急; but 著名, 顯著, 著作 keep 著), 綫/線 as HK textbooks use.",
-  "- Use HK vocabulary, not Mainland or Taiwan terms: 巴士 (not 公車/公交), 雪櫃 (not 冰箱), 擦膠 (not 橡皮擦/橡皮), 的士 (not 計程車), 港鐵 (not 捷運/地鐵), 乳酪 (not 優酪乳), 菠蘿 (not 鳳梨), 薯仔 (not 馬鈴薯/土豆), 單車 (not 腳踏車/自行車), 粒 for small round food (not 顆); 番茄 is fine.",
+  "- Use HK vocabulary, not Mainland or Taiwan terms: 巴士 (not 公車/公交), 雪櫃 (not 冰箱), 擦膠 (not 橡皮擦/橡皮), 的士 (not 計程車), 港鐵 (not 捷運/地鐵), 乳酪 (not 優酪乳), 菠蘿 (not 鳳梨), 薯仔 (not 馬鈴薯/土豆), 單車 (not 腳踏車/自行車), 嫲嫲 for 爸爸的媽媽 (not 奶奶), 粒 for small round food like 糖/魚蛋/葡萄 (not 顆; apples and oranges stay 個); 番茄 is fine.",
   "- No spoken Cantonese (食咗, 幾多, 佢, 唔, 邊個, 落雨) unless a 病句 / 口語 item deliberately tests it.",
   "- Answers must be factually correct in a Hong Kong setting (e.g. MTR etiquette; school roles and places such as 校長室 vs 校務處).",
   "- Stay on the requested topic; do not drift into another subject or topic.",
