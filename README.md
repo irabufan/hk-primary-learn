@@ -21,7 +21,7 @@ npm run build && npm start
 
 ## Live LLM quiz generation (OpenAI-compatible)
 
-Quizzes call an OpenAI-compatible chat completions API (`deepseek-v4.1-flash` by default) via a server route. The API key never reaches the browser. If the key is missing or the call fails, the app falls back to the seeded mock generator.
+Quizzes call an OpenAI-compatible chat completions API (`claude-haiku-5-5` by default; set `LLM_MODEL=deepseek-v4.1-flash` to switch back) via a server route. The API key never reaches the browser. If the key is missing or the call fails, the app falls back to the seeded mock generator.
 
 Default base URL is OpenCode Go (`https://opencode.ai/zen/go/v1`); point `LLM_BASE_URL` at any compatible provider to switch later.
 
@@ -32,7 +32,7 @@ Prefer the generic `LLM_*` names. Existing `OPENCODE_GO_*` values still work (fa
 | Variable | Alias (fallback) | Where | Purpose |
 | --- | --- | --- | --- |
 | `LLM_API_KEY` | `OPENCODE_GO_API_KEY` | server (`.env.local` / Vercel) | Bearer token |
-| `LLM_MODEL` | `OPENCODE_GO_MODEL` | server (optional) | Model id, default `deepseek-v4.1-flash` |
+| `LLM_MODEL` | `OPENCODE_GO_MODEL` | server (optional) | Model id, default `claude-haiku-5-5` (`deepseek-v4.1-flash` also supported) |
 | `LLM_BASE_URL` | `OPENCODE_GO_BASE_URL` | server (optional) | Default `https://opencode.ai/zen/go/v1` |
 | `NEXT_PUBLIC_QUIZ_GENERATOR` | — | client (optional) | `llm` (default) or `mock` to force mock |
 
@@ -42,7 +42,7 @@ Prefer the generic `LLM_*` names. Existing `OPENCODE_GO_*` values still work (fa
 
 ```bash
 set -a && source ~/.config/opencode/go.env && set +a
-printf 'LLM_API_KEY=%s\nLLM_MODEL=deepseek-v4.1-flash\nNEXT_PUBLIC_QUIZ_GENERATOR=llm\n' "$OPENCODE_GO_API_KEY" > .env.local
+printf 'LLM_API_KEY=%s\nLLM_MODEL=claude-haiku-5-5\nNEXT_PUBLIC_QUIZ_GENERATOR=llm\n' "$OPENCODE_GO_API_KEY" > .env.local
 ```
 
 ### Architecture

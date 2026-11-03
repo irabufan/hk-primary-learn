@@ -4,7 +4,8 @@
  *
  * Env (generic preferred; OpenCode Go aliases still work for existing deploys):
  *   LLM_API_KEY   || OPENCODE_GO_API_KEY
- *   LLM_MODEL     || OPENCODE_GO_MODEL
+ *   LLM_MODEL     || OPENCODE_GO_MODEL     (default: claude-haiku-5-5;
+ *                                           set deepseek-v4.1-flash to revert)
  *   LLM_BASE_URL  || OPENCODE_GO_BASE_URL  (default: OpenCode Go zen endpoint)
  */
 
@@ -17,13 +18,20 @@ import type { Quiz, QuizQuestion, QuizQuestionType, QuizRequest } from "./types"
 import { QUIZ_COUNTS } from "./types";
 
 const DEFAULT_BASE = "https://opencode.ai/zen/go/v1";
-const DEFAULT_MODEL = "deepseek-v4.1-flash";
+const DEFAULT_MODEL = "claude-haiku-5-5";
 const TIMEOUT_MS = 55_000;
 /** Whole-request budget (route maxDuration is 60 s); a retry only runs inside it. */
 const TOTAL_BUDGET_MS = 57_000;
 /** Don't start a retry with less time than this left. */
 const MIN_RETRY_MS = 12_000;
-const MAX_TOKENS = 4096;
+/**
+ * Output budget. DeepSeek stays at 4096 (more lets its reasoning run past the
+ * time budget). Claude Haiku writes long reading passages once per question
+ * and hit 4096 mid-JSON on P6 reading, so other models get 8192.
+ */
+function maxTokensFor(model: string): number {
+  return /deepseek/i.test(model) ? 4096 : 8192;
+}
 const USER_AGENT = "hk-primary-learn/0.1";
 
 export function getLlmConfig(): {
@@ -528,7 +536,7 @@ export async function callChatCompletion(
         body: JSON.stringify({
           model,
           temperature: 0.7,
-          max_tokens: MAX_TOKENS,
+          max_tokens: maxTokensFor(model),
           messages: [
             { role: "system", content: system },
             { role: "user", content: user },
