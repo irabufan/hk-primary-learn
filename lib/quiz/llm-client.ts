@@ -19,6 +19,7 @@ import { QUIZ_COUNTS } from "./types";
 import { applyHkForms } from "./hk-forms";
 import { answerTypeGuidance, enforceAnswerTypes, type RuleStats } from "./answer-rules";
 import { buildRuledQuestions } from "./generator";
+import { AVOID_MAX, AVOID_STEM_MAX, matchesAvoid, parseAvoidKeys } from "./avoid";
 
 const DEFAULT_BASE = "https://opencode.ai/zen/go/v1";
 const DEFAULT_MODEL = "gpt-6-luna";
@@ -199,8 +200,8 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
   const avoid = (request.avoidPrompts ?? [])
     .map((s) => (typeof s === "string" ? s.trim() : ""))
     .filter(Boolean)
-    .slice(0, 15)
-    .map((s) => s.slice(0, 160));
+    .slice(0, AVOID_MAX)
+    .map((s) => s.slice(0, AVOID_STEM_MAX));
 
   const userParts = [
     `Subject: ${request.subject}`,
@@ -215,8 +216,8 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
   ];
   if (avoid.length) {
     userParts.push(
-      "AVOID reusing these previous question stems (do not reuse the same blanks, same facts, near-identical wording, or the same MC sets). Make meaningfully different items:",
-      ...avoid.map((s, i) => `${i + 1}. ${s}`),
+      "SEEN (items this learner already did; stem → answer). Do not repeat them: use different sentences, facts and examples (the same grammar point or answer word is fine):",
+      ...avoid.map((s) => `- ${s}`),
     );
   }
   userParts.push("Return the JSON array now.");
@@ -684,7 +685,7 @@ const stemKey = (q: QuizQuestion) =>
  * exclusivity), repeated stems, then the count cap and unique ids. The shortfall
  * is always measured on this function's output, so nothing can drop items later.
  */
-export type FinalizeStats = { rules: number; repeats: number };
+export type FinalizeStats = { rules: number; repeats: number; avoid?: number };
 
 export function finalizeQuestions(
   questions: QuizQuestion[],
@@ -694,6 +695,7 @@ export function finalizeQuestions(
   const ruleStats: RuleStats = { toMc: 0, repairedMc: 0, dropped: 0 };
   const ruled = enforceAnswerTypes(questions, { year: request.year, subject: request.subject, seed: request.seed }, ruleStats);
   stats.rules += ruleStats.dropped;
+  const avoidKeys = parseAvoidKeys(request.avoidPrompts?.slice(0, AVOID_MAX));
   const stems = new Set<string>();
   const ids = new Set<string>();
   const out: QuizQuestion[] = [];
@@ -704,6 +706,11 @@ export function finalizeQuestions(
       continue;
     }
     stems.add(key);
+    // Near-repeat of an item the learner saw in an earlier quiz (avoidPrompts).
+    if (matchesAvoid(q, avoidKeys)) {
+      stats.avoid = (stats.avoid ?? 0) + 1;
+      continue;
+    }
     let id = q.id || `q${out.length + 1}`;
     while (ids.has(id)) id = `${id}-${out.length + 1}`;
     ids.add(id);
@@ -717,7 +724,9 @@ export function finalizeQuestions(
  * Top up from the offline generator (same grade rules, subject, topic), skipping
  * stems already in the quiz. Tries a few seeds; small banks may still fall short.
  */
-export function topUpFromFallback(questions: QuizQuestion[], request: QuizRequest): QuizQuestion[] {
+export function topUpFromFallback(questions: QuizQuestion[], quizRequest: QuizRequest): QuizQuestion[] {
+  // The small offline bank is the last resort: never filtered by the avoid list, so the quiz still fills.
+  const request: QuizRequest = { ...quizRequest, avoidPrompts: undefined };
   let merged = questions;
   for (let attempt = 1; attempt <= 4 && merged.length < request.count; attempt++) {
     const have = new Set(merged.map(stemKey));
@@ -778,11 +787,11 @@ export async function generateQuizQuestions(
   const deadline = now() + TOTAL_BUDGET_MS;
   let lastError: unknown;
   let result: { questions: QuizQuestion[]; model: string; attempts: number } | undefined;
-  const fin: FinalizeStats = { rules: 0, repeats: 0 };
+  const fin: FinalizeStats = { rules: 0, repeats: 0, avoid: 0 };
   let rawCount = 0;
   const firstReplyLog = (parsed: QuizQuestion[], note = "") => {
-    if (fin.rules || fin.repeats || parsed.length < count) {
-      log(`[quiz/fill] ${request.subject}/${request.topic} ${request.year} seed=${seed} first reply${note}: ${rawCount} valid, repeats=${fin.repeats} ruleDrops=${fin.rules}, kept ${parsed.length}/${count}`);
+    if (fin.rules || fin.repeats || fin.avoid || parsed.length < count) {
+      log(`[quiz/fill] ${request.subject}/${request.topic} ${request.year} seed=${seed} first reply${note}: ${rawCount} valid, repeats=${fin.repeats} ruleDrops=${fin.rules} avoidDrops=${fin.avoid}, kept ${parsed.length}/${count}`);
     }
   };
 
@@ -860,6 +869,7 @@ export async function generateQuizQuestions(
     const have = result.questions.map((q) => [q.prompt.en, q.prompt.zh].filter(Boolean).join(" / ").slice(0, 160));
     // Ask for a little extra: some of what comes back may be dropped again.
     const ask = firstMissing + 1;
+    // `user` already carries the SEEN (avoidPrompts) block, so backfill items avoid it too.
     const backfillUser = [
       user,
       `BACKFILL: return a JSON array of exactly ${ask} NEW question(s) (not ${count}), same rules and ANSWER TYPES. Do not repeat these stems:`,
@@ -875,10 +885,11 @@ export async function generateQuizQuestions(
         id: `b-${q.id}`,
       }));
       const before = result.questions.length;
-      result.questions = finalizeQuestions([...result.questions, ...extra], request);
+      const bfStats: FinalizeStats = { rules: 0, repeats: 0, avoid: 0 };
+      result.questions = finalizeQuestions([...result.questions, ...extra], request, bfStats);
       backfilled = result.questions.length - before;
       result.attempts += 1;
-      log(`${tag} missing=${firstMissing} backfill +${backfilled} (got ${extra.length}, kept ${backfilled})`);
+      log(`${tag} missing=${firstMissing} backfill +${backfilled} (got ${extra.length}, kept ${backfilled}, avoidDrops=${bfStats.avoid})`);
     } catch (err) {
       log(`${tag} missing=${firstMissing} backfill failed: ${err instanceof Error ? err.message : err}`);
     }

@@ -10,23 +10,10 @@ import { isSubjectSlug, isYear, type SubjectSlug, type Year } from "@/lib/curric
 import { useI18n } from "@/lib/i18n/provider";
 import { createQuizGenerator, type QuizSource, type QuizWithSource } from "@/lib/quiz/llm-stub";
 import type { Quiz } from "@/lib/quiz/types";
+import { readQuizHistory, rememberQuiz } from "@/lib/quiz/avoid";
 import { randomSeed } from "@/lib/rng";
 import { addProgress } from "@/lib/storage";
 
-
-/** Short stem fingerprints for regenerate — keep payload small. */
-function quizAvoidPrompts(quiz: Quiz): string[] {
-  const out: string[] = [];
-  for (const q of quiz.questions) {
-    const parts = [q.prompt.zh, q.prompt.en]
-      .map((s) => s?.trim())
-      .filter((s): s is string => Boolean(s));
-    const unique = [...new Set(parts)];
-    const stem = unique.join(" / ").slice(0, 160);
-    if (stem) out.push(stem);
-  }
-  return out.slice(0, 15);
-}
 
 type Phase = "setup" | "play" | "results";
 
@@ -64,17 +51,19 @@ function QuizPageInner() {
     async (
       opts: { subject: SubjectSlug; topic: string; year: Year; count: number },
       seed?: number,
-      avoidPrompts?: string[],
     ) => {
       setBusy(true);
       setLastOpts(opts);
       try {
         const gen = createQuizGenerator();
+        // Every generate (setup start and regenerate) sends this topic's recent stems.
+        const avoidPrompts = readQuizHistory(opts.subject, opts.topic, opts.year);
         const q = (await gen.generate({
           ...opts,
           seed: seed ?? randomSeed(),
           ...(avoidPrompts?.length ? { avoidPrompts } : {}),
         })) as QuizWithSource;
+        rememberQuiz({ ...q, subject: opts.subject, topic: opts.topic, year: opts.year });
         setQuiz(q);
         setSource(q.source);
         setPlayKey((k) => k + 1);
@@ -148,7 +137,7 @@ function QuizPageInner() {
           }}
           onRegenerate={() => {
             if (lastOpts) {
-              void generate(lastOpts, randomSeed(), quizAvoidPrompts(quiz));
+              void generate(lastOpts, randomSeed());
             }
           }}
           onSetup={() => {

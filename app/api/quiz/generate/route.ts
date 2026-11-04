@@ -7,6 +7,7 @@ import {
   isValidYear,
   toQuiz,
 } from "@/lib/quiz/llm-client";
+import { AVOID_MAX, AVOID_STEM_MAX } from "@/lib/quiz/avoid";
 import { QUIZ_COUNTS, type QuizRequest } from "@/lib/quiz/types";
 
 export const runtime = "nodejs";
@@ -28,8 +29,8 @@ function normalizeAvoidPrompts(value: unknown): string[] | undefined {
     if (typeof item !== "string") continue;
     const trimmed = item.trim();
     if (!trimmed) continue;
-    out.push(trimmed.slice(0, 160));
-    if (out.length >= 15) break;
+    out.push(trimmed.slice(0, AVOID_STEM_MAX));
+    if (out.length >= AVOID_MAX) break;
   }
   return out.length ? out : undefined;
 }
