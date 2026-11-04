@@ -10,7 +10,7 @@
  */
 
 import { getTopic, topicsForYear, type SubjectSlug, type Year } from "@/lib/curriculum";
-import { curriculumGuidanceBlock, topicScope } from "@/lib/curriculum-guidance";
+import { curriculumGuidanceBlock, offTopicTerms, topicScope } from "@/lib/curriculum-guidance";
 import { retrieveCurriculumContext } from "@/lib/curriculum-retrieve";
 import type { Localized } from "@/lib/i18n/types";
 import { mulberry32, shuffle } from "@/lib/rng";
@@ -105,14 +105,21 @@ function topicScopeBlock(request: QuizRequest): string {
   const scope =
     topicScope(request.year, request.subject, request.topic) ??
     (topic ? `${topic.blurb.zh} / ${topic.blurb.en}` : undefined);
+  // Name the other topics with their units for this year, so "not this quiz" is concrete.
   const others = topicsForYear(request.subject, request.year)
     .filter((t) => t.slug !== request.topic)
-    .map((t) => `${t.name.zh} ${t.name.en}`);
+    .map((t) => {
+      const units = topicScope(request.year, request.subject, t.slug);
+      return `${t.name.zh} ${t.name.en}${units ? ` (${units})` : ""}`;
+    });
   const lines = [`TOPIC (strict): every item must TEST ${label.zh} / ${label.en}${scope ? ` — in scope: ${scope}` : ""}.`];
   if (others.length) {
     lines.push(
-      `Not this quiz: the other ${request.subject} topics (${others.join("; ")}). Do not write items on them, even when curriculum lines below mention them. A ${label.zh} setting does not make an item on-topic (e.g. an energy or friction question set in a clinic or community centre is still science).`,
+      `Not this quiz: the other ${request.subject} topics — ${others.join("; ")}. Do not write items on them, even when curriculum lines below mention them. A ${label.zh} setting does not make an item on-topic (e.g. an energy or friction question set in a clinic or community centre is still science). This holds for every item, including the last ones and any spares.`,
     );
+  }
+  if (request.subject === "gs" && request.topic === "healthy-living") {
+    lines.push("Safety items test safe habits (what to do, e.g. 濕手不碰插頭、電線破損要告訴大人), never how electricity, circuits, conductors, insulators or materials work.");
   }
   return lines.join("\n");
 }
@@ -708,7 +715,14 @@ const stemKey = (q: QuizQuestion) =>
  * exclusivity), repeated stems, then the count cap and unique ids. The shortfall
  * is always measured on this function's output, so nothing can drop items later.
  */
-export type FinalizeStats = { rules: number; repeats: number; avoid?: number };
+export type FinalizeStats = { rules: number; repeats: number; avoid?: number; topic?: number };
+
+/** Stem, answer, choices and match pairs — what an item actually tests. */
+function testedText(q: QuizQuestion): string {
+  return [q.prompt.zh, q.prompt.en, q.answer, ...(q.choices ?? []), ...(q.pairs ?? []).flatMap((p) => [p.left, p.right])]
+    .filter(Boolean)
+    .join(" ");
+}
 
 export function finalizeQuestions(
   questions: QuizQuestion[],
@@ -719,6 +733,7 @@ export function finalizeQuestions(
   const ruled = enforceAnswerTypes(questions, { year: request.year, subject: request.subject, seed: request.seed }, ruleStats);
   stats.rules += ruleStats.dropped;
   const avoidKeys = parseAvoidKeys(request.avoidPrompts?.slice(0, AVOID_MAX));
+  const offTopic = offTopicTerms(request.subject, request.topic);
   const stems = new Set<string>();
   const ids = new Set<string>();
   const out: QuizQuestion[] = [];
@@ -729,6 +744,11 @@ export function finalizeQuestions(
       continue;
     }
     stems.add(key);
+    // Uses a term that only belongs to another topic of the subject (e.g. 導電體 in 健康生活).
+    if (offTopic?.test(testedText(q))) {
+      stats.topic = (stats.topic ?? 0) + 1;
+      continue;
+    }
     // Near-repeat of an item the learner saw in an earlier quiz (avoidPrompts).
     if (matchesAvoid(q, avoidKeys)) {
       stats.avoid = (stats.avoid ?? 0) + 1;
@@ -779,6 +799,15 @@ export function partUserPrompt(user: string, count: number, part: 1 | 2): string
     .replace(/Return the JSON array now\.$/, `${note}\nReturn the JSON array now.`);
 }
 
+/** Which pipeline step produced an item, from its id prefix (logged per slot). */
+function slotSource(id: string): string {
+  if (id.startsWith("p1-")) return "h1";
+  if (id.startsWith("p2-")) return "h2";
+  if (id.startsWith("b-")) return "bf";
+  if (id.startsWith("fb")) return "off";
+  return "one";
+}
+
 export type FillPath = "none" | "backfill" | "fallback" | "backfill+fallback" | "short";
 
 type GenerateDeps = {
@@ -810,11 +839,11 @@ export async function generateQuizQuestions(
   const deadline = now() + TOTAL_BUDGET_MS;
   let lastError: unknown;
   let result: { questions: QuizQuestion[]; model: string; attempts: number } | undefined;
-  const fin: FinalizeStats = { rules: 0, repeats: 0, avoid: 0 };
+  const fin: FinalizeStats = { rules: 0, repeats: 0, avoid: 0, topic: 0 };
   let rawCount = 0;
   const firstReplyLog = (parsed: QuizQuestion[], note = "") => {
-    if (fin.rules || fin.repeats || fin.avoid || parsed.length < count) {
-      log(`[quiz/fill] ${request.subject}/${request.topic} ${request.year} seed=${seed} first reply${note}: ${rawCount} valid, repeats=${fin.repeats} ruleDrops=${fin.rules} avoidDrops=${fin.avoid}, kept ${parsed.length}/${count}`);
+    if (fin.rules || fin.repeats || fin.avoid || fin.topic || parsed.length < count) {
+      log(`[quiz/fill] ${request.subject}/${request.topic} ${request.year} seed=${seed} first reply${note}: ${rawCount} valid, repeats=${fin.repeats} ruleDrops=${fin.rules} avoidDrops=${fin.avoid} topicDrops=${fin.topic}, kept ${parsed.length}/${count}`);
     }
   };
 
@@ -881,8 +910,12 @@ export async function generateQuizQuestions(
   if (!result) throw lastError instanceof Error ? lastError : new Error("LLM generation failed");
 
   const tag = `[quiz/fill] ${request.subject}/${request.topic} ${request.year} seed=${seed}`;
+  const done = <T extends { questions: QuizQuestion[] }>(r: T, fill: FillPath) => {
+    log(`${tag} count=${count} fill=${fill} slots=${r.questions.map((q) => slotSource(q.id)).join(",")}`);
+    return { ...r, fill };
+  };
   const firstMissing = count - result.questions.length;
-  if (firstMissing <= 0) return { ...result, fill: "none" };
+  if (firstMissing <= 0) return done(result, "none");
 
   let backfilled = 0;
   const remaining = deadline - now() - RESERVE_MS;
@@ -908,24 +941,24 @@ export async function generateQuizQuestions(
         id: `b-${q.id}`,
       }));
       const before = result.questions.length;
-      const bfStats: FinalizeStats = { rules: 0, repeats: 0, avoid: 0 };
+      const bfStats: FinalizeStats = { rules: 0, repeats: 0, avoid: 0, topic: 0 };
       result.questions = finalizeQuestions([...result.questions, ...extra], request, bfStats);
       backfilled = result.questions.length - before;
       result.attempts += 1;
-      log(`${tag} missing=${firstMissing} backfill +${backfilled} (got ${extra.length}, kept ${backfilled}, avoidDrops=${bfStats.avoid})`);
+      log(`${tag} missing=${firstMissing} backfill +${backfilled} (got ${extra.length}, kept ${backfilled}, avoidDrops=${bfStats.avoid} topicDrops=${bfStats.topic})`);
     } catch (err) {
       log(`${tag} missing=${firstMissing} backfill failed: ${err instanceof Error ? err.message : err}`);
     }
   }
 
-  if (result.questions.length >= count) return { ...result, fill: "backfill" };
+  if (result.questions.length >= count) return done(result, "backfill");
   const before = result.questions.length;
   result.questions = topUpFromFallback(result.questions, request);
   const added = result.questions.length - before;
   const short = count - result.questions.length;
   log(`${tag} fallback +${added}${short > 0 ? ` (still ${short} short)` : ""}`);
   const fill: FillPath = short > 0 ? "short" : backfilled > 0 ? "backfill+fallback" : "fallback";
-  return { ...result, fill };
+  return done(result, fill);
 }
 
 export function isValidYear(value: unknown): value is Year {

@@ -549,3 +549,18 @@ export function curriculumGuidanceBlock(
 export function topicScope(year: Year, subject: SubjectSlug, topic: string): string | undefined {
   return YEAR_SPECS[subject][year].topicFocus?.[topic];
 }
+
+const SCIENCE_TERMS = "導電|絕緣體|電路|銅線|銅芯|磁鐵|磁極|磁力|蒸發|凝結|凝固|熔化|能量轉換|摩擦力|槓桿|滑輪|斜面|光的反射";
+/**
+ * Terms that only belong to another 常識 topic. An item whose stem, answer or
+ * choices use one is dropped (then refilled) — a cheap guard behind the prompt.
+ */
+const OFF_TOPIC_TERMS: Record<string, RegExp> = {
+  "gs/healthy-living": new RegExp(`${SCIENCE_TERMS}|回收桶|三色回收`),
+  "gs/community": new RegExp(`${SCIENCE_TERMS}|飲食金字塔|青春期|蛀牙`),
+  "gs/nature-science": /飲食金字塔|傷風|感冒|蛀牙|青春期|情緒/,
+};
+
+export function offTopicTerms(subject: SubjectSlug, topic: string): RegExp | undefined {
+  return OFF_TOPIC_TERMS[`${subject}/${topic}`];
+}
