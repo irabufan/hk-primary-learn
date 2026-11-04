@@ -9,8 +9,8 @@
  *   LLM_BASE_URL  || OPENCODE_GO_BASE_URL  (default: OpenCode Go zen endpoint)
  */
 
-import type { SubjectSlug, Year } from "@/lib/curriculum";
-import { curriculumGuidanceBlock } from "@/lib/curriculum-guidance";
+import { getTopic, topicsForYear, type SubjectSlug, type Year } from "@/lib/curriculum";
+import { curriculumGuidanceBlock, topicScope } from "@/lib/curriculum-guidance";
 import { retrieveCurriculumContext } from "@/lib/curriculum-retrieve";
 import type { Localized } from "@/lib/i18n/types";
 import { mulberry32, shuffle } from "@/lib/rng";
@@ -95,6 +95,28 @@ function topicLabel(subject: SubjectSlug, topic: string): { zh: string; en: stri
   return TOPIC_LABELS[`${subject}/${topic}`] ?? { zh: topic, en: topic };
 }
 
+/**
+ * Strict topic scope: what this topic covers for the year, and the subject's other
+ * topics, which the year-wide curriculum lines also mention but this quiz must not test.
+ */
+function topicScopeBlock(request: QuizRequest): string {
+  const label = topicLabel(request.subject, request.topic);
+  const topic = getTopic(request.subject, request.topic);
+  const scope =
+    topicScope(request.year, request.subject, request.topic) ??
+    (topic ? `${topic.blurb.zh} / ${topic.blurb.en}` : undefined);
+  const others = topicsForYear(request.subject, request.year)
+    .filter((t) => t.slug !== request.topic)
+    .map((t) => `${t.name.zh} ${t.name.en}`);
+  const lines = [`TOPIC (strict): every item must TEST ${label.zh} / ${label.en}${scope ? ` — in scope: ${scope}` : ""}.`];
+  if (others.length) {
+    lines.push(
+      `Not this quiz: the other ${request.subject} topics (${others.join("; ")}). Do not write items on them, even when curriculum lines below mention them. A ${label.zh} setting does not make an item on-topic (e.g. an energy or friction question set in a clinic or community centre is still science).`,
+    );
+  }
+  return lines.join("\n");
+}
+
 /** Appended to every quiz with Chinese text (chinese, gs, maths). Rules only — no example questions. */
 const HK_WORDING = [
   "HK WORDING (zh):",
@@ -133,7 +155,7 @@ function languageGuidance(subject: SubjectSlug): string {
       "- NEVER write English-only question stems for 常識 quizzes. Stems must be Traditional Chinese (HK primary General Studies flavour).",
       "- en may be omitted, or a brief English gloss only — never use en as the primary stem while zh is missing or weaker.",
       "- Choices and answers MUST be Traditional Chinese (or short HK-familiar terms), never English-only options for a 常識 item.",
-      "- Topics: healthy living, community (MTR / wet market / recycling), nature & science — kid-friendly HK daily life; keep national-identity content light or skip.",
+      "- Kid-friendly HK daily-life settings; keep national-identity content light or skip.",
       HK_WORDING,
     ].join(" ");
   }
@@ -207,6 +229,7 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     `Subject: ${request.subject}`,
     `Topic: ${label.en} / ${label.zh} (slug: ${request.topic})`,
     `Year: ${request.year}`,
+    topicScopeBlock(request),
     `Question count: ${count + FIRST_CALL_EXTRA} (${count} are used; the ${FIRST_CALL_EXTRA} spare items replace any that fail a check)`,
     `Seed (variety token — produce a distinct quiz for each seed): ${request.seed}`,
     languageGuidance(request.subject),

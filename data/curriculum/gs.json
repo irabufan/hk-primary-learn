@@ -106,8 +106,7 @@
     "id": "gs-people-env-ks2",
     "subject": "gs",
     "topics": [
-      "nature-science",
-      "community"
+      "nature-science"
     ],
     "band": "KS2",
     "text_en": "People & Environment KS2: life cycles; biodiversity and classification; adaptations (e.g. camouflage, needle leaves); interdependence and conservation; climate/environment concern at primary level.",
@@ -136,40 +135,6 @@
     "band": "KS2",
     "text_en": "Science & Technology KS2 core: light reflection, sound, closed circuits; energy conversion; friction and magnetic force; simple machines (lever, inclined plane); reversible vs irreversible changes (three forms of water vs burning); Earth/Moon/Sun patterns (eclipses); Solar System wonder; coding for computational thinking lightly; responsible use of tech.",
     "source": "General Studies Curriculum Guide for Primary Schools (2017)",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "kind": "objective"
-  },
-  {
-    "id": "gs-p3-bridge",
-    "subject": "gs",
-    "topics": [
-      "healthy-living",
-      "community",
-      "nature-science"
-    ],
-    "years": [
-      "P3"
-    ],
-    "text_zh": "小三：仍屬 KS1——衛生與安全、社區規則、物料與力的初步觀察；題幹稍長但仍具體。",
-    "text_en": "P3: still KS1 — hygiene/safety, community rules, early materials/forces observation; slightly longer but concrete stems.",
-    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
-    "kind": "objective"
-  },
-  {
-    "id": "gs-p6",
-    "subject": "gs",
-    "topics": [
-      "healthy-living",
-      "community",
-      "nature-science"
-    ],
-    "years": [
-      "P6"
-    ],
-    "text_zh": "小六：青春期與情緒管理輕觸即可；可再生能源／簡單機械；社區健康與說不；避免沉重國民身份論述（本 POC 從輕）。",
-    "text_en": "P6: light touch on puberty/emotions; renewable energy / simple machines; community health and refusal skills; keep national-identity content light for this POC.",
-    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "kind": "objective"
   },
@@ -301,8 +266,7 @@
     "subject": "gs",
     "kind": "practice",
     "topics": [
-      "nature-science",
-      "community"
+      "nature-science"
     ],
     "band": "KS2",
     "text_en": "Human-impact chain: everyday action → pollutant pathway → freshwater effect (e.g. litter→plastic pollution→harm to river life; fertiliser→nutrients→algal blooms). Complete a 3-box cause–effect diagram.",
@@ -405,35 +369,181 @@
     "kind": "objective"
   },
   {
-    "id": "gs-p4",
+    "id": "gs-p3-health",
     "subject": "gs",
     "topics": [
-      "healthy-living",
-      "community",
-      "nature-science"
+      "healthy-living"
     ],
     "years": [
-      "P4"
+      "P3"
     ],
-    "text_zh": "小四：水的三態變化名稱（蒸發、凝結、凝固、熔化）；磁鐵與磁極；簡單電路與導電體；健康飲食金字塔；預防傳染病；社區回收。",
-    "text_en": "P4: name the changes of state of water (evaporation, condensation, freezing, melting); magnets and poles; simple circuits and conductors; healthy eating pyramid; preventing infectious diseases; community recycling.",
+    "text_zh": "小三健康生活：預防傷風感冒（洗手、掩口鼻、按天氣添衣）；均衡飲食與食物種類初步；作息與運動；家居、遊樂場及防火安全；與人相處和情緒。",
+    "text_en": "P3 healthy living: preventing colds (handwashing, covering coughs, dressing for the weather); first look at a balanced diet and food groups; routines and exercise; home, playground and fire safety; getting along with others and feelings.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "kind": "objective"
   },
   {
-    "id": "gs-p5",
+    "id": "gs-p3-community",
     "subject": "gs",
     "topics": [
-      "healthy-living",
-      "community",
+      "community"
+    ],
+    "years": [
+      "P3"
+    ],
+    "text_zh": "小三社區與生活：香港的地區與地標；香港的交通工具和網絡（港鐵、輕鐵、渡輪、巴士）；社區設施和公共規則；節約用水用電的家居好習慣；在家庭和學校的責任。",
+    "text_en": "P3 community: Hong Kong districts and landmarks; HK transport (MTR, Light Rail, ferry, bus); community facilities and public rules; saving water and electricity at home; responsibilities at home and school.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "gs-p3-nature",
+    "subject": "gs",
+    "topics": [
+      "nature-science"
+    ],
+    "years": [
+      "P3"
+    ],
+    "text_zh": "小三自然與科學：光與影（影子的形成、長短和方向）；物料的特性（透明、防水、吸水、軟硬）；冰、水、水蒸氣的觀察；推和拉；動植物的生長和生命周期初步。",
+    "text_en": "P3 nature & science: light and shadows (how shadows form, length, direction); properties of materials (transparent, waterproof, absorbent, hard/soft); observing ice, water and steam; pushes and pulls; growth and simple life cycles of plants and animals.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "gs-p4-health",
+    "subject": "gs",
+    "topics": [
+      "healthy-living"
+    ],
+    "years": [
+      "P4"
+    ],
+    "text_zh": "小四健康生活：健康飲食金字塔及食物類別；預防傳染病（病菌傳播途徑、洗手、戴口罩、接種疫苗、環境衞生）；牙齒護理；作息、睡眠與運動；正確用藥及簡單急救；交通及家居安全習慣。",
+    "text_en": "P4 healthy living: the healthy eating pyramid and food groups; preventing infectious diseases (how germs spread, handwashing, masks, vaccination, clean surroundings); dental care; routines, sleep and exercise; using medicine correctly and simple first aid; road and home safety habits.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "gs-p4-community",
+    "subject": "gs",
+    "topics": [
+      "community"
+    ],
+    "years": [
+      "P4"
+    ],
+    "text_zh": "小四社區與生活：社區回收（三色回收箱、減廢）；愛護公共設施和環境；社區服務及義工；公共服務（醫院、消防、警察、圖書館）；鄰里關係和屋苑規則。",
+    "text_en": "P4 community: community recycling (three-colour bins, waste reduction); caring for public facilities and spaces; community services and volunteering; public services (hospitals, fire, police, libraries); neighbours and estate rules.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "gs-p4-nature",
+    "subject": "gs",
+    "topics": [
+      "nature-science"
+    ],
+    "years": [
+      "P4"
+    ],
+    "text_zh": "小四自然與科學：水的三態變化（蒸發、凝結、凝固、熔化）；磁鐵與磁極；簡單電路、導電體和絕緣體；動植物的分類。",
+    "text_en": "P4 nature & science: changes of state of water (evaporation, condensation, freezing, melting); magnets and poles; simple circuits, conductors and insulators; classifying plants and animals.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "gs-p5-health",
+    "subject": "gs",
+    "topics": [
+      "healthy-living"
+    ],
+    "years": [
+      "P5"
+    ],
+    "text_zh": "小五健康生活（解釋原因）：青春期初步變化與個人衞生；身體系統（消化、呼吸、血液循環）的功能；情緒與壓力處理；拒絕吸煙、酗酒和毒品；健康使用電子產品；為甚麼要有均衡生活習慣。",
+    "text_en": "P5 healthy living (explain why): early puberty changes and personal hygiene; functions of body systems (digestion, breathing, circulation); handling emotions and stress; refusing smoking, alcohol and drugs; healthy use of screens; why balanced habits matter.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "gs-p5-community",
+    "subject": "gs",
+    "topics": [
+      "community"
+    ],
+    "years": [
+      "P5"
+    ],
+    "text_zh": "小五社區與生活（解釋原因）：社區及環保行動的原因與影響；公民的權利與責任初步；香港的經濟活動與職業；香港與內地的聯繫（從輕）；社區問題（如噪音、衞生、交通擠塞）的成因和解決方法。",
+    "text_en": "P5 community (explain why): causes and effects of community and green actions; basic rights and responsibilities of citizens; HK economic activities and jobs; HK–Mainland links (light); causes of and solutions to community problems (noise, hygiene, traffic congestion).",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "gs-p5-nature",
+    "subject": "gs",
+    "topics": [
       "nature-science"
     ],
     "years": [
       "P5"
     ],
-    "text_zh": "小五：解釋因果——光的反射與聲音、能量轉換、摩擦力；水污染與保育；青春期初步變化；社區及環保行動的原因與影響。",
-    "text_en": "P5: explain causes and effects — light reflection and sound, energy conversion, friction; water pollution and conservation; early puberty changes; why community and environmental actions matter.",
+    "text_zh": "小五自然與科學（解釋因果）：光的反射；聲音的產生和傳播；能量轉換；摩擦力；水污染與保育；生物適應環境；日、月、地球的運行。",
+    "text_en": "P5 nature & science (cause and effect): reflection of light; how sound is made and travels; energy conversion; friction; water pollution and conservation; adaptation of living things; movements of the Sun, Moon and Earth.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "gs-p6-health",
+    "subject": "gs",
+    "topics": [
+      "healthy-living"
+    ],
+    "years": [
+      "P6"
+    ],
+    "text_zh": "小六健康生活（比較與評鑑）：青春期與情緒管理；拒絕誘惑（吸煙、酗酒、毒品、賭博）；評估生活時間表、飲食和上網習慣；社區健康與急救。",
+    "text_en": "P6 healthy living (compare and evaluate): puberty and managing emotions; resisting temptation (smoking, drinking, drugs, gambling); evaluating schedules, diet and screen habits; community health and first aid.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "gs-p6-community",
+    "subject": "gs",
+    "topics": [
+      "community"
+    ],
+    "years": [
+      "P6"
+    ],
+    "text_zh": "小六社區與生活（比較與評鑑）：公民責任和參與；科技對社會生活的影響；可持續發展與減廢選擇；香港社會議題的不同觀點；國際交流（從輕）。避免沉重國民身份論述。",
+    "text_en": "P6 community (compare and evaluate): civic responsibility and participation; how technology changes society; sustainable development and waste choices; different views on HK social issues; international links (light). Keep national-identity content light.",
+    "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "gs-p6-nature",
+    "subject": "gs",
+    "topics": [
+      "nature-science"
+    ],
+    "years": [
+      "P6"
+    ],
+    "text_zh": "小六自然與科學（比較與評鑑）：可再生與不可再生能源；簡單機械（槓桿、滑輪、斜面）；太陽系；氣候變化與減碳；電的使用與節約。",
+    "text_en": "P6 nature & science (compare and evaluate): renewable vs non-renewable energy; simple machines (lever, pulley, inclined plane); the Solar System; climate change and cutting carbon; using and saving electricity.",
     "source": "paraphrase: https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/cross-kla-studies/gs-primary/GSCG_2017_Eng.pdf",
     "kind": "objective"

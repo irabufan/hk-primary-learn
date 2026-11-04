@@ -160,6 +160,11 @@ type YearSpec = {
   /** Year-specific topic notes; replace the key-stage topic notes when present. */
   topics?: Record<string, string[]>;
   /**
+   * Per-topic one-line focus. Replaces `focus` in this year's Focus line and in the
+   * neighbouring years' boundary lines, so a topic quiz never sees other units' lists.
+   */
+  topicFocus?: Record<string, string>;
+  /**
    * Themes rotated by seed (key = topic slug, or "*" for every topic) so
    * different seeds lean on different parts of the year's content.
    */
@@ -344,6 +349,11 @@ const YEAR_SPECS: Record<SubjectSlug, Record<Year, YearSpec>> = {
         "NOT P1 (these are P2): 動植物的需要和居所、生物與非生物、物料、社區幫手和社區設施、交通與乘車、四季、節日.",
         "No science terms (蒸發、凝結、磁極、細菌名稱), no calculations, no long sentence choices.",
       ],
+      topicFocus: {
+        "healthy-living": "P1 健康生活：身體與五官、個人衞生、早睡早起、家居安全",
+        community: "P1 社區與生活：我的家、我的學校、課室規則、禮貌",
+        "nature-science": "P1 自然：白天與黑夜、簡單天氣與衣著",
+      },
       topics: {
         "healthy-living": ["P1 健康生活: 身體部位與五官的用處、洗手刷牙剪指甲、早睡早起、家居安全（熱水、刀、電插頭、不給陌生人開門）."],
         community: ["P1 社區與生活 = 我的家和我的學校: 家人稱呼、幫忙做家務、校園地方（課室、操場、禮堂、校務處）、課室規則、有禮貌、排隊. Not community helpers or facilities (P2)."],
@@ -363,6 +373,11 @@ const YEAR_SPECS: Record<SubjectSlug, Record<Year, YearSpec>> = {
         "Do NOT repeat P1 themes (身體與五官、洗手刷牙、白天黑夜、晴天雨天帶傘、家人稱呼、課室規則).",
         "No science terms beyond everyday words; no multi-step reasoning.",
       ],
+      topicFocus: {
+        "healthy-living": "P2 健康生活：道路及乘車安全、健康小食、運動與休息、看醫生與用藥",
+        community: "P2 社區：社區幫手與設施、港鐵/巴士禮儀、傳統節日",
+        "nature-science": "P2 自然：生物與非生物、動植物的需要與居所、四季、常見物料",
+      },
       topics: {
         "healthy-living": ["P2 健康生活: 道路及乘車安全（燈號、斑馬線、安全帶）、健康小食與零食、運動與休息、生病看醫生和用藥要聽大人指示."],
         community: ["P2 社區: 社區幫手和他們的工作、社區設施（圖書館、街市、公園、診所）及規則、港鐵/巴士禮儀、農曆新年/端午節/中秋節的習俗."],
@@ -378,25 +393,55 @@ const YEAR_SPECS: Record<SubjectSlug, Record<Year, YearSpec>> = {
       focus: "P3：光與影、物料特性、疾病預防初步、香港交通與地區、節約資源",
       limits: [
         "Stem ≤ 30 字; each MC choice ≤ 12 字.",
-        "Allowed: 影子、透明/防水等物料特性、冰/水/水蒸氣 (observation only)、預防傷風感冒、香港地區與交通、節約用水用電.",
         "Not yet: 蒸發/凝結 terms, 磁極, 電路, 青春期.",
       ],
+      topicFocus: {
+        "healthy-living": "P3 健康生活：預防傷風感冒、均衡飲食初步、作息與運動、家居/遊樂場/防火安全、與人相處",
+        community: "P3 社區與生活：香港地區與地標、香港交通、社區設施與規則、節約用水用電",
+        "nature-science": "P3 自然與科學：光與影、物料特性、冰/水/水蒸氣 (observation only)、推和拉、動植物生長",
+      },
+      topics: {
+        "healthy-living": ["P3 健康生活 only: 預防傷風感冒（洗手、掩口鼻、按天氣添衣）、均衡飲食與食物種類初步、作息與運動、家居/遊樂場/防火安全、與人相處和情緒."],
+        community: ["P3 社區與生活 only: 香港的地區與地標、交通工具和網絡（港鐵、輕鐵、渡輪、巴士）、社區設施和公共規則、節約用水用電的好習慣、家庭和學校的責任."],
+        "nature-science": ["P3 自然與科學 only: 光與影（影子的形成、長短、方向）、物料特性（透明、防水、吸水、軟硬）、冰/水/水蒸氣的觀察、推和拉、動植物的生長."],
+      },
     },
     P4: {
       focus: "P4：水的三態變化名稱、磁鐵、簡單電路、傳染病預防、健康飲食金字塔、回收",
       limits: [
         "Stem ≤ 40 字; ask to name or identify concepts.",
-        "Allowed: 蒸發/凝結/凝固/熔化, 磁鐵吸引與磁極, 簡單電路與導電體, 健康飲食金字塔, 傳染病預防, 社區回收.",
       ],
+      topicFocus: {
+        "healthy-living": "P4 健康生活：健康飲食金字塔、傳染病預防、牙齒護理、作息與運動、正確用藥與急救、安全習慣",
+        community: "P4 社區與生活：社區回收、愛護公共設施、社區服務與義工、公共服務、鄰里",
+        "nature-science": "P4 自然與科學：水的三態變化名稱、磁鐵與磁極、簡單電路與導電體、動植物分類",
+      },
+      topics: {
+        "healthy-living": ["P4 健康生活 only: 健康飲食金字塔及食物類別、預防傳染病（病菌傳播、洗手、口罩、疫苗、環境衞生）、牙齒護理、作息睡眠與運動、正確用藥及簡單急救、交通及家居安全習慣."],
+        community: ["P4 社區與生活 only: 社區回收（三色回收箱、減廢）、愛護公共設施和環境、社區服務及義工、公共服務（醫院、消防、警察、圖書館）、鄰里關係和屋苑規則."],
+        "nature-science": ["P4 自然與科學 only: 蒸發/凝結/凝固/熔化, 磁鐵吸引與磁極, 簡單電路、導電體與絕緣體, 動植物分類."],
+      },
     },
     P5: {
       focus: "P5：光的反射與聲音、能量轉換、污染與保育、青春期初步 — 要求解釋因果",
       limits: [
         "Stem ≤ 50 字; at least half of the items ask WHY / WHAT WOULD HAPPEN (cause → effect), not just naming a term.",
-        "Allowed: 光的反射、聲音、能量轉換、摩擦力、水污染與保育、青春期初步、香港與內地的聯繫 (light).",
         "Avoid repeating P4 naming questions (e.g. 'this process is called 蒸發').",
-        "Every item tests a DIFFERENT idea. At most ONE pollution item per quiz, and not fertiliser → algae (藻華) unless the seed rotation names water pollution.",
+        "Every item tests a DIFFERENT idea.",
       ],
+      topicFocus: {
+        "healthy-living": "P5 健康生活：青春期初步、身體系統的功能、情緒與壓力、拒絕煙酒毒品、健康使用電子產品 — 解釋原因",
+        community: "P5 社區與生活：社區及環保行動的原因與影響、公民權利與責任、香港經濟與職業、社區問題的成因 — 解釋原因",
+        "nature-science": "P5 自然與科學：光的反射與聲音、能量轉換、摩擦力、污染與保育、生物適應、日月地球 — 解釋因果",
+      },
+      topics: {
+        "healthy-living": ["P5 健康生活 only: 青春期初步變化與個人衞生、身體系統（消化、呼吸、血液循環）、情緒與壓力處理、拒絕吸煙/酗酒/毒品、健康使用電子產品、均衡生活習慣的原因."],
+        community: ["P5 社區與生活 only: 社區及環保行動的原因與影響、公民的權利與責任初步、香港的經濟活動與職業、香港與內地的聯繫 (light)、社區問題（噪音、衞生、交通擠塞）的成因和解決方法."],
+        "nature-science": [
+          "P5 自然與科學 only: 光的反射、聲音的產生和傳播、能量轉換、摩擦力、水污染與保育、生物適應環境、日月地球的運行.",
+          "At most ONE pollution item per quiz, and not fertiliser → algae (藻華) unless the seed rotation names water pollution.",
+        ],
+      },
       rotate: {
         "nature-science": ["光的反射", "聲音的傳播", "能量轉換", "摩擦力", "水污染與保育", "生物適應環境", "日、月、地球的運行"],
       },
@@ -404,32 +449,48 @@ const YEAR_SPECS: Record<SubjectSlug, Record<Year, YearSpec>> = {
     P6: {
       focus: "P6：可再生能源、簡單機械、青春期與情緒、公民責任、科技與生活 — 比較與評鑑",
       limits: [
-        "Stem ≤ 60 字; include comparing/evaluating options or reading simple data.",
-        "Allowed: 可再生/不可再生能源、槓桿/滑輪/斜面、青春期與情緒、拒絕誘惑、公民責任、科技對生活的影響.",
-        "Every item tests a DIFFERENT idea. At most ONE environment item per quiz; water pollution only as a for/against evaluation — never the P5 cause→effect question (fertiliser → algae / 藻華).",
+        "Stem ≤ 60 字; include comparing/evaluating options or reading simple data (no plain arithmetic items).",
+        "Every item tests a DIFFERENT idea.",
       ],
+      topicFocus: {
+        "healthy-living": "P6 健康生活：青春期與情緒管理、拒絕誘惑、評估生活習慣、社區健康與急救 — 比較與評鑑",
+        community: "P6 社區與生活：公民責任、科技對社會的影響、可持續發展與減廢、社會議題的不同觀點 — 比較與評鑑",
+        "nature-science": "P6 自然與科學：可再生能源、簡單機械、太陽系、氣候變化與減碳、電的使用 — 比較與評鑑",
+      },
+      topics: {
+        "healthy-living": ["P6 健康生活 only: 青春期與情緒管理、拒絕誘惑（吸煙、酗酒、毒品、賭博）、評估生活時間表/飲食/上網習慣、社區健康與急救."],
+        community: ["P6 社區與生活 only: 公民責任和參與、科技對社會生活的影響、可持續發展與減廢選擇、香港社會議題的不同觀點、國際交流 (light)."],
+        "nature-science": [
+          "P6 自然與科學 only: 可再生/不可再生能源、槓桿/滑輪/斜面、太陽系、氣候變化與減碳、電的使用與節約.",
+          "At most ONE environment item per quiz; water pollution only as a for/against evaluation — never the P5 cause→effect question (fertiliser → algae / 藻華).",
+        ],
+      },
       rotate: {
-        "nature-science": ["可再生與不可再生能源", "槓桿", "滑輪與斜面", "科技對生活的影響", "太陽系", "氣候變化與減碳", "電的安全與節約"],
+        "nature-science": ["可再生與不可再生能源", "槓桿", "滑輪與斜面", "能源效益", "太陽系", "氣候變化與減碳", "電的安全與節約"],
       },
     },
   },
 };
 
-function neighbourLines(subject: SubjectSlug, year: Year): string[] {
+function focusOf(spec: YearSpec, topic: string | undefined): string {
+  return (topic && spec.topicFocus?.[topic]) || spec.focus;
+}
+
+function neighbourLines(subject: SubjectSlug, year: Year, topic?: string): string[] {
   const index = YEARS.indexOf(year);
   const prev = YEARS[index - 1];
   const next = YEARS[index + 1];
   const out: string[] = [];
   if (prev) {
     out.push(
-      `Must be clearly HARDER than ${prev} (${YEAR_SPECS[subject][prev].focus}) — do not just repeat ${prev} items.`,
+      `Must be clearly HARDER than ${prev} (${focusOf(YEAR_SPECS[subject][prev], topic)}) — do not just repeat ${prev} items.`,
     );
   } else {
     out.push("This is the EASIEST primary level — first weeks of school; a 6-year-old must be able to read and answer alone.");
   }
   if (next) {
     out.push(
-      `Must be clearly EASIER than ${next} (${YEAR_SPECS[subject][next].focus}) — do not use ${next} content.`,
+      `Must be clearly EASIER than ${next} (${focusOf(YEAR_SPECS[subject][next], topic)}) — do not use ${next} content.`,
     );
   } else {
     out.push("Top of primary — challenging, but never secondary-school content.");
@@ -452,9 +513,9 @@ export function curriculumGuidanceLines(
   const block = GUIDANCE.find((g) => g.band === band && g.subject === subject);
 
   const out: string[] = [
-    `Year: ${year} (${band}). Focus: ${spec.focus}.`,
+    `Year: ${year} (${band}). Focus: ${focusOf(spec, topic)}.`,
     ...spec.limits.map((line) => `${year} LIMIT: ${line}`),
-    ...neighbourLines(subject, year),
+    ...neighbourLines(subject, year, topic),
   ];
   const topicNotes = topic ? (spec.topics?.[topic] ?? block?.topics?.[topic]) : undefined;
   if (topicNotes) out.push(...topicNotes);
@@ -482,4 +543,9 @@ export function curriculumGuidanceBlock(
     `CURRICULUM / DIFFICULTY for ${year} (HK primary — these limits override the chunks above):`,
     ...curriculumGuidanceLines(year, subject, topic, seed).map((line) => `- ${line}`),
   ].join("\n");
+}
+
+/** One-line in-scope description of a topic for a year (per-topic focus, else empty). */
+export function topicScope(year: Year, subject: SubjectSlug, topic: string): string | undefined {
+  return YEAR_SPECS[subject][year].topicFocus?.[topic];
 }
