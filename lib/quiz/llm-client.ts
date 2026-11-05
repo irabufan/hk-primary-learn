@@ -17,7 +17,7 @@ import { mulberry32, shuffle } from "@/lib/rng";
 import type { Quiz, QuizMatchPair, QuizQuestion, QuizQuestionType, QuizRequest } from "./types";
 import { QUIZ_COUNTS } from "./types";
 import { applyHkForms } from "./hk-forms";
-import { answerTypeGuidance, areaArithmeticKeyOk, enforceAnswerTypes, type RuleStats } from "./answer-rules";
+import { ambiguousFractionCompareStem, answerTypeGuidance, areaArithmeticKeyOk, enforceAnswerTypes, type RuleStats } from "./answer-rules";
 import { buildRuledQuestions } from "./generator";
 import { AVOID_MAX, AVOID_STEM_MAX, matchesAvoid, parseAvoidKeys } from "./avoid";
 
@@ -250,9 +250,14 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     answerTypeGuidance(request.year, request.subject, request.seed),
     "Within the ANSWER TYPES allowed for the year, prefer types that fit the topic (e.g. maths decimals/of-a-total → number; maths simplify-to-fraction → fill with answer like \"2/3\"; English grammar → mc; Chinese vocab → mc, match or fill). If the topic and the year limits conflict, the year limits win (write easier items within the topic).",
   ];
-  if (request.subject === "maths" && request.topic === "word-problems") {
+  if (request.subject === "maths" && (request.topic === "word-problems" || request.topic === "fractions")) {
     userParts.push(
       "WORD-PROBLEM LENGTH: keep each stem to ≤ 2 short sentences; each explanation ≤ 1 short sentence (≤ 20 字 / 12 English words). Prefer type number or mc. Do not write long worked solutions.",
+      "FRACTION / COMPARE WORDING (HK 書面語 — CRITICAL): name the operation target explicitly.",
+      "- Total / sum: use 一共 or 合共 (e.g. 「兩天一共讀了全書的幾分之幾？」).",
+      "- Difference: name both sides with 比…多／少 (e.g. 「星期一比星期二多讀了全書的幾分之幾？」). Never bare 「多了／多讀了／少了」 without 比.",
+      "- Remainder: use 還剩 (e.g. 「還剩全書的幾分之幾？」).",
+      "- Fraction of a quantity: state the whole (全書／全長／全班／整卷…的…). Ban stems like 「多讀了幾分之幾」 with no 比 and no 一共／合共／還剩.",
     );
   }
   if (avoid.length) {
@@ -820,6 +825,14 @@ export function finalizeQuestions(
       continue;
     }
     if (!areaArithmeticKeyOk(q, request.topic)) {
+      stats.topic = (stats.topic ?? 0) + 1;
+      continue;
+    }
+    if (
+      request.subject === "maths" &&
+      (request.topic === "word-problems" || request.topic === "fractions") &&
+      ambiguousFractionCompareStem(q.prompt.zh)
+    ) {
       stats.topic = (stats.topic ?? 0) + 1;
       continue;
     }

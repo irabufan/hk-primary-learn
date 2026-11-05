@@ -148,6 +148,19 @@ export function numericComparisonKeyOk(q: QuizQuestion): boolean {
 
 
 /** Strip cm² / 平方厘米-style units so "24 cm²" parses as 24. */
+/**
+ * True when a Chinese maths stem asks "多了幾／少了幾" without naming the
+ * comparison subject with 比 — kids can read it as a total or a difference.
+ * Low false-positive: requires 多/少…了幾 and absence of 比.
+ */
+export function ambiguousFractionCompareStem(promptZh: string | undefined): boolean {
+  const zh = (promptZh ?? "").replace(/\s+/g, "");
+  if (!zh) return false;
+  if (/比/.test(zh)) return false;
+  // 「多讀了幾分之幾」「多了幾」 without 比 — not 「比…多了幾」.
+  return /多(?:讀|做|用|吃|走|買|喝|寫|花)?了(?:幾|多少)/.test(zh) || /少(?:讀|做|用|吃|走|買|喝|寫|花)?了(?:幾|多少)/.test(zh);
+}
+
 export function stripAreaUnit(raw: string): string {
   return String(raw)
     .trim()

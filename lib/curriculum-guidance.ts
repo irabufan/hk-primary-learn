@@ -120,6 +120,7 @@ const GUIDANCE: GuidanceBlock[] = [
       fractions: [
         "P4: improper/mixed numbers and lowest terms only; P5: different-denominator compare and ± (majority of items), plus × and ÷; P6: fraction ↔ decimal and mixed operations.",
         "Prefer type number/fill with lowest-terms answers; MC choices bare fractions.",
+        "Worded items: name the target with 一共／合共 (total), A比B多／少 (difference), or 還剩 (remainder). Never bare 多了／多讀了 without 比. State the whole (全書／全長…的…) for fractions of a quantity.",
       ],
       area: [
         "P4: rectangles/squares only (cm², m²). P5: parallelograms, triangles, trapeziums — give base and height in words; answer a bare number (prompt asks 平方厘米).",
