@@ -34,7 +34,10 @@ const MIN_RETRY_MS = 12_000;
  * 4096 mid-JSON on P6 reading.
  */
 function maxTokensFor(model: string): number {
-  return /deepseek/i.test(model) ? 4096 : 8192;
+  // DeepSeek: keep 4096 so reasoning cannot eat the wall-clock budget.
+  // gpt-6-luna / others: 12288 — bilingual maths word-problems (7 items + medium
+  // reasoning) occasionally hit finish_reason=length at 8192; quality stays at medium effort.
+  return /deepseek/i.test(model) ? 4096 : 12_288;
 }
 const USER_AGENT = "hk-primary-learn/0.1";
 
@@ -247,6 +250,11 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     answerTypeGuidance(request.year, request.subject, request.seed),
     "Within the ANSWER TYPES allowed for the year, prefer types that fit the topic (e.g. maths decimals/of-a-total → number; maths simplify-to-fraction → fill with answer like \"2/3\"; English grammar → mc; Chinese vocab → mc, match or fill). If the topic and the year limits conflict, the year limits win (write easier items within the topic).",
   ];
+  if (request.subject === "maths" && request.topic === "word-problems") {
+    userParts.push(
+      "WORD-PROBLEM LENGTH: keep each stem to ≤ 2 short sentences; each explanation ≤ 1 short sentence (≤ 20 字 / 12 English words). Prefer type number or mc. Do not write long worked solutions.",
+    );
+  }
   if (avoid.length) {
     userParts.push(
       "SEEN (items this learner already did; stem → answer). Do not repeat them: use different sentences, facts and examples (the same grammar point or answer word is fine):",
@@ -299,22 +307,81 @@ function asPairs(value: unknown): QuizMatchPair[] {
   return out;
 }
 
+/**
+ * Pull complete `{...}` objects out of a truncated JSON array (finish_reason=length
+ * often cuts mid-object). Returns [] when nothing usable is found.
+ */
+function salvageJsonObjects(text: string): unknown[] {
+  const start = text.indexOf("[");
+  if (start < 0) return [];
+  const slice = text.slice(start);
+  const items: unknown[] = [];
+  let i = 1; // after '['
+  while (i < slice.length) {
+    while (i < slice.length && /[\s,]/.test(slice[i]!)) i += 1;
+    if (i >= slice.length || slice[i] === "]") break;
+    if (slice[i] !== "{") break;
+    let depth = 0;
+    let inStr = false;
+    let esc = false;
+    const objStart = i;
+    for (; i < slice.length; i += 1) {
+      const c = slice[i]!;
+      if (inStr) {
+        if (esc) esc = false;
+        else if (c === "\\") esc = true;
+        else if (c === '"') inStr = false;
+        continue;
+      }
+      if (c === '"') inStr = true;
+      else if (c === "{") depth += 1;
+      else if (c === "}") {
+        depth -= 1;
+        if (depth === 0) {
+          i += 1;
+          try {
+            items.push(JSON.parse(slice.slice(objStart, i)));
+          } catch {
+            return items;
+          }
+          break;
+        }
+      }
+    }
+    if (depth !== 0) break; // truncated mid-object — keep what we have
+  }
+  return items;
+}
+
 function extractJsonArray(text: string): unknown {
   const trimmed = text.trim();
-  try {
-    return JSON.parse(trimmed);
-  } catch {
-    /* fall through */
-  }
+  const tryParse = (raw: string): unknown => {
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return undefined;
+    }
+  };
+  const direct = tryParse(trimmed);
+  if (Array.isArray(direct)) return direct;
+
   const fence = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/i);
   if (fence?.[1]) {
-    return JSON.parse(fence[1].trim());
+    const fenced = tryParse(fence[1].trim());
+    if (Array.isArray(fenced)) return fenced;
   }
+
   const start = trimmed.indexOf("[");
   const end = trimmed.lastIndexOf("]");
   if (start >= 0 && end > start) {
-    return JSON.parse(trimmed.slice(start, end + 1));
+    const sliced = tryParse(trimmed.slice(start, end + 1));
+    if (Array.isArray(sliced)) return sliced;
   }
+
+  // Truncated array (no closing ], or cut mid-object): keep complete items.
+  const salvaged = salvageJsonObjects(trimmed);
+  if (salvaged.length) return salvaged;
+
   throw new Error("Model response was not valid JSON");
 }
 
@@ -856,7 +923,12 @@ export async function generateQuizQuestions(
 
   // Attempt 1 for longer quizzes: two half-quizzes in parallel (each call thinks and
   // writes about half as much, so the wall time is roughly that of a short quiz).
-  if ((deps.split ?? true) && count >= SPLIT_MIN_COUNT) {
+  // Word-problems are bilingual + multi-skill; split from 5 so each call writes less
+  // and is less likely to hit finish_reason=length / truncated JSON.
+  const shouldSplit =
+    (deps.split ?? true) &&
+    (count >= SPLIT_MIN_COUNT || (request.subject === "maths" && request.topic === "word-problems" && count >= 5));
+  if (shouldSplit) {
     const calls = ([1, 2] as const).map(async (part) => {
       const { content, model } = await chat(system, partUserPrompt(user, count, part), `${sessionId}-p${part}`, {
         timeoutMs: Math.min(TIMEOUT_MS, deadline - now()),
@@ -914,13 +986,19 @@ export async function generateQuizQuestions(
       console.warn(`[quiz/generate] attempt ${attempt} failed: ${err.message}`);
     }
   }
-  if (!result) throw lastError instanceof Error ? lastError : new Error("LLM generation failed");
-
   const tag = `[quiz/fill] ${request.subject}/${request.topic} ${request.year} seed=${seed}`;
   const done = <T extends { questions: QuizQuestion[] }>(r: T, fill: FillPath) => {
     log(`${tag} count=${count} fill=${fill} slots=${r.questions.map((q) => slotSource(q.id)).join(",")}`);
     return { ...r, fill };
   };
+  if (!result) {
+    log(`${tag} LLM failed entirely (${lastError instanceof Error ? lastError.message : lastError}); offline fallback`);
+    const offline = topUpFromFallback([], request);
+    if (offline.length === 0) {
+      throw lastError instanceof Error ? lastError : new Error("LLM generation failed");
+    }
+    return done({ questions: offline, model: getLlmConfig().model, attempts: 0 }, "fallback");
+  }
   const firstMissing = count - result.questions.length;
   if (firstMissing <= 0) return done(result, "none");
 
