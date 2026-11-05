@@ -93,7 +93,7 @@ export const mathsBank: ExerciseBank = {
       prompt: { zh: "把 3/4 化為小數。", en: "Write 3/4 as a decimal." },
       answer: 0.75,
       explanation: { zh: "3 ÷ 4 = 0.75，所以 3/4 = 0.75。", en: "3 ÷ 4 = 0.75, so 3/4 = 0.75." },
-      years: ["P5", "P6"],
+      years: ["P6"],
     },
     {
       kind: "number",
@@ -117,7 +117,7 @@ export const mathsBank: ExerciseBank = {
       prompt: { zh: "把 2/5 化為小數。", en: "Write 2/5 as a decimal." },
       answer: 0.4,
       explanation: { zh: "2 ÷ 5 = 0.4，所以 2/5 = 0.4。", en: "2 ÷ 5 = 0.4, so 2/5 = 0.4." },
-      years: ["P5", "P6"],
+      years: ["P6"],
     },
     {
       kind: "number",
@@ -132,6 +132,63 @@ export const mathsBank: ExerciseBank = {
         en: "1/2 = 0.5 and 1/4 = 0.25, so 0.5 + 0.25 = 0.75.",
       },
       years: ["P6"],
+    },
+
+    {
+      kind: "fill",
+      id: "m-f-unlike-1",
+      prompt: {
+        zh: "比較 2/3 和 3/5，哪一個較大？寫出較大的分數。",
+        en: "Compare 2/3 and 3/5. Write the larger fraction.",
+      },
+      accept: ["2/3", "2 / 3"],
+      explanation: {
+        zh: "通分：2/3 = 10/15，3/5 = 9/15，所以 2/3 較大。",
+        en: "Common denominator: 2/3 = 10/15, 3/5 = 9/15, so 2/3 is larger.",
+      },
+      years: ["P5"],
+    },
+    {
+      kind: "fill",
+      id: "m-f-unlike-2",
+      prompt: {
+        zh: "計算 1/2 + 1/3，答案以最簡分數表示。",
+        en: "Work out 1/2 + 1/3. Give the answer in lowest terms.",
+      },
+      accept: ["5/6", "5 / 6"],
+      explanation: {
+        zh: "通分：1/2 = 3/6，1/3 = 2/6，3/6 + 2/6 = 5/6。",
+        en: "1/2 = 3/6 and 1/3 = 2/6, so 3/6 + 2/6 = 5/6.",
+      },
+      years: ["P5"],
+    },
+    {
+      kind: "fill",
+      id: "m-f-unlike-3",
+      prompt: {
+        zh: "計算 5/6 − 1/4，答案以最簡分數表示。",
+        en: "Work out 5/6 − 1/4. Give the answer in lowest terms.",
+      },
+      accept: ["7/12", "7 / 12"],
+      explanation: {
+        zh: "通分：5/6 = 10/12，1/4 = 3/12，10/12 − 3/12 = 7/12。",
+        en: "5/6 = 10/12 and 1/4 = 3/12, so 10/12 − 3/12 = 7/12.",
+      },
+      years: ["P5"],
+    },
+    {
+      kind: "fill",
+      id: "m-f-unlike-4",
+      prompt: {
+        zh: "計算 1/4 + 2/5，答案以最簡分數表示。",
+        en: "Work out 1/4 + 2/5. Give the answer in lowest terms.",
+      },
+      accept: ["13/20", "13 / 20"],
+      explanation: {
+        zh: "通分：1/4 = 5/20，2/5 = 8/20，5/20 + 8/20 = 13/20。",
+        en: "1/4 = 5/20 and 2/5 = 8/20, so 5/20 + 8/20 = 13/20.",
+      },
+      years: ["P5"],
     },
   ],
 
@@ -219,6 +276,166 @@ export const mathsBank: ExerciseBank = {
       answer: 0.25,
       explanation: { zh: "25 ÷ 100 = 0.25，所以 25/100 = 0.25。", en: "25 ÷ 100 = 0.25, so 25/100 = 0.25." },
       years: ["P4", "P5"],
+    },
+  ],
+
+
+  area: [
+    {
+      kind: "number",
+      id: "m-a-rect-1",
+      prompt: {
+        zh: "長方形的長是 8 厘米，闊是 5 厘米，面積是多少平方厘米？",
+        en: "A rectangle is 8 cm long and 5 cm wide. What is its area in square centimetres?",
+      },
+      answer: 40,
+      explanation: { zh: "長 × 闊：8 × 5 = 40。", en: "Length × width: 8 × 5 = 40." },
+      years: ["P4", "P5"],
+    },
+    {
+      kind: "number",
+      id: "m-a-para-1",
+      prompt: {
+        zh: "一個平行四邊形的底是 9 厘米，高是 4 厘米，面積是多少平方厘米？",
+        en: "A parallelogram has base 9 cm and height 4 cm. What is its area in square centimetres?",
+      },
+      answer: 36,
+      explanation: { zh: "平行四邊形面積 = 底 × 高：9 × 4 = 36。", en: "Area = base × height: 9 × 4 = 36." },
+      years: ["P5"],
+    },
+    {
+      kind: "number",
+      id: "m-a-tri-1",
+      prompt: {
+        zh: "一個三角形的底是 10 厘米，高是 6 厘米，面積是多少平方厘米？",
+        en: "A triangle has base 10 cm and height 6 cm. What is its area in square centimetres?",
+      },
+      answer: 30,
+      explanation: { zh: "三角形面積 = 底 × 高 ÷ 2：10 × 6 ÷ 2 = 30。", en: "Area = base × height ÷ 2: 10 × 6 ÷ 2 = 30." },
+      years: ["P5"],
+    },
+    {
+      kind: "number",
+      id: "m-a-trap-1",
+      prompt: {
+        zh: "一個梯形的上底是 5 厘米，下底是 9 厘米，高是 4 厘米，面積是多少平方厘米？",
+        en: "A trapezium has parallel sides 5 cm and 9 cm, and height 4 cm. What is its area in square centimetres?",
+      },
+      answer: 28,
+      explanation: {
+        zh: "梯形面積 =（上底＋下底）× 高 ÷ 2：（5＋9）× 4 ÷ 2 = 28。",
+        en: "Area = (a + b) × height ÷ 2: (5 + 9) × 4 ÷ 2 = 28.",
+      },
+      years: ["P5"],
+    },
+    {
+      kind: "number",
+      id: "m-a-para-2",
+      prompt: {
+        zh: "一個平行四邊形的底是 12 厘米，高是 5 厘米，面積是多少平方厘米？",
+        en: "A parallelogram has base 12 cm and height 5 cm. Area in cm²?",
+      },
+      answer: 60,
+      explanation: { zh: "12 × 5 = 60。", en: "12 × 5 = 60." },
+      years: ["P5"],
+    },
+    {
+      kind: "number",
+      id: "m-a-tri-2",
+      prompt: {
+        zh: "一個三角形的底是 8 厘米，高是 7 厘米，面積是多少平方厘米？",
+        en: "A triangle has base 8 cm and height 7 cm. Area in cm²?",
+      },
+      answer: 28,
+      explanation: { zh: "8 × 7 ÷ 2 = 28。", en: "8 × 7 ÷ 2 = 28." },
+      years: ["P5"],
+    },
+  ],
+
+  "area-polygons": [
+    {
+      kind: "number",
+      id: "m-ap-1",
+      prompt: {
+        zh: "一塊多邊形由一個底 8 厘米、高 5 厘米的平行四邊形和一個底 8 厘米、高 3 厘米的三角形拼成。整塊多邊形的面積是多少平方厘米？",
+        en: "A polygon is made of a parallelogram (base 8 cm, height 5 cm) joined to a triangle (base 8 cm, height 3 cm). What is the total area in square centimetres?",
+      },
+      answer: 52,
+      explanation: {
+        zh: "分割：平行四邊形 8×5=40，三角形 8×3÷2=12，合共 40+12=52。",
+        en: "Split: parallelogram 8×5=40, triangle 8×3÷2=12, total 52.",
+      },
+      years: ["P5"],
+    },
+    {
+      kind: "number",
+      id: "m-ap-2",
+      prompt: {
+        zh: "一塊多邊形由一個長 10 厘米、闊 6 厘米的長方形和一個底 10 厘米、高 4 厘米的三角形拼成。面積是多少平方厘米？",
+        en: "A polygon is a rectangle 10 cm by 6 cm joined to a triangle with base 10 cm and height 4 cm. Total area in cm²?",
+      },
+      answer: 80,
+      explanation: {
+        zh: "長方形 10×6=60，三角形 10×4÷2=20，合共 80。",
+        en: "Rectangle 60 + triangle 20 = 80.",
+      },
+      years: ["P5"],
+    },
+    {
+      kind: "number",
+      id: "m-ap-3",
+      prompt: {
+        zh: "一個大正方形邊長 10 厘米，從一角剪去一個底 4 厘米、高 3 厘米的直角三角形。剩下圖形的面積是多少平方厘米？",
+        en: "A large square has side 10 cm. A right-angled triangle with base 4 cm and height 3 cm is cut from one corner. Area of the remaining shape in cm²?",
+      },
+      answer: 94,
+      explanation: {
+        zh: "填補／減去：正方形 10×10=100，三角形 4×3÷2=6，100−6=94。",
+        en: "Square 100 − triangle 6 = 94.",
+      },
+      years: ["P5"],
+    },
+    {
+      kind: "number",
+      id: "m-ap-4",
+      prompt: {
+        zh: "一塊多邊形由一個上底 3 厘米、下底 7 厘米、高 4 厘米的梯形和一個底 7 厘米、高 2 厘米的平行四邊形拼成。面積是多少平方厘米？",
+        en: "A polygon is a trapezium (parallel sides 3 cm and 7 cm, height 4 cm) joined to a parallelogram (base 7 cm, height 2 cm). Total area in cm²?",
+      },
+      answer: 34,
+      explanation: {
+        zh: "梯形 (3+7)×4÷2=20，平行四邊形 7×2=14，合共 34。",
+        en: "Trapezium 20 + parallelogram 14 = 34.",
+      },
+      years: ["P5"],
+    },
+    {
+      kind: "number",
+      id: "m-ap-5",
+      prompt: {
+        zh: "一塊多邊形分割成兩個三角形：第一個底 6 厘米、高 4 厘米；第二個底 6 厘米、高 8 厘米。整塊面積是多少平方厘米？",
+        en: "A polygon splits into two triangles: bases 6 cm and 6 cm, heights 4 cm and 8 cm. Total area in cm²?",
+      },
+      answer: 36,
+      explanation: {
+        zh: "6×4÷2=12，6×8÷2=24，合共 36。",
+        en: "12 + 24 = 36.",
+      },
+      years: ["P5"],
+    },
+    {
+      kind: "number",
+      id: "m-ap-6",
+      prompt: {
+        zh: "一個長 12 厘米、闊 8 厘米的長方形，中間挖去一個底 4 厘米、高 3 厘米的平行四邊形孔。剩下部分面積是多少平方厘米？",
+        en: "A 12 cm by 8 cm rectangle has a parallelogram hole (base 4 cm, height 3 cm) cut out. Remaining area in cm²?",
+      },
+      answer: 84,
+      explanation: {
+        zh: "長方形 12×8=96，孔 4×3=12，96−12=84。",
+        en: "96 − 12 = 84.",
+      },
+      years: ["P5"],
     },
   ],
 

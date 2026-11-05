@@ -497,6 +497,8 @@
     "id": "maths-ks2-measures",
     "subject": "maths",
     "topics": [
+      "area",
+      "area-polygons",
       "word-problems"
     ],
     "band": "KS2",
@@ -1557,6 +1559,22 @@
     "kind": "objective"
   },
   {
+    "id": "maths-p4-area",
+    "subject": "maths",
+    "topics": [
+      "area",
+      "word-problems"
+    ],
+    "years": [
+      "P4"
+    ],
+    "text_zh": "小四面積：長方形和正方形的面積（長×闊；邊長×邊長），單位平方厘米（cm²）、平方米。認識周界與面積的分別。",
+    "text_en": "P4 area: area of rectangles and squares (length×width; side×side), units cm² and m². Distinguish perimeter from area.",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — P4 measures",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
+  },
+  {
     "id": "maths-p5-fractions",
     "subject": "maths",
     "topics": [
@@ -1582,9 +1600,57 @@
     "years": [
       "P5"
     ],
-    "text_zh": "小五小數及度量：一個數乘以 10、100、1000 及 0.1、0.01；小數乘法；三角形、平行四邊形、梯形面積；長方體體積；以符號代表數。未學百分數。",
-    "text_en": "P5 decimals and measures: multiply a number by 10, 100, 1000 and by 0.1, 0.01; multiplication involving decimals; area of triangles, parallelograms and trapeziums; volume of cuboids; letters for numbers. No percentages yet.",
-    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 5N4, 5M1–5M2, 5A1",
+    "text_zh": "小五小數：一個數乘以 10、100、1000 及 0.1、0.01；小數乘法。未學百分數。",
+    "text_en": "P5 decimals: multiply a number by 10, 100, 1000 and by 0.1, 0.01; multiplication involving decimals. No percentages yet.",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — unit 5N4",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "maths-p5-area",
+    "subject": "maths",
+    "topics": [
+      "area",
+      "word-problems"
+    ],
+    "years": [
+      "P5"
+    ],
+    "text_zh": "小五面積（三角形與四邊形）：認識三角形和四邊形的底和高；求平行四邊形、三角形、梯形的面積（公式：平行四邊形＝底×高；三角形＝底×高÷2；梯形＝（上底＋下底）×高÷2）。單位用平方厘米（cm²）或平方米。題幹以文字描述圖形及所給邊長／高，不依賴圖片。",
+    "text_en": "P5 area (triangles and quadrilaterals): identify base and height of triangles and quadrilaterals; find areas of parallelograms, triangles and trapeziums (parallelogram = base×height; triangle = base×height÷2; trapezium = (a+b)×height÷2). Units cm² or m². Describe shapes and given dimensions in words — no diagrams.",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 5M1 (area)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "maths-p5-area-polygons",
+    "subject": "maths",
+    "topics": [
+      "area-polygons",
+      "word-problems"
+    ],
+    "years": [
+      "P5"
+    ],
+    "text_zh": "小五多邊形的面積：把不規則／複合多邊形分割（切開）成已知的三角形、平行四邊形、梯形或長方形，或用填補法補成較大的已知圖形再減去多出的部分，從而求面積。題幹用文字說明各部分的底、高或長闊（例如「一塊多邊形由一個底 8 厘米、高 5 厘米的平行四邊形和一個底 8 厘米、高 3 厘米的三角形拼成」），答案為數字，單位平方厘米。",
+    "text_en": "P5 area of polygons: find the area of irregular/composite polygons by splitting (cutting) into known triangles, parallelograms, trapeziums or rectangles, or by filling/completing to a larger known shape and subtracting the extra. Describe each part's base, height or length/width in words (no diagrams). Numeric answers in cm².",
+    "source": "EDB / HK primary P5 unit — area of polygons (composite via splitting/filling)",
+    "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
+    "kind": "objective"
+  },
+  {
+    "id": "maths-p5-volume-algebra",
+    "subject": "maths",
+    "topics": [
+      "decimals",
+      "word-problems"
+    ],
+    "years": [
+      "P5"
+    ],
+    "text_zh": "小五度量其餘部分：長方體體積；以符號代表數（簡易代數）。",
+    "text_en": "P5 other measures: volume of cuboids; letters for numbers (simple algebra).",
+    "source": "EDB Supplement: Learning Content of Primary Mathematics (2017) — units 5M2, 5A1",
     "sourceUrl": "https://www.edb.gov.hk/attachment/en/curriculum-development/kla/ma/curr/pmc2017_e.pdf",
     "kind": "objective"
   },

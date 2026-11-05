@@ -117,8 +117,22 @@ const GUIDANCE: GuidanceBlock[] = [
     ],
     topics: {
       "multiply-divide": ["P4: × ÷ by 2-digit numbers, multiples/factors, common multiples/factors by listing."],
-      fractions: ["P4: improper/mixed numbers and lowest terms only; P5: different-denominator ±, × and ÷; P6: fraction ↔ decimal and mixed operations."],
+      fractions: [
+        "P4: improper/mixed numbers and lowest terms only; P5: different-denominator compare and ± (majority of items), plus × and ÷; P6: fraction ↔ decimal and mixed operations.",
+        "Prefer type number/fill with lowest-terms answers; MC choices bare fractions.",
+      ],
+      area: [
+        "P4: rectangles/squares only (cm², m²). P5: parallelograms, triangles, trapeziums — give base and height in words; answer a bare number (prompt asks 平方厘米).",
+        "No diagrams: describe the shape and every length in the stem. Formulas: 平行四邊形＝底×高；三角形＝底×高÷2；梯形＝（上底＋下底）×高÷2.",
+      ],
+      "area-polygons": [
+        "P5 only: composite / irregular polygons via 分割 (split into triangle/parallelogram/trapezium/rectangle) or 填補 (complete then subtract).",
+        "Describe each part with dimensions in words; numeric answer in cm². Verify by summing/subtracting the parts.",
+      ],
       percentages: ["P6: % of a quantity, A as a % of B, % increase/decrease, discounts (八折 = 80%)."],
+      "word-problems": [
+        "P5 balance: rotate across unlike-denominator fraction ±/compare, area of triangle/parallelogram/trapezium or composite polygon, decimal ×, and multi-step whole-number stories — do not let one skill dominate a quiz of 5+.",
+      ],
     },
   },
 
@@ -314,22 +328,61 @@ const YEAR_SPECS: Record<SubjectSlug, Record<Year, YearSpec>> = {
       ],
     },
     P4: {
-      focus: "P4: multi-digit × ÷, multiples/factors; improper & mixed numbers, simplifying; decimals (1–2 d.p.) ±; perimeter/area",
+      focus: "P4: multi-digit × ÷, multiples/factors; improper & mixed numbers, simplifying; decimals (1–2 d.p.) ±; perimeter/area of rectangles",
       limits: [
         "× ÷ by 2-digit numbers; multiples, factors, common multiples/factors by listing. (EDB 4N1–4N8)",
         "Fractions: proper/improper/mixed, expand/reduce to lowest terms, compare same denominator. No fraction × ÷, no different-denominator ±, and NO decimal ↔ fraction conversion questions (EDB 6N2, P6) — fractions items contain no decimals.",
         "Decimals: meaning and ± with 1–2 decimal places only (no × ÷ of decimals). No percentages.",
-        "Measures: perimeter, area of rectangles/squares (cm², m²).",
+        "Measures: perimeter, area of rectangles/squares (cm², m²). No triangle/parallelogram/trapezium area yet (P5).",
       ],
+      topicFocus: {
+        fractions: "P4 分數：真／假／帶分數、約分、同分母比較 — 不涉及異分母加減或分數乘除",
+        decimals: "P4 小數：十分位／百分位意義與加減",
+        area: "P4 面積：長方形與正方形面積（長×闊），單位平方厘米或平方米；可對比周界",
+        "word-problems": "P4 應用題：多位數乘除、同分母分數、小數加減、長方形面積等一步或兩步題",
+      },
+      topics: {
+        fractions: ["P4 fractions only: proper/improper/mixed, expand/reduce, same-denominator compare. No unlike-denominator ±, no × ÷."],
+        area: [
+          "P4 area only: rectangles and squares. Stem gives 長/闊 or 邊長 in 厘米; answer bare number (平方厘米). No triangles, parallelograms, trapeziums or composite polygons.",
+        ],
+      },
     },
     P5: {
-      focus: "P5: different-denominator fraction ±, fraction × and ÷; decimal ×; area of triangles/parallelograms; volume",
+      focus: "P5: different-denominator fraction compare/±, fraction ×÷; decimal ×; area of triangles/parallelograms/trapeziums and composite polygons; volume",
       limits: [
-        "Fractions: ± with different denominators (≤ 3 fractions, friendly denominators), × and ÷ of fractions, fraction as quotient. (EDB 5N1–5N5)",
+        "Fractions: compare and ± with different denominators (≤ 3 fractions, friendly denominators), × and ÷ of fractions, fraction as quotient. (EDB 5N1–5N5)",
         "Decimals: × by whole numbers, 10/100/1000 and 0.1/0.01. No percentages yet.",
-        "Measures: area of triangles/parallelograms/trapeziums, volume of cuboids; simple algebra with letters.",
-        "Word problems: multi-step allowed.",
+        "Measures: area of triangles/parallelograms/trapeziums and composite polygons (分割/填補); volume of cuboids; simple algebra with letters.",
+        "Word problems: multi-step allowed; when topic is word-problems, include fraction ± and area items — do not fill the quiz with only whole-number shopping stories.",
       ],
+      topicFocus: {
+        fractions: "P5 分數的比較和加減：異分母比較、通分加減（為主）；可附帶分數乘除。答案最簡分數",
+        decimals: "P5 小數：乘以整數、10/100/1000、0.1/0.01",
+        area: "P5 三角形與四邊形面積：底和高；平行四邊形、三角形、梯形面積公式；文字給出邊長與高，答案為數字（平方厘米）",
+        "area-polygons": "P5 多邊形的面積：分割或填補複合圖形，各部分以文字描述尺寸，求總面積（cm²）",
+        "word-problems": "P5 應用題：異分母分數加減、面積、小數乘法、多步整數題輪流出現",
+      },
+      topics: {
+        fractions: [
+          "P5 fractions: at least half the items are unlike-denominator compare or ± (通分); at most one × and one ÷ per quiz of 5. Answers in lowest terms. No decimals.",
+        ],
+        area: [
+          "P5 area (basic shapes) only: identify 底/高; compute parallelogram / triangle / trapezium area from dimensions given in words. Prefer type number; answer bare cm² value (e.g. \"24\"). Mix the three shapes across the quiz. No composite 分割/填補 (that is area-polygons).",
+        ],
+        "area-polygons": [
+          "P5 composite polygons only: every item uses 分割 or 填補. Example shape: a polygon made of a parallelogram (底 8 厘米、高 5 厘米) joined to a triangle (底 8 厘米、高 3 厘米). State every length in the stem; answer the total area as a bare number. No lone single-shape formula drills (those are area).",
+        ],
+        "word-problems": [
+          "P5 word-problems balance: for a 5-item quiz include ≥1 unlike-denominator fraction ±/compare and ≥1 area (triangle/parallelogram/trapezium or simple composite); remaining items may be decimal × or multi-step whole numbers.",
+        ],
+      },
+      rotate: {
+        fractions: ["異分母比較", "異分母加法", "異分母減法", "分數乘法", "分數除法"],
+        area: ["平行四邊形面積", "三角形面積", "梯形面積", "底和高"],
+        "area-polygons": ["分割成三角形與平行四邊形", "分割成梯形與長方形", "填補後再減"],
+        "word-problems": ["異分母分數加減", "三角形／平行四邊形面積", "小數乘法", "多步整數"],
+      },
     },
     P6: {
       focus: "P6: decimal ÷, fraction↔decimal, percentages (of a quantity, % change, discount), averages, circles",

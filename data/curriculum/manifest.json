@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-02T15:25:16.000Z",
-  "chunkCount": 125,
-  "objectiveChunkCount": 92,
+  "generatedAt": "2026-11-05T09:00:00.000Z",
+  "chunkCount": 129,
+  "objectiveChunkCount": 96,
   "practiceChunkCount": 33,
   "subjects": {
     "chinese": 26,
     "english": 27,
-    "maths": 35,
+    "maths": 39,
     "gs": 37
   },
   "sources": {

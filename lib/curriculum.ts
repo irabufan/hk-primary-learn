@@ -169,7 +169,7 @@ export const SUBJECTS: Subject[] = [
         slug: "fractions",
         icon: "🍕",
         name: { zh: "分數", en: "Fractions" },
-        blurb: { zh: "認識分數、約分、求幾分之幾。", en: "Understand, simplify and work out fractions of quantities." },
+        blurb: { zh: "比較分數，同分母／異分母加減，約分與乘除（按年級）。", en: "Compare fractions; same- or unlike-denominator ±; simplify; × ÷ by year." },
         exerciseKind: "number",
         years: ["P3", "P4", "P5", "P6"],
       },
@@ -188,6 +188,28 @@ export const SUBJECTS: Subject[] = [
         blurb: { zh: "百分數、折扣和增減。", en: "Percentages, discounts and percentage change." },
         exerciseKind: "number",
         years: ["P6"],
+      },
+      {
+        slug: "area",
+        icon: "📐",
+        name: { zh: "三角形與四邊形面積", en: "Area of triangles & quadrilaterals" },
+        blurb: {
+          zh: "底和高；平行四邊形、三角形、梯形（及小四長方形）的面積。",
+          en: "Base and height; area of parallelograms, triangles, trapeziums (and P4 rectangles).",
+        },
+        exerciseKind: "number",
+        years: ["P4", "P5"],
+      },
+      {
+        slug: "area-polygons",
+        icon: "✂️",
+        name: { zh: "多邊形的面積", en: "Area of polygons" },
+        blurb: {
+          zh: "用分割或填補把複合圖形拆成已知圖形求面積。",
+          en: "Split or fill composite shapes into known figures to find the area.",
+        },
+        exerciseKind: "number",
+        years: ["P5"],
       },
       {
         slug: "word-problems",

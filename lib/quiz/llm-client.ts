@@ -17,7 +17,7 @@ import { mulberry32, shuffle } from "@/lib/rng";
 import type { Quiz, QuizMatchPair, QuizQuestion, QuizQuestionType, QuizRequest } from "./types";
 import { QUIZ_COUNTS } from "./types";
 import { applyHkForms } from "./hk-forms";
-import { answerTypeGuidance, enforceAnswerTypes, type RuleStats } from "./answer-rules";
+import { answerTypeGuidance, areaArithmeticKeyOk, enforceAnswerTypes, type RuleStats } from "./answer-rules";
 import { buildRuledQuestions } from "./generator";
 import { AVOID_MAX, AVOID_STEM_MAX, matchesAvoid, parseAvoidKeys } from "./avoid";
 
@@ -85,6 +85,8 @@ const TOPIC_LABELS: Record<string, { zh: string; en: string }> = {
   "maths/fractions": { zh: "分數", en: "Fractions" },
   "maths/decimals": { zh: "小數", en: "Decimals" },
   "maths/percentages": { zh: "百分數", en: "Percentages" },
+  "maths/area": { zh: "三角形與四邊形面積", en: "Area of triangles & quadrilaterals" },
+  "maths/area-polygons": { zh: "多邊形的面積", en: "Area of polygons (composite)" },
   "maths/word-problems": { zh: "應用題", en: "Word problems" },
   "gs/healthy-living": { zh: "健康生活", en: "Healthy living" },
   "gs/community": { zh: "社區與生活", en: "Community" },
@@ -215,6 +217,7 @@ export function buildQuizPrompt(request: QuizRequest): { system: string; user: s
     "- Obey the ANSWER TYPES block for the year (which types are allowed and how many).",
     "- For type fill: answer is the canonical accepted spelling; accepts may list alternatives.",
     "- For type number: answer is a numeric string. Plain decimals/integers (e.g. \"0.75\", \"12\") are preferred. Fraction strings like \"5/6\" are also allowed when the value is a fraction — the UI accepts text input for those.",
+    "- Area answers: put the unit in the prompt (多少平方厘米／cm²); the answer string must be the bare number (e.g. \"24\"), never \"24 cm²\" or \"24 平方厘米\". For composite shapes, state every part's dimensions in words — no diagrams.",
     "- Every fraction answer (and every fraction MC choice that is correct) must be in lowest terms, as a mixed number where the year uses them, unless the question explicitly asks for an unsimplified form.",
     "- When the learner must write a fraction in lowest terms (最簡分數 / simplify), prefer type \"fill\" with answer like \"5/6\" (accepts may include \"5 / 6\"). Do NOT use type number for slash answers unless the answer string itself contains /.",
     "- Difficulty is set per YEAR, not per key stage: obey every \"LIMIT\" line in the CURRICULUM / DIFFICULTY block (lengths, number ranges, allowed grammar/words). Each year must be clearly harder than the year below and easier than the year above.",
@@ -746,6 +749,10 @@ export function finalizeQuestions(
     stems.add(key);
     // Uses a term that only belongs to another topic of the subject (e.g. 導電體 in 健康生活).
     if (offTopic?.test(testedText(q))) {
+      stats.topic = (stats.topic ?? 0) + 1;
+      continue;
+    }
+    if (!areaArithmeticKeyOk(q, request.topic)) {
       stats.topic = (stats.topic ?? 0) + 1;
       continue;
     }

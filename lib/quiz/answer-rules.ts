@@ -146,7 +146,109 @@ export function numericComparisonKeyOk(q: QuizQuestion): boolean {
   return key !== null && Math.abs(key - target) < 1e-9 && nums.filter((v) => Math.abs(v - target) < 1e-9).length === 1;
 }
 
-/** Key for "same choice" checks: numeric value for numbers, lenient text otherwise. */
+
+/** Strip cm² / 平方厘米-style units so "24 cm²" parses as 24. */
+export function stripAreaUnit(raw: string): string {
+  return String(raw)
+    .trim()
+    .replace(/\s*(cm\s*[²2]|m\s*[²2]|平方厘米|平方公分|平方米|sq\.?\s*c?m)\s*$/i, "")
+    .trim();
+}
+
+/**
+ * Cheap area-key check. When the stem clearly states a single parallelogram /
+ * triangle / trapezium / rectangle (or a two-part composite) with numbers, verify
+ * the keyed answer equals the formula. Unverifiable stems pass (return true).
+ */
+export function areaArithmeticKeyOk(q: QuizQuestion, topic?: string): boolean {
+  const prompt = `${q.prompt.zh ?? ""} ${q.prompt.en ?? ""}`;
+  const isAreaTopic = topic === "area" || topic === "area-polygons";
+  const mentionsArea = /面積|area\b/i.test(prompt);
+  if (!isAreaTopic && !mentionsArea) return true;
+  if (q.type === "match") return true;
+
+  const keyNum = parseNumericAnswer(stripAreaUnit(q.answer));
+  if (keyNum === null || !(keyNum > 0)) {
+    // Area topics need a positive numeric key; other topics with a soft "面積" mention pass.
+    return !isAreaTopic;
+  }
+
+  const expected = expectedAreaFromPrompt(prompt);
+  if (expected === null) return true; // cannot verify cheaply
+  return Math.abs(expected - keyNum) <= 0.011;
+}
+
+/** Pull a verifiable area from a worded stem, or null if ambiguous. */
+function expectedAreaFromPrompt(prompt: string): number | null {
+  const text = prompt.replace(/,/g, "");
+  const parts: number[] = [];
+  const shapeRe =
+    /平行四邊形|三角形|梯形|長方形|矩形|正方形|parallelogram|triangle|trapez(?:ium|oid)?|rectangle|square/gi;
+  for (const sm of text.matchAll(shapeRe)) {
+    const name = sm[0];
+    const at = sm.index ?? 0;
+    const area = areaForShapeAt(name, text, at);
+    if (area !== null) parts.push(area);
+  }
+
+  const uniq: number[] = [];
+  for (const p of parts) {
+    if (!uniq.some((u) => Math.abs(u - p) < 1e-9)) uniq.push(p);
+  }
+  if (uniq.length === 0) return null;
+  if (uniq.length === 1) return uniq[0];
+  if (/減去|挖去|剪去|subtract|minus|cut (?:out|from)|hole/i.test(text)) {
+    return Math.abs(uniq[0] - uniq.slice(1).reduce((a, b) => a + b, 0));
+  }
+  if (/分割|拼成|組成|合共|總面積|composite|split|join|made of|together|joined/i.test(text)) {
+    return uniq.reduce((a, b) => a + b, 0);
+  }
+  return null;
+}
+
+/** Dimensions immediately before ("底 8…的三角形") or after ("三角形的底是 8…") the shape name. */
+function areaForShapeAt(name: string, text: string, at: number): number | null {
+  const before = text.slice(Math.max(0, at - 32), at);
+  const after = text.slice(at, Math.min(text.length, at + name.length + 32));
+  const lower = name.toLowerCase();
+
+  if (/梯形|trapez/.test(lower)) {
+    const m =
+      before.match(/上底\s*(?:是|為|:|：)?\s*(\d+(?:\.\d+)?)[\s\S]{0,18}?下底\s*(?:是|為|:|：)?\s*(\d+(?:\.\d+)?)[\s\S]{0,18}?高\s*(?:是|為|:|：)?\s*(\d+(?:\.\d+)?)\s*(?:厘米|cm)?(?:的?(?:直角|等腰|等邊)?)?$/) ||
+      after.match(/上底\s*(?:是|為|:|：)?\s*(\d+(?:\.\d+)?)[\s\S]{0,18}?下底\s*(?:是|為|:|：)?\s*(\d+(?:\.\d+)?)[\s\S]{0,18}?高\s*(?:是|為|:|：)?\s*(\d+(?:\.\d+)?)/);
+    if (m) return ((Number(m[1]) + Number(m[2])) * Number(m[3])) / 2;
+    return null;
+  }
+  if (/長方形|矩形|rectangle/.test(lower)) {
+    const m =
+      before.match(/長\s*(?:是|為|:|：)?\s*(\d+(?:\.\d+)?)[\s\S]{0,14}?(?:闊|寬)\s*(?:是|為|:|：)?\s*(\d+(?:\.\d+)?)\s*(?:厘米|cm)?(?:的?(?:直角|等腰|等邊)?)?$/) ||
+      after.match(/長\s*(?:是|為|:|：)?\s*(\d+(?:\.\d+)?)[\s\S]{0,14}?(?:闊|寬)\s*(?:是|為|:|：)?\s*(\d+(?:\.\d+)?)/) ||
+      after.match(/(\d+(?:\.\d+)?)\s*cm\s*(?:by|×|x)\s*(\d+(?:\.\d+)?)/i);
+    if (m) return Number(m[1]) * Number(m[2]);
+    return null;
+  }
+  if (/正方形|square/.test(lower)) {
+    const m =
+      before.match(/邊長\s*(?:是|為|:|：)?\s*(\d+(?:\.\d+)?)\s*(?:厘米|cm)?(?:的?(?:直角|等腰|等邊)?)?$/) ||
+      after.match(/邊長\s*(?:是|為|:|：)?\s*(\d+(?:\.\d+)?)|side\s*(?:is|=|:)?\s*(\d+(?:\.\d+)?)/i);
+    if (m) {
+      const s = Number(m[1] || m[2]);
+      return s * s;
+    }
+    return null;
+  }
+
+  // Prefer trailing "底…高…的SHAPE"; else "SHAPE…底…高".
+  const bhBefore = before.match(/(?:底|base)\s*(?:是|為|:|：)?\s*(\d+(?:\.\d+)?)[\s\S]{0,14}?(?:高|height)\s*(?:是|為|:|：)?\s*(\d+(?:\.\d+)?)\s*(?:厘米|cm)?(?:的?(?:直角|等腰|等邊)?)?$/i);
+  const bhAfter = after.match(/(?:底|base)\s*(?:是|為|:|：)?\s*(\d+(?:\.\d+)?)[\s\S]{0,14}?(?:高|height)\s*(?:是|為|:|：)?\s*(\d+(?:\.\d+)?)/i);
+  const bh = bhBefore || bhAfter;
+  if (!bh) return null;
+  const product = Number(bh[1]) * Number(bh[2]);
+  if (/三角形|triangle/.test(lower)) return product / 2;
+  if (/平行四邊形|parallelogram/.test(lower)) return product;
+  return null;
+}
+
 /**
  * Key for "are these two mc choices the same option?". Only formatting is folded
  * (width, case, spacing, trailing full stop); apostrophes and hyphens are kept,
