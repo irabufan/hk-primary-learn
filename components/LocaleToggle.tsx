@@ -2,7 +2,6 @@
 
 import { useI18n } from "@/lib/i18n/provider";
 
-/** EN | 繁體 segmented toggle — persists to localStorage via the provider. */
 export function LocaleToggle() {
   const { locale, setLocale, t } = useI18n();
 
@@ -10,16 +9,16 @@ export function LocaleToggle() {
     <div
       role="group"
       aria-label={t("locale.aria")}
-      className="inline-flex rounded-full border-2 border-sky-100 bg-white p-1 shadow-sm"
+      className="inline-flex rounded-full border border-sky-200 bg-white p-1"
     >
       <button
         type="button"
         aria-pressed={locale === "en"}
         onClick={() => setLocale("en")}
-        className={`min-h-11 min-w-11 rounded-full px-2.5 text-sm sm:min-w-[3.5rem] sm:px-3 font-extrabold transition ${
+        className={`min-h-11 min-w-11 rounded-full px-2.5 text-sm font-semibold transition sm:min-w-[3.5rem] sm:px-3 ${
           locale === "en"
-            ? "bg-indigo-600 text-white shadow"
-            : "text-slate-500 hover:bg-sky-50 hover:text-indigo-700"
+            ? "bg-slate-800 text-white shadow"
+            : "text-slate-500 hover:bg-sky-50 hover:text-slate-800"
         }`}
       >
         EN
@@ -28,10 +27,10 @@ export function LocaleToggle() {
         type="button"
         aria-pressed={locale === "zh-HK"}
         onClick={() => setLocale("zh-HK")}
-        className={`min-h-11 min-w-11 rounded-full px-2.5 text-sm sm:min-w-[3.5rem] sm:px-3 font-extrabold transition ${
+        className={`min-h-11 min-w-11 rounded-full px-2.5 text-sm font-semibold transition sm:min-w-[3.5rem] sm:px-3 ${
           locale === "zh-HK"
-            ? "bg-indigo-600 text-white shadow"
-            : "text-slate-500 hover:bg-sky-50 hover:text-indigo-700"
+            ? "bg-slate-800 text-white shadow"
+            : "text-slate-500 hover:bg-sky-50 hover:text-slate-800"
         }`}
       >
         繁體

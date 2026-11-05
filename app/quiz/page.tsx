@@ -101,7 +101,7 @@ function QuizPageInner() {
   return (
     <div className="wrap max-w-2xl space-y-5 py-2 sm:space-y-6 sm:py-8">
       <div>
-        <h1 className="text-2xl font-black text-ink sm:text-3xl">{t("quiz.title")}</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">{t("quiz.title")}</h1>
         {source && phase !== "setup" && !busy && (
           <p className="mt-2 text-xs font-semibold text-slate-500">
             {source === "llm" ? t("quiz.sourceLlm") : t("quiz.sourceMock")}

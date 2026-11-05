@@ -27,12 +27,18 @@ export type Subject = {
   name: Localized;
   icon: string;
   tagline: Localized;
-  /** Tailwind gradient classes for the subject tile. */
-  gradient: string;
+  /** Flat solid Tailwind bg class for subject accent (icon tile, CTAs). */
+  accent: string;
   /** Soft chip classes for small subject labels. */
   soft: string;
   /** Border colour on hover for cards in this subject. */
   ring: string;
+  /** Left-border / header accent border class. */
+  border: string;
+  /** Text accent class for headings/progress. */
+  text: string;
+  /** @deprecated alias — same as accent (kept for gradual call-site updates). */
+  gradient: string;
   topics: Topic[];
 };
 
@@ -42,9 +48,12 @@ export const SUBJECTS: Subject[] = [
     icon: "🐼",
     name: { zh: "中文", en: "Chinese" },
     tagline: { zh: "詞語、閱讀、造句", en: "Vocab, reading, sentences" },
-    gradient: "from-orange-400 via-rose-400 to-red-400",
-    soft: "bg-orange-100 text-orange-700",
-    ring: "hover:border-orange-300",
+    accent: "bg-red-600",
+    soft: "bg-red-100 text-red-800",
+    ring: "hover:border-red-400",
+    border: "border-red-500",
+    text: "text-red-700",
+    gradient: "bg-red-600",
     topics: [
       {
         slug: "vocab",
@@ -74,9 +83,12 @@ export const SUBJECTS: Subject[] = [
     icon: "🔤",
     name: { zh: "英文", en: "English" },
     tagline: { zh: "詞彙、閱讀、文法", en: "Vocabulary, reading, grammar" },
-    gradient: "from-sky-400 via-cyan-400 to-blue-500",
-    soft: "bg-sky-100 text-sky-700",
-    ring: "hover:border-sky-300",
+    accent: "bg-blue-600",
+    soft: "bg-blue-100 text-blue-800",
+    ring: "hover:border-blue-400",
+    border: "border-blue-500",
+    text: "text-blue-700",
+    gradient: "bg-blue-600",
     topics: [
       {
         slug: "vocabulary",
@@ -106,9 +118,12 @@ export const SUBJECTS: Subject[] = [
     icon: "🔢",
     name: { zh: "數學", en: "Maths" },
     tagline: { zh: "數與計算、圖形、應用題", en: "Numbers, shapes, word problems" },
-    gradient: "from-indigo-400 via-violet-400 to-purple-400",
-    soft: "bg-indigo-100 text-indigo-700",
-    ring: "hover:border-indigo-300",
+    accent: "bg-orange-600",
+    soft: "bg-orange-100 text-orange-900",
+    ring: "hover:border-orange-400",
+    border: "border-orange-500",
+    text: "text-orange-700",
+    gradient: "bg-orange-600",
     topics: [
       {
         slug: "numbers",
@@ -188,9 +203,12 @@ export const SUBJECTS: Subject[] = [
     icon: "🌍",
     name: { zh: "常識", en: "General Studies" },
     tagline: { zh: "健康、社區、自然科學", en: "Health, community, nature & science" },
-    gradient: "from-emerald-400 via-teal-400 to-cyan-500",
-    soft: "bg-emerald-100 text-emerald-700",
-    ring: "hover:border-emerald-300",
+    accent: "bg-emerald-600",
+    soft: "bg-emerald-100 text-emerald-900",
+    ring: "hover:border-emerald-400",
+    border: "border-emerald-500",
+    text: "text-emerald-700",
+    gradient: "bg-emerald-600",
     topics: [
       {
         slug: "healthy-living",

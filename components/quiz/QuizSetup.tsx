@@ -6,6 +6,7 @@ import {
   DEFAULT_YEAR,
   SUBJECTS,
   YEARS,
+  getSubject,
   resolveTopicForYear,
   topicsForYear,
   type SubjectSlug,
@@ -49,6 +50,7 @@ export function QuizSetup({
   const [subject, setSubject] = useState<SubjectSlug>(initialSubject ?? "chinese");
   const [year, setYear] = useState<Year>(initialYear ?? DEFAULT_YEAR);
   const topics = useMemo(() => topicsForYear(subject, year), [subject, year]);
+  const subjectMeta = getSubject(subject);
   // Topics depend on the year (maths); an unknown / off-year topic falls back to the first valid one.
   const [topic, setTopic] = useState(
     () => resolveTopicForYear(initialSubject ?? "chinese", initialYear ?? DEFAULT_YEAR, initialTopic) ?? "vocab",
@@ -106,9 +108,10 @@ export function QuizSetup({
   }
 
   return (
-    <div className={`card space-y-5 ${busy ? "opacity-95" : ""}`}>
+    <div className={`card space-y-5 overflow-hidden ${busy ? "opacity-95" : ""} ${subjectMeta ? `border-2 ${subjectMeta.border}` : ""}`}>
+      {subjectMeta && <div className={`-mx-5 -mt-5 h-2 ${subjectMeta.accent}`} aria-hidden />}
       <div>
-        <h2 className="text-xl font-bold text-indigo-900">{t("quiz.title")}</h2>
+        <h2 className="text-xl font-bold tracking-tight text-ink">{t("quiz.title")}</h2>
         <p className="mt-1 text-sm text-muted">{t("quiz.lead")}</p>
         <p className="mt-2 inline-flex rounded-full bg-amber-100 px-3 py-0.5 text-xs font-semibold text-amber-800">
           {t("quiz.badge")}
@@ -154,8 +157,8 @@ export function QuizSetup({
                 onClick={() => onYearChange(y)}
                 className={`rounded-full px-4 py-2 text-sm font-bold transition ${
                   year === y
-                    ? "min-h-11 bg-indigo-600 text-white shadow"
-                    : "min-h-11 bg-white border-2 border-line text-ink-soft hover:border-indigo-400"
+                    ? `min-h-11 text-white shadow ${subjectMeta?.accent ?? "bg-slate-800"}`
+                    : "min-h-11 bg-white border-2 border-line text-ink-soft hover:border-slate-400"
                 }`}
               >
                 {y}

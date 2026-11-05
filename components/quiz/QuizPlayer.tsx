@@ -10,6 +10,7 @@ import {
   matchGiven,
   shouldUseTextNumericInput,
 } from "@/lib/quiz/answers";
+import { getSubject } from "@/lib/curriculum";
 import type { Quiz, QuizQuestion } from "@/lib/quiz/types";
 
 type Props = {
@@ -32,6 +33,7 @@ function toMatchItem(q: QuizQuestion): MatchItem {
 
 export function QuizPlayer({ quiz, onFinish }: Props) {
   const { t, locale } = useI18n();
+  const subject = getSubject(quiz.subject);
   const [idx, setIdx] = useState(0);
   const [answers, setAnswers] = useState<(string | number | null)[]>(
     () => quiz.questions.map(() => null),
@@ -91,9 +93,10 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
   const correctNow = locked && isRight(q, answers[idx] ?? null);
 
   return (
-    <div className="card space-y-4 max-sm:px-4">
+    <div className={`card max-sm:px-4 space-y-4 overflow-hidden ${subject ? `border-2 ${subject.border}` : ""}`}>
+      {subject && <div className={`-mx-5 -mt-5 h-2 ${subject.accent}`} aria-hidden />}
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="text-sm font-extrabold text-indigo-700">
+        <p className={`text-sm font-bold ${subject?.text ?? "text-slate-700"}`}>
           {t("quiz.progress", { current: idx + 1, total: quiz.questions.length })}
         </p>
         <p className="text-xs font-semibold text-muted">seed {quiz.seed}</p>
@@ -106,7 +109,7 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
         </blockquote>
       )}
 
-      <p className="text-lg font-extrabold text-ink whitespace-pre-wrap sm:text-xl">
+      <p className="whitespace-pre-wrap text-lg font-bold tracking-tight text-ink sm:text-xl">
         {toText(q.prompt, locale)}
       </p>
 
@@ -121,7 +124,7 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
               "flex w-full min-h-11 items-center gap-3 rounded-2xl border-4 px-4 py-3.5 text-left text-base font-bold transition ";
             if (!locked) {
               cls += isSelected
-                ? "border-indigo-500 bg-indigo-50 text-indigo-950 shadow-md ring-2 ring-indigo-200"
+                ? `shadow-md ring-2 ${subject ? `${subject.border} bg-slate-50 ${subject.text} ring-slate-200` : "border-slate-500 bg-slate-50 text-slate-950 ring-slate-200"}`
                 : "border-slate-200 bg-white text-slate-800 shadow-sm hover:-translate-y-0.5 hover:border-sky-400 hover:bg-sky-50";
             } else if (isAnswer) {
               cls += "animate-pop-in border-lime-500 bg-lime-50 text-lime-900";
@@ -147,7 +150,7 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
                         : isWrongPick
                           ? "bg-coral text-white"
                           : isSelected && !locked
-                            ? "bg-indigo-600 text-white"
+                            ? `${subject?.accent ?? "bg-slate-800"} text-white`
                             : "bg-sky-100 text-sky-700"
                     }`}
                   >
@@ -195,7 +198,7 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
             correctNow ? "border-lime-300 bg-lime-50" : "border-orange-300 bg-orange-50"
           }`}
         >
-          <p className={`text-base font-extrabold ${correctNow ? "text-lime-800" : "text-orange-800"}`}>
+          <p className={`text-base font-bold ${correctNow ? "text-lime-800" : "text-orange-800"}`}>
             {correctNow ? `🎉 ${t("common.correct")}` : `💪 ${t("common.wrong")}`}
           </p>
           {q.type === "match" ? (

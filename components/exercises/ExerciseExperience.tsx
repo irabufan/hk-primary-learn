@@ -54,20 +54,20 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
 
   if (!session) {
     return (
-      <div className="rounded-3xl border-4 border-sky-100 bg-white p-10 text-center shadow-sm">
-        <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-sky-200 border-t-indigo-600" />
-        <p className="mt-4 text-base font-bold text-slate-500">{t("exercise.loading")}</p>
+      <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center shadow-sm">
+        <div className={`mx-auto h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-current ${subject.text}`} />
+        <p className="mt-4 text-base font-semibold text-slate-500">{t("exercise.loading")}</p>
       </div>
     );
   }
 
   if (session.length === 0) {
     return (
-      <div className="rounded-3xl border-4 border-sky-100 bg-white p-10 text-center shadow-sm space-y-4">
-        <h1 className="text-2xl font-extrabold text-indigo-800">
+      <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-10 text-center shadow-sm">
+        <h1 className="text-2xl font-bold text-ink">
           找不到練習 / No exercises
         </h1>
-        <p className="text-sm font-semibold text-slate-500">
+        <p className="text-sm font-medium text-slate-500">
           這個題目暫時沒有適合的練習內容。
         </p>
         <Link
@@ -152,7 +152,7 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
     if (item.kind === "match") {
       return (
         <div>
-          <h2 className="mb-4 text-xl font-extrabold text-indigo-800 sm:text-2xl">
+          <h2 className={`mb-4 text-xl font-bold tracking-tight sm:text-2xl ${subject.text}`}>
             {toText(item.title, locale)}
           </h2>
           <MatchPairs item={item} onComplete={handleSequentialMatchComplete} />
@@ -168,30 +168,31 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
       <div className="flex flex-wrap items-center gap-3">
         <Link
           href={subjectPath(subject.slug, year)}
-          className="inline-flex min-h-11 items-center rounded-full border-2 border-sky-200 bg-white px-4 text-sm font-extrabold text-slate-600 transition hover:border-sky-400 hover:text-indigo-700"
+          className={`inline-flex min-h-11 items-center rounded-full border-2 bg-white px-4 text-sm font-semibold text-slate-600 transition ${subject.border} hover:brightness-95`}
         >
           ← {t("exercise.backToSubject", { subject: toText(subject.name, locale) })}
         </Link>
-        <span className={`rounded-full px-4 py-2 text-sm font-extrabold ${subject.soft}`}>
+        <span className={`rounded-full px-4 py-2 text-sm font-semibold ${subject.soft}`}>
           {subject.icon} {toText(subject.name, locale)}
         </span>
-        <span className="rounded-full bg-indigo-100 px-4 py-2 text-sm font-extrabold text-indigo-700">
+        <span className={`rounded-full px-4 py-2 text-sm font-semibold ${subject.soft}`}>
           {t("year.badge")}: {year}
         </span>
-        <span className="ml-auto rounded-full bg-slate-100 px-4 py-2 text-sm font-extrabold text-slate-600">
+        <span className="ml-auto rounded-full bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-600">
           {topic.icon} {toText(topic.name, locale)} · {t(`kind.${kindBadge}`)}
         </span>
       </div>
 
       {/* Finished: score panel */}
       {finished ? (
-        <section className="animate-pop-in rounded-3xl border-4 border-lime-300 bg-white p-8 text-center shadow-sm">
+        <section className={`animate-pop-in overflow-hidden rounded-2xl border-2 bg-white p-8 text-center shadow-sm ${subject.border}`}>
+          <div className={`-mx-8 -mt-8 mb-6 h-2 ${subject.accent}`} aria-hidden />
           <p className="text-5xl">{scoreRatio >= 0.7 ? "🎉" : "💪"}</p>
-          <h2 className="mt-3 text-2xl font-extrabold text-indigo-800">{t("score.title")}</h2>
-          <p className="mt-2 text-xl font-extrabold text-lime-700">
+          <h2 className="mt-3 text-2xl font-bold tracking-tight text-ink">{t("score.title")}</h2>
+          <p className={`mt-2 text-xl font-bold ${subject.text}`}>
             {t("score.line", { score, total })}
           </p>
-          <p className="mt-1 text-base font-bold text-slate-600">{scoreMessage}</p>
+          <p className="mt-1 text-base font-medium text-slate-600">{scoreMessage}</p>
           {matchResult && matchResult.misses > 0 && (
             <p className="mt-1 text-sm font-semibold text-slate-500">
               {t("match.misses", { n: matchResult.misses })}
@@ -201,13 +202,13 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
             <button
               type="button"
               onClick={retry}
-              className="rounded-full bg-gradient-to-r from-orange-400 to-coral px-6 py-3 text-base font-extrabold text-white shadow transition hover:-translate-y-0.5"
+              className={`rounded-full px-6 py-3 text-base font-bold text-white shadow transition hover:-translate-y-0.5 ${subject.accent}`}
             >
               🔄 {t("common.retry")}
             </button>
             <Link
               href={quizPath(subject.slug, topic.slug, year)}
-              className="rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 px-6 py-3 text-base font-extrabold text-white shadow transition hover:-translate-y-0.5"
+              className="rounded-full bg-coral px-6 py-3 text-base font-bold text-white shadow transition hover:-translate-y-0.5"
             >
               🎯 {t("exercise.makeQuiz")}
             </Link>
@@ -215,15 +216,16 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
         </section>
       ) : pureMatch && session[0].kind === "match" ? (
         /* Match-pairs-only topic: the whole board is one question */
-        <section className="rounded-3xl border-4 border-sky-100 bg-white p-6 shadow-sm sm:p-8">
-          <h1 className="mb-4 text-2xl font-extrabold text-indigo-800">{toText(session[0].title, locale)}</h1>
+        <section className={`overflow-hidden rounded-2xl border-2 bg-white p-6 shadow-sm sm:p-8 ${subject.border}`}>
+          <div className={`-mx-6 -mt-6 mb-4 h-2 sm:-mx-8 sm:-mt-8 ${subject.accent}`} aria-hidden />
+          <h1 className={`mb-4 text-2xl font-bold tracking-tight ${subject.text}`}>{toText(session[0].title, locale)}</h1>
           <MatchPairs item={session[0]} onComplete={handleMatchComplete} />
         </section>
       ) : (
         /* One-at-a-time questions — render by each item's own kind */
         <>
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm font-extrabold text-indigo-700">
+            <p className={`text-sm font-bold ${subject.text}`}>
               {t("exercise.progress", { current: index + 1, total })}
             </p>
             <div className="flex flex-wrap gap-1.5" aria-hidden>
@@ -239,7 +241,7 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
                         : result === false
                           ? "bg-coral"
                           : isCurrent
-                            ? "bg-indigo-600 ring-4 ring-indigo-100"
+                            ? `${subject.accent} ring-4 ring-slate-200`
                             : "bg-slate-200"
                     }`}
                   />
@@ -250,7 +252,7 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
 
           <section
             key={currentItem.id ?? index}
-            className="animate-pop-in rounded-3xl border-4 border-sky-100 bg-white p-6 shadow-sm sm:p-8"
+            className={`animate-pop-in overflow-hidden rounded-2xl border-2 bg-white p-6 shadow-sm sm:p-8 ${subject.border}`}
           >
             {renderItem(currentItem)}
           </section>
@@ -260,7 +262,7 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
               <button
                 type="button"
                 onClick={handleNext}
-                className="animate-pop-in min-h-12 w-full rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 px-8 py-3.5 text-lg font-extrabold text-white shadow transition hover:-translate-y-0.5 sm:w-auto sm:text-base"
+                className={`animate-pop-in min-h-12 w-full rounded-full px-8 py-3.5 text-lg font-bold text-white shadow transition hover:-translate-y-0.5 sm:w-auto sm:text-base ${subject.accent}`}
               >
                 {index + 1 >= session.length ? t("common.finish") : t("common.next")} →
               </button>
@@ -269,7 +271,7 @@ export function ExerciseExperience({ subject, topic, initialYear }: ExerciseExpe
         </>
       )}
 
-      <p className="text-center text-xs font-semibold text-slate-400">
+      <p className="text-center text-xs font-medium text-slate-400">
         ℹ️ {t("exercise.langNote")}
       </p>
     </div>

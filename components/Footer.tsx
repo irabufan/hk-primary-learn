@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { HkStripe } from "@/components/HkStripe";
 import { useI18n } from "@/lib/i18n/provider";
 import type { DictKey } from "@/lib/i18n/dict";
 
@@ -17,11 +18,12 @@ export function Footer() {
   const { t } = useI18n();
 
   return (
-    <footer className="border-t-4 border-sky-100 bg-white/80">
-      <div className="mx-auto grid max-w-5xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-[1.5fr_1fr_1.5fr]">
+    <footer className="border-t border-sky-200 bg-white/80">
+      <HkStripe className="rounded-none" />
+      <div className="mx-auto grid max-w-5xl gap-8 px-4 py-8 sm:px-6 md:grid-cols-[1.5fr_1fr_1.5fr]">
         <div>
-          <p className="flex items-center gap-2 text-lg font-extrabold text-indigo-700">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-orange-400 to-rose-400 text-lg">
+          <p className="flex items-center gap-2 text-lg font-bold text-ink">
+            <span className="grid h-9 w-9 place-items-center rounded-xl bg-coral text-lg">
               📚
             </span>
             {t("brand.title")}
@@ -30,13 +32,13 @@ export function Footer() {
         </div>
 
         <div>
-          <p className="text-sm font-extrabold uppercase tracking-wide text-slate-500">
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
             {t("footer.links")}
           </p>
-          <ul className="mt-2 grid grid-cols-3 gap-x-4 text-sm font-semibold sm:mt-3 sm:block sm:space-y-2">
+          <ul className="mt-2 grid grid-cols-3 gap-x-4 text-sm font-medium sm:mt-3 sm:block sm:space-y-2">
             {LINKS.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="flex min-h-11 w-full items-center text-base text-indigo-600 hover:text-coral hover:underline sm:min-h-0 sm:text-sm">
+                <Link href={link.href} className="flex min-h-11 w-full items-center text-base text-slate-700 hover:text-coral hover:underline sm:min-h-0 sm:text-sm">
                   {t(link.key)}
                 </Link>
               </li>
@@ -45,15 +47,15 @@ export function Footer() {
         </div>
 
         <div className="space-y-3 text-sm text-slate-600">
-          <p className="rounded-2xl border-2 border-lime-200 bg-lime-50 px-4 py-3 font-bold text-lime-800">
+          <p className="rounded-xl border border-lime-300 bg-lime-50 px-4 py-3 font-medium text-lime-900">
             ✅ {t("footer.disclaimer")}
           </p>
-          <p className="rounded-2xl border-2 border-orange-200 bg-orange-50 px-4 py-3 font-semibold text-orange-800">
+          <p className="rounded-xl border border-orange-200 bg-orange-50 px-4 py-3 font-medium text-orange-900">
             ⚠️ {t("footer.copy")}
           </p>
         </div>
       </div>
-      <div className="border-t-2 border-sky-100 py-4 text-center text-xs font-medium text-slate-500">
+      <div className="border-t border-sky-100 py-3 text-center text-xs font-medium text-slate-500">
         {t("brand.title")} · {t("brand.tagline")}
       </div>
     </footer>
