@@ -3,6 +3,7 @@
 import { Suspense, use } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { Mascot } from "@/components/Mascot";
 import { TopicCard } from "@/components/TopicCard";
 import { getSubject, isSubjectSlug, isYear, topicsForYear, type Year } from "@/lib/curriculum";
 import { useI18n } from "@/lib/i18n/provider";
@@ -44,10 +45,11 @@ function SubjectInner({ subjectParam }: { subjectParam: string }) {
           <span className={`grid h-14 w-14 place-items-center rounded-2xl text-3xl text-white ${subject.accent}`}>
             {subject.icon}
           </span>
-          <div>
+          <div className="min-w-0 flex-1">
             <h1 className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">{toText(subject.name, locale)}</h1>
             <p className="text-sm text-muted">{t("hub.pick")}</p>
           </div>
+          <Mascot className="hidden h-16 w-16 sm:block sm:h-20 sm:w-20" mood="read" />
         </div>
       </div>
       <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">

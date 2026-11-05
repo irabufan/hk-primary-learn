@@ -26,7 +26,7 @@ export function QuizResults({ quiz, score, source, onRetry, onRegenerate, onSetu
     <div className={`card space-y-5 overflow-hidden text-center ${subject ? `border-2 ${subject.border}` : ""}`}>
       {subject && <div className={`-mx-5 -mt-5 mb-0 h-2 ${subject.accent}`} aria-hidden />}
       <div className="flex justify-center pt-1">
-        <Mascot className="h-24 w-24" mood="cheer" />
+        <Mascot className="h-28 w-28 sm:h-32 sm:w-32" mood={great ? "cheer" : "tryagain"} />
       </div>
       <p className={`text-sm font-semibold uppercase tracking-wide ${subject?.text ?? "text-indigo-600"}`}>
         {t("quiz.resultsTitle")}

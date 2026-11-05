@@ -1,5 +1,6 @@
 "use client";
 
+import { Mascot } from "@/components/Mascot";
 import { useI18n } from "@/lib/i18n/provider";
 
 type Props = {
@@ -26,10 +27,10 @@ export function QuizLoading({ variant = "card" }: Props) {
         aria-live="polite"
         className="flex items-start gap-3 rounded-2xl border-2 border-indigo-200 bg-indigo-50 px-4 py-3"
       >
-        <Spinner className="mt-0.5 h-5 w-5" />
+        <Mascot className="h-14 w-14" mood="read" />
         <div className="min-w-0">
-          <p className="text-sm font-extrabold text-indigo-900">{t("quiz.generating")}</p>
-          <p className="mt-0.5 text-xs font-semibold text-indigo-700/80">
+          <p className="text-sm font-bold text-indigo-900">{t("quiz.generating")}</p>
+          <p className="mt-0.5 text-xs font-medium text-indigo-700/80">
             {t("quiz.generatingHint")}
           </p>
         </div>
@@ -40,10 +41,10 @@ export function QuizLoading({ variant = "card" }: Props) {
   return (
     <div className="card space-y-5" role="status" aria-live="polite">
       <div className="flex items-center gap-3">
-        <Spinner className="h-6 w-6" />
+        <Mascot className="h-16 w-16" mood="read" />
         <div>
-          <p className="text-base font-extrabold text-indigo-900">{t("quiz.generating")}</p>
-          <p className="mt-0.5 text-sm font-semibold text-muted">{t("quiz.generatingHint")}</p>
+          <p className="text-base font-bold text-indigo-900">{t("quiz.generating")}</p>
+          <p className="mt-0.5 text-sm font-medium text-muted">{t("quiz.generatingHint")}</p>
         </div>
       </div>
       <div className="space-y-3" aria-hidden>

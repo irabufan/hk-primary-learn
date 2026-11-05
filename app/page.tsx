@@ -58,7 +58,12 @@ export default function HomePage() {
             </div>
           </div>
           <div className="mx-auto shrink-0 sm:mx-0">
-            <Mascot className="h-28 w-28 sm:h-32 sm:w-32" mood="hero" />
+            <Mascot
+              className="h-32 w-32 sm:h-36 sm:w-36 lg:h-40 lg:w-40"
+              mood="hero"
+              bounce
+              priority
+            />
           </div>
         </div>
       </section>
@@ -107,7 +112,10 @@ export default function HomePage() {
         <section className="rounded-2xl border border-lime-300 bg-lime-50 px-5 py-4">
           <h2 className="text-lg font-bold text-lime-900">{t("home.activity")}</h2>
           {progress.length === 0 ? (
-            <p className="mt-1.5 text-sm text-slate-600">{t("home.activityNone")}</p>
+            <div className="mt-2 flex items-center gap-3">
+              <Mascot className="h-14 w-14" mood="read" />
+              <p className="text-sm text-slate-600">{t("home.activityNone")}</p>
+            </div>
           ) : (
             <ul className="mt-3 flex flex-wrap gap-2">
               {progress.map((entry) => {

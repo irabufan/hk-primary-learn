@@ -73,9 +73,19 @@ summary {
   animation: shake-x 0.5s ease;
 }
 
+@keyframes bolo-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+.animate-bolo-bounce {
+  animation: bolo-bounce 2.6s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-pop-in,
-  .animate-shake {
+  .animate-shake,
+  .animate-bolo-bounce {
     animation: none;
   }
 }
