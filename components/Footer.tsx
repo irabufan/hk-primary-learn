@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { HkStripe } from "@/components/HkStripe";
 import { useI18n } from "@/lib/i18n/provider";
 import type { DictKey } from "@/lib/i18n/dict";
 
@@ -19,7 +18,6 @@ export function Footer() {
 
   return (
     <footer className="border-t border-sky-200 bg-white/80">
-      <HkStripe className="rounded-none" />
       <div className="mx-auto grid max-w-5xl gap-8 px-4 py-8 sm:px-6 md:grid-cols-[1.5fr_1fr_1.5fr]">
         <div>
           <p className="flex items-center gap-2 text-lg font-bold text-ink">

@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { HkStripe } from "@/components/HkStripe";
-import { LocaleToggle } from "@/components/LocaleToggle";
 import { Mascot } from "@/components/Mascot";
 import { SubjectCard } from "@/components/SubjectCard";
 import { YearPicker } from "@/components/YearPicker";
@@ -31,10 +29,9 @@ export default function HomePage() {
 
   return (
     <div className="space-y-8">
-      {/* Hero — flat bright block + mascot + HK stripe */}
-      <section className="animate-pop-in overflow-hidden rounded-3xl border-2 border-sky-200 bg-sky-100">
-        <HkStripe />
-        <div className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:gap-6 sm:p-9">
+      {/* Hero — flat bright block + mascot */}
+      <section className="animate-pop-in rounded-3xl border-2 border-sky-200 bg-sky-100 p-6 sm:p-9">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
           <div className="min-w-0 flex-1">
             <p className="inline-block rounded-full bg-white px-3.5 py-1 text-sm font-semibold text-sky-800 shadow-sm">
               🇭🇰 {t("home.badge")}
@@ -58,9 +55,6 @@ export default function HomePage() {
               >
                 📚 {t("home.ctaSubjects")}
               </a>
-              <span className="ml-auto hidden sm:block">
-                <LocaleToggle />
-              </span>
             </div>
           </div>
           <div className="mx-auto shrink-0 sm:mx-0">
@@ -78,7 +72,7 @@ export default function HomePage() {
           {t("home.subjectsTitle")}
         </h2>
         <p className="mt-1 text-sm text-slate-600">{t("home.subjectsLead")}</p>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
           {SUBJECTS.map((subject) => (
             <SubjectCard key={subject.slug} subject={subject} year={year} />
           ))}
@@ -146,20 +140,17 @@ export default function HomePage() {
       )}
 
       {/* Flat bright quiz banner — coral, no purple gradient */}
-      <section className="overflow-hidden rounded-3xl bg-coral text-white shadow-md">
-        <HkStripe className="opacity-90" />
-        <div className="p-6 sm:p-8">
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">🎯 {t("home.quizBannerTitle")}</h2>
-          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-orange-50 sm:text-base">
-            {t("home.quizBannerBody")}
-          </p>
-          <Link
-            href={quizPath("chinese", undefined, year)}
-            className="mt-5 inline-block rounded-full bg-white px-6 py-3.5 text-base font-bold text-coral shadow transition hover:-translate-y-0.5 hover:shadow-lg"
-          >
-            {t("home.quizBannerCta")} →
-          </Link>
-        </div>
+      <section className="rounded-3xl bg-coral p-6 text-white shadow-md sm:p-8">
+        <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">🎯 {t("home.quizBannerTitle")}</h2>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-orange-50 sm:text-base">
+          {t("home.quizBannerBody")}
+        </p>
+        <Link
+          href={quizPath("chinese", undefined, year)}
+          className="mt-5 inline-block rounded-full bg-white px-6 py-3.5 text-base font-bold text-coral shadow transition hover:-translate-y-0.5 hover:shadow-lg"
+        >
+          {t("home.quizBannerCta")} →
+        </Link>
       </section>
     </div>
   );

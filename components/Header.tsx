@@ -22,21 +22,25 @@ export function Header() {
   return (
     <header className="z-40 border-b border-sky-200 bg-white/90 pt-[env(safe-area-inset-top)] backdrop-blur sm:sticky sm:top-0">
       <HkStripe className="rounded-none" />
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-6 gap-y-2 px-3 py-2 sm:px-6 sm:py-3">
-        <Link href="/" className="group flex min-h-11 items-center gap-2.5 sm:gap-3">
-          <span className="grid h-10 w-10 place-items-center rounded-2xl bg-coral text-xl shadow-sm transition-transform group-hover:rotate-6 sm:h-11 sm:w-11 sm:text-2xl">
+      {/*
+        Layout: brand + actions on row 1; nav on its own full-width row until lg
+        so ~820px tablets aren't cramped. From lg up, nav sits in the middle.
+      */}
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-x-3 gap-y-2 px-3 py-2 sm:px-5 sm:py-2.5 lg:gap-x-5 lg:px-6 lg:py-3">
+        <Link href="/" className="group flex min-h-11 items-center gap-2 sm:gap-2.5">
+          <span className="grid h-9 w-9 place-items-center rounded-2xl bg-coral text-lg shadow-sm transition-transform group-hover:rotate-6 sm:h-10 sm:w-10 sm:text-xl lg:h-11 lg:w-11 lg:text-2xl">
             📚
           </span>
           <span className="leading-tight">
-            <span className="block text-base font-bold text-ink sm:text-lg">{t("brand.title")}</span>
-            <span className="hidden text-xs font-medium text-slate-500 sm:block">{t("brand.tagline")}</span>
+            <span className="block text-sm font-bold text-ink sm:text-base lg:text-lg">{t("brand.title")}</span>
+            <span className="hidden text-xs font-medium text-slate-500 lg:block">{t("brand.tagline")}</span>
           </span>
         </Link>
 
-        <div className="ml-auto flex items-center gap-2 sm:order-last sm:gap-x-4">
+        <div className="ml-auto flex items-center gap-2 lg:order-last lg:gap-x-3">
           <Link
             href="/quiz"
-            className={`hidden min-h-11 items-center rounded-full px-4 text-sm font-bold text-white shadow transition hover:-translate-y-0.5 sm:inline-flex ${
+            className={`hidden min-h-11 items-center rounded-full px-3.5 text-sm font-bold text-white shadow transition hover:-translate-y-0.5 sm:inline-flex lg:px-4 ${
               pathname === "/quiz" ? "bg-coral" : "bg-coral hover:brightness-105"
             }`}
           >
@@ -45,9 +49,9 @@ export function Header() {
           <LocaleToggle />
         </div>
 
-        <div className="w-full sm:ml-auto sm:w-auto">
+        <div className="w-full lg:order-none lg:ml-auto lg:w-auto">
           <nav aria-label={t("nav.home")}>
-            <ul className="grid grid-cols-6 gap-1 text-sm font-semibold sm:flex sm:flex-wrap sm:items-center sm:gap-1.5">
+            <ul className="grid grid-cols-6 gap-1 text-sm font-semibold sm:flex sm:flex-wrap sm:items-center sm:gap-1 lg:gap-1.5">
               {NAV_LINKS.map((link) => {
                 const active = pathname === link.href || pathname.startsWith(link.href + "/");
                 const isHome = link.href === "/";
@@ -56,7 +60,7 @@ export function Header() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className={`flex min-h-11 items-center justify-center rounded-full px-2 transition sm:px-3.5 ${
+                      className={`flex min-h-11 items-center justify-center rounded-full px-1.5 transition sm:px-2.5 lg:px-3.5 ${
                         isActive
                           ? link.active
                           : "text-slate-600 hover:bg-sky-50 hover:text-slate-900"

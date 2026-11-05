@@ -99,7 +99,7 @@ function QuizPageInner() {
   const showLoadingCard = busy && phase !== "setup";
 
   return (
-    <div className="wrap max-w-2xl space-y-5 py-2 sm:space-y-6 sm:py-8">
+    <div className="wrap mx-auto w-full max-w-2xl space-y-5 py-2 md:max-w-3xl lg:max-w-4xl sm:space-y-6 sm:py-8">
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">{t("quiz.title")}</h1>
         {source && phase !== "setup" && !busy && (
