@@ -28,28 +28,28 @@ export default function HomePage() {
   };
 
   return (
-    <div className="space-y-10">
-      {/* Hero */}
-      <section className="animate-pop-in rounded-3xl border-4 border-white bg-gradient-to-br from-sky-100 via-sky-50 to-white p-6 shadow-sm sm:p-10">
-        <p className="inline-block rounded-full bg-white px-4 py-1.5 text-sm font-extrabold text-indigo-700 shadow-sm">
+    <div className="space-y-8">
+      {/* Hero — flat bright block, no sky gradient */}
+      <section className="animate-pop-in rounded-3xl border-2 border-sky-200 bg-sky-100 p-6 sm:p-9">
+        <p className="inline-block rounded-full bg-white px-3.5 py-1 text-sm font-semibold text-sky-800 shadow-sm">
           🇭🇰 {t("home.badge")}
         </p>
-        <h1 className="mt-4 text-balance text-3xl font-extrabold leading-tight text-indigo-800 sm:text-5xl">
+        <h1 className="mt-3 text-balance text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl">
           {t("home.title")}
         </h1>
-        <p className="mt-4 max-w-2xl text-base font-semibold leading-relaxed text-slate-600 sm:text-lg">
+        <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
           {t("home.lead")}
         </p>
-        <div className="mt-6 flex flex-wrap items-center gap-3">
+        <div className="mt-5 flex flex-wrap items-center gap-3">
           <Link
             href="/quiz"
-            className="inline-block rounded-full bg-gradient-to-r from-orange-400 to-coral px-6 py-3.5 text-base font-extrabold text-white shadow transition hover:-translate-y-0.5 hover:shadow-lg"
+            className="inline-block rounded-full bg-coral px-6 py-3.5 text-base font-bold text-white shadow-md transition hover:-translate-y-0.5 hover:brightness-105"
           >
             🎯 {t("home.ctaQuiz")}
           </Link>
           <a
             href="#subjects"
-            className="inline-block rounded-full border-2 border-indigo-200 bg-white px-6 py-3.5 text-base font-extrabold text-indigo-700 transition hover:-translate-y-0.5 hover:border-indigo-400 hover:bg-indigo-50"
+            className="inline-block rounded-full border-2 border-sky-300 bg-white px-6 py-3.5 text-base font-semibold text-sky-800 transition hover:-translate-y-0.5 hover:border-sky-400 hover:bg-sky-50"
           >
             📚 {t("home.ctaSubjects")}
           </a>
@@ -59,28 +59,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Year picker */}
-      <section className="rounded-3xl border-4 border-sky-100 bg-white p-6 shadow-sm">
+      {/* Year picker — soft inset panel, not a heavy card */}
+      <section className="rounded-2xl bg-white/80 px-4 py-4 sm:px-5 sm:py-5">
         <YearPicker value={year} onChange={handleYearChange} note />
       </section>
 
       {/* Subjects */}
       <section id="subjects" className="scroll-mt-24">
-        <h2 className="text-2xl font-extrabold text-indigo-800 sm:text-3xl">
+        <h2 className="text-xl font-bold tracking-tight text-ink sm:text-2xl">
           {t("home.subjectsTitle")}
         </h2>
-        <p className="mt-1 text-sm font-semibold text-slate-600">{t("home.subjectsLead")}</p>
-        <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <p className="mt-1 text-sm text-slate-600">{t("home.subjectsLead")}</p>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {SUBJECTS.map((subject) => (
             <SubjectCard key={subject.slug} subject={subject} year={year} />
           ))}
         </div>
       </section>
 
-      {/* How it works */}
+      {/* How it works — numbered strips, lighter than subject cards */}
       <section>
-        <h2 className="text-2xl font-extrabold text-indigo-800 sm:text-3xl">{t("home.howTitle")}</h2>
-        <ol className="mt-5 grid gap-5 sm:grid-cols-3">
+        <h2 className="text-xl font-bold tracking-tight text-ink sm:text-2xl">{t("home.howTitle")}</h2>
+        <ol className="mt-4 grid gap-3 sm:grid-cols-3">
           {(
             [
               ["1️⃣", "home.step1.title", "home.step1.body"],
@@ -88,38 +88,41 @@ export default function HomePage() {
               ["3️⃣", "home.step3.title", "home.step3.body"],
             ] as const
           ).map(([icon, titleKey, bodyKey]) => (
-            <li key={titleKey} className="rounded-3xl border-4 border-sky-100 bg-white p-6 shadow-sm">
-              <span className="text-3xl" aria-hidden>
+            <li
+              key={titleKey}
+              className="rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm"
+            >
+              <span className="text-2xl" aria-hidden>
                 {icon}
               </span>
-              <h3 className="mt-3 text-lg font-extrabold text-indigo-800">{t(titleKey)}</h3>
-              <p className="mt-1 text-sm font-semibold leading-relaxed text-slate-600">{t(bodyKey)}</p>
+              <h3 className="mt-2 text-base font-bold text-ink">{t(titleKey)}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-slate-600">{t(bodyKey)}</p>
             </li>
           ))}
         </ol>
       </section>
 
-      {/* Recent practice (localStorage) */}
+      {/* Recent practice */}
       {progress !== null && (
-        <section className="rounded-3xl border-4 border-lime-200 bg-lime-50/60 p-6 shadow-sm">
-          <h2 className="text-xl font-extrabold text-lime-800">{t("home.activity")}</h2>
+        <section className="rounded-2xl border border-lime-300 bg-lime-50 px-5 py-4">
+          <h2 className="text-lg font-bold text-lime-900">{t("home.activity")}</h2>
           {progress.length === 0 ? (
-            <p className="mt-2 text-sm font-semibold text-slate-600">{t("home.activityNone")}</p>
+            <p className="mt-1.5 text-sm text-slate-600">{t("home.activityNone")}</p>
           ) : (
-            <ul className="mt-4 flex flex-wrap gap-2">
+            <ul className="mt-3 flex flex-wrap gap-2">
               {progress.map((entry) => {
                 const subject = getSubject(entry.subject);
                 const topic = subject ? subject.topics.find((topic) => topic.slug === entry.topic) : undefined;
                 return (
                   <li
                     key={entry.id}
-                    className="flex items-center gap-2 rounded-full border-2 border-lime-300 bg-white px-4 py-2 text-sm font-bold text-slate-700 shadow-sm"
+                    className="flex items-center gap-2 rounded-full border border-lime-300 bg-white px-3.5 py-1.5 text-sm font-medium text-slate-700"
                   >
                     <span aria-hidden>{entry.kind === "quiz" ? "🎯" : "✏️"}</span>
                     <span>{t(entry.kind === "quiz" ? "storage.quiz" : "storage.exercise")}</span>
                     <span className="text-slate-400">·</span>
                     <span>{topic ? toText(topic.name, locale) : entry.topic}</span>
-                    <span className="rounded-full bg-lime-100 px-2.5 py-0.5 text-lime-800">
+                    <span className="rounded-full bg-lime-200/80 px-2 py-0.5 text-xs font-semibold text-lime-900">
                       {entry.score}/{entry.total}
                     </span>
                   </li>
@@ -130,15 +133,15 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* Quiz banner */}
-      <section className="rounded-3xl border-4 border-indigo-300 bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500 p-6 shadow-md sm:p-8">
-        <h2 className="text-2xl font-extrabold text-white sm:text-3xl">🎯 {t("home.quizBannerTitle")}</h2>
-        <p className="mt-2 max-w-2xl text-sm font-semibold leading-relaxed text-indigo-100 sm:text-base">
+      {/* Quiz banner — flat bright coral, no purple gradient */}
+      <section className="rounded-3xl bg-coral p-6 text-white shadow-md sm:p-8">
+        <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">🎯 {t("home.quizBannerTitle")}</h2>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-orange-50 sm:text-base">
           {t("home.quizBannerBody")}
         </p>
         <Link
           href={quizPath("chinese", undefined, year)}
-          className="mt-5 inline-block rounded-full bg-white px-6 py-3.5 text-base font-extrabold text-indigo-700 shadow transition hover:-translate-y-0.5 hover:shadow-lg"
+          className="mt-5 inline-block rounded-full bg-white px-6 py-3.5 text-base font-bold text-coral shadow transition hover:-translate-y-0.5 hover:shadow-lg"
         >
           {t("home.quizBannerCta")} →
         </Link>

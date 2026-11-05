@@ -108,7 +108,7 @@ export function QuizSetup({
   return (
     <div className={`card space-y-5 ${busy ? "opacity-95" : ""}`}>
       <div>
-        <h2 className="text-xl font-bold text-indigo-900">{t("quiz.title")}</h2>
+        <h2 className="text-xl font-bold tracking-tight text-ink">{t("quiz.title")}</h2>
         <p className="mt-1 text-sm text-muted">{t("quiz.lead")}</p>
         <p className="mt-2 inline-flex rounded-full bg-amber-100 px-3 py-0.5 text-xs font-semibold text-amber-800">
           {t("quiz.badge")}

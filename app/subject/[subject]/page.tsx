@@ -17,7 +17,7 @@ function SubjectInner({ subjectParam }: { subjectParam: string }) {
 
   if (!isSubjectSlug(subjectParam)) {
     return (
-      <div className="wrap py-16 text-center space-y-4">
+      <div className="wrap space-y-4 py-16 text-center">
         <h1 className="text-2xl font-bold">{t("hub.back")}</h1>
         <Link href="/" className="btn-primary">
           {t("nav.home")}
@@ -29,23 +29,23 @@ function SubjectInner({ subjectParam }: { subjectParam: string }) {
   const subject = getSubject(subjectParam)!;
 
   return (
-    <div className="wrap space-y-6 py-4 sm:py-8">
+    <div className="wrap space-y-5 py-4 sm:py-8">
       <div className="flex flex-wrap items-center gap-3">
-        <Link href="/" className="inline-flex min-h-11 items-center text-sm font-semibold text-indigo-600 hover:underline">
+        <Link href="/" className="inline-flex min-h-11 items-center text-sm font-medium text-indigo-600 hover:underline">
           ← {t("hub.back")}
         </Link>
-        <span className="rounded-full bg-indigo-100 px-3 py-0.5 text-xs font-bold text-indigo-800">
+        <span className="rounded-full bg-indigo-100 px-3 py-0.5 text-xs font-semibold text-indigo-800">
           {year}
         </span>
       </div>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-4 shadow-sm sm:px-5">
         <span className="text-4xl">{subject.icon}</span>
         <div>
-          <h1 className="text-3xl font-black text-ink">{toText(subject.name, locale)}</h1>
-          <p className="text-muted">{t("hub.pick")}</p>
+          <h1 className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">{toText(subject.name, locale)}</h1>
+          <p className="text-sm text-muted">{t("hub.pick")}</p>
         </div>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {topicsForYear(subject, year).map((topic) => (
           <TopicCard key={topic.slug} subject={subject} topic={topic} year={year} />
         ))}

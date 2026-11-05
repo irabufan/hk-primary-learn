@@ -11,7 +11,7 @@ type SubjectCardProps = {
   year: Year;
 };
 
-/** Bright gradient card linking to a subject hub (carries the picked year). */
+/** Bright subject tile linking to a subject hub (carries the picked year). */
 export function SubjectCard({ subject, year }: SubjectCardProps) {
   const { locale, t } = useI18n();
   const topics = topicsForYear(subject, year);
@@ -19,32 +19,30 @@ export function SubjectCard({ subject, year }: SubjectCardProps) {
   return (
     <Link
       href={subjectPath(subject.slug, year)}
-      className={`group block rounded-3xl border-4 border-white bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${subject.ring}`}
+      className={`group block rounded-3xl border-2 border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md ${subject.ring}`}
     >
       <div
-        className={`mb-4 grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br text-4xl shadow-inner transition-transform group-hover:rotate-6 ${subject.gradient}`}
+        className={`mb-3 grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br text-3xl shadow-inner transition-transform group-hover:rotate-6 ${subject.gradient}`}
       >
         {subject.icon}
       </div>
-      <h3 className="text-xl font-extrabold text-indigo-800">
+      <h3 className="text-lg font-bold tracking-tight text-ink">
         {toText(subject.name, "zh-HK")} · {toText(subject.name, "en")}
       </h3>
-      <p className="mt-1 text-sm font-semibold text-slate-600">{toText(subject.tagline, locale)}</p>
-      <ul className="mt-4 space-y-1.5">
+      <p className="mt-1 text-sm text-slate-600">{toText(subject.tagline, locale)}</p>
+      <ul className="mt-3 space-y-1">
         {topics.map((topic) => (
-          <li key={topic.slug} className="flex items-center gap-2 text-sm font-bold text-slate-600">
+          <li key={topic.slug} className="flex items-center gap-2 text-sm font-medium text-slate-600">
             <span aria-hidden>{topic.icon}</span>
             {toText(topic.name, locale)}
           </li>
         ))}
       </ul>
-      <div className="mt-5 flex items-center justify-between">
-        <span
-          className={`rounded-full px-3 py-1 text-xs font-extrabold ${subject.soft}`}
-        >
+      <div className="mt-4 flex items-center justify-between">
+        <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${subject.soft}`}>
           {t("hub.topics", { n: topics.length })}
         </span>
-        <span className="text-sm font-extrabold text-indigo-600 transition-all group-hover:-translate-y-0.5">
+        <span className="text-sm font-semibold text-indigo-600 transition-all group-hover:-translate-y-0.5">
           {t("common.start")} →
         </span>
       </div>

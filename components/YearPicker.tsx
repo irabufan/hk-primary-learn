@@ -17,13 +17,13 @@ export function YearPicker({ value, onChange, note = false }: YearPickerProps) {
 
   return (
     <div>
-      <p className="mb-2 text-sm font-extrabold uppercase tracking-wide text-slate-500">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
         {t("year.label")}
       </p>
       <div
         role="radiogroup"
         aria-label={t("year.label")}
-        className="grid w-full grid-cols-6 gap-0.5 rounded-2xl border-4 border-sky-100 bg-white p-1 sm:p-1.5 shadow-sm sm:inline-flex sm:w-auto sm:flex-wrap sm:gap-0"
+        className="grid w-full grid-cols-6 gap-0.5 rounded-2xl border-2 border-sky-100 bg-white p-1 sm:inline-flex sm:w-auto sm:flex-wrap sm:gap-0 sm:p-1.5"
       >
         {YEARS.map((year) => {
           const active = value === year;
@@ -34,7 +34,7 @@ export function YearPicker({ value, onChange, note = false }: YearPickerProps) {
               role="radio"
               aria-checked={active}
               onClick={() => onChange(year)}
-              className={`min-h-11 min-w-0 rounded-xl px-0 py-2.5 sm:min-w-[4rem] sm:px-4 text-base sm:text-lg font-extrabold transition ${
+              className={`min-h-11 min-w-0 rounded-xl px-0 py-2.5 text-base font-bold transition sm:min-w-[4rem] sm:px-4 sm:text-lg ${
                 active
                   ? "bg-indigo-600 text-white shadow"
                   : "text-slate-600 hover:bg-sky-50 hover:text-indigo-700"
@@ -45,7 +45,7 @@ export function YearPicker({ value, onChange, note = false }: YearPickerProps) {
           );
         })}
       </div>
-      {note && <p className="mt-2 text-xs font-semibold text-slate-500">💾 {t("year.note")}</p>}
+      {note && <p className="mt-2 text-xs text-slate-500">💾 {t("year.note")}</p>}
     </div>
   );
 }

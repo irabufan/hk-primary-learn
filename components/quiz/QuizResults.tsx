@@ -24,10 +24,10 @@ export function QuizResults({ quiz, score, source, onRetry, onRegenerate, onSetu
       <p className="text-sm font-semibold uppercase tracking-wide text-indigo-600">
         {t("quiz.resultsTitle")}
       </p>
-      <h2 className="text-3xl font-black text-ink">
+      <h2 className="text-3xl font-bold tracking-tight text-ink">
         {great ? t("score.great") : t("score.good")}
       </h2>
-      <p className="text-5xl font-black text-coral">
+      <p className="text-5xl font-bold text-coral">
         {score}/{total}
       </p>
       <p className="text-muted">{pct}%</p>
