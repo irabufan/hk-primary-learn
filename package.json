@@ -9,6 +9,7 @@
     "lint": "eslint",
     "ingest:curriculum": "node scripts/ingest-curriculum.mjs",
     "verify:curriculum": "node scripts/verify-curriculum-prompt.mjs",
+    "test:diagrams": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/register-ts.mjs --test lib/quiz/diagrams.test.ts",
     "ingest:practice": "node scripts/ingest-practice.mjs"
   },
   "dependencies": {

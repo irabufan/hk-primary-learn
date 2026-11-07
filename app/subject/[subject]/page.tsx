@@ -52,6 +52,15 @@ function SubjectInner({ subjectParam }: { subjectParam: string }) {
           <Mascot className="hidden h-16 w-16 sm:block sm:h-20 sm:w-20" mood="read" />
         </div>
       </div>
+      {subject.slug === "maths" && (
+        <Link
+          href="/preview/diagrams"
+          className="block rounded-2xl border-2 border-orange-200 bg-orange-50 px-4 py-4 transition hover:-translate-y-0.5 hover:border-orange-400"
+        >
+          <p className="text-base font-bold text-orange-900">{t("preview.hubTitle")}</p>
+          <p className="mt-1 text-sm leading-relaxed text-slate-600">{t("preview.hubBody")}</p>
+        </Link>
+      )}
       <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
         {topicsForYear(subject, year).map((topic) => (
           <TopicCard key={topic.slug} subject={subject} topic={topic} year={year} />
