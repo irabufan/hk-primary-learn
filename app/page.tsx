@@ -55,6 +55,12 @@ export default function HomePage() {
               >
                 📚 {t("home.ctaSubjects")}
               </a>
+              <Link
+                href="/preview/diagrams"
+                className="inline-flex min-h-11 items-center text-sm font-bold text-orange-800 underline-offset-2 hover:underline"
+              >
+                {t("preview.homeLink")}
+              </Link>
             </div>
           </div>
           <div className="mx-auto shrink-0 sm:mx-0">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   DEFAULT_YEAR,
@@ -204,6 +205,11 @@ export function QuizSetup({
           t("quiz.generate")
         )}
       </button>
+      <p>
+        <Link href="/preview/diagrams" className="text-sm font-bold text-orange-800 underline-offset-2 hover:underline">
+          {t("quiz.diagramLink")}
+        </Link>
+      </p>
     </div>
   );
 }

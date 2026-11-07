@@ -11,6 +11,7 @@ const LINKS: ReadonlyArray<{ href: string; key: DictKey }> = [
   { href: "/subject/maths", key: "nav.maths" },
   { href: "/subject/gs", key: "nav.gs" },
   { href: "/quiz", key: "nav.quiz" },
+  { href: "/preview/diagrams", key: "nav.diagrams" },
 ];
 
 export function Footer() {

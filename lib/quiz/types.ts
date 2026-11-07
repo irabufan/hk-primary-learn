@@ -1,5 +1,6 @@
 import type { SubjectSlug, Year } from "@/lib/curriculum";
 import type { Localized } from "@/lib/i18n/types";
+import type { QuizDiagram } from "./diagram-types";
 
 export type QuizQuestionType = "mc" | "fill" | "number" | "match";
 
@@ -24,6 +25,11 @@ export type QuizQuestion = {
   accepts?: string[];
   hint?: Localized;
   explanation?: Localized;
+  /**
+   * Optional checked picture. Absent when the question has no diagram,
+   * or when the supplied diagram disagreed with the stem or the answer.
+   */
+  diagram?: QuizDiagram;
 };
 
 export type Quiz = {

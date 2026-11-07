@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useI18n } from "@/lib/i18n/provider";
 import { toText } from "@/lib/i18n/types";
 import { MatchPairs, type MatchResult } from "@/components/exercises/MatchPairs";
+import { MathDiagram } from "@/components/quiz/MathDiagram";
 import type { MatchItem } from "@/lib/exercises/types";
 import {
   isQuizAnswerRight,
@@ -16,6 +17,8 @@ import type { Quiz, QuizQuestion } from "@/lib/quiz/types";
 type Props = {
   quiz: Quiz;
   onFinish: (score: number) => void;
+  /** Optional chip kept visible with the question, used by the diagram examples. */
+  banner?: string;
 };
 
 function isRight(q: QuizQuestion, val: string | number | null): boolean {
@@ -31,7 +34,7 @@ function toMatchItem(q: QuizQuestion): MatchItem {
   };
 }
 
-export function QuizPlayer({ quiz, onFinish }: Props) {
+export function QuizPlayer({ quiz, onFinish, banner }: Props) {
   const { t, locale } = useI18n();
   const subject = getSubject(quiz.subject);
   const [idx, setIdx] = useState(0);
@@ -109,9 +112,17 @@ export function QuizPlayer({ quiz, onFinish }: Props) {
         </blockquote>
       )}
 
+      {banner && (
+        <p className="inline-flex w-fit items-center rounded-full bg-orange-100 px-3 py-1 text-xs font-bold text-orange-900">
+          {banner}
+        </p>
+      )}
+
       <p className="whitespace-pre-wrap text-lg font-bold tracking-tight text-ink sm:text-xl">
         {toText(q.prompt, locale)}
       </p>
+
+      {q.diagram && <MathDiagram diagram={q.diagram} />}
 
       {q.type === "mc" && q.choices && (
         <ul key={`${q.id}-choices`} className="grid gap-2.5">

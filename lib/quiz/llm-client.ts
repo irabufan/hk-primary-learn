@@ -18,6 +18,7 @@ import type { Quiz, QuizMatchPair, QuizQuestion, QuizQuestionType, QuizRequest }
 import { QUIZ_COUNTS } from "./types";
 import { applyHkForms } from "./hk-forms";
 import { ambiguousFractionCompareStem, answerTypeGuidance, areaArithmeticKeyOk, enforceAnswerTypes, type RuleStats } from "./answer-rules";
+import { withValidatedDiagram } from "./diagrams";
 import { buildRuledQuestions } from "./generator";
 import { AVOID_MAX, AVOID_STEM_MAX, matchesAvoid, parseAvoidKeys } from "./avoid";
 
@@ -472,7 +473,7 @@ export function parseQuizQuestions(
       if (accepts.length) question.accepts = accepts;
     }
 
-    questions.push(question);
+    questions.push(withValidatedDiagram(question, row.diagram));
   }
 
   const stats: RuleStats = { toMc: 0, repairedMc: 0, dropped: 0 };
